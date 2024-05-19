@@ -1,0 +1,25 @@
+POST http://localhost:3000/dados HTTP/1.1
+Content-Type: application/json
+
+{
+    "nome":"Eduardo"
+}
+
+###
+
+GET  http://localhost:3000/dados
+
+###
+
+PUT http://localhost:3000/dados/9
+Content-Type: application/json
+
+{
+    "nome":"Rodolfo"
+}
+
+###
+
+DELETE http://localhost:3000/dados/9
+
+
