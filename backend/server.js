@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./routes/user.js');
 const app = express();
-const port = 3000;
+const port = 5000;
 
 // Middleware para analisar o corpo da requisição
 app.use(bodyParser.json());

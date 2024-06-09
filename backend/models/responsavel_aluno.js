@@ -1,6 +1,6 @@
 const db = require('../database/db');
 
-async function readResponsavelAlunos() {
+async function readResponsavelAluno() {
     try {
         const results = await db.query('SELECT * FROM responsavel_aluno');
         return results[0];
@@ -38,7 +38,7 @@ async function deleteResponsavelAluno(id_pessoa) {
 }
 
 module.exports = {
-    readResponsavelAlunos,
+    readResponsavelAluno,
     createResponsavelAluno,
     updateResponsavelAluno,
     deleteResponsavelAluno
