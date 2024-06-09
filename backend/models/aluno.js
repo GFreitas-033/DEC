@@ -1,36 +1,38 @@
 const db = require('../database/db');
 
-async function readAlunos() {
+async function readAluno() {
     try {
-        const results = await db.query('SELECT nome FROM alunos');
-        return results[0].map(row => row.nome);
+        const results = await db.query('SELECT * FROM aluno');
+        return results[0];
     } catch (err) {
         console.error('Erro ao obter dados:', err);
         throw new Error('Erro interno do servidor');
     }
 }
 
-async function createAlunos(nome) {
+async function createAluno(id_pessoa, destro_canhoto, id_responsavel) {
     try {
-        await db.query('INSERT INTO alunos (nome) VALUES (?)', [nome]);
+        await db.query('INSERT INTO aluno (id_pessoa, destro_canhoto, id_responsavel) VALUES (?, ?, ?)', 
+                      [id_pessoa, destro_canhoto, id_responsavel]);
     } catch (err) {
         console.error('Erro ao criar registro:', err);
         throw new Error('Erro interno do servidor');
     }
 }
 
-async function updateAlunos(id, novoNome) {
+async function updateAluno(id_pessoa, destro_canhoto, id_responsavel) {
     try {
-        await db.query('UPDATE alunos SET nome = ? WHERE id = ?', [novoNome, id]);
+        await db.query('UPDATE aluno SET destro_canhoto = ?, id_responsavel = ? WHERE id_pessoa = ?', 
+                      [destro_canhoto, id_responsavel, id_pessoa]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');
     }
 }
 
-async function deleteAlunos(id) {
+async function deleteAluno(id_pessoa) {
     try {
-        await db.query('DELETE FROM alunos WHERE id = ?', [id]);
+        await db.query('DELETE FROM aluno WHERE id_pessoa = ?', [id_pessoa]);
     } catch (err) {
         console.error('Erro ao excluir registro:', err);
         throw new Error('Erro interno do servidor');
@@ -38,8 +40,8 @@ async function deleteAlunos(id) {
 }
 
 module.exports = {
-    readAlunos,
-    createAlunos,
-    updateAlunos,
-    deleteAlunos
+    readAluno,
+    createAluno,
+    updateAluno,
+    deleteAluno
 };

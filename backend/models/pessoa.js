@@ -1,0 +1,47 @@
+const db = require('../database/db');
+
+async function readPessoa() {
+    try {
+        const results = await db.query('SELECT * FROM pessoa');
+        return results[0];
+    } catch (err) {
+        console.error('Erro ao obter dados:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+async function createPessoa(nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa, id_endereco) {
+    try {
+        await db.query('INSERT INTO pessoa (nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa, id_endereco) VALUES (?,?,?,?,?,?,?,?)', 
+                      [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa, id_endereco]);
+    } catch (err) {
+        console.error('Erro ao criar registro:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+async function updatePessoa(id_pessoa, nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa, id_endereco) {
+    try {
+        await db.query('UPDATE pessoa SET nome_pessoa = ?, dt_nasc_pessoa = ?, cpf_pessoa = ?, rg_pessoa = ?, email_pessoa = ?, senha_pessoa = ?, telefone_pessoa = ?, id_endereco = ? WHERE id_pessoa = ?', 
+                      [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa, id_endereco, id_pessoa]);
+    } catch (err) {
+        console.error('Erro ao atualizar registro:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+async function deletePessoa(id_pessoa) {
+    try {
+        await db.query('DELETE FROM pessoa WHERE id_pessoa = ?', [id_pessoa]);
+    } catch (err) {
+        console.error('Erro ao excluir registro:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+module.exports = {
+    readPessoa,
+    createPessoa,
+    updatePessoa,
+    deletePessoa
+};
