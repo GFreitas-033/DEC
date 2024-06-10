@@ -1,6 +1,6 @@
 ### Pessoa
 
-POST http://localhost:5000/api/pessoa HTTP/1.1
+POST http://191.101.78.180:5000/api/pessoa HTTP/1.1
 Content-Type: application/json
 
 {
@@ -16,7 +16,7 @@ Content-Type: application/json
 
 ###
 
-GET  http://localhost:5000/api/pessoa
+GET  http://191.101.78.180:5000/api/pessoa
 
 ###
 
@@ -40,7 +40,7 @@ DELETE http://localhost:3000/api/pessoa/1
 
 ### Endereco
 
-POST http://localhost:3000/api/endereco HTTP/1.1
+POST http://191.101.78.180:5000/api/endereco HTTP/1.1
 Content-Type: application/json
 
 {
