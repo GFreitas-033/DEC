@@ -57,9 +57,8 @@ router.post("/login", async (req, res) => {
     
 });
 
-router.post('/sair',(req,res) => {
+router.get('/sair',(req,res) => {
     req.session.destroy();
-    return res.json(1);
 })
 
 module.exports = router;

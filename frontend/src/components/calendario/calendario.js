@@ -1,13 +1,13 @@
 import React from "react"
 import ContainerCss from "../containers.module.css"
 import BarraLateral from "../barra_lateral/icons_barra_lateral"
-import ContentHome from "../home/content_home"
+import ContentCalendario from "../calendario/content_calendario"
 
-export default function home(){
+export default function calendario(){
     return(
         <div className={ContainerCss.container}>
             <BarraLateral />
-            <ContentHome />
+            <ContentCalendario />
         </div>
     )
 }

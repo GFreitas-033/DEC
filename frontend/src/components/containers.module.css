@@ -1,0 +1,15 @@
+@media screen and (min-width:  320px) {
+    .container{
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-width:  720px){
+    .container{
+        flex-direction: row;
+    }
+}
+
+.container{
+    display: flex;
+}
