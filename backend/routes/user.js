@@ -24,27 +24,42 @@ router.use("/api/responsavel_aluno", responsavel_alunoController);
 router.use("/api/responsavel_unidade", responsavel_unidadeController);
 
 router.post("/login", async (req, res) => {
-    const {email, senha} = req.body;
-
-    try {
-        const response = await axios.get('http://localhost:5000/api/pessoa');
-        const dados = response.data;
-
-        const pessoa = dados.find(p => p.email_pessoa === email);
-
-        if (!pessoa) {
-            return res.json({ message: "Email inválido" });
+    const { email, senha } = req.body;
+    if(req.session.id_pessoa){
+        try{
+            let id_pessoa = req.session.id_pessoa;
+            const response = await axios.get('http://localhost:5000/api/pessoa');
+            const dados = response.data;
+            const pessoa = dados.find(p => p.id_pessoa === id_pessoa);
+            return res.json(pessoa.nome_pessoa);
+        }catch(error){
+            return res.status(500).json({ message: "Erro ao buscar dados", error: error.message });
         }
-
-        if (pessoa.senha_pessoa !== senha) {
-            return res.json({ message: "Senha incorreta" });
+    }else{
+        try {
+            const response = await axios.get('http://localhost:5000/api/pessoa');
+            const dados = response.data;
+            const pessoa = dados.find(p => p.email_pessoa === email);
+            
+            if (!pessoa) {
+                return res.status(404).json({ message: "Email inválido" });
+            }else if (pessoa.senha_pessoa !== senha) {
+                return res.status(404).json({ message: "Senha incorreta" });
+            }
+            // Armazenar o id na sessão
+            req.session.id_pessoa = pessoa.id_pessoa;
+            return res.json({ nome: pessoa.nome_pessoa });
+            
+        } catch (error) {
+            return res.status(500).json({ message: "Erro ao buscar dados", error: error.message });
         }
-
-        return res.json({ nome: pessoa.nome_pessoa });
-
-    } catch (error) {
-        return res.status(500).json({ message: "Erro ao buscar dados", error: error.message });
     }
+    
 });
+
+router.post('/sair',(req,res) => {
+    req.session.destroy();
+    return res.json(1);
+})
 
 module.exports = router;

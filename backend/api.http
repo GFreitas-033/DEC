@@ -4,12 +4,12 @@ POST http://localhost:5000/api/pessoa HTTP/1.1
 Content-Type: application/json
 
 {
-    "nome_pessoa":"João",
+    "nome_pessoa":"ADM",
     "dt_nasc_pessoa":"1998-05-10",
-    "cpf_pessoa":"1241235",
-    "rg_pessoa":"43153341",
-    "email_pessoa":"joão@teste.com.br",
-    "senha_pessoa":"joão123",
+    "cpf_pessoa":"12413245",
+    "rg_pessoa":"4332153341",
+    "email_pessoa":"admin",
+    "senha_pessoa":"admin123",
     "telefone_pessoa":"14 9999999",
     "id_endereco":1
 }

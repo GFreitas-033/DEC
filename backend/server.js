@@ -1,6 +1,6 @@
 // server.js
 const express = require('express');
-const db = require('./database/db.js');
+var session = require('express-session');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./routes/user.js');
@@ -9,6 +9,14 @@ const port = 5000;
 
 // Middleware para analisar o corpo da requisição
 app.use(bodyParser.json());
+
+// Configuração da sessão
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Altere para true em produção com HTTPS
+}));
 
 // Configurar CORS para permitir requisições do React
 app.use(cors());
