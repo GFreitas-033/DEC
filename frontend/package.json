@@ -28,7 +28,7 @@
   },
   "devServer": {
   "allowedHosts": [
-    "localhost"
+    "srv542562.hstgr.cloud"
   ]},
   "browserslist": {
     "production": [
