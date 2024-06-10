@@ -21,9 +21,8 @@ export default function Content_home(){
     }
 
     return(
-        <div className={Home.sla}>
-            <h1>Você Entrou 🤓☝️</h1>
-            <h1>Usuário: {message}</h1>
+        <div className={Home.container}>
+            <h1 className={Home.helloworld}>Bem-Vindo!<br /> {message}</h1>
         </div>
     )
 }

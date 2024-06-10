@@ -9,7 +9,7 @@ import Botao from "../botao_logar/submit_logar"
 export default function form(){
   return(
     <div className={Styles.container}>
-      <form className={Styles.form}>
+      <form className={Styles.form} autoComplete="off">
         <Texto />
         <Email />
         <Senha />
