@@ -6,6 +6,7 @@ const cors = require('cors');
 const userRoutes = require('./routes/user.js');
 const app = express();
 const port = 5000;
+const host = '127.0.0.1';
 
 // Middleware para analisar o corpo da requisição
 app.use(bodyParser.json());
@@ -25,8 +26,8 @@ app.use(cors());
 app.use('/', userRoutes);
 
 // Iniciar o servidor
-app.listen(port, () => {
-    console.log(`Servidor ouvindo na porta ${port}`);
+app.listen(port,host, () => {
+    console.log(`Servidor rodando em http://${host}:${port}`);
 });
 
 module.exports = app;
