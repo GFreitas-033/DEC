@@ -1,0 +1,26 @@
+@media screen and (min-width: 320px){
+    .container_calendario{
+        margin: 2rem 1.4rem;
+    }
+}
+
+@media screen and (min-width: 720px){
+    .container_calendario{
+        margin-top: 4rem;
+        margin-left: 4rem;
+    }
+}
+
+.container_calendario{
+    border: 0.1rem #fff solid;
+    border-radius: 0.5rem;
+}
+
+.textTurma{
+    margin: 0.4rem;
+    font-size: 1.5rem;
+}
+.textLH{
+    margin:  0.4rem;
+    font-size: 0.8rem;
+}
