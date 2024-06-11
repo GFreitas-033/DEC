@@ -1,28 +1,40 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import Home from "./home.module.css"
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Home from "./home.module.css";
 
-
-export default function Content_home(){
-    
+export default function Content_home() {
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [dataLoaded, setDataLoaded] = useState(false);
 
-    useEffect(() =>{
+    useEffect(() => {
         logado();
-    },[])
+        const timer = setTimeout(() => {
+            if (dataLoaded) {
+                setLoading(false);
+            }
+        }, 800);
 
-    const logado = async()=>{
+        return () => clearTimeout(timer);
+    }, [dataLoaded]);
+
+    const logado = async () => {
         try {
             let response = await axios.post('/login');
             setMessage(response.data);
+            setDataLoaded(true);
         } catch (error) {
-            window.location.href = window.location.href.replace("home","");
+            window.location.href = window.location.href.replace("home", "");
         }
-    }
+    };
 
-    return(
+    return (
         <div className={Home.container_home}>
-            <h1 className={Home.helloworld}>Bem-Vindo!<br /> {message}</h1>
+            {loading ? (
+                <h1 className={Home.helloworld}>Carregando...</h1>
+            ) : (
+                <h1 className={Home.helloworld}>Bem-Vindo!<br /> {message}</h1>
+            )}
         </div>
-    )
+    );
 }
