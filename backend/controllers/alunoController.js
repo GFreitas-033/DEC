@@ -10,15 +10,15 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 router.post('/', asyncHandler(async (req, res) => {
-    const { id_pessoa, destro_canhoto, id_responsavel } = req.body;
-    await alunoModel.createAluno(id_pessoa, destro_canhoto, id_responsavel);
+    const { id_pessoa, destro_canhoto, id_responsavel, dt_inicio } = req.body;
+    await alunoModel.createAluno(id_pessoa, destro_canhoto, id_responsavel, dt_inicio);
     res.status(201).send('Registro criado com sucesso!');
 }));
 
 router.put('/:id', asyncHandler(async (req, res) => {
     const id_pessoa = parseInt(req.params.id);
-    const { destro_canhoto, id_responsavel } = req.body;
-    await alunoModel.updateAluno(id_pessoa, destro_canhoto, id_responsavel);
+    const { destro_canhoto, id_responsavel, dt_inicio } = req.body;
+    await alunoModel.updateAluno(id_pessoa, destro_canhoto, id_responsavel, dt_inicio);
     res.status(200).send('Registro atualizado com sucesso!');
 }));
 

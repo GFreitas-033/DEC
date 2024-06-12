@@ -4,13 +4,14 @@ POST http://localhost:5000/api/pessoa HTTP/1.1
 Content-Type: application/json
 
 {
-    "nome_pessoa":"ADM",
+    "nome_pessoa":"Professor 1",
     "dt_nasc_pessoa":"1998-05-10",
-    "cpf_pessoa":"124137755",
-    "rg_pessoa":"4397565641",
-    "email_pessoa":"admin",
-    "senha_pessoa":"admin123",
+    "cpf_pessoa":"12435225",
+    "rg_pessoa":"43932541",
+    "email_pessoa":"professor",
+    "senha_pessoa":"1",
     "telefone_pessoa":"14 9999999",
+    "genero": "m",
     "id_endereco":1
 }
 
@@ -40,7 +41,7 @@ DELETE http://localhost:3000/api/pessoa/1
 
 ### Endereco
 
-POST http://191.101.78.180:5000/api/endereco HTTP/1.1
+POST http://localhost:5000/api/endereco HTTP/1.1
 Content-Type: application/json
 
 {
@@ -54,7 +55,7 @@ Content-Type: application/json
 
 ###
 
-GET  http://localhost:3000/api/endereco
+GET  http://localhost:3000/api/aluno_has_turma
 
 ###
 
@@ -76,6 +77,22 @@ DELETE http://localhost:3000/api/endereco/1
 
 ###
 
-POST http://localhost:5000/login
+POST http://localhost:5000/api/professor HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_pessoa":5,
+    "caminho_foto":"Sla"
+}
+
+###
+
+POST http://localhost:5000/api/aluno_has_turma HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_aluno":2,
+    "id_turma":4
+}
 
 

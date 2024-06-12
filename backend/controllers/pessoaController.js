@@ -18,6 +18,7 @@ router.post('/', asyncHandler(async (req, res) => {
         email_pessoa,
         senha_pessoa,
         telefone_pessoa,
+        genero,
         id_endereco
     } = req.body;
 
@@ -29,6 +30,7 @@ router.post('/', asyncHandler(async (req, res) => {
         email_pessoa,
         senha_pessoa,
         telefone_pessoa,
+        genero,
         id_endereco
     );
     res.status(201).send('Registro criado com sucesso!');
@@ -44,6 +46,7 @@ router.put('/:id', asyncHandler(async (req, res) => {
         email_pessoa,
         senha_pessoa,
         telefone_pessoa,
+        genero,
         id_endereco
     } = req.body;
 
@@ -56,6 +59,7 @@ router.put('/:id', asyncHandler(async (req, res) => {
         email_pessoa,
         senha_pessoa,
         telefone_pessoa,
+        genero,
         id_endereco
     );
     res.status(200).send('Registro atualizado com sucesso!');
