@@ -7,16 +7,19 @@ import Cadastro from "./components/cadastro/cadastro"
 import Home from "./components/home/home"
 import Calendario from "./components/calendario/calendario"
 import Adm from "./components/adm/adm"
+import Alunos from "./components/calendario/aluno_calendario/alunos_calendario"
 
 export default function App(){
   return(
     <Routers>
       {/* Links */}
-      <Link to="/"></Link>
-      <Link to="/home"></Link>
-      <Link to="/cadastro"></Link>
-      <Link to="/calendario"></Link>
-      <Link to="/adm"></Link>
+        <Link to="/"></Link>
+        <Link to="/home"></Link>
+        <Link to="/cadastro"></Link>
+        <Link to="/calendario"></Link>
+        <Link to="/adm"></Link>
+        <Link to="calendario/alunosCalendario"></Link>
+        
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />}></Route>
@@ -24,6 +27,7 @@ export default function App(){
         <Route path="/cadastro" element={<Cadastro />}></Route>
         <Route path="/calendario" element={<Calendario />}></Route>
         <Route path="/adm" element={<Adm />}></Route>
+        <Route path="calendario/alunosCalendario" element={<Alunos />}></Route>
       </Routes>
     </Routers>
   )
