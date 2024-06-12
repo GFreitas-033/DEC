@@ -19,6 +19,7 @@ export default function Content_home() {
         return () => clearTimeout(timer);
     }, [dataLoaded]);
 
+
     useEffect(() => {
         const loadingTexts = ['Carregando.', 'Carregando..', 'Carregando...'];
         let currentIndex = 0;

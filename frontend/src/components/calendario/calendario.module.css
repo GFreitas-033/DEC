@@ -1,26 +1,39 @@
 @media screen and (min-width: 320px){
     .container_calendario{
-        margin: 2rem 1.4rem;
+        margin: 0.2rem 1.4rem 1rem 1.4rem;
+    }
+    .textDia{
+        margin-left: 2rem;
     }
 }
 
 @media screen and (min-width: 720px){
     .container_calendario{
-        margin-top: 4rem;
-        margin-left: 4rem;
+        margin: 0rem 3rem 1rem 3rem;
+        height: 7rem;
+    }
+    .textDia{
+        margin-left: 3.5rem;
     }
 }
 
 .container_calendario{
-    border: 0.1rem #fff solid;
+    border: 0.1rem #FBD034 solid;
     border-radius: 0.5rem;
+    background-color: #2b2b2b;
+}
+
+.textDia{
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.6rem;
 }
 
 .textTurma{
     margin: 0.4rem;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
 .textLH{
     margin:  0.4rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
