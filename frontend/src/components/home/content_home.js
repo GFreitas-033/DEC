@@ -6,6 +6,7 @@ export default function Content_home() {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(true);
     const [dataLoaded, setDataLoaded] = useState(false);
+    const [loadingText, setLoadingText] = useState("Carregando.");
 
     useEffect(() => {
         logado();
@@ -13,10 +14,21 @@ export default function Content_home() {
             if (dataLoaded) {
                 setLoading(false);
             }
-        }, 800);
+        }, 1200);
 
         return () => clearTimeout(timer);
     }, [dataLoaded]);
+
+    useEffect(() => {
+        const loadingTexts = ['Carregando.', 'Carregando..', 'Carregando...'];
+        let currentIndex = 0;
+        const interval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % loadingTexts.length;
+            setLoadingText(loadingTexts[currentIndex]);
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const logado = async () => {
         try {
@@ -31,7 +43,7 @@ export default function Content_home() {
     return (
         <div className={Home.container_home}>
             {loading ? (
-                <h1 className={Home.helloworld}>Carregando...</h1>
+                <h1 className={Home.helloworld}>{loadingText}</h1>
             ) : (
                 <h1 className={Home.helloworld}>Bem-Vindo!<br /> {message}</h1>
             )}
