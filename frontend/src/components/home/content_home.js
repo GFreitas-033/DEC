@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Home from "./home.module.css";
 
 export default function Content_home() {
@@ -7,9 +8,21 @@ export default function Content_home() {
     const [loading, setLoading] = useState(true);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [loadingText, setLoadingText] = useState("Carregando.");
+    const navigate = useNavigate();
 
     useEffect(() => {
+        const logado = async () => {
+            try {
+                let response = await axios.post('/login');
+                setMessage(response.data);
+                setDataLoaded(true);
+            } catch (error) {
+                navigate('/');
+            }
+        };
+
         logado();
+
         const timer = setTimeout(() => {
             if (dataLoaded) {
                 setLoading(false);
@@ -17,8 +30,7 @@ export default function Content_home() {
         }, 1200);
 
         return () => clearTimeout(timer);
-    }, [dataLoaded]);
-
+    }, [dataLoaded, navigate]);
 
     useEffect(() => {
         const loadingTexts = ['Carregando.', 'Carregando..', 'Carregando...'];
@@ -30,16 +42,6 @@ export default function Content_home() {
 
         return () => clearInterval(interval);
     }, []);
-
-    const logado = async () => {
-        try {
-            let response = await axios.post('/login');
-            setMessage(response.data);
-            setDataLoaded(true);
-        } catch (error) {
-            window.location.href = window.location.href.replace("home", "");
-        }
-    };
 
     return (
         <div className={Home.container_home}>
