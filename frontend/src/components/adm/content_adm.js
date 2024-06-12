@@ -1,9 +1,10 @@
 import React from "react"
+import Adm from "./adm.module.css"
 
 export default function content_adm(){
     return(
-        <div>
-            <h1>Aqui é o ADM ⚆_⚆</h1>
+        <div className={Adm.container_adm}>
+            <h1>Área para o ADM</h1>
         </div>
     )
 }
