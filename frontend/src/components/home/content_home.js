@@ -7,26 +7,26 @@ export default function Content_home() {
     const [loading, setLoading] = useState(true);
     const [dataLoaded, setDataLoaded] = useState(false);
 
-    useEffect(() => {
-        logado();
-        const timer = setTimeout(() => {
-            if (dataLoaded) {
-                setLoading(false);
-            }
-        }, 800);
+    // useEffect(() => {
+    //     logado();
+    //     const timer = setTimeout(() => {
+    //         if (dataLoaded) {
+    //             setLoading(false);
+    //         }
+    //     }, 800);
 
-        return () => clearTimeout(timer);
-    }, [dataLoaded]);
+    //     return () => clearTimeout(timer);
+    // }, [dataLoaded]);
 
-    const logado = async () => {
-        try {
-            let response = await axios.post('/login');
-            setMessage(response.data);
-            setDataLoaded(true);
-        } catch (error) {
-            window.location.href = window.location.href.replace("home", "");
-        }
-    };
+    // const logado = async () => {
+    //     try {
+    //         let response = await axios.post('/login');
+    //         setMessage(response.data);
+    //         setDataLoaded(true);
+    //     } catch (error) {
+    //         window.location.href = window.location.href.replace("home", "");
+    //     }
+    // };
 
     return (
         <div className={Home.container_home}>
