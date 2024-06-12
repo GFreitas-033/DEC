@@ -1,46 +1,100 @@
-import React from "react"
-import Calendario from "./calendario.module.css"
+import React, { useEffect, useState } from "react";
+import Calendario from "./calendario.module.css";
+import axios from "axios";
 
-export default function content_calendario(){
-    return(
+export default function ContentCalendario() {
+    const [calendarioData, setCalendarioData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [dataLoaded, setDataLoaded] = useState(false);
+    const [loadingText, setLoadingText] = useState("Carregando.");
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (dataLoaded) {
+                setLoading(false);
+            }
+        }, 1200);
+
+        return () => clearTimeout(timer);
+    }, [dataLoaded]);
+
+    useEffect(() => {
+        const loadingTexts = ['Carregando.', 'Carregando..', 'Carregando...'];
+        let currentIndex = 0;
+        const interval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % loadingTexts.length;
+            setLoadingText(loadingTexts[currentIndex]);
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        axios.get("/minhasTurmas")
+            .then(response => {
+                setCalendarioData(response.data);
+                setDataLoaded(true);
+            })
+            .catch(error => {
+                console.error("Erro ao buscar dados do calendário:", error);
+            });
+    }, []);
+
+    const getTurmaNome = (horario) => {
+        const [hours] = horario.split(":");
+        const hour = parseInt(hours, 10);
+        if (hour >= 6 && hour < 12) {
+            return "Turma Manhã";
+        } else if (hour >= 12 && hour < 18) {
+            return "Turma Tarde";
+        } else {
+            return "Turma Noite";
+        }
+    };
+
+    const formatHorario = (horario) => {
+        const [hours, minutes] = horario.split(":");
+        return `${hours}:${minutes}`;
+    };
+
+    const formatDiaSemana = (dia) => {
+        const formattedDia = dia.charAt(0).toUpperCase() + dia.slice(1);
+        return dia === "sabado" || dia === "domingo" ? formattedDia : `${formattedDia}-Feira`;
+    };
+
+    const groupByDiaSemana = (data) => {
+        return data.reduce((acc, item) => {
+            const dia = item.dia_semana;
+            if (!acc[dia]) {
+                acc[dia] = [];
+            }
+            acc[dia].push(item);
+            return acc;
+        }, {});
+    };
+
+    const groupedData = groupByDiaSemana(calendarioData);
+
+    return (
         <div>
-            <div>
-                <h1 className={Calendario.textDia}><u>Segunda-Feira</u></h1>
-                <div className={Calendario.container_calendario}>
-                    <h1 className={Calendario.textTurma}>Turma</h1>
-                    <p className={Calendario.textLH}>Local: Endereço</p>
-                    <p className={Calendario.textLH}>Horário: 00:00</p>
-                </div>
-            </div>
-            <div>
-                <h1 className={Calendario.textDia}><u>Segunda-Feira</u></h1>
-                <div className={Calendario.container_calendario}>
-                    <h1 className={Calendario.textTurma}>Turma</h1>
-                    <p className={Calendario.textLH}>Local: Endereço</p>
-                    <p className={Calendario.textLH}>Horário: 00:00</p>
-                </div>
-                <div className={Calendario.container_calendario}>
-                    <h1 className={Calendario.textTurma}>Turma</h1>
-                    <p className={Calendario.textLH}>Local: Endereço</p>
-                    <p className={Calendario.textLH}>Horário: 00:00</p>
-                </div>
-            </div>
-            <div>
-                <h1 className={Calendario.textDia}><u>Segunda-Feira</u></h1>
-                <div className={Calendario.container_calendario}>
-                    <h1 className={Calendario.textTurma}>Turma</h1>
-                    <p className={Calendario.textLH}>Local: Endereço</p>
-                    <p className={Calendario.textLH}>Horário: 00:00</p>
-                </div>
-            </div>
-            <div>
-                <h1 className={Calendario.textDia}><u>Segunda-Feira</u></h1>
-                <div className={Calendario.container_calendario}>
-                    <h1 className={Calendario.textTurma}>Turma</h1>
-                    <p className={Calendario.textLH}>Local: Endereço</p>
-                    <p className={Calendario.textLH}>Horário: 00:00</p>
-                </div>
-            </div>
+            {loading ? (
+                <h1 className={Calendario.helloworld}>{loadingText}</h1>
+            ) : (
+                Object.keys(groupedData).map((dia, index) => (
+                    <div key={index}>
+                        <h1 className={Calendario.textDia}>
+                            <u>{formatDiaSemana(dia)}</u>
+                        </h1>
+                        {groupedData[dia].map((item, subIndex) => (
+                            <div key={subIndex} className={Calendario.container_calendario}>
+                                <h1 className={Calendario.textTurma}>{getTurmaNome(item.horario)}</h1>
+                                <p className={Calendario.textLH}>Local: {item.endereco_completo}</p>
+                                <p className={Calendario.textLH}>Horário: {formatHorario(item.horario)}</p>
+                            </div>
+                        ))}
+                    </div>
+                ))
+            )}
         </div>
-    )
+    );
 }

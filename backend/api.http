@@ -55,7 +55,7 @@ Content-Type: application/json
 
 ###
 
-GET  http://localhost:3000/api/aluno_has_turma
+GET  http://localhost:5000/endereco
 
 ###
 
@@ -87,12 +87,15 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/api/aluno_has_turma HTTP/1.1
+POST http://localhost:5000/api/turma HTTP/1.1
 Content-Type: application/json
 
 {
-    "id_aluno":2,
-    "id_turma":4
+    "qtd_maxima":10, 
+    "id_professor":5, 
+    "dia_semana":"terca", 
+    "horario":"10:00:00", 
+    "id_unidade":1
 }
 
 
