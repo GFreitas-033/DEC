@@ -78,7 +78,7 @@ export default function ContentCalendario() {
     return (
         <div>
             {loading ? (
-                <h1 className={Calendario.helloworld}>{loadingText}</h1>
+                <div className={Calendario.div_helloworld}><h1 className={Calendario.helloworld}>{loadingText}</h1></div>
             ) : (
                 Object.keys(groupedData).map((dia, index) => (
                     <div key={index}>
