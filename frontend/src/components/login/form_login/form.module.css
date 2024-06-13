@@ -43,7 +43,7 @@
     }
 }
 
-@media screen and (min-width:  420px) {
+@media screen and (min-width:  400px) {
     .form {
         padding: 3.4rem;
     }
