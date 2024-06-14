@@ -1,5 +1,5 @@
 // Import necessarios
-import React from "react";
+import React, { useEffect } from "react";
 import Icons from "./icons.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -13,6 +13,17 @@ import Adm from "../../imgs/icon1.png";
 import Logout from "../../imgs/logout.png";
 
 export default function Barra_lateral() {
+    const bloquearImg = () => {
+        let icones = document.getElementsByTagName('img');
+        Array.from(icones).forEach((icone) => {
+            icone.setAttribute("draggable", false);
+        });
+    };
+
+    useEffect(() => {
+        bloquearImg();
+    }, []); // Adicionando array de dependências vazio para executar apenas uma vez
+
     const navigate = useNavigate();
 
     const sair = async () => {
@@ -22,7 +33,7 @@ export default function Barra_lateral() {
         } catch (error) {
             console.log(`Erro: ${error}`);
         }
-    }
+    };
 
     return (
         <div className={Icons.barra_lateral}>
@@ -40,7 +51,7 @@ export default function Barra_lateral() {
                 <p className={Icons.text}>Adm</p>
             </Link>
             <Link to="/">
-                <img src={Logout} className={Icons.imgs} alt="Logout Icon" onClick={sair}/>
+                <img src={Logout} className={Icons.imgs} alt="Logout Icon" onClick={sair} />
                 <p className={Icons.text}>Sair</p>
             </Link>
         </div>
