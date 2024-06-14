@@ -10,7 +10,7 @@ export default function Calendario(){
 
 
     useEffect(() => {
-        // logado();
+        logado();
     });
 
     const logado = async () => {
