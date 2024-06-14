@@ -2,7 +2,7 @@
 import React from "react"
 import {BrowserRouter as Routers, Routes, Route, Link} from "react-router-dom"
 // Import das Telas
-import Login from "./components/login/form_logar/form"
+import Login from "./components/login/form_login/form"
 import Cadastro from "./components/cadastro/form_cadastro/form"
 import Home from "./components/home/home"
 import Calendario from "./components/calendario/calendario"
