@@ -1,0 +1,47 @@
+.container_formlogin{
+    background-color: #000;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    position: relative;
+    text-align: center;
+    font-size: 1rem;
+
+    background-color: #FBD034;
+    box-sizing: border-box;
+    border: #000 solid;
+    border-radius: 1rem;
+    box-shadow: 0 0 2.5rem #acacac;
+    z-index: 1;
+}
+.form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../imgs/logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+@media screen and (min-width:  320px) {
+    .form {
+        padding: 2.4rem;
+    }
+}
+
+@media screen and (min-width:  400px) {
+    .form {
+        padding: 3.4rem;
+    }
+}
