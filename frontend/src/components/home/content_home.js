@@ -21,7 +21,7 @@ export default function Content_home() {
             }
         };
 
-        logado();
+        // logado();
 
         const timer = setTimeout(() => {
             if (dataLoaded) {

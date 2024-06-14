@@ -9,7 +9,7 @@ export default function Adm() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        logado();
+        // logado();
     });
 
     const logado = async () => {
