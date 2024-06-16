@@ -1,7 +1,7 @@
 import React from "react"
 import Senha from "./input.module.css"
 
-export default function email_input(){
+export default function senha_input(){
     return(
         <div className={Senha.esquerda}>
             <label className={Senha.label}><b>Senha</b></label><br />

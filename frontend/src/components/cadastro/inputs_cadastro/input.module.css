@@ -2,7 +2,8 @@
     font-size: 1rem;
     margin-bottom: 2rem;
     background: none;
-    padding: 0.6rem 0.6rem 0.6rem 0;
+    padding: 0.6rem;
+    padding-left: 0;
 
     outline: none;
     border-top-width: 0;
@@ -20,4 +21,16 @@ input::placeholder{
 
 .esquerda{
     text-align: left;
+}
+
+@media screen and (min-width:  320px) {
+    .input{
+        margin-right: 0;
+    }
+}
+
+@media screen and (min-width:  720px) {
+    .input{
+        margin-right: 0.8rem;
+    }
 }
