@@ -26,7 +26,7 @@ export default function Calendario(){
     return(
         <div className={ContainerCss.container}>
             <BarraLateral />
-            <ContentCalendario />
+            <ContentCalendario/>
         </div>
     )
 }

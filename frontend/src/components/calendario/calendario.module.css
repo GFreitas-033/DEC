@@ -1,6 +1,6 @@
 @media screen and (min-width: 320px){
     .container_calendario{
-        margin: 0.2rem 1.4rem 1rem 1.4rem;
+        margin: 0.2rem 1.3rem 2rem 1.3rem;
     }
     .textDia{
         margin-left: 2rem;
@@ -8,6 +8,12 @@
     .div_helloworld{
         width: 100vw;
         height: 90vh;
+        margin-top: -4rem;
+        margin-left: 0;
+    }
+    .margin_content{
+        margin-top: 4rem;
+        margin-left: 0;
     }
 }
 
@@ -22,6 +28,12 @@
     .div_helloworld{
         width: 100%;
         height: 100vh;
+        margin-left: -2rem;
+        margin-top: 0;
+    }
+    .margin_content{
+        margin-left: 4rem;
+        margin-top: 0;
     }
 }
 
@@ -32,12 +44,12 @@
     cursor: pointer;
 }
 
+/* Textos da Div */
 .textDia{
     font-size: 1.5rem;
     margin-top: 2.5rem;
     margin-bottom: 0.6rem;
 }
-
 .textTurma{
     margin: 0.4rem;
     font-size: 1.6rem;
@@ -47,6 +59,7 @@
     font-size: 1rem;
 }
 
+/* Tela de Carregamento */
 .div_helloworld{
     display: flex;
     justify-content: center;

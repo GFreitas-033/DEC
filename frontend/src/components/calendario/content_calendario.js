@@ -76,7 +76,7 @@ export default function ContentCalendario() {
     const groupedData = groupByDiaSemana(calendarioData);
 
     return (
-        <div>
+        <div className={Calendario.margin_content}>
             {loading ? (
                 <div className={Calendario.div_helloworld}><h1 className={Calendario.helloworld}>{loadingText}</h1></div>
             ) : (

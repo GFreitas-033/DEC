@@ -24,7 +24,7 @@
         flex-direction: column;
         align-items: center;
         width: 5rem;
-        height: 100%;
+        height: 100vh;
     }
     .imgs{
         padding: 1rem;
@@ -36,6 +36,7 @@
 
 .barra_lateral{
     display: flex;
+    position: fixed;
     background-color: #FBD034;
 }
 
