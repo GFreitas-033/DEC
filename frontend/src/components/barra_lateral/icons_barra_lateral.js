@@ -44,7 +44,7 @@ export default function Barra_lateral() {
             </Link>
             <Link to="/calendario">
                 <img src={Calendario} className={Icons.imgs} alt="Calendar Icon" />
-                <p className={Icons.text}>Calendário</p>
+                <p className={Icons.text}>Aulas</p>
             </Link>
             <Link to="/adm">
                 <img src={Adm} className={Icons.imgs} alt="Admin Icon" />
