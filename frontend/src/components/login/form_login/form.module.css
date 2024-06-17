@@ -12,11 +12,11 @@
     text-align: center;
     font-size: 1rem;
 
-    background-color: #FBD034;
+    background-color: #cfcfcf;
     box-sizing: border-box;
     border: #000 solid;
     border-radius: 1rem;
-    box-shadow: 0 0 2.5rem #acacac;
+    box-shadow: 0 0 2.5rem #ffffff;
     z-index: 1;
 }
 .form::before {
