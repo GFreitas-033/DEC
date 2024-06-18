@@ -28,7 +28,7 @@ export default function App(){
         <Route path="/cadastro" element={<Cadastro />}></Route>
         <Route path="/calendario" element={<Calendario />}></Route>
         <Route path="/adm" element={<Adm />}></Route>
-        <Route path="calendario/alunosCalendario" element={<Alunos />}></Route>
+        <Route path="calendario/alunosCalendario/:id" element={<Alunos />}></Route>
       </Routes>
     </Routers>
   )
