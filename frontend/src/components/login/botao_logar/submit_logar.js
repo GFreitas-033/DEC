@@ -1,12 +1,14 @@
 import React, { useEffect } from "react"
 import Submit from "./submit_logar.module.css"
 import axios from "axios";
+import { useNavigate} from "react-router-dom";
 
 export default function Submit_logar(){
+    const navigate = useNavigate();
     
     useEffect(() =>{
         logado();
-    },[])
+    })
 
     const login = async(event)=>{
         event.preventDefault();
@@ -17,7 +19,7 @@ export default function Submit_logar(){
             console.log(email,senha);
             const response = await axios.post('/login', { email, senha });
             if(response.data.nome){
-                window.location.href = window.location.href+"home";
+                navigate('/home');
             }
             
         } catch (error) {
@@ -33,7 +35,7 @@ export default function Submit_logar(){
     const logado = async()=>{
         try {
             await axios.post('/login');
-            window.location.href = window.location.href+"home";
+            navigate('/home')
         } catch (error) {
             console.log(error);
             if (error.response) {

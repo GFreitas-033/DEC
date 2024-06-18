@@ -5,7 +5,7 @@ import Prof from "../../../imgs/icon7.png"
 export default function Professores_adm(){
     return(
         <div className={Style_adm.cards_adm}>
-            <img src={Prof} />
+            <img src={Prof} alt=""/>
             <h1>Professores</h1>
         </div>
     )
