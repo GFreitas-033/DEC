@@ -26,4 +26,29 @@ router.use("/api/responsavel_unidade", responsavel_unidadeController);
 router.use("/", loginController);
 router.use("/", calendarioController);
 
+router.get('/listaralunos/:idturma', async (req,res) => {
+    const id_turma = parseInt(req.params.idturma);
+    try{
+        const responseTurmas_Alunos = await axios.get('http://localhost:5000/api/aluno_has_turma');
+        const dadosTurmas_Alunos = responseTurmas_Alunos.data;
+        const alunosTurma = dadosTurmas_Alunos
+        .filter(dado => dado.id_turma === id_turma)
+        .map(dado => dado.id_aluno);
+        
+        // const uniqueAlunosTurma = [...new Set(alunosTurma1)]; se precisar retirar repetencias
+
+        const responsePessoa = await axios.get('http://localhost:5000/api/pessoa');
+        const dadosPessoa = responsePessoa.data;
+
+        const nomesAlunos = dadosPessoa
+        .filter(pessoa => alunosTurma.includes(pessoa.id_pessoa))
+        .map(pessoa => pessoa.nome_pessoa);
+
+        res.json(nomesAlunos);
+
+    }catch(error){
+        return res.status(500).json({ message: "Erro ao buscar dados da turma", error: error.message });
+    }
+})
+
 module.exports = router;
