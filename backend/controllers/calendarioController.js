@@ -33,7 +33,8 @@ router.get('/calendario', async (req, res) => {
         const turmasFiltradas = turmas.map(turma => ({
             dia_semana: turma.dia_semana,
             horario: turma.horario,
-            id_unidade: turma.id_unidade
+            id_unidade: turma.id_unidade,
+            id_turma: turma.id_turma
         }));
 
         const responseUnidades = await axios.get('http://localhost:5000/api/unidade');
@@ -49,6 +50,7 @@ router.get('/calendario', async (req, res) => {
         const turmasComEndereco = turmasFiltradas.map(turma => ({
             dia_semana: turma.dia_semana,
             horario: turma.horario,
+            id_turma: turma.id_turma,
             id_endereco: unidadesMap[turma.id_unidade] || turma.id_unidade
         }));
 
@@ -63,6 +65,7 @@ router.get('/calendario', async (req, res) => {
         const turmasComEnderecoCompleto = turmasComEndereco.map(turma => ({
             dia_semana: turma.dia_semana,
             horario: turma.horario,
+            id_turma: turma.id_turma,
             endereco_completo: enderecosMap[turma.id_endereco] || turma.id_endereco
         }));
 

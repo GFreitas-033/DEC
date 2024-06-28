@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Calendario from "./calendario.module.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function ContentCalendario() {
     const [calendarioData, setCalendarioData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [loadingText, setLoadingText] = useState("Carregando.");
-
     useEffect(() => {
         const timer = setTimeout(() => {
             if (dataLoaded) {
@@ -86,11 +86,14 @@ export default function ContentCalendario() {
                             <u>{formatDiaSemana(dia)}</u>
                         </h1>
                         {groupedData[dia].map((item, subIndex) => (
-                            <div key={subIndex} className={Calendario.container_calendario}>
+                            <Link to={`alunosCalendario/${item.id_turma}`}>
+                                <div key={subIndex} className={Calendario.container_calendario}>
                                 <h1 className={Calendario.textTurma}>{getTurmaNome(item.horario)}</h1>
                                 <p className={Calendario.textLH}>Local: {item.endereco_completo}</p>
                                 <p className={Calendario.textLH}>Horário: {formatHorario(item.horario)}</p>
                             </div>
+                            </Link>
+                            
                         ))}
                     </div>
                 ))

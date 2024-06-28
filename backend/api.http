@@ -55,7 +55,7 @@ Content-Type: application/json
 
 ###
 
-GET  http://localhost:5000/listaralunos/1
+GET  http://localhost:5000/api/turma
 
 ###
 
@@ -73,7 +73,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/api/endereco/1
+GET http://localhost:5000/calendario
 
 ###
 
