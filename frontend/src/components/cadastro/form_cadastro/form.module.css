@@ -14,9 +14,6 @@
 
     background-color: #e0e0e0;
     box-sizing: border-box;
-    border: #000 solid;
-    border-radius: 1rem;
-    box-shadow: 0 0 2.5rem #ffffff;
     z-index: 1;
 }
 .form::before {
@@ -44,18 +41,12 @@
     }
     .form {
         padding: 2.4rem;
+        width: 100%;
+        border-radius: 0;
     }
     .container_inputs{
         grid-template-columns: auto;
-    }
-}
-
-@media screen and (min-width:  400px) {
-    .form {
-        padding: 3.4rem;
-    }
-    .container_inputs{
-        grid-template-columns: auto;
+        margin: auto;
     }
 }
 
@@ -64,7 +55,11 @@
         height: 100vh;
     }
     .form{
-        padding: 3.4rem;
+        padding: 1rem;
+        width: auto;
+        border: #000 solid;
+        border-radius: 1rem;
+        box-shadow: 0 0 2.5rem #ffffff;
     }
     .container_inputs{
         grid-template-columns: auto auto auto;

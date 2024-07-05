@@ -21,6 +21,23 @@ import Dt_nasc from "../inputs_cadastro/dt_nasc_input"
 import Botao from "../botao_cadastro/submit_cadastro"
 
 export default function form(){
+
+        // var cep = $('#CEP').val()
+        // var achar = `https://viacep.com.br/ws/${cep}/json/`
+
+        // $.ajax({
+        //     dataType: 'JSON',
+        //     type: 'GET',
+        //     assync: true,
+        //     url: achar,
+        //     success: function(dados){
+        //         $('#logradouro').val(dados.logradouro)
+        //         $('#bairro').val(dados.bairro)
+        //         $('#cidade').val(dados.localidade)
+        //         $('#uf').val(dados.uf)
+        //     }
+        // })
+
   return(
     <div className={Styles.container_formcadastro}>
       <form className={Styles.form} autoComplete="off">
