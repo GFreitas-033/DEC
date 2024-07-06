@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useState} from "react"
 import Styles from "./form.module.css"
 
 import Texto from "../textos_cadastro/texto_cadastro"
@@ -20,23 +20,26 @@ import Dt_nasc from "../inputs_cadastro/dt_nasc_input"
 // Import Botão
 import Botao from "../botao_cadastro/submit_cadastro"
 
-export default function form(){
-
-        // var cep = $('#CEP').val()
-        // var achar = `https://viacep.com.br/ws/${cep}/json/`
-
-        // $.ajax({
-        //     dataType: 'JSON',
-        //     type: 'GET',
-        //     assync: true,
-        //     url: achar,
-        //     success: function(dados){
-        //         $('#logradouro').val(dados.logradouro)
-        //         $('#bairro').val(dados.bairro)
-        //         $('#cidade').val(dados.localidade)
-        //         $('#uf').val(dados.uf)
-        //     }
-        // })
+export default function Form(){
+  const [cep, setCep] = useState("")
+  const [logradouro, setLogradouro] = useState("")
+  const [bairro, setBairro] = useState("")
+  const [cidade, setCidade] = useState("")
+  const [uf, setUf] = useState("")
+  
+  // const buscarCep = ()=>{
+  //     fetch(`https://viacep.com.br/ws/${cep}/json/`)
+  //     .then((response) => response.json())
+  //     .then((dados) => {
+  //       setLogradouro(dados.logradouro)
+  //       setBairro(dados.bairro)
+  //       setCidade(dados.localidade)
+  //       setUf(dados.uf)
+  //     })
+  //     .catch((error) => {
+  //       console.error('Erro ao buscar CEP:', error)
+  //     })
+  // }
 
   return(
     <div className={Styles.container_formcadastro}>
@@ -51,11 +54,11 @@ export default function form(){
           <Telefone />
           <Dt_nasc />
 
-          <Cep />
-          <UF />
-          <Cidade />
-          <Bairro />
-          <Rua />
+          <Cep ce={cep}/>
+          <UF u={uf}/>
+          <Cidade c={cidade}/>
+          <Bairro b={bairro}/>
+          <Rua r={logradouro}/>
         </div>
         <Botao />
       </form>
