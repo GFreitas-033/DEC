@@ -1,8 +1,13 @@
-import React, { useState } from "react"
+import React, {useState, useEffect} from "react"
 import Uf from "../input.module.css"
 
-export default function Uf_input(props){
-    const [uf,setUf] = useState(props.u)
+export default function Uf_input({u}){
+    const [uf,setUf] = useState(u)
+
+    useEffect(() => {
+        setUf(u)
+    }, [u])
+
     return(
         <div className={Uf.esquerda}>
             <label className={Uf.label}><b>UF</b></label><br />

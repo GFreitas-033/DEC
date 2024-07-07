@@ -1,8 +1,13 @@
-import React,{useState} from "react"
+import React,{useState, useEffect} from "react"
 import Cidade from "../input.module.css"
 
-export default function Cidade_input(props){
-    const [cidade, setCidade] = useState(props.c)
+export default function Cidade_input({c}){
+    const [cidade, setCidade] = useState(c)
+
+    useEffect(() => {
+        setCidade(c)
+    }, [c])
+
     return(
         <div className={Cidade.esquerda}>
             <label className={Cidade.label}><b>Cidade</b></label><br />

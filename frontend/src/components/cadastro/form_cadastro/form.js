@@ -11,6 +11,7 @@ import CPF from "../inputs_cadastro/cpf_input"
 import RG from "../inputs_cadastro/rg_input"
 import Telefone from "../inputs_cadastro/telefone_input"
 import Dt_nasc from "../inputs_cadastro/dt_nasc_input"
+import DC from "../inputs_cadastro/destro_canhoto_input"
   // Import dos Input de Endereço
   import Cep from "../inputs_cadastro/endereco/cep_input"
   import UF from "../inputs_cadastro/endereco/uf_input"
@@ -21,25 +22,24 @@ import Dt_nasc from "../inputs_cadastro/dt_nasc_input"
 import Botao from "../botao_cadastro/submit_cadastro"
 
 export default function Form(){
-  const [cep, setCep] = useState("")
   const [logradouro, setLogradouro] = useState("")
   const [bairro, setBairro] = useState("")
   const [cidade, setCidade] = useState("")
   const [uf, setUf] = useState("")
   
-  // const buscarCep = ()=>{
-  //     fetch(`https://viacep.com.br/ws/${cep}/json/`)
-  //     .then((response) => response.json())
-  //     .then((dados) => {
-  //       setLogradouro(dados.logradouro)
-  //       setBairro(dados.bairro)
-  //       setCidade(dados.localidade)
-  //       setUf(dados.uf)
-  //     })
-  //     .catch((error) => {
-  //       console.error('Erro ao buscar CEP:', error)
-  //     })
-  // }
+  const handleBuscarCep = (cep) => {
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((response) => response.json())
+      .then((dados) => {
+        setLogradouro(dados.logradouro)
+        setBairro(dados.bairro)
+        setCidade(dados.localidade)
+        setUf(dados.uf)
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar CEP:', error)
+      })
+  }
 
   return(
     <div className={Styles.container_formcadastro}>
@@ -53,8 +53,10 @@ export default function Form(){
           <RG />
           <Telefone />
           <Dt_nasc />
+          <DC />
 
-          <Cep ce={cep}/>
+          <Cep onBuscarCep={handleBuscarCep} />
+
           <UF u={uf}/>
           <Cidade c={cidade}/>
           <Bairro b={bairro}/>

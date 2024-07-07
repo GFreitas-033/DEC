@@ -1,12 +1,13 @@
 import React,{useState} from "react"
 import Cep from "../input.module.css"
 
-export default function Cep_input(props){
-    const [cep,setCep] = useState(props.ce)
+export default function Cep_input({ onBuscarCep }){
+    const [cep,setCep] = useState("")
 
-    const buscarCep= ()=>{
-        alert(cep)
+    const buscarCep = () => { 
+        onBuscarCep(cep)
     }
+
     return(
         <div>
             <div className={Cep.esquerda}>

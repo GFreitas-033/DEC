@@ -1,8 +1,13 @@
-import React,{useState} from "react"
+import React,{useState, useEffect} from "react"
 import Rua from "../input.module.css"
 
-export default function Rua_input(props){
-    const [rua,setRua] = useState(props.r)
+export default function Rua_input({r}){
+    const [rua,setRua] = useState(r)
+
+    useEffect(() => {
+        setRua(r)
+    }, [r])
+
     return(
         <div className={Rua.esquerda}>
             <label className={Rua.label}><b>Rua</b></label><br />
