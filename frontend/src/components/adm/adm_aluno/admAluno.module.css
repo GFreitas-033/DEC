@@ -1,0 +1,46 @@
+@media screen and (min-width: 320px){
+    .titulo{
+        margin-top: 6rem;
+    }
+}
+
+@media screen and (min-width: 720px){
+    .titulo{
+        margin-top: 0rem;
+    }
+}
+
+ul{
+    list-style: none;
+}
+li{
+    padding: 0.5rem;
+}
+
+.contentAdmAluno{
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+    place-items: center;
+}
+
+.tabela{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+
+    border-radius: 0.4rem;
+    border: 0.2rem solid #FBD034;
+    background-color: #999999;
+
+    width: 60%;
+    height: 75vh;
+    max-height: 100%;
+}
+
+.linhas{
+    border: 0.1rem #000 solid;
+    padding: 0.5rem;
+}
+
+.colunaID{
+    text-align: center;
+}

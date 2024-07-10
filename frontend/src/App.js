@@ -8,6 +8,7 @@ import Home from "./components/home/home"
 import Calendario from "./components/calendario/calendario"
 import Adm from "./components/adm/adm"
 import Alunos from "./components/calendario/aluno_calendario/alunos_calendario"
+import AdmAluno from "./components/adm/adm_aluno/adm_aluno"
 
 export default function App(){
 
@@ -20,6 +21,7 @@ export default function App(){
         <Link to="/calendario"></Link>
         <Link to="/adm"></Link>
         <Link to="calendario/alunosCalendario"></Link>
+        <Link to="adm/adm_aluno"></Link>
         
       {/* Rotas */}
       <Routes>
@@ -29,6 +31,7 @@ export default function App(){
         <Route path="/calendario" element={<Calendario />}></Route>
         <Route path="/adm" element={<Adm />}></Route>
         <Route path="calendario/alunosCalendario/:idturma" element={<Alunos />}></Route>
+        <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
       </Routes>
     </Routers>
   )
