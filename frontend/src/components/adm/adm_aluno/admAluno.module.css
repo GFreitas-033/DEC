@@ -2,11 +2,23 @@
     .titulo{
         margin-top: 6rem;
     }
+
+    .tabela{
+        width: 80%;
+        height: 75vh;
+        max-height: 100%;
+    }
 }
 
 @media screen and (min-width: 720px){
     .titulo{
         margin-top: 0rem;
+    }
+
+    .tabela{
+        width: 60%;
+        height: 75vh;
+        max-height: 100%;
     }
 }
 
@@ -15,6 +27,7 @@ ul{
 }
 li{
     padding: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .contentAdmAluno{
@@ -27,20 +40,41 @@ li{
     display: grid;
     grid-template-columns: 1fr 5fr;
 
-    border-radius: 0.4rem;
+    border-radius: 0.6rem;
     border: 0.2rem solid #FBD034;
     background-color: #999999;
-
-    width: 60%;
-    height: 75vh;
-    max-height: 100%;
 }
 
-.linhas{
+
+.linhasId{
     border: 0.1rem #000 solid;
-    padding: 0.5rem;
+    border-radius: 0.6rem 0rem 0rem 0.6rem;
+    padding: 0.7rem;
+}
+.linhasNome{
+    border: 0.1rem #000 solid;
+    border-radius: 0rem 0.6rem 0.6rem 0rem;
+    padding: 0.7rem;
 }
 
 .colunaID{
     text-align: center;
+}
+
+.topoTable{
+    font-size: 1.3rem;
+}
+
+.iconAluno{
+    width: 2rem;
+    height: 2rem;
+    float: right;
+
+    cursor: pointer;
+
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+
+    border: 0.1rem #000 solid;
+    border-radius: 0.5rem;
 }
