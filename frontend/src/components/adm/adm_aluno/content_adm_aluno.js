@@ -13,6 +13,7 @@ export default function content_adm_aluno(){
 
             <div className={AdmAluno.divBtn}>
                 <button className={AdmAluno.btn}>Criar Novo +</button>
+                <p className={AdmAluno.qtdAluno}>Quantidade de Alunos: 10</p>
             </div>
             
             <div className={AdmAluno.tabela}>
@@ -53,7 +54,7 @@ export default function content_adm_aluno(){
                         </li>
 
                         <li>
-                            Guilherme
+                            Guilherme L Freitas
                             <img src={Excluir} className={AdmAluno.iconAluno}/>
                             <img src={Editar} className={AdmAluno.iconAluno}/>
                         </li>
@@ -63,12 +64,13 @@ export default function content_adm_aluno(){
                             <img src={Editar} className={AdmAluno.iconAluno}/>
                         </li>
 
-                        {/* Alguns teste */}
                         <li>
-                            Teste
+                            João Pedro Santos
                             <img src={Excluir} className={AdmAluno.iconAluno}/>
                             <img src={Editar} className={AdmAluno.iconAluno}/>
                         </li>
+                        {/* Alguns teste */}
+                        
                         <li>
                             Teste
                             <img src={Excluir} className={AdmAluno.iconAluno}/>
