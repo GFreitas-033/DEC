@@ -1,0 +1,26 @@
+@media screen and (min-width: 320px){
+    .btn{
+        padding: 0.4rem;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 720px){
+    .btn{
+        padding: 0.5rem;
+        font-size: 1.2rem;
+    }
+}
+
+.btn{
+    border: none;
+    background-color: #58AFFF;
+    cursor: pointer;
+    border-radius: 1rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+.btn:hover{
+    background-color: #3186d4;
+    transition: 0.5s;
+}

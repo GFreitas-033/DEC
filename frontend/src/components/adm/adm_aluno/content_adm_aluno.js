@@ -1,5 +1,6 @@
 import React from "react"
 import AdmAluno from "./admAluno.module.css"
+import Botao from "./botao_admAluno/botao_admAluno"
 
 import Editar from "../../../imgs/Editar.png"
 import Excluir from "../../../imgs/Excluir.png"
@@ -12,7 +13,7 @@ export default function content_adm_aluno(){
             </div>
 
             <div className={AdmAluno.divBtn}>
-                <button className={AdmAluno.btn}>Criar Novo +</button>
+                <Botao />
                 <p className={AdmAluno.qtdAluno}>Quantidade de Alunos: 10</p>
             </div>
             
