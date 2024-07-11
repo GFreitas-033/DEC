@@ -10,7 +10,11 @@ export default function content_adm_aluno(){
             <div>
                 <h1 className={AdmAluno.titulo}>ALUNOS</h1>
             </div>
-            <br />
+
+            <div className={AdmAluno.divBtn}>
+                <button className={AdmAluno.btn}>Criar Novo +</button>
+            </div>
+            
             <div className={AdmAluno.tabela}>
 
                 <div className={AdmAluno.linhasId}>
