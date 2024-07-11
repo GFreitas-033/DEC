@@ -10,7 +10,7 @@ export default function content_adm_aluno(){
             <div>
                 <h1 className={AdmAluno.titulo}>ALUNOS</h1>
             </div>
-
+            <br />
             <div className={AdmAluno.tabela}>
 
                 <div className={AdmAluno.linhasId}>
@@ -21,6 +21,13 @@ export default function content_adm_aluno(){
                         <li>1</li>
                         <li>2</li>
                         <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                        <li>6</li>
+                        <li>7</li>
+                        <li>8</li>
+                        <li>9</li>
+                        <li>10</li>
                     </ul>
                     
                 </div>
@@ -42,10 +49,47 @@ export default function content_adm_aluno(){
                         </li>
 
                         <li>
+                            Guilherme
+                            <img src={Excluir} className={AdmAluno.iconAluno}/>
+                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                        </li>
+                        <li>
+                            Alexandre
+                            <img src={Excluir} className={AdmAluno.iconAluno}/>
+                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                        </li>
+
+                        {/* Alguns teste */}
+                        <li>
                             Teste
                             <img src={Excluir} className={AdmAluno.iconAluno}/>
                             <img src={Editar} className={AdmAluno.iconAluno}/>
                         </li>
+                        <li>
+                            Teste
+                            <img src={Excluir} className={AdmAluno.iconAluno}/>
+                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                        </li>
+                        <li>
+                            Teste
+                            <img src={Excluir} className={AdmAluno.iconAluno}/>
+                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                        </li>
+                        <li>
+                            Teste
+                            <img src={Excluir} className={AdmAluno.iconAluno}/>
+                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                        </li>
+                        <li>
+                            Teste
+                            <img src={Excluir} className={AdmAluno.iconAluno}/>
+                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                        </li>                        <li>
+                            Teste
+                            <img src={Excluir} className={AdmAluno.iconAluno}/>
+                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                        </li>
+                        
                     </ul>
 
                 </div>

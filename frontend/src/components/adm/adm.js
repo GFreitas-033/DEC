@@ -8,9 +8,9 @@ import axios from "axios";
 export default function Adm() {
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     logado();
-    // });
+    useEffect(() => {
+        logado();
+    });
 
     const logado = async () => {
         try {

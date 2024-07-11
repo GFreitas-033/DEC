@@ -1,24 +1,25 @@
 @media screen and (min-width: 320px){
     .titulo{
         margin-top: 6rem;
+        margin-bottom: 2rem;
     }
 
     .tabela{
         width: 80%;
-        height: 75vh;
-        max-height: 100%;
+        min-height: 58vh;
+        height: auto;
     }
 }
 
 @media screen and (min-width: 720px){
     .titulo{
-        margin-top: 0rem;
+        margin-top: 0.5rem;
     }
 
     .tabela{
         width: 60%;
-        height: 75vh;
-        max-height: 100%;
+        min-height: 72vh;
+        height: auto;
     }
 }
 
@@ -26,20 +27,23 @@ ul{
     list-style: none;
 }
 li{
-    padding: 0.5rem;
-    margin-bottom: 0.4rem;
+    padding: 0.6rem;
+    border: 0.1rem #000 solid;
 }
 
 .contentAdmAluno{
-    display: grid;
-    grid-template-rows: 1fr 4fr;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 100vw;
+    min-height: 100vh;
+    height: auto;
 }
 
 .tabela{
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-
+    display: flex;
+    flex-direction: row;
     border-radius: 0.6rem;
     border: 0.2rem solid #FBD034;
     background-color: #999999;
@@ -49,12 +53,12 @@ li{
 .linhasId{
     border: 0.1rem #000 solid;
     border-radius: 0.6rem 0rem 0rem 0.6rem;
-    padding: 0.7rem;
+    width: 20%;
 }
 .linhasNome{
     border: 0.1rem #000 solid;
     border-radius: 0rem 0.6rem 0.6rem 0rem;
-    padding: 0.7rem;
+    width: 80%;
 }
 
 .colunaID{
@@ -63,18 +67,17 @@ li{
 
 .topoTable{
     font-size: 1.3rem;
+    border: none;
 }
 
 .iconAluno{
     width: 2rem;
     height: 2rem;
-    float: right;
-
+    padding: 0.2rem 0.5rem;
+    margin-top: -0.6rem;
     cursor: pointer;
-
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-
-    border: 0.1rem #000 solid;
-    border-radius: 0.5rem;
+    float: right;
+}
+.iconAluno:hover{
+    background-color: #FBD034;
 }
