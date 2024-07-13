@@ -9,6 +9,9 @@ import Calendario from "./components/calendario/calendario"
 import Adm from "./components/adm/adm"
 import Alunos from "./components/calendario/aluno_calendario/alunos_calendario"
 import AdmAluno from "./components/adm/adm_aluno/adm_aluno"
+import AdmProf from "./components/adm/adm_professor/adm_professor"
+import AdmUni from "./components/adm/adm_professor/adm_professor"
+import AdmTurma from "./components/adm/adm_professor/adm_professor"
 
 export default function App(){
 
@@ -22,6 +25,9 @@ export default function App(){
         <Link to="/adm"></Link>
         <Link to="calendario/alunosCalendario"></Link>
         <Link to="adm/adm_aluno"></Link>
+        <Link to="adm/adm_prof"></Link>
+        <Link to="adm/adm_unidade"></Link>
+        <Link to="adm/adm_turmas"></Link>
         
       {/* Rotas */}
       <Routes>
@@ -32,6 +38,9 @@ export default function App(){
         <Route path="/adm" element={<Adm />}></Route>
         <Route path="calendario/alunosCalendario/:idturma" element={<Alunos />}></Route>
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
+        <Route path="adm/adm_prof" element={<AdmProf />}></Route>
+        <Route path="adm/adm_unidade" element={<AdmProf />}></Route>
+        <Route path="adm/adm_turmas" element={<AdmProf />}></Route>
       </Routes>
     </Routers>
   )

@@ -1,20 +1,19 @@
 import React from "react"
-import AdmAluno from "./admAluno.module.css"
-import Botao from "./botao_admAluno/botao_admAluno"
+import AdmAluno from "../admAPUT.module.css"
+import Botao from "../botao_adm/botao_adm"
 
 import Editar from "../../../imgs/Editar.png"
 import Excluir from "../../../imgs/Excluir.png"
 
 export default function content_adm_aluno(){
     return(
-        <div className={AdmAluno.contentAdmAluno}>
+        <div className={AdmAluno.contentAdm}>
             <div>
                 <h1 className={AdmAluno.titulo}>ALUNOS</h1>
             </div>
 
             <div className={AdmAluno.divBtn}>
-                <Botao />
-                <p className={AdmAluno.qtdAluno}>Quantidade de Alunos: 10</p>
+                <p className={AdmAluno.qtd}>Quantidade de Alunos: 10</p>
             </div>
             
             <div className={AdmAluno.tabela}>
@@ -44,57 +43,57 @@ export default function content_adm_aluno(){
                         
                         <li>
                             Samuel
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>
 
                         <li>
                             André
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>
 
                         <li>
                             Guilherme L Freitas
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>
                         <li>
                             Alexandre
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>
 
                         <li>
                             João Pedro Santos
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>
                         {/* Alguns teste */}
                         
                         <li>
                             Teste
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>
                         <li>
                             Teste
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>
                         <li>
                             Teste
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>
                         <li>
                             Teste
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>                        <li>
                             Teste
-                            <img src={Excluir} className={AdmAluno.iconAluno}/>
-                            <img src={Editar} className={AdmAluno.iconAluno}/>
+                            <img src={Excluir} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon}/>
                         </li>
                         
                     </ul>

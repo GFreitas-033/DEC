@@ -1,13 +1,13 @@
 import React from "react"
 import ContainerCss from "../../containers.module.css";
 import BarraLateral from "../../barra_lateral/icons_barra_lateral"
-import ContentAdmAluno from "./content_adm_aluno"
+import ContentAdmProfessor from "./content_adm_professor"
 
-export default function adm_professor(){
+export default function adm_prof(){
     return(
         <div className={ContainerCss.container}>
             <BarraLateral />
-            <ContentAdmAluno />
+            <ContentAdmProfessor />
         </div>
     )
 }
