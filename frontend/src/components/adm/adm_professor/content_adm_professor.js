@@ -1,6 +1,5 @@
 import React from "react"
 import AdmProf from "../admAPUT.module.css"
-import Botao from "../botao_adm/botao_adm"
 
 import Editar from "../../../imgs/Editar.png"
 import Excluir from "../../../imgs/Excluir.png"
