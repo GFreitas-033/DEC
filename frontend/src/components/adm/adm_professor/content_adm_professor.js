@@ -1,10 +1,13 @@
 import React from "react"
+
 import AdmProf from "../admAPUT.module.css"
+import Botao from "../botao_adm/botao_adm"
 
 import Editar from "../../../imgs/Editar.png"
 import Excluir from "../../../imgs/Excluir.png"
 
-export default function content_adm_professor(){
+export default function Content_adm_professor(){
+
     return(
         <div className={AdmProf.contentAdm}>
             <div>
@@ -12,6 +15,7 @@ export default function content_adm_professor(){
             </div>
 
             <div className={AdmProf.divBtn}>
+                <Botao v={'/cadastro/professor'}/>
                 <p className={AdmProf.qtd}>Quantidade de Professores: 10</p>
             </div>
             

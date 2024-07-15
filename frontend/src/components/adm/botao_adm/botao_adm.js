@@ -1,10 +1,13 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import BotaoAdmAluno from "./botao.module.css"
 
-export default function Botao_adm(){
+export default function Botao_adm(props){
+    const navigate = useNavigate()
+
     return(
         <div>
-            <button className={BotaoAdmAluno.btn}>Criar Novo +</button>
+            <button className={BotaoAdmAluno.btn}  onClick={()=>navigate(props.v)}>Criar Novo +</button>
         </div>
     )
 }
