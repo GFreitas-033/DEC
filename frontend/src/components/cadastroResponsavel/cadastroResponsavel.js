@@ -11,6 +11,7 @@ import CPF from "../cadastro/inputs_cadastro/cpf_input"
 import RG from "../cadastro/inputs_cadastro/rg_input"
 import Telefone from "../cadastro/inputs_cadastro/telefone_input"
 import Dt_nasc from "../cadastro/inputs_cadastro/dt_nasc_input"
+import Genero from "../cadastro/inputs_cadastro/genero_input"
 // Import Botão
 import Botao from "../cadastro/botao_cadastro/submit_cadastro"
 
@@ -28,6 +29,7 @@ export default function FormCadastroResponsavel(){
           <RG />
           <Telefone />
           <Dt_nasc />
+          <Genero />
         </div>
         <Botao />
       </form>

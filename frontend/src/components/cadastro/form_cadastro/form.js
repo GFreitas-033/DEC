@@ -12,6 +12,7 @@ import RG from "../inputs_cadastro/rg_input"
 import Telefone from "../inputs_cadastro/telefone_input"
 import Dt_nasc from "../inputs_cadastro/dt_nasc_input"
 import DC from "../inputs_cadastro/destro_canhoto_input"
+import Genero from "../inputs_cadastro/genero_input"
   // Import dos Input de Endereço
   import Cep from "../inputs_cadastro/endereco/cep_input"
   import UF from "../inputs_cadastro/endereco/uf_input"
@@ -54,6 +55,7 @@ export default function Form(){
           <Telefone />
           <Dt_nasc />
           <DC />
+          <Genero />
 
           <Cep onBuscarCep={handleBuscarCep} />
 
