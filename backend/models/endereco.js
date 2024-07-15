@@ -12,8 +12,11 @@ async function readEndereco() {
 
 async function createEndereco(cep, estado, cidade, bairro, rua, numero) {
     try {
-        await db.query('INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero) VALUES (?,?,?,?,?,?)', 
-                      [cep, estado, cidade, bairro, rua, numero]);
+        const result = await db.query('INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero) VALUES (?,?,?,?,?,?)', 
+                                     [cep, estado, cidade, bairro, rua, numero]);
+        const novoId = result[0].insertId;
+        const [novoEndereco] = await db.query('SELECT * FROM endereco WHERE id_endereco = ?', [novoId]);
+        return novoEndereco[0];  // Corrigido para retornar o primeiro item do array
     } catch (err) {
         console.error('Erro ao criar registro:', err);
         throw new Error('Erro interno do servidor');
