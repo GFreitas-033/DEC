@@ -15,7 +15,7 @@ export default function Content_adm_professor(){
             </div>
 
             <div className={AdmProf.divBtn}>
-                <Botao v={'/cadastro/professor'}/>
+                <Botao url={'/cadastro/professor'} texto={"Novo Professor +"}/>
                 <p className={AdmProf.qtd}>Quantidade de Professores: 10</p>
             </div>
             

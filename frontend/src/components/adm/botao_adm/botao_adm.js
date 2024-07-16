@@ -7,7 +7,10 @@ export default function Botao_adm(props){
 
     return(
         <div>
-            <button className={BotaoAdmAluno.btn}  onClick={()=>navigate(props.v)}>Criar Novo +</button>
+            <button className={BotaoAdmAluno.btn}
+                onClick={()=>navigate(props.url)}>
+                {props.texto}
+            </button>
         </div>
     )
 }

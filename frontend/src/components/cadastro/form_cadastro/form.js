@@ -22,7 +22,7 @@ import Genero from "../inputs_cadastro/genero_input"
 // Import Botão
 import Botao from "../botao_cadastro/submit_cadastro"
 
-export default function Form(){
+export default function Form(props){
   const [logradouro, setLogradouro] = useState("")
   const [bairro, setBairro] = useState("")
   const [cidade, setCidade] = useState("")
@@ -45,7 +45,7 @@ export default function Form(){
   return(
     <div className={Styles.container_formcadastro}>
       <form className={Styles.form} autoComplete="off">
-        <Texto />
+        <Texto text={props.texto}/>
         <div className={Styles.container_inputs}>
           <Email />
           <Senha />
@@ -64,7 +64,7 @@ export default function Form(){
           <Bairro b={bairro}/>
           <Rua r={logradouro}/>
         </div>
-        <Botao />
+        <Botao  text={props.texto}/>
       </form>
     </div>
   )

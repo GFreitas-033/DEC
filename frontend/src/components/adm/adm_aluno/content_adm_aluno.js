@@ -1,10 +1,13 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import AdmAluno from "../admAPUT.module.css"
 
 import Editar from "../../../imgs/Editar.png"
 import Excluir from "../../../imgs/Excluir.png"
 
-export default function content_adm_aluno(){
+export default function Content_adm_aluno(){
+    const navigate = useNavigate()
+
     return(
         <div className={AdmAluno.contentAdm}>
             <div>
@@ -43,7 +46,7 @@ export default function content_adm_aluno(){
                         <li>
                             Samuel
                             <img src={Excluir} className={AdmAluno.icon}/>
-                            <img src={Editar} className={AdmAluno.icon}/>
+                            <img src={Editar} className={AdmAluno.icon} onClick={()=>navigate('/adm/editar_aluno')}/>
                         </li>
 
                         <li>

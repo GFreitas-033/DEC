@@ -37,6 +37,8 @@ export default function App(){
         <Link to="/adm"></Link>
   
         <Link to="adm/adm_aluno"></Link>
+        <Link to="adm/editar_aluno"></Link>
+
         <Link to="adm/adm_prof"></Link>
         <Link to="adm/adm_unidade"></Link>
         <Link to="adm/adm_turmas"></Link>
@@ -44,7 +46,7 @@ export default function App(){
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />}></Route>
-        <Route path="/cadastro" element={<Cadastro />}></Route>
+        <Route path="/cadastro" element={<Cadastro texto={"Cadastro"}/>}></Route>
         <Route path="/cadastro/responsavel" element={<CadastroResponsavel />}></Route>
         <Route path="/cadastro/professor" element={<CadastroProf />}></Route>
 
@@ -56,6 +58,8 @@ export default function App(){
         <Route path="/adm" element={<Adm />}></Route>
         
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
+        <Route path="adm/editar_aluno" element={<Cadastro texto={"Editar"}/>}></Route>
+
         <Route path="adm/adm_prof" element={<AdmProf />}></Route>
         <Route path="adm/adm_unidade" element={<AdmUni />}></Route>
         <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>

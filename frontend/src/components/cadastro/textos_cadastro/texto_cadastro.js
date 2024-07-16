@@ -1,10 +1,10 @@
 import React from "react"
 import Texto from "./texto_cadastro.module.css"
 
-export default function texto_logar(){
+export default function Texto_logar(props){
     return(
         <div className={Texto.textcenter}>
-            <h1>Cadastro</h1>
+            <h1>{props.text}</h1>
         </div>
     )
 }
