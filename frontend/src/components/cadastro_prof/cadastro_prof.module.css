@@ -1,0 +1,9 @@
+.ContentCProf{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+}
+
+.titulo{
+    margin-top: 2rem;
+}

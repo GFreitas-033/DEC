@@ -15,12 +15,12 @@ import Genero from "../cadastro/inputs_cadastro/genero_input"
 // Import Botão
 import Botao from "../cadastro/botao_cadastro/submit_cadastro"
 
-export default function FormCadastroResponsavel(){
+export default function FormCadastroResponsavel(props){
 
   return(
     <div className={Styles.container_formcadastro}>
       <form className={Styles.form} autoComplete="off">
-        <Texto />
+        <Texto text={props.texto}/>
         <div className={Styles.container_inputs}>
           <Email />
           <Senha />
@@ -31,7 +31,7 @@ export default function FormCadastroResponsavel(){
           <Dt_nasc />
           <Genero />
         </div>
-        <Botao />
+        <Botao text={props.texto}/>
       </form>
     </div>
   )
