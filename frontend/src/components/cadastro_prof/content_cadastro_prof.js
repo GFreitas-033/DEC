@@ -16,7 +16,7 @@ export default function  Content_cadastro_professor(){
         <div className={StyleCadastroProf.ContentCProf}>
             <h1 className={StyleCadastroProf.titulo}>Cadastro de Professores</h1>
 
-            <div>
+            <div className={StyleCadastroProf.contentInputs}>
                 <Email />
                 <Senha />
                 <Nome />
