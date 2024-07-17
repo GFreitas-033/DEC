@@ -29,6 +29,12 @@ export default function Form(props){
   const [uf, setUf] = useState("")
   
   const handleBuscarCep = (cep) => {
+    if(cep.length < 9){
+      setLogradouro("")
+      setBairro("")
+      setCidade("")
+      setUf("")
+    }
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((response) => response.json())
       .then((dados) => {
