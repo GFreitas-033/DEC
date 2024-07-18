@@ -6,7 +6,7 @@ export default function Submit_logar(props){
     return(
         <div>
             <button type="submit" className={Submit.btn}>
-                <h1>{props.text}</h1>
+                <h1>{props.btn}</h1>
             </button>
         </div>
     )

@@ -46,8 +46,8 @@ export default function App(){
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />}></Route>
-        <Route path="/cadastro" element={<Cadastro texto={"Cadastro"}/>}></Route>
-        <Route path="/cadastro/responsavel" element={<CadastroResponsavel texto={"Cadastro"}/>}></Route>
+        <Route path="/cadastro" element={<Cadastro texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
+        <Route path="/cadastro/responsavel" element={<CadastroResponsavel texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/professor" element={<CadastroProf />}></Route>
 
         <Route path="/home" element={<Home/>}></Route>
@@ -58,7 +58,7 @@ export default function App(){
         <Route path="/adm" element={<Adm />}></Route>
         
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
-        <Route path="adm/editar_aluno" element={<Cadastro texto={"Editar"}/>}></Route>
+        <Route path="adm/editar_aluno" element={<Cadastro texto={"Editar"}  botao={"Editar"}/>}></Route>
 
         <Route path="adm/adm_prof" element={<AdmProf />}></Route>
         <Route path="adm/adm_unidade" element={<AdmUni />}></Route>

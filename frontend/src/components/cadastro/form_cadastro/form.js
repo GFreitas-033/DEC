@@ -70,7 +70,7 @@ export default function Form(props){
           <Bairro b={bairro}/>
           <Rua r={logradouro}/>
         </div>
-        <Botao  text={props.texto}/>
+        <Botao  btn={props.botao}/>
       </form>
     </div>
   )

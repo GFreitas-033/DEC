@@ -20,7 +20,7 @@ export default function FormCadastroResponsavel(props){
   return(
     <div className={Styles.container_formcadastro}>
       <form className={Styles.form} autoComplete="off">
-        <Texto text={props.texto}/>
+        <Texto text={props.texto} />
         <div className={Styles.container_inputs}>
           <Email />
           <Senha />
@@ -31,7 +31,7 @@ export default function FormCadastroResponsavel(props){
           <Dt_nasc />
           <Genero />
         </div>
-        <Botao text={props.texto}/>
+        <Botao btn={props.botao}/>
       </form>
     </div>
   )

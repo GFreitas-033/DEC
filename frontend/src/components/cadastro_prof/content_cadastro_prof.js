@@ -2,6 +2,7 @@ import React from "react"
 import StyleCadastroProf from "./cadastro_prof.module.css"
 
 // Imports dos Inputs para Pessoa
+import Imagem from "../cadastro/inputs_cadastro/imagem_input"
 import Email from "../cadastro/inputs_cadastro/email_input"
 import Senha from "../cadastro/inputs_cadastro/senha_input"
 import Nome from "../cadastro/inputs_cadastro/nome_input"
@@ -17,6 +18,7 @@ export default function  Content_cadastro_professor(){
             <h1 className={StyleCadastroProf.titulo}>Cadastro de Professores</h1>
 
             <div className={StyleCadastroProf.contentInputs}>
+                <Imagem/>
                 <Email />
                 <Senha />
                 <Nome />
