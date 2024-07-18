@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import AdmAluno from "../admAPUT.module.css"
 
+import Botao from "../botao_adm/botao_adm"
 import Editar from "../../../imgs/Editar.png"
 import Excluir from "../../../imgs/Excluir.png"
 
@@ -15,6 +16,7 @@ export default function Content_adm_aluno(){
             </div>
 
             <div className={AdmAluno.divBtn}>
+                <Botao texto={"Importar +"}/>
                 <p className={AdmAluno.qtd}>Quantidade de Alunos: 10</p>
             </div>
             
