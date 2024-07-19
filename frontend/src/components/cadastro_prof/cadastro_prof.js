@@ -7,7 +7,7 @@ export default function cadastro_prof(props){
     return(
         <div className={ContainerCss.container}>
             <BarraLateral />
-            <ContentCadastroProfessor botao={props.botao}/>
+            <ContentCadastroProfessor texto={props.texto} botao={props.botao}/>
         </div>
     )
 }

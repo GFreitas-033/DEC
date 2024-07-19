@@ -29,7 +29,6 @@ export default function Imagem_input(){
       
           <div className={ImagemStyle.divDaImagem}>
             {visualiza && <img className={ImagemStyle.imagemEnviada} src={visualiza} />}
-            {/* Mostra a imagem apenas se houver uma URL de previewSrc */}
           </div><br />
       </div>
     )

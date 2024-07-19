@@ -1,4 +1,4 @@
-import React,{useState} from "react"
+import React from "react"
 import Styles from "../cadastro/form_cadastro/form.module.css"
 
 import Texto from "../cadastro/textos_cadastro/texto_cadastro"
@@ -10,7 +10,7 @@ import Nome from "../cadastro/inputs_cadastro/nome_input"
 import CPF from "../cadastro/inputs_cadastro/cpf_input"
 import RG from "../cadastro/inputs_cadastro/rg_input"
 import Telefone from "../cadastro/inputs_cadastro/telefone_input"
-import Dt_nasc from "../cadastro/inputs_cadastro/dt_nasc_input"
+import DtNasc from "../cadastro/inputs_cadastro/dt_nasc_input"
 import Genero from "../cadastro/inputs_cadastro/genero_input"
 // Import Botão
 import Botao from "../cadastro/botao_cadastro/submit_cadastro"
@@ -28,7 +28,7 @@ export default function FormCadastroResponsavel(props){
           <CPF />
           <RG />
           <Telefone />
-          <Dt_nasc />
+          <DtNasc />
           <Genero />
         </div>
         <Botao btn={props.botao}/>

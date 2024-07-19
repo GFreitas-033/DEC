@@ -10,7 +10,7 @@ import Nome from "../inputs_cadastro/nome_input"
 import CPF from "../inputs_cadastro/cpf_input"
 import RG from "../inputs_cadastro/rg_input"
 import Telefone from "../inputs_cadastro/telefone_input"
-import Dt_nasc from "../inputs_cadastro/dt_nasc_input"
+import DtNasc from "../inputs_cadastro/dt_nasc_input"
 import DC from "../inputs_cadastro/destro_canhoto_input"
 import Genero from "../inputs_cadastro/genero_input"
   // Import dos Input de Endereço
@@ -59,7 +59,7 @@ export default function Form(props){
           <CPF />
           <RG />
           <Telefone />
-          <Dt_nasc />
+          <DtNasc />
           <DC />
           <Genero />
 
