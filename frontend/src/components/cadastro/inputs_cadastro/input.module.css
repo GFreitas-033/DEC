@@ -34,3 +34,14 @@ input::placeholder{
         margin-right: 0.8rem;
     }
 }
+
+.inputImagem{
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+    background-color: #fff;
+    cursor: pointer;
+}
+.inputImagem:hover{
+    background-color: #e2e2e2;
+    transition: 0.5s;
+}

@@ -48,7 +48,7 @@ export default function App(){
         <Route path="/" element={<Login />}></Route>
         <Route path="/cadastro" element={<Cadastro texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/responsavel" element={<CadastroResponsavel texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
-        <Route path="/cadastro/professor" element={<CadastroProf />}></Route>
+        <Route path="/cadastro/professor" element={<CadastroProf botao={"Cadastrar"}/>}></Route>
 
         <Route path="/home" element={<Home/>}></Route>
 

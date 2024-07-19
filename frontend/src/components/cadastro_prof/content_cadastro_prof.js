@@ -12,21 +12,29 @@ import Telefone from "../cadastro/inputs_cadastro/telefone_input"
 import Dt_Nasc from "../cadastro/inputs_cadastro/dt_nasc_input"
 import Genero from "../cadastro/inputs_cadastro/genero_input"
 
-export default function  Content_cadastro_professor(){
+import Botao from "../cadastro/botao_cadastro/submit_cadastro"
+
+export default function  Content_cadastro_professor(props){
     return(
         <div className={StyleCadastroProf.ContentCProf}>
             <h1 className={StyleCadastroProf.titulo}>Cadastro de Professores</h1>
 
-            <div className={StyleCadastroProf.contentInputs}>
-                <Imagem/>
-                <Email />
-                <Senha />
-                <Nome />
-                <Cpf />
-                <Rg />
-                <Telefone />
-                <Dt_Nasc />
-                <Genero />
+            <div className={StyleCadastroProf.content}>
+                <div className={StyleCadastroProf.contentInputs}>
+                    <Imagem/>
+                    <Email />
+                    <Senha />
+                    <Nome />
+                    <Cpf />
+                    <Rg />
+                    <Telefone />
+                    <Dt_Nasc />
+                    <Genero />
+                </div>
+
+                <div className={StyleCadastroProf.divBtn}>
+                    <Botao btn={props.botao} className={StyleCadastroProf.btn}/>
+                </div>
             </div>
         </div>
     )

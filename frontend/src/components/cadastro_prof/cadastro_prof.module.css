@@ -29,13 +29,19 @@
     text-align: center;
 }
 
-.contentInputs{
-    display: grid;
-
+.content{
     padding: 1rem; 
     margin-top: 2rem;
 
     background-color: #999999;
     border-radius: 0.6rem;
     border: 0.2rem solid #FBD034;
+}
+
+.contentInputs{
+    display: grid;
+}
+
+.divBtn{
+    text-align: center;
 }
