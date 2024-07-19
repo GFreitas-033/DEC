@@ -27,15 +27,32 @@ input::placeholder{
     .input{
         margin-right: 0;
     }
+
+    .contentImagem{
+        width: 100%;
+    }
 }
 
 @media screen and (min-width:  720px) {
     .input{
         margin-right: 0.8rem;
     }
+
+    .contentImagem{
+        width: 90%;
+    }
+}
+
+
+
+.contentImagem{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .inputImagem{
+    text-align: center;
     border-radius: 0.5rem;
     padding: 0.2rem;
     background-color: #fff;
@@ -44,4 +61,14 @@ input::placeholder{
 .inputImagem:hover{
     background-color: #e2e2e2;
     transition: 0.5s;
+}
+
+.divDaImagem{
+    text-align: center;
+}
+.imagemEnviada{
+    margin-top: 0.2rem;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 100%;
 }
