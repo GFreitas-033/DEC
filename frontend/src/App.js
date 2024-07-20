@@ -5,7 +5,8 @@ import {BrowserRouter as Routers, Routes, Route, Link} from "react-router-dom"
 import Login from "./components/login/form_login/form"
 import Cadastro from "./components/cadastro/form_cadastro/form"
 import CadastroResponsavel from "./components/cadastroResponsavel/cadastroResponsavel"
-import CadastroProf from "./components/cadastro_prof/cadastro_prof"
+import CadastroProf from "./components/cadastroProf/cadastro_prof"
+import CadastroUnidade from "./components/cadastroUnidade/cadastro_unidade"
 
 import Home from "./components/home/home"
 
@@ -28,6 +29,7 @@ export default function App(){
         <Link to="/cadastro"></Link>
         <Link to="/cadastro/responsavel"></Link>
         <Link to="/cadastro/professor"></Link>
+        <Link to="/cadastro/unidade"></Link>
 
         <Link to="/home"></Link>
 
@@ -51,7 +53,8 @@ export default function App(){
         <Route path="/cadastro" element={<Cadastro texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/responsavel" element={<CadastroResponsavel texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} botao={"Cadastrar"}/>}></Route>
-
+        <Route path="/cadastro/unidade" element={<CadastroUnidade  texto={"Cadastro de Professores"} botao={"Cadastrar"} />}></Route>
+        
         <Route path="/home" element={<Home/>}></Route>
 
         <Route path="/calendario" element={<Calendario />}></Route>
@@ -66,6 +69,8 @@ export default function App(){
         <Route path="adm/editar_prof" element={<CadastroProf texto={"Editar Professor"} botao={"Editar"}/>}></Route>
 
         <Route path="adm/adm_unidade" element={<AdmUni />}></Route>
+
+
         <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>
       </Routes>
     </Routers>

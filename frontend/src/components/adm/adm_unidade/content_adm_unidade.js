@@ -13,6 +13,7 @@ export default function content_adm_unidade(){
             </div>
 
             <div className={AdmUnidade.divBtn}>
+                <Botao url={'/cadastro/unidade'} texto={"Nova Unidade +"}/>
                 <p className={AdmUnidade.qtd}>Quantidade de Unidade: 10</p>
             </div>
             
