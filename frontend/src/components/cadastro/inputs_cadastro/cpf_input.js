@@ -18,7 +18,7 @@ export default function Cpf_input(){
     return(
         <div className={Cpf.esquerda}>
             <label className={Cpf.label}><b>CPF</b></label><br />
-            <input type="text" id="cpf" placeholder="Coloque seu Cpf" required className={Cpf.input} 
+            <input type="text" id="cpf" placeholder="Insira um Cpf aqui" required className={Cpf.input} 
             onChange={formatarCPF}
             value={cpf}/><br />
         </div>

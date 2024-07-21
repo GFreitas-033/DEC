@@ -4,9 +4,11 @@ import StyleCadastroProf from "./cadastro_unidade.module.css"
 import Texto from "../cadastro/textos_cadastro/texto_cadastro"
 
 // Imports dos Inputs para Pessoa
-import Email from "../cadastro/inputs_cadastro/email_input"
 import Nome from "../cadastro/inputs_cadastro/nome_input"
+import Cnpj from "../cadastro/inputs_cadastro/cnpj_input"
 import Telefone from "../cadastro/inputs_cadastro/telefone_input"
+import Email from "../cadastro/inputs_cadastro/email_input"
+import MaisContatos from "../cadastro/inputs_cadastro/mais_contatos_input"
     //Imprts do Endereço
     import Cep from "../cadastro/inputs_cadastro/endereco/cep_input"
     import UF from "../cadastro/inputs_cadastro/endereco/uf_input"
@@ -47,9 +49,11 @@ export default function  Content_cadastro_professor(props){
 
             <form className={StyleCadastroProf.content} autoComplete="off"> 
                 <div className={StyleCadastroProf.contentInputs}>
-                    <Email />
                     <Nome />
+                    <Cnpj />
                     <Telefone />
+                    <Email />
+                    <MaisContatos />
 
                     <Cep onBuscarCep={handleBuscarCep} />
 

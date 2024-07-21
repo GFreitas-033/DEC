@@ -11,7 +11,7 @@ export default function Uf_input({u}){
     return(
         <div className={Uf.esquerda}>
             <label className={Uf.label}><b>UF</b></label><br />
-            <input type="text" id="uf" placeholder="Coloque sua Uf" required className={Uf.input}
+            <input type="text" id="uf" required className={Uf.input}
             onChange={(e)=>setUf(e.target.value)} value={uf}/><br />
         </div>
     )

@@ -11,7 +11,7 @@ export default function Cidade_input({c}){
     return(
         <div className={Cidade.esquerda}>
             <label className={Cidade.label}><b>Cidade</b></label><br />
-            <input type="text" id="cidade" placeholder="Coloque sua cidade" required className={Cidade.input}
+            <input type="text" id="cidade" required className={Cidade.input}
             onChange={(e)=>setCidade(e.target.value)} value={cidade}/><br />
         </div>
     )

@@ -17,7 +17,7 @@ export default function Telefone_input(){
     return(
         <div className={Telefone.esquerda}>
             <label className={Telefone.label}><b>Telefone</b></label><br />
-            <input type="text" id="Telefone" placeholder="Coloque o Telefone" required className={Telefone.input}
+            <input type="text" id="Telefone" placeholder="Insira um Telefone aqui" required className={Telefone.input}
             onChange={formatarTel}
             value={telefone}/><br />
         </div>

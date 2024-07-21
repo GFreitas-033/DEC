@@ -11,7 +11,7 @@ export default function Rua_input({r}){
     return(
         <div className={Rua.esquerda}>
             <label className={Rua.label}><b>Rua</b></label><br />
-            <input type="text" id="rua" placeholder="Coloque sua rua" required className={Rua.input}
+            <input type="text" id="rua" required className={Rua.input}
             onChange={(e)=>setRua(e.target.value)} value={rua}/><br />
         </div>
     )

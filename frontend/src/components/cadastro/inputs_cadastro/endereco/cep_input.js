@@ -19,7 +19,7 @@ export default function Cep_input({ onBuscarCep }){
         <div>
             <div className={Cep.esquerda}>
                 <label className={Cep.label}><b>Cep</b></label><br />
-                <input type="text" id="cep" placeholder="Coloque seu Cep" required className={Cep.input}
+                <input type="text" id="cep" placeholder="Insira um Cep aqui" required className={Cep.input}
                 onChange={buscarCep}
                 value={cep}/>
                 <br />
