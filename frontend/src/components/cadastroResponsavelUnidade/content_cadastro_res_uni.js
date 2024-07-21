@@ -1,15 +1,17 @@
 import React,{useState} from "react"
-import { useNavigate } from "react-router-dom"
-import StyleCadastroProf from "./cadastro_unidade.module.css"
+import StyleResUni from "./cadastro_res_uni.module.css"
 
 import Texto from "../cadastro/textos_cadastro/texto_cadastro"
 
 // Imports dos Inputs para Pessoa
-import Nome from "../cadastro/inputs_cadastro/nome_input"
-import Cnpj from "../cadastro/inputs_cadastro/cnpj_input"
-import Telefone from "../cadastro/inputs_cadastro/telefone_input"
 import Email from "../cadastro/inputs_cadastro/email_input"
-import MaisContatos from "../cadastro/inputs_cadastro/mais_contatos_input"
+import Senha from "../cadastro/inputs_cadastro/senha_input"
+import Nome from "../cadastro/inputs_cadastro/nome_input"
+import Cpf from "../cadastro/inputs_cadastro/cpf_input"
+import Rg from "../cadastro/inputs_cadastro/rg_input"
+import Telefone from "../cadastro/inputs_cadastro/telefone_input"
+import DtNasc from "../cadastro/inputs_cadastro/dt_nasc_input"
+import Genero from "../cadastro/inputs_cadastro/genero_input"
     //Imprts do Endereço
     import Cep from "../cadastro/inputs_cadastro/endereco/cep_input"
     import UF from "../cadastro/inputs_cadastro/endereco/uf_input"
@@ -20,8 +22,6 @@ import MaisContatos from "../cadastro/inputs_cadastro/mais_contatos_input"
 import Botao from "../cadastro/botao_cadastro/submit_cadastro"
 
 export default function  Content_cadastro_professor(props){
-    const navigate = useNavigate()
-
     const [logradouro, setLogradouro] = useState("")
     const [bairro, setBairro] = useState("")
     const [cidade, setCidade] = useState("")
@@ -47,16 +47,19 @@ export default function  Content_cadastro_professor(props){
         })
     }
     return(
-        <div className={StyleCadastroProf.ContentCProf}>
-            <h1 className={StyleCadastroProf.titulo}><Texto text={props.texto}/></h1>
+        <div className={StyleResUni.ContentCProf}>
+            <h1 className={StyleResUni.titulo}><Texto text={props.texto}/></h1>
 
-            <form className={StyleCadastroProf.content} autoComplete="off"> 
-                <div className={StyleCadastroProf.contentInputs}>
-                    <Nome />
-                    <Cnpj />
-                    <Telefone />
+            <form className={StyleResUni.content} autoComplete="off"> 
+                <div className={StyleResUni.contentInputs}>
                     <Email />
-                    <MaisContatos />
+                    <Senha />
+                    <Nome />
+                    <Cpf />
+                    <Rg />
+                    <Telefone />
+                    <DtNasc />
+                    <Genero />
 
                     <Cep onBuscarCep={handleBuscarCep} />
 
@@ -66,8 +69,8 @@ export default function  Content_cadastro_professor(props){
                     <Rua r={logradouro}/>
                 </div>
 
-                <div className={StyleCadastroProf.divBtn} onClick={()=>navigate('/cadastro/unidade/responsavel')}>
-                    <Botao btn={props.botao} className={StyleCadastroProf.btn}/>
+                <div className={StyleResUni.divBtn}>
+                    <Botao btn={props.botao} className={StyleResUni.btn}/>
                 </div>
             </form>
         </div>

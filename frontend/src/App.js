@@ -7,6 +7,7 @@ import Cadastro from "./components/cadastro/form_cadastro/form"
 import CadastroResponsavel from "./components/cadastroResponsavel/cadastroResponsavel"
 import CadastroProf from "./components/cadastroProf/cadastro_prof"
 import CadastroUnidade from "./components/cadastroUnidade/cadastro_unidade"
+import CadastroResponsavelUnidade from "./components/cadastroResponsavelUnidade/cadastro_res_uni"
 
 import Home from "./components/home/home"
 
@@ -30,6 +31,7 @@ export default function App(){
         <Link to="/cadastro/responsavel"></Link>
         <Link to="/cadastro/professor"></Link>
         <Link to="/cadastro/unidade"></Link>
+        <Link to="/cadastro/unidade/responsavel"></Link>
 
         <Link to="/home"></Link>
 
@@ -54,7 +56,8 @@ export default function App(){
         <Route path="/cadastro/responsavel" element={<CadastroResponsavel texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/unidade" element={<CadastroUnidade  texto={"Cadastro de Unidade"} botao={"Cadastrar"} />}></Route>
-        
+        <Route path="/cadastro/unidade/responsavel" element={<CadastroResponsavelUnidade  texto={"Cadastro do Responsavel pela Unidade"} botao={"Cadastrar"} />}></Route>
+
         <Route path="/home" element={<Home/>}></Route>
 
         <Route path="/calendario" element={<Calendario />}></Route>
