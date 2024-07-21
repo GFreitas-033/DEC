@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useState} from "react"
 import StyleCadastroProf from "./cadastro_prof.module.css"
 
 import Texto from "../cadastro/textos_cadastro/texto_cadastro"
@@ -13,10 +13,40 @@ import Rg from "../cadastro/inputs_cadastro/rg_input"
 import Telefone from "../cadastro/inputs_cadastro/telefone_input"
 import DtNasc from "../cadastro/inputs_cadastro/dt_nasc_input"
 import Genero from "../cadastro/inputs_cadastro/genero_input"
+    //Imprts do Endereço
+    import Cep from "../cadastro/inputs_cadastro/endereco/cep_input"
+    import UF from "../cadastro/inputs_cadastro/endereco/uf_input"
+    import Cidade from "../cadastro/inputs_cadastro/endereco/cidade_input"
+    import Bairro from "../cadastro/inputs_cadastro/endereco/bairro_input"
+    import Rua from "../cadastro/inputs_cadastro/endereco/rua_input"
 
 import Botao from "../cadastro/botao_cadastro/submit_cadastro"
 
 export default function  Content_cadastro_professor(props){
+    const [logradouro, setLogradouro] = useState("")
+    const [bairro, setBairro] = useState("")
+    const [cidade, setCidade] = useState("")
+    const [uf, setUf] = useState("")
+    
+    const handleBuscarCep = (cep) => {
+      if(cep.length < 9){
+        setLogradouro("")
+        setBairro("")
+        setCidade("")
+        setUf("")
+      }
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then((response) => response.json())
+        .then((dados) => {
+          setLogradouro(dados.logradouro)
+          setBairro(dados.bairro)
+          setCidade(dados.localidade)
+          setUf(dados.uf)
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar CEP:', error)
+        })
+    }
     return(
         <div className={StyleCadastroProf.ContentCProf}>
             <h1 className={StyleCadastroProf.titulo}><Texto text={props.texto}/></h1>
@@ -32,6 +62,13 @@ export default function  Content_cadastro_professor(props){
                     <Telefone />
                     <DtNasc />
                     <Genero />
+
+                    <Cep onBuscarCep={handleBuscarCep} />
+
+                    <UF u={uf}/>
+                    <Cidade c={cidade}/>
+                    <Bairro b={bairro}/>
+                    <Rua r={logradouro}/>
                 </div>
 
                 <div className={StyleCadastroProf.divBtn}>
