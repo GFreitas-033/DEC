@@ -30,10 +30,10 @@ async function updateAlunoHasTurma(id_aluno, id_turma) {
     }
 }
 
-async function deleteAlunoHasTurma(id_aluno, id_turma) {
+async function deleteAlunoHasTurma(id_aluno) {
     try {
-        await db.query('DELETE FROM aluno_has_turma WHERE id_aluno = ? AND id_turma = ?', 
-                      [id_aluno, id_turma]);
+        await db.query('DELETE FROM aluno_has_turma WHERE id_aluno = ?', 
+                      [id_aluno]);
     } catch (err) {
         console.error('Erro ao excluir registro:', err);
         throw new Error('Erro interno do servidor');

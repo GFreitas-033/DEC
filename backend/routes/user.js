@@ -13,6 +13,7 @@ const responsavel_unidadeController = require("../controllers/responsavel_unidad
 const professorController = require("../controllers/professorController.js");
 const loginController = require("../controllers/loginController.js");
 const calendarioController = require("../controllers/calendarioController.js");
+const admController = require("../controllers/admController.js");
 
 router.use("/api/aluno", alunoController);
 router.use("/api/endereco", enderecoController);
@@ -25,6 +26,8 @@ router.use("/api/responsavel_aluno", responsavel_alunoController);
 router.use("/api/responsavel_unidade", responsavel_unidadeController);
 router.use("/", loginController);
 router.use("/", calendarioController);
+router.use("/adm", admController);
+
 
 router.get('/listaralunos/:idturma', async (req,res) => {
     const id_turma = parseInt(req.params.idturma);

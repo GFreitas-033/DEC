@@ -30,9 +30,9 @@ module.exports = function(app) {
     })
   );
   app.use(
-    '/listaralunos',
+    '/admbackend',
     createProxyMiddleware({
-      target: 'http://localhost:5000/listaralunos',
+      target: 'http://localhost:5000/adm',
       changeOrigin: true,
     })
   );

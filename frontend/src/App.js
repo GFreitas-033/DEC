@@ -63,7 +63,7 @@ export default function App(){
         <Route path="/adm" element={<Adm />}></Route>
         
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
-        <Route path="adm/editar_aluno" element={<Cadastro texto={"Editar"}  botao={"Editar"}/>}></Route>
+        <Route path="adm/editar_aluno/:id_aluno" element={<Cadastro texto={"Editar"}  botao={"Editar"}/>}></Route>
 
         <Route path="adm/adm_prof" element={<AdmProf />}></Route>
         <Route path="adm/editar_prof" element={<CadastroProf texto={"Editar Professor"} botao={"Editar"}/>}></Route>

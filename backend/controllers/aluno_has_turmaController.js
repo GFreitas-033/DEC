@@ -24,7 +24,7 @@ router.put('/:id', asyncHandler(async (req, res) => {
 
 router.delete('/:id', asyncHandler(async (req, res) => {
     const id_aluno = parseInt(req.params.id);
-    await aluno_has_turmaModel.deleteAluno(id_aluno);
+    await aluno_has_turmaModel.deleteAlunoHasTurma(id_aluno);
     res.status(200).send('Registro excluído com sucesso!');
 }));
 
