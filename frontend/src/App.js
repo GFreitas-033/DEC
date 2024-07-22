@@ -47,6 +47,8 @@ export default function App(){
         <Link to="adm/editar_prof"></Link>
 
         <Link to="adm/adm_unidade"></Link>
+        <Link to="adm/editar_unidade"></Link>
+
         <Link to="adm/adm_turmas"></Link>
         
       {/* Rotas */}
@@ -72,7 +74,7 @@ export default function App(){
         <Route path="adm/editar_prof" element={<CadastroProf texto={"Editar Professor"} botao={"Editar"}/>}></Route>
 
         <Route path="adm/adm_unidade" element={<AdmUni />}></Route>
-
+        <Route path="adm/editar_unidade" element={<CadastroUnidade texto={"Editar Unidade"} botao={"Editar"}/>}></Route>
 
         <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>
       </Routes>

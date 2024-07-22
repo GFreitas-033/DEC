@@ -1,11 +1,14 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import AdmUnidade from "../admAPUT.module.css"
 import Botao from "../botao_adm/botao_adm"
 
 import Editar from "../../../imgs/Editar.png"
 import Excluir from "../../../imgs/Excluir.png"
 
-export default function content_adm_unidade(){
+export default function Content_adm_unidade(){
+    const navigate = useNavigate()
+
     return(
         <div className={AdmUnidade.contentAdm}>
             <div>
@@ -45,7 +48,7 @@ export default function content_adm_unidade(){
                         <li>
                             Samuel
                             <img src={Excluir} className={AdmUnidade.icon}/>
-                            <img src={Editar} className={AdmUnidade.icon}/>
+                            <img src={Editar} className={AdmUnidade.icon} onClick={() => navigate('/adm/editar_unidade')}/>
                         </li>
 
                         <li>
