@@ -7,7 +7,7 @@ export default function cadastro_unidade(props){
     return(
         <div className={ContainerCss.container}>
             <BarraLateral />
-            <ContentCadastroUnidade texto={props.texto} botao={props.botao}/>
+            <ContentCadastroUnidade texto={props.texto} botao={props.botao} url={props.url}/>
         </div>
     )
 }

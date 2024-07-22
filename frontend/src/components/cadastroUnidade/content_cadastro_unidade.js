@@ -66,7 +66,7 @@ export default function  Content_cadastro_professor(props){
                     <Rua r={logradouro}/>
                 </div>
 
-                <div className={StyleCadastroProf.divBtn} onClick={()=>navigate('/cadastro/unidade/responsavel')}>
+                <div className={StyleCadastroProf.divBtn} onClick={()=>navigate(props.urls)}>
                     <Botao btn={props.botao} className={StyleCadastroProf.btn}/>
                 </div>
             </form>
