@@ -1,6 +1,6 @@
 import React from "react"
-import ContainerCss from "../containers.module.css"
-import BarraLateral from "../barra_lateral/icons_barra_lateral"
+import ContainerCss from "../../containers.module.css"
+import BarraLateral from "../../barra_lateral/icons_barra_lateral"
 import ContentCadastroResponsavelUnidade from "./content_cadastro_res_uni"
 
 export default function cadastro_responsavel_unidade(props){

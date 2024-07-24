@@ -13,6 +13,7 @@ export default function content_adm_turma(){
             </div>
 
             <div className={AdmTurma.divBtn}>
+                <Botao  url={'/cadastro/turma'} texto={"Nova Turma +"} />
                 <p className={AdmTurma.qtd}>Quantidade de Turmas: 10</p>
             </div>
             

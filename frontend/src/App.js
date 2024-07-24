@@ -5,9 +5,11 @@ import {BrowserRouter as Routers, Routes, Route, Link} from "react-router-dom"
 import Login from "./components/login/form_login/form"
 import Cadastro from "./components/cadastro/form_cadastro/form"
 import CadastroResponsavel from "./components/cadastroResponsavel/cadastroResponsavel"
-import CadastroProf from "./components/cadastroProf/cadastro_prof"
-import CadastroUnidade from "./components/cadastroUnidade/cadastro_unidade"
-import CadastroResponsavelUnidade from "./components/cadastroResponsavelUnidade/cadastro_res_uni"
+
+import CadastroProf from "./components/cadastrosDoAdm/cadastroProf/cadastro_prof"
+import CadastroUnidade from "./components/cadastrosDoAdm/cadastroUnidade/cadastro_unidade"
+import CadastroResponsavelUnidade from "./components/cadastrosDoAdm/cadastroResponsavelUnidade/cadastro_res_uni"
+import CadastroTurma from "./components/cadastrosDoAdm/cadastroTurma/cadastro_turma"
 
 import Home from "./components/home/home"
 
@@ -29,9 +31,11 @@ export default function App(){
         <Link to="/"></Link>
         <Link to="/cadastro"></Link>
         <Link to="/cadastro/responsavel"></Link>
+
         <Link to="/cadastro/professor"></Link>
         <Link to="/cadastro/unidade"></Link>
         <Link to="/cadastro/unidade/responsavel"></Link>
+        <Link to="/cadastro/turma"></Link>
 
         <Link to="/home"></Link>
 
@@ -48,7 +52,7 @@ export default function App(){
 
         <Link to="adm/adm_unidade"></Link>
         <Link to="adm/editar_unidade"></Link>
-        <Link to="adm/editar_unidade_responsavel"></Link>
+        <Link to="adm/editar_unidade/responsavel"></Link>
 
         <Link to="adm/adm_turmas"></Link>
         
@@ -57,9 +61,11 @@ export default function App(){
         <Route path="/" element={<Login />}></Route>
         <Route path="/cadastro" element={<Cadastro texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/responsavel" element={<CadastroResponsavel texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
+        
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} botao={"Cadastrar"}/>}></Route>
-        <Route path="/cadastro/unidade" element={<CadastroUnidade  texto={"Cadastro de Unidade"} botao={"Cadastrar"} />}></Route>
-        <Route path="/cadastro/unidade/responsavel" element={<CadastroResponsavelUnidade  texto={"Cadastro do Responsavel pela Unidade"} botao={"Cadastrar"} />}></Route>
+        <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} botao={"Cadastrar"}  url={"/cadastro/unidade/responsavel"}/>}></Route>
+        <Route path="/cadastro/unidade/responsavel" element={<CadastroResponsavelUnidade texto={"Cadastro do Responsavel pela Unidade"} botao={"Cadastrar"}/>}></Route>
+        <Route path="/cadastro/turma" element={<CadastroTurma  texto={"Cadastro de Turmas"} botao={"Cadastrar"}/>}></Route>
 
         <Route path="/home" element={<Home/>}></Route>
 
@@ -75,8 +81,8 @@ export default function App(){
         <Route path="adm/editar_prof" element={<CadastroProf texto={"Editar Professor"} botao={"Editar"}/>}></Route>
 
         <Route path="adm/adm_unidade" element={<AdmUni />}></Route>
-        <Route path="adm/editar_unidade" element={<CadastroUnidade texto={"Editar Unidade"} botao={"Editar"} url={"/adm/editar_unidade_responsavel"}/>}></Route>
-        <Route path="adm/editar_unidade_responsavel" element={<CadastroResponsavelUnidade  texto={"Editar Responsavel pela Unidade"} botao={"Editar"} />}></Route>
+        <Route path="adm/editar_unidade" element={<CadastroUnidade texto={"Editar Unidade"} botao={"Editar"} url={"/adm/editar_unidade/responsavel"}/>}></Route>
+        <Route path="adm/editar_unidade/responsavel" element={<CadastroResponsavelUnidade  texto={"Editar Responsavel pela Unidade"} botao={"Editar"} />}></Route>
 
         <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>
       </Routes>
