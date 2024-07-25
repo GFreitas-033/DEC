@@ -15,7 +15,7 @@ export default function Adicionar_Aluno(){
                 <option value="Domingo">Domingo</option>
             </select>
             <button className={btnStyle.btnAdicionaAluno}>
-                Adicionar Aluno
+                Adicionar Aluno +
             </button>
         </div>
     )
