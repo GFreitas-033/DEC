@@ -1,0 +1,29 @@
+.selectInput{
+    background-color: #000;
+    color: #FBD034;
+    border: none;
+    border-radius: 0.5rem 0 0 0;
+    cursor: pointer;
+    height: 2rem;
+    width: 50%;
+}
+.selectInput:hover{
+    background-color: #6e6e6e;
+    color: #FBD034;
+    transition: 0.5s;
+}
+
+.btnAdicionaAluno{
+    background-color: #000;
+    color: #FBD034;
+    border: none;
+    border-radius: 0 0.5rem 0 0;
+    cursor: pointer;
+    height: 2rem;
+    width: 50%;
+}
+.btnAdicionaAluno:hover{
+    background-color: #6e6e6e;
+    color: #FBD034;
+    transition: 0.5s;
+}

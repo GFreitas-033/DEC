@@ -39,8 +39,8 @@ export default function App(){
 
         <Link to="/home"></Link>
 
-        <Link to="/calendario"></Link>
-        <Link to="calendario/alunosCalendario"></Link>
+        <Link to="/aulas"></Link>
+        <Link to="aulas/alunos_aulas"></Link>
 
         <Link to="/adm"></Link>
   
@@ -70,8 +70,8 @@ export default function App(){
 
         <Route path="/home" element={<Home/>}></Route>
 
-        <Route path="/calendario" element={<Calendario />}></Route>
-        <Route path="calendario/alunosCalendario/:idturma" element={<Alunos />}></Route>
+        <Route path="/aulas" element={<Calendario />}></Route>
+        <Route path="aulas/alunos_aulas/:idturma" element={<Alunos />}></Route>
 
         <Route path="/adm" element={<Adm />}></Route>
         

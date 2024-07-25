@@ -42,7 +42,7 @@ export default function Barra_lateral() {
                 <img src={Casa} className={Icons.imgs} alt="Home Icon" />
                 <p className={Icons.text}>Home</p>
             </Link>
-            <Link to="/calendario">
+            <Link to="/aulas">
                 <img src={Calendario} className={Icons.imgs} alt="Calendar Icon" />
                 <p className={Icons.text}>Aulas</p>
             </Link>
