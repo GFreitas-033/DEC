@@ -1,11 +1,14 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import AdmTurma from "../admAPUT.module.css"
 import Botao from "../botao_adm/botao_adm"
 
 import Editar from "../../../imgs/Editar.png"
 import Excluir from "../../../imgs/Excluir.png"
 
-export default function content_adm_turma(){
+export default function Content_adm_turma(){
+    const navigate = useNavigate()
+
     return(
         <div className={AdmTurma.contentAdm}>
             <div>
@@ -45,7 +48,7 @@ export default function content_adm_turma(){
                         <li>
                             Samuel
                             <img src={Excluir} className={AdmTurma.icon}/>
-                            <img src={Editar} className={AdmTurma.icon}/>
+                            <img src={Editar} className={AdmTurma.icon} onClick={() => navigate('/adm/editar_turma')}/>
                         </li>
 
                         <li>

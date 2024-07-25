@@ -55,6 +55,7 @@ export default function App(){
         <Link to="adm/editar_unidade/responsavel"></Link>
 
         <Link to="adm/adm_turmas"></Link>
+        <Link to="adm/editar_turma"></Link>
         
       {/* Rotas */}
       <Routes>
@@ -65,7 +66,7 @@ export default function App(){
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} botao={"Cadastrar"}  url={"/cadastro/unidade/responsavel"}/>}></Route>
         <Route path="/cadastro/unidade/responsavel" element={<CadastroResponsavelUnidade texto={"Cadastro do Responsavel pela Unidade"} botao={"Cadastrar"}/>}></Route>
-        <Route path="/cadastro/turma" element={<CadastroTurma  texto={"Cadastro de Turmas"} botao={"Cadastrar"}/>}></Route>
+        <Route path="/cadastro/turma" element={<CadastroTurma texto={"Cadastro de Turmas"} botao={"Cadastrar"}/>}></Route>
 
         <Route path="/home" element={<Home/>}></Route>
 
@@ -85,6 +86,7 @@ export default function App(){
         <Route path="adm/editar_unidade/responsavel" element={<CadastroResponsavelUnidade  texto={"Editar Responsavel pela Unidade"} botao={"Editar"} />}></Route>
 
         <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>
+        <Route path="adm/editar_turma" element={<CadastroTurma texto={"Editar Turma"} botao={"Editar"}/>}></Route>
       </Routes>
     </Routers>
   )
