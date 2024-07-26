@@ -93,4 +93,26 @@ Content-Type: application/json
     "id_unidade":1
 }
 
+### Create Unidade
+POST http://localhost:5000/api/unidade
+Content-Type: application/json
+
+{
+  "nome_unidade": "Unidade Teste",
+  "cnpj_unidade": "12345678000190",
+  "telefone_unidade": "11987654321",
+  "email_unidade": "teste@unidade.com",
+  "mais_contatos": "Contato Adicional",
+  "id_endereco": 243,
+  "id_responsavel_unidade": 233
+}
+
+### Create Responsavel Unidade
+POST http://localhost:5000/api/responsavel_unidade
+Content-Type: application/json
+
+{
+  "id_pessoa": 233
+}
+
 

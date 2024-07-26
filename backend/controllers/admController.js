@@ -66,4 +66,37 @@ router.get('/excluirprofessor/:id_professor', async (req, res) => {
     }
 });
 
+router.get('/unidade', async (req, res) => {
+    try {
+        const responseUnidade = await axios.get('http://localhost:5000/api/unidade');
+        const dadosUnidade = responseUnidade.data;
+
+        res.json(dadosUnidade);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao obter dados.');
+    }
+});
+
+router.get('/excluirunidade/:id_unidade', async (req, res) => {
+    const id_unidade = parseInt(req.params.id_unidade);
+    try {
+        
+        const responseTurmas = await axios.get('http://localhost:5000/api/turma');
+        const dadosTurmas = responseTurmas.data;
+        const turmasFiltradas = dadosTurmas.filter(turma => turma.id_unidade === id_unidade);
+        const promises = turmasFiltradas.map(turma => axios.delete(`http://localhost:5000/api/turma/${turma.id_turma}`));
+        await Promise.all(promises);
+
+        await axios.delete(`http://localhost:5000/api/unidade/${id_unidade}`);
+
+        res.status(200).json({
+            message: 'Unidade e turmas associadas excluídas com sucesso!',
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao obter dados.');
+    }
+});
+
 module.exports = router;
