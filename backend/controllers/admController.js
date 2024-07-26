@@ -27,7 +27,7 @@ router.get('/excluiraluno/:id_aluno', async (req, res) => {
     try {
         await axios.delete(`http://localhost:5000/api/aluno_has_turma/${id_aluno}`);
         await axios.delete(`http://localhost:5000/api/aluno/${id_aluno}`);
-        // await axios.delete(`http://localhost:5000/api/pessoa/${id_aluno}`);
+        await axios.delete(`http://localhost:5000/api/pessoa/${id_aluno}`);
         res.status(200).send('Registro excluído com sucesso!');
     } catch (error) {
         console.error(error);
@@ -58,7 +58,7 @@ router.get('/excluirprofessor/:id_professor', async (req, res) => {
     const id_professor = parseInt(req.params.id_professor);
     try {
         await axios.delete(`http://localhost:5000/api/professor/${id_professor}`);
-        // await axios.delete(`http://localhost:5000/api/pessoa/${id_professor}`);
+        await axios.delete(`http://localhost:5000/api/pessoa/${id_professor}`);
         res.status(200).send('Registro excluído com sucesso!');
     } catch (error) {
         console.error(error);
