@@ -19,7 +19,8 @@ router.post('/', asyncHandler(async (req, res) => {
         senha_pessoa,
         telefone_pessoa,
         genero,
-        id_endereco
+        id_endereco,
+        adm
     } = req.body;
 
     novaPessoa = await pessoaModel.createPessoa(
@@ -31,11 +32,13 @@ router.post('/', asyncHandler(async (req, res) => {
         senha_pessoa,
         telefone_pessoa,
         genero,
-        id_endereco
+        id_endereco,
+        adm
     );
 
     res.status(201).json({
-        id: novaPessoa.id_pessoa
+        id: novaPessoa.id_pessoa,
+        adm: novaPessoa.adm
     });
 
 }));

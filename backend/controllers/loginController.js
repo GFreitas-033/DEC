@@ -12,7 +12,7 @@ router.post("/login", async (req, res) => {
             const response = await axios.get('http://localhost:5000/api/pessoa');
             const dados = response.data;
             const pessoa = dados.find(p => p.id_pessoa === id_pessoa);
-            return res.json(pessoa.nome_pessoa);
+            return res.json({nome: pessoa.nome_pessoa, adm: pessoa.adm });
         } catch (error) {
             return res.status(500).json({ message: "Erro ao buscar dados 1", error: error.message });
         }
@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
             }
 
             req.session.id_pessoa = pessoa.id_pessoa;
-            return res.json({ nome: pessoa.nome_pessoa });
+            return res.json({ nome: pessoa.nome_pessoa});
 
         } catch (error) {
             return res.status(500).json({ message: "Erro ao buscar dados 2", error: error.message });

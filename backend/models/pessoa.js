@@ -12,11 +12,11 @@ async function readPessoa() {
     }
 }
 
-async function createPessoa(nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco) {
+async function createPessoa(nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco, adm) {
     senha_pessoa = await bcrypt.hash(senha_pessoa,saltRounds); 
     try {
-        const result = await db.query('INSERT INTO pessoa (nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco) VALUES (?,?,?,?,?,?,?,?,?)', 
-                      [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco]);
+        const result = await db.query('INSERT INTO pessoa (nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco, adm) VALUES (?,?,?,?,?,?,?,?,?,?)', 
+                      [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco, adm]);
         const novoId = result[0].insertId;
         const [novaPessoa] = await db.query('SELECT * FROM pessoa WHERE id_pessoa = ?', [novoId]);
         return novaPessoa[0];
@@ -26,10 +26,10 @@ async function createPessoa(nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, 
     }
 }
 
-async function updatePessoa(id_pessoa, nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco) {
+async function updatePessoa(id_pessoa, nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco, adm) {
     try {
-        await db.query('UPDATE pessoa SET nome_pessoa = ?, dt_nasc_pessoa = ?, cpf_pessoa = ?, rg_pessoa = ?, email_pessoa = ?, senha_pessoa = ?, telefone_pessoa = ?, genero = ?, id_endereco = ? WHERE id_pessoa = ?', 
-                      [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco, id_pessoa]);
+        await db.query('UPDATE pessoa SET nome_pessoa = ?, dt_nasc_pessoa = ?, cpf_pessoa = ?, rg_pessoa = ?, email_pessoa = ?, senha_pessoa = ?, telefone_pessoa = ?, genero = ?, id_endereco = ?, adm = ? WHERE id_pessoa = ?', 
+                      [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco, id_pessoa, adm]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');

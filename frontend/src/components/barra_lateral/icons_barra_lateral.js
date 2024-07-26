@@ -1,5 +1,5 @@
 // Import necessarios
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Icons from "./icons.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -13,6 +13,8 @@ import Adm from "../../imgs/icon1.png";
 import Logout from "../../imgs/logout.png";
 
 export default function Barra_lateral() {
+    const [isAdm, setIsAdm] = useState(false);
+
     const bloquearImg = () => {
         let icones = document.getElementsByTagName('img');
         Array.from(icones).forEach((icone) => {
@@ -20,15 +22,34 @@ export default function Barra_lateral() {
         });
     };
 
+    const verificaAdm = async () => {
+        try {
+            let response = await axios.post('/login');
+            response = response.data;
+            const adm = response.adm === 1;
+            setIsAdm(adm);
+            localStorage.setItem('isAdm', JSON.stringify(adm));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
+        const storedAdm = localStorage.getItem('isAdm');
+        if (storedAdm !== null) {
+            setIsAdm(JSON.parse(storedAdm));
+        } else {
+            verificaAdm();
+        }
         bloquearImg();
-    }, []); // Adicionando array de dependências vazio para executar apenas uma vez
+    }, []);
 
     const navigate = useNavigate();
 
     const sair = async () => {
         try {
             await axios.get('/sair');
+            localStorage.removeItem('isAdm');  // Remover o item armazenado no logout
             navigate('/');
         } catch (error) {
             console.log(`Erro: ${error}`);
@@ -46,10 +67,12 @@ export default function Barra_lateral() {
                 <img src={Calendario} className={Icons.imgs} alt="Calendar Icon" />
                 <p className={Icons.text}>Aulas</p>
             </Link>
-            <Link to="/adm">
-                <img src={Adm} className={Icons.imgs} alt="Admin Icon" />
-                <p className={Icons.text}>Adm</p>
-            </Link>
+            {isAdm && (
+                <Link to="/adm">
+                    <img src={Adm} className={Icons.imgs} alt="Admin Icon" />
+                    <p className={Icons.text}>Adm</p>
+                </Link>
+            )}
             <Link to="/">
                 <img src={Logout} className={Icons.imgs} alt="Logout Icon" onClick={sair} />
                 <p className={Icons.text}>Sair</p>

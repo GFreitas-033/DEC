@@ -14,7 +14,8 @@ export default function Content_home() {
         const logado = async () => {
             try {
                 let response = await axios.post('/login');
-                setMessage(response.data);
+                response = response.data;
+                setMessage(response.nome);
                 setDataLoaded(true);
             } catch (error) {
                 navigate('/');

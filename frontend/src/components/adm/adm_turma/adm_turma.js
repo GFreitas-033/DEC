@@ -16,6 +16,10 @@ export default function Adm_turma(){
     const logado = async () => {
         try {
             let response = await axios.post('/login');
+            response = response.data;
+            if(response.adm!==1){
+                navigate('/home');
+            }
         } catch (error) {
             navigate('/');
         }

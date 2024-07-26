@@ -53,7 +53,8 @@ export default function Submit_logar(props) {
         senha_pessoa: senha,
         telefone_pessoa: telefone,
         genero: genero,
-        id_endereco: responseEndereco.id
+        id_endereco: responseEndereco.id,
+        adm: null
       });
       responsePessoa = responsePessoa.data;
 
