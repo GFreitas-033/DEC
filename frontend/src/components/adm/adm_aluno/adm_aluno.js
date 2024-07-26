@@ -1,9 +1,26 @@
-import React from "react"
+import React, { useEffect } from "react";
 import ContainerCss from "../../containers.module.css";
 import BarraLateral from "../../barra_lateral/icons_barra_lateral"
 import ContentAdmAluno from "./content_adm_aluno"
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function adm_aluno(){
+export default function Adm_aluno(){
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        logado();
+    });
+
+    const logado = async () => {
+        try {
+            let response = await axios.post('/login');
+        } catch (error) {
+            navigate('/');
+        }
+    };
+
     return(
         <div className={ContainerCss.container}>
             <BarraLateral />

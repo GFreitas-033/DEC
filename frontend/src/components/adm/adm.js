@@ -15,7 +15,6 @@ export default function Adm() {
     const logado = async () => {
         try {
             let response = await axios.post('/login');
-            console.log(response.data);
         } catch (error) {
             navigate('/');
         }

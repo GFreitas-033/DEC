@@ -16,7 +16,6 @@ export default function Calendario(){
     const logado = async () => {
         try {
             let response = await axios.post('/login');
-            console.log(response.data);
         } catch (error) {
             navigate('/');
         }
