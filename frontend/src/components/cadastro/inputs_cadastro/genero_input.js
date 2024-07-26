@@ -5,10 +5,10 @@ export default function genero_input(){
     return(
         <div className={Genero.esquerda}>
             <label className={Genero.label}><b>Gênero</b></label><br />
-            <select name="Genero" className={Genero.input}>
+            <select id="genero" className={Genero.input}>
                 <option value="" selected disabled>Selecionar</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Feminino">Feminino</option>
+                <option value="m">Masculino</option>
+                <option value="f">Feminino</option>
             </select>
         </div>
     )

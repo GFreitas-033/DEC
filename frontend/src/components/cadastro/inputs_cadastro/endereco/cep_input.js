@@ -21,7 +21,7 @@ export default function Cep_input({ onBuscarCep }){
                 <label className={Cep.label}><b>Cep</b></label><br />
                 <input type="text" id="cep" placeholder="Insira um Cep aqui" required className={Cep.input}
                 onChange={buscarCep}
-                value={cep}/>
+                value={cep} autoComplete="off"/>
                 <br />
             </div>
         </div>

@@ -18,9 +18,9 @@ export default function Rg_input(){
     return(
         <div className={Rg.esquerda}>
             <label className={Rg.label}><b>RG</b></label><br />
-            <input type="text" id="Rg" placeholder="Insira um Rg aqui" required className={Rg.input}
+            <input type="text" id="rg" placeholder="Insira um Rg aqui" required className={Rg.input}
             onChange={formatarRG}
-            value={rg}/><br />
+            value={rg} autoComplete="off"/><br />
         </div>
     )
 }

@@ -12,7 +12,7 @@ export default function Uf_input({u}){
         <div className={Uf.esquerda}>
             <label className={Uf.label}><b>UF</b></label><br />
             <input type="text" id="uf" required className={Uf.input}
-            onChange={(e)=>setUf(e.target.value)} value={uf}/><br />
+            onChange={(e)=>setUf(e.target.value)} value={uf} autoComplete="off"/><br />
         </div>
     )
 }

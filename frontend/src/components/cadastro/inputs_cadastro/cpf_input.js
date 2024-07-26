@@ -20,7 +20,7 @@ export default function Cpf_input(){
             <label className={Cpf.label}><b>CPF</b></label><br />
             <input type="text" id="cpf" placeholder="Insira um Cpf aqui" required className={Cpf.input} 
             onChange={formatarCPF}
-            value={cpf}/><br />
+            value={cpf} autoComplete="off"/><br />
         </div>
     )
 }

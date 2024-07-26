@@ -86,7 +86,7 @@ export default function ContentCalendario() {
                             <u>{formatDiaSemana(dia)}</u>
                         </h1>
                         {groupedData[dia].map((item, subIndex) => (
-                            <Link to={`alunosCalendario/${item.id_turma}`}>
+                            <Link to={`alunos_aulas/${item.id_turma}`}>
                                 <div key={subIndex} className={Calendario.container_calendario}>
                                 <h1 className={Calendario.textTurma}>{getTurmaNome(item.horario)}</h1>
                                 <p className={Calendario.textLH}>Local: {item.endereco_completo}</p>

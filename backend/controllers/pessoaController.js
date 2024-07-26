@@ -22,7 +22,7 @@ router.post('/', asyncHandler(async (req, res) => {
         id_endereco
     } = req.body;
 
-    await pessoaModel.createPessoa(
+    novaPessoa = await pessoaModel.createPessoa(
         nome_pessoa,
         dt_nasc_pessoa,
         cpf_pessoa,
@@ -33,7 +33,11 @@ router.post('/', asyncHandler(async (req, res) => {
         genero,
         id_endereco
     );
-    res.status(201).send('Registro criado com sucesso!');
+
+    res.status(201).json({
+        id: novaPessoa.id_pessoa
+    });
+
 }));
 
 router.put('/:id', asyncHandler(async (req, res) => {

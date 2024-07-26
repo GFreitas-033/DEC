@@ -12,7 +12,7 @@ export default function Bairro_input({b}){
         <div className={Bairro.esquerda}>
             <label className={Bairro.label}><b>Bairro</b></label><br />
             <input type="text" id="bairro" required className={Bairro.input}
-            onChange={(e)=>setBairro(e.target.value)} value={bairro}/><br />
+            onChange={(e)=>setBairro(e.target.value)} value={bairro} autoComplete="off"/><br />
         </div>
     )
 }

@@ -20,7 +20,7 @@ export default function Cnpj_input(){
             <label className={Cnpj.label}><b>CNPJ</b></label><br />
             <input type="text" id="cnpj" placeholder="Insira um Cnpj aqui" required className={Cnpj.input} 
             onChange={formatarCnpj}
-            value={cnpj}/><br />
+            value={cnpj} autoComplete="off"/><br />
         </div>
     )
 }

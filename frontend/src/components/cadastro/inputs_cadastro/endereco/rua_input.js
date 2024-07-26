@@ -12,7 +12,7 @@ export default function Rua_input({r}){
         <div className={Rua.esquerda}>
             <label className={Rua.label}><b>Rua</b></label><br />
             <input type="text" id="rua" required className={Rua.input}
-            onChange={(e)=>setRua(e.target.value)} value={rua}/><br />
+            onChange={(e)=>setRua(e.target.value)} value={rua} autoComplete="off"/><br />
         </div>
     )
 }

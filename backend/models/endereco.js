@@ -16,7 +16,7 @@ async function createEndereco(cep, estado, cidade, bairro, rua, numero) {
                                      [cep, estado, cidade, bairro, rua, numero]);
         const novoId = result[0].insertId;
         const [novoEndereco] = await db.query('SELECT * FROM endereco WHERE id_endereco = ?', [novoId]);
-        return novoEndereco[0];  // Corrigido para retornar o primeiro item do array
+        return novoEndereco[0];
     } catch (err) {
         console.error('Erro ao criar registro:', err);
         throw new Error('Erro interno do servidor');

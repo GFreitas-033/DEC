@@ -12,8 +12,11 @@ async function readPessoa() {
 
 async function createPessoa(nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco) {
     try {
-        await db.query('INSERT INTO pessoa (nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco) VALUES (?,?,?,?,?,?,?,?,?)', 
+        const result = await db.query('INSERT INTO pessoa (nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco) VALUES (?,?,?,?,?,?,?,?,?)', 
                       [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco]);
+        const novoId = result[0].insertId;
+        const [novaPessoa] = await db.query('SELECT * FROM pessoa WHERE id_pessoa = ?', [novoId]);
+        return novaPessoa[0];
     } catch (err) {
         console.error('Erro ao criar registro:', err);
         throw new Error('Erro interno do servidor');
