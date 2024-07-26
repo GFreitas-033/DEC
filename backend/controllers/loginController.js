@@ -2,9 +2,10 @@
 const express = require("express");
 const axios = require("axios");
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 router.post("/login", async (req, res) => {
-    const { email, senha } = req.body;
+    const { email, senha } = req.body; 
     if (req.session.id_pessoa) {
         try {
             let id_pessoa = req.session.id_pessoa;
@@ -20,10 +21,11 @@ router.post("/login", async (req, res) => {
             const response = await axios.get('http://localhost:5000/api/pessoa');
             const dados = response.data;
             const pessoa = dados.find(p => p.email_pessoa === email);
+            const verificaSenha = await bcrypt.compare(senha,pessoa.senha_pessoa);
 
             if (!pessoa) {
                 return res.status(404).json({ message: "Email inválido" });
-            } else if (pessoa.senha_pessoa !== senha) {
+            } else if (!verificaSenha) {
                 return res.status(404).json({ message: "Senha incorreta" });
             }
             req.session.id_pessoa = pessoa.id_pessoa;

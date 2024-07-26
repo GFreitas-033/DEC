@@ -1,4 +1,6 @@
 const db = require('../database/db');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 async function readPessoa() {
     try {
@@ -11,6 +13,7 @@ async function readPessoa() {
 }
 
 async function createPessoa(nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco) {
+    senha_pessoa = await bcrypt.hash(senha_pessoa,saltRounds); 
     try {
         const result = await db.query('INSERT INTO pessoa (nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco) VALUES (?,?,?,?,?,?,?,?,?)', 
                       [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco]);

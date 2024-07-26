@@ -16,7 +16,6 @@ export default function Submit_logar(){
         const senha = document.getElementById("senha").value;
 
         try {
-            console.log(email,senha);
             const response = await axios.post('/login', { email, senha });
             if(response.data.nome){
                 navigate('/home');
