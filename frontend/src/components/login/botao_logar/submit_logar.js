@@ -12,11 +12,11 @@ export default function Submit_logar(){
 
     const login = async(event)=>{
         event.preventDefault();
-        const email = document.getElementById("email").value;
+        const usuario = document.getElementById("email").value;
         const senha = document.getElementById("senha").value;
 
         try {
-            const response = await axios.post('/login', { email, senha });
+            const response = await axios.post('/login', { usuario, senha });
             if(response.data.nome){
                 navigate('/home');
             }

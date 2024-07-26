@@ -5,7 +5,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 router.post("/login", async (req, res) => {
-    const { email, senha } = req.body; 
+    const { usuario, senha } = req.body; 
     if (req.session.id_pessoa) {
         try {
             let id_pessoa = req.session.id_pessoa;
@@ -20,14 +20,23 @@ router.post("/login", async (req, res) => {
         try {
             const response = await axios.get('http://localhost:5000/api/pessoa');
             const dados = response.data;
-            const pessoa = dados.find(p => p.email_pessoa === email);
-            const verificaSenha = await bcrypt.compare(senha,pessoa.senha_pessoa);
+            const usuarioFormatado = usuario.toLowerCase();
+            const pessoa = dados.find(p => {
+                const nomeCompleto = p.nome_pessoa.toLowerCase().split(" ");
+                const nomeUsuario = nomeCompleto.length > 1 ? `${nomeCompleto[0]}.${nomeCompleto[1]}` : nomeCompleto[0];
+                return nomeUsuario === usuarioFormatado;
+            });
 
             if (!pessoa) {
-                return res.status(404).json({ message: "Email inválido" });
-            } else if (!verificaSenha) {
+                return res.status(404).json({ message: "Usuário inválido" });
+            }
+
+            const verificaSenha = await bcrypt.compare(senha, pessoa.senha_pessoa);
+
+            if (!verificaSenha) {
                 return res.status(404).json({ message: "Senha incorreta" });
             }
+
             req.session.id_pessoa = pessoa.id_pessoa;
             return res.json({ nome: pessoa.nome_pessoa });
 
