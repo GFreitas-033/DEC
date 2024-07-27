@@ -22,7 +22,7 @@ export default function Imagem_input(){
 
     return(
         <div className={ImagemStyle.contentImagem}>
-          <input type="file" id="imagem" required style={{display: "none"}}
+          <input type="file" id="imagem" style={{display: "none"}}
             accept="image/*"
             onChange={visualizarImagem} />
           <label htmlFor="imagem" className={ImagemStyle.inputImagem}>Adicionar Imagem</label>
