@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Styles from "./form.module.css";
 import Texto from "../textos_cadastro/texto_cadastro";
+import axios from "axios";
 
 // Import dos Input
 import Email from "../inputs_cadastro/email_input";
@@ -53,11 +54,77 @@ export default function Form(props) {
     event.preventDefault();
     const form = event.target;
     if (form.checkValidity()) {
+      cliquei();
     } else {
-      // Exibe mensagens de validação
       form.reportValidity();
     }
   };
+
+  function tratamentoString(inputString) {
+    return inputString.replace(/[.\-()\s]/g, '');
+  }
+
+  // Obter a data atual
+  const dataAtual = new Date();
+  const adicionarZero = (numero) => (numero < 10 ? `0${numero}` : numero);
+  const ano = dataAtual.getFullYear();
+  const mes = adicionarZero(dataAtual.getMonth() + 1);
+  const dia = adicionarZero(dataAtual.getDate());
+  const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
+
+  async function cliquei() {
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+    const nome = document.getElementById('nome').value;
+    const cpf = tratamentoString(document.getElementById('cpf').value);
+    const rg = tratamentoString(document.getElementById('rg').value);
+    const telefone = tratamentoString(document.getElementById('telefone').value);
+    const dt_nascimento = document.getElementById('dt_nasc').value;
+    const maodominante = document.getElementById('maodominante').value;
+    const genero = document.getElementById('genero').value;
+    const cep = document.getElementById('cep').value;
+    const uf = document.getElementById('uf').value;
+    const cidade = document.getElementById('cidade').value;
+    const bairro = document.getElementById('bairro').value;
+    const rua = document.getElementById('rua').value;
+    
+    try {
+      let responseEndereco = await axios.post('api/endereco/', {
+        cep: cep,
+        estado: uf,
+        cidade: cidade,
+        bairro: bairro,
+        rua: rua,
+        numero: null
+      });
+      responseEndereco = responseEndereco.data;
+      
+      let responsePessoa = await axios.post('api/pessoa/', {
+        nome_pessoa: nome,
+        dt_nasc_pessoa: dt_nascimento,
+        cpf_pessoa: cpf,
+        rg_pessoa: rg,
+        email_pessoa: email,
+        senha_pessoa: senha,
+        telefone_pessoa: telefone,
+        genero: genero,
+        id_endereco: responseEndereco.id,
+        adm: null
+      });
+      responsePessoa = responsePessoa.data;
+
+      const responseAluno = await axios.post('api/aluno',{
+        id_pessoa: responsePessoa.id, 
+        destro_canhoto:maodominante, 
+        id_responsavel:null, 
+        dt_inicio: dataFormatadaMySQL
+      });
+
+      setResponsePessoa(responseAluno.data);
+    } catch (error) {
+      console.log("Erro ao criar aluno: ", error);
+    }
+  }
 
   // Recarrega a página quando responsePessoa estiver disponível
   if (responsePessoa) {
@@ -84,7 +151,7 @@ export default function Form(props) {
           <Bairro b={bairro} />
           <Rua r={logradouro} />
         </div>
-        <Botao btn={props.botao} onResponse={setResponsePessoa} />
+        <Botao btn={props.botao} onClick={cliquei} />
       </form>
     </div>
   );
