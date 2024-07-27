@@ -15,7 +15,7 @@ export default function Content_adm_unidade() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('/admbackend/unidade');
+                const response = await axios.get('/api/unidade');
                 setUnidades(response.data);
             } catch (error) {
                 console.error('Erro ao buscar dados das unidades:', error);

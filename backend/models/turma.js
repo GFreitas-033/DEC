@@ -10,20 +10,20 @@ async function readTurma() {
     }
 }
 
-async function createTurma(qtd_maxima, id_professor, dia_semana, horario, id_unidade) {
+async function createTurma(qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma) {
     try {
-        await db.query('INSERT INTO turma (qtd_maxima, id_professor, dia_semana, horario, id_unidade) VALUES (?, ?, ?, ?, ?)', 
-                      [qtd_maxima, id_professor, dia_semana, horario, id_unidade]);
+        await db.query('INSERT INTO turma (qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma) VALUES (?, ?, ?, ?, ?, ?)', 
+                      [qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma]);
     } catch (err) {
         console.error('Erro ao criar registro:', err);
         throw new Error('Erro interno do servidor');
     }
 }
 
-async function updateTurma(id_turma, qtd_maxima, id_professor, dia_semana, horario, id_unidade) {
+async function updateTurma(id_turma, qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma) {
     try {
-        await db.query('UPDATE turma SET qtd_maxima = ?, id_professor = ?, dia_semana = ?, horario = ?, id_unidade = ? WHERE id_turma = ?', 
-                      [qtd_maxima, id_professor, dia_semana, horario,id_unidade, id_turma]);
+        await db.query('UPDATE turma SET qtd_maxima = ?, id_professor = ?, dia_semana = ?, horario = ?, id_unidade = ?, nome_turma = ? WHERE id_turma = ?', 
+                      [qtd_maxima, id_professor, dia_semana, horario,id_unidade, id_turma, nome_turma]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');

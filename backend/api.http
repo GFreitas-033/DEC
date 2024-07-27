@@ -16,18 +16,20 @@ GET  http://localhost:5000/adm/professor
 
 ###
 
-PUT http://localhost:3000/api/pessoa/1
+POST http://localhost:5000/api/pessoa/
 Content-Type: application/json
 
 {
-    "nome_pessoa":"Francisco",
+    "nome_pessoa":"ADMINISTRADOR",
     "dt_nasc_pessoa":"2004-03-04",
     "cpf_pessoa":"1241413513",
     "rg_pessoa":"431511341",
-    "email_pessoa":"eduardo@teste.com.br",
-    "senha_pessoa":"eduardo123",
-    "telefone_pessoa":"14 9999999",
-    "id_endereco":1
+    "email_pessoa":"nao importa",
+    "senha_pessoa":"admin123",
+    "telefone_pessoa":"149999999",
+    "genero":"m",
+    "id_endereco":1,
+    "adm":1
 }
 
 ###
@@ -68,7 +70,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5000/calendario
+GET http://localhost:5000/adm/excluirturma/2
 
 ###
 
@@ -76,8 +78,8 @@ POST http://localhost:5000/api/aluno_has_turma HTTP/1.1
 Content-Type: application/json
 
 {
-    "id_aluno":249,
-    "id_turma":1
+    "id_aluno":3,
+    "id_turma":4
 }
 
 ###
@@ -87,10 +89,11 @@ Content-Type: application/json
 
 {
     "qtd_maxima":10, 
-    "id_professor":5, 
-    "dia_semana":"terca", 
-    "horario":"10:00:00", 
-    "id_unidade":1
+    "id_professor":2, 
+    "dia_semana":"quarta", 
+    "horario":"16:00:00", 
+    "id_unidade":1,
+    "nome_turma":"Turma Teste"
 }
 
 ### Create Unidade
@@ -103,8 +106,8 @@ Content-Type: application/json
   "telefone_unidade": "11987654321",
   "email_unidade": "teste@unidade.com",
   "mais_contatos": "Contato Adicional",
-  "id_endereco": 243,
-  "id_responsavel_unidade": 233
+  "id_endereco": 1,
+  "id_responsavel_unidade": 2
 }
 
 ### Create Responsavel Unidade
@@ -112,7 +115,7 @@ POST http://localhost:5000/api/responsavel_unidade
 Content-Type: application/json
 
 {
-  "id_pessoa": 233
+  "id_pessoa": 2
 }
 
 

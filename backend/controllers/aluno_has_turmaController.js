@@ -22,9 +22,15 @@ router.put('/:id', asyncHandler(async (req, res) => {
     res.status(200).send('Registro atualizado com sucesso!');
 }));
 
-router.delete('/:id', asyncHandler(async (req, res) => {
+router.delete('/aluno/:id', asyncHandler(async (req, res) => {
     const id_aluno = parseInt(req.params.id);
-    await aluno_has_turmaModel.deleteAlunoHasTurma(id_aluno);
+    await aluno_has_turmaModel.deleteAlunoHasTurma_Aluno(id_aluno);
+    res.status(200).send('Registro excluído com sucesso!');
+}));
+
+router.delete('/turma/:id', asyncHandler(async (req, res) => {
+    const id_turma = parseInt(req.params.id);
+    await aluno_has_turmaModel.deleteAlunoHasTurma_Turma(id_turma);
     res.status(200).send('Registro excluído com sucesso!');
 }));
 
