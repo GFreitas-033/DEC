@@ -22,8 +22,8 @@ Content-Type: application/json
 {
     "nome_pessoa":"ADMINISTRADOR",
     "dt_nasc_pessoa":"2004-03-04",
-    "cpf_pessoa":"1241413513",
-    "rg_pessoa":"431511341",
+    "cpf_pessoa":"124141241312",
+    "rg_pessoa":"4315354134",
     "email_pessoa":"nao importa",
     "senha_pessoa":"admin123",
     "telefone_pessoa":"149999999",

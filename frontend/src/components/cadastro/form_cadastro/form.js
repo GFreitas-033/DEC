@@ -29,8 +29,10 @@ export default function Form(props) {
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [rg, setRg] = useState("");
+  const [telefone, setTelefone] = useState("");
   let id_endereco = 0;
-  let data_inicio;
   const [responsePessoa, setResponsePessoa] = useState(null);
   const navigate = useNavigate();
 
@@ -77,17 +79,18 @@ export default function Form(props) {
       let responsePessoa = await axios.get('/api/pessoa');
       responsePessoa = responsePessoa.data;
       responsePessoa = responsePessoa.find(item => item.id_pessoa === id_aluno);
-      console.log(responsePessoa);
       document.getElementById('email').value = responsePessoa.email_pessoa;
       document.getElementById('nome').value = responsePessoa.nome_pessoa;
       document.getElementById('cpf').value = formatCPF(responsePessoa.cpf_pessoa);
       document.getElementById('rg').value = formatRG(responsePessoa.rg_pessoa);
+      document.getElementById('telefone').value = formatTelefone(responsePessoa.telefone_pessoa);
+      setCpf(formatCPF(responsePessoa.cpf_pessoa));
+      setRg(formatRG(responsePessoa.rg_pessoa));
+      setTelefone(formatTelefone(responsePessoa.telefone_pessoa));
       let responseAluno = await axios.get('/api/aluno');
       responseAluno = responseAluno.data;
       responseAluno = responseAluno.find(item => item.id_pessoa === id_aluno);
-      data_inicio = responseAluno.dt_inicio;
       document.getElementById('maodominante').value = responseAluno.destro_canhoto;
-      document.getElementById('telefone').value = formatTelefone(responsePessoa.telefone_pessoa);
       document.getElementById('dt_nasc').value = formatarData(responsePessoa.dt_nasc_pessoa);
       document.getElementById('genero').value = responsePessoa.genero;
       let responseEndereco = await axios.get('/api/endereco');
@@ -119,6 +122,9 @@ export default function Form(props) {
         setBairro(dados.bairro);
         setCidade(dados.localidade);
         setUf(dados.uf);
+        document.getElementById('cpf').value = cpf;
+        document.getElementById('rg').value = rg;
+        document.getElementById('telefone').value = telefone;
       })
       .catch((error) => {
         console.error('Erro ao buscar CEP:', error);
@@ -192,11 +198,8 @@ export default function Form(props) {
           senha_pessoa: senha,
           telefone_pessoa: telefone,
           genero: genero,
-          id_endereco: id_endereco,
-          adm: null
+          id_endereco: id_endereco
         });
-
-        console.log(responsePessoa);
 
         const responseAluno = await axios.put(`/api/aluno/${id_aluno}`, {
           id_pessoa: id_aluno,
