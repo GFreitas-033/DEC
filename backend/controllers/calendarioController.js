@@ -34,7 +34,8 @@ router.get('/calendario', async (req, res) => {
             dia_semana: turma.dia_semana,
             horario: turma.horario,
             id_unidade: turma.id_unidade,
-            id_turma: turma.id_turma
+            id_turma: turma.id_turma,
+            nome_turma: turma.nome_turma // Adiciona o campo nome_turma
         }));
 
         const responseUnidades = await axios.get('http://localhost:5000/api/unidade');
@@ -51,7 +52,8 @@ router.get('/calendario', async (req, res) => {
             dia_semana: turma.dia_semana,
             horario: turma.horario,
             id_turma: turma.id_turma,
-            id_endereco: unidadesMap[turma.id_unidade] || turma.id_unidade
+            id_endereco: unidadesMap[turma.id_unidade] || turma.id_unidade,
+            nome_turma: turma.nome_turma // Mantém o campo nome_turma
         }));
 
         const responseEnderecos = await axios.get('http://localhost:5000/api/endereco');
@@ -66,7 +68,8 @@ router.get('/calendario', async (req, res) => {
             dia_semana: turma.dia_semana,
             horario: turma.horario,
             id_turma: turma.id_turma,
-            endereco_completo: enderecosMap[turma.id_endereco] || turma.id_endereco
+            endereco_completo: enderecosMap[turma.id_endereco] || turma.id_endereco,
+            nome_turma: turma.nome_turma // Inclui o campo nome_turma no resultado final
         }));
 
         res.json(turmasComEnderecoCompleto);

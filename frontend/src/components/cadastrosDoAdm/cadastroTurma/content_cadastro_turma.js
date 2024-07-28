@@ -1,38 +1,82 @@
-import React from "react"
-import { useNavigate } from "react-router-dom"
-import StyleCadastroTurma from "../cadastroDoAdm.module.css"
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import StyleCadastroTurma from "../cadastroDoAdm.module.css";
+import axios from "axios";
 
-import Texto from "../../cadastro/textos_cadastro/texto_cadastro"
+import Texto from "../../cadastro/textos_cadastro/texto_cadastro";
 
 // Imports dos Inputs
-import SelecionarProf from "../../cadastro/inputs_cadastro/inputsTurma/professor_input"
-import SelecionarUni from "../../cadastro/inputs_cadastro/inputsTurma/unidade_input"
-import QtdMaxima from "../../cadastro/inputs_cadastro/inputsTurma/qtdMaxima_input"
-import DiaSemana from "../../cadastro/inputs_cadastro/inputsTurma/diaSemana_input"
-import Horario from "../../cadastro/inputs_cadastro/inputsTurma/horario_input"
+import SelecionarProf from "../../cadastro/inputs_cadastro/inputsTurma/professor_input";
+import SelecionarUni from "../../cadastro/inputs_cadastro/inputsTurma/unidade_input";
+import QtdMaxima from "../../cadastro/inputs_cadastro/inputsTurma/qtdMaxima_input";
+import DiaSemana from "../../cadastro/inputs_cadastro/inputsTurma/diaSemana_input";
+import Horario from "../../cadastro/inputs_cadastro/inputsTurma/horario_input";
+import Nome from "../../cadastro/inputs_cadastro/inputsTurma/nome_input";
 
-import Botao from "../../cadastro/botao_cadastro/submit_cadastro"
+import Botao from "../../cadastro/botao_cadastro/submit_cadastro";
 
-export default function  Content_cadastro_Turma(props){
-    const navigate = useNavigate()
+export default function Content_cadastro_Turma(props) {
+    const navigate = useNavigate();
+    const [responseTurma, setResponseTurma] = useState(null);
 
-    return(
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        if (form.checkValidity()) {
+            cliquei();
+        } else {
+            form.reportValidity();
+        }
+    };
+
+    async function cliquei() {
+        const professor = document.getElementById('SelecaoProfessor').value;
+        const unidade = document.getElementById('SelecaoUnidade').value;
+        const qtdmaxima = document.getElementById('Maximo').value;
+        const diasemana = document.getElementById('diaSemana').value;
+        const horario = document.getElementById('Horario').value;
+        const nome_turma = document.getElementById('nome').value;
+
+        try {
+            let responseTurma = await axios.post('/api/turma/', {
+                qtd_maxima: qtdmaxima,
+                id_professor: professor,
+                dia_semana: diasemana,
+                horario: horario,
+                id_unidade: unidade,
+                nome_turma: nome_turma
+            });
+            responseTurma = responseTurma.data;
+            setResponseTurma(responseTurma);
+        } catch (error) {
+            console.log("Erro ao criar turma: ", error);
+        }
+    }
+
+    useEffect(() => {
+        if (responseTurma) {
+            window.location.reload();
+        }
+    }, [responseTurma]);
+
+    return (
         <div className={StyleCadastroTurma.ContentC}>
-            <h1 className={StyleCadastroTurma.titulo}><Texto text={props.texto}/></h1>
+            <h1 className={StyleCadastroTurma.titulo}><Texto text={props.texto} /></h1>
 
-            <form className={StyleCadastroTurma.content} autoComplete="off"> 
+            <form className={StyleCadastroTurma.content} autoComplete="off" onSubmit={handleSubmit}>
                 <div className={StyleCadastroTurma.contentInputs}>
-                  <SelecionarProf/>
-                  <SelecionarUni/>
-                  <QtdMaxima/>
-                  <DiaSemana/>
-                  <Horario/>
+                    <Nome id="nome" />
+                    <SelecionarProf id="SelecaoProfessor" />
+                    <SelecionarUni id="SelecaoUnidade" />
+                    <QtdMaxima id="Maximo" />
+                    <DiaSemana id="diaSemana" />
+                    <Horario id="Horario" />
                 </div>
 
-                <div className={StyleCadastroTurma.divBtn} onClick={()=>navigate(props.url)}>
-                    <Botao btn={props.botao} className={StyleCadastroTurma.btn}/>
+                <div className={StyleCadastroTurma.divBtn}>
+                    <Botao btn={props.botao} onClick={handleSubmit} className={StyleCadastroTurma.btn} />
                 </div>
             </form>
         </div>
-    )
+    );
 }

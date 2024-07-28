@@ -8,6 +8,7 @@ export default function ContentCalendario() {
     const [loading, setLoading] = useState(true);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [loadingText, setLoadingText] = useState("Carregando.");
+
     useEffect(() => {
         const timer = setTimeout(() => {
             if (dataLoaded) {
@@ -34,23 +35,12 @@ export default function ContentCalendario() {
             .then(response => {
                 setCalendarioData(response.data);
                 setDataLoaded(true);
+                console.log(response.data);
             })
             .catch(error => {
                 console.error("Erro ao buscar dados do calendário:", error);
             });
     }, []);
-
-    const getTurmaNome = (horario) => {
-        const [hours] = horario.split(":");
-        const hour = parseInt(hours, 10);
-        if (hour >= 6 && hour < 12) {
-            return "Turma Manhã";
-        } else if (hour >= 12 && hour < 18) {
-            return "Turma Tarde";
-        } else {
-            return "Turma Noite";
-        }
-    };
 
     const formatHorario = (horario) => {
         const [hours, minutes] = horario.split(":");
@@ -86,14 +76,13 @@ export default function ContentCalendario() {
                             <u>{formatDiaSemana(dia)}</u>
                         </h1>
                         {groupedData[dia].map((item, subIndex) => (
-                            <Link to={`alunos_aulas/${item.id_turma}`}>
-                                <div key={subIndex} className={Calendario.container_calendario}>
-                                <h1 className={Calendario.textTurma}>{getTurmaNome(item.horario)}</h1>
-                                <p className={Calendario.textLH}>Local: {item.endereco_completo}</p>
-                                <p className={Calendario.textLH}>Horário: {formatHorario(item.horario)}</p>
-                            </div>
+                            <Link to={`alunos_aulas/${item.id_turma}`} key={subIndex}>
+                                <div className={Calendario.container_calendario}>
+                                    <h1 className={Calendario.textTurma}>{item.nome_turma}</h1>
+                                    <p className={Calendario.textLH}>Local: {item.endereco_completo}</p>
+                                    <p className={Calendario.textLH}>Horário: {formatHorario(item.horario)}</p>
+                                </div>
                             </Link>
-                            
                         ))}
                     </div>
                 ))
