@@ -67,7 +67,7 @@ export default function Content_adm_professor() {
                                 <img 
                                     src={Editar} 
                                     className={AdmProf.icon} 
-                                    onClick={() => navigate(`/adm/editar_professor/${professor.id_pessoa}`)}
+                                    onClick={() => navigate(`/adm/editar_prof/${professor.id_pessoa}`)}
                                 />
                             </li>
                         ))}

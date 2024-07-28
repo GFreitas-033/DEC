@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Styles from "./form.module.css";
 import Texto from "../textos_cadastro/texto_cadastro";
 import axios from "axios";
@@ -23,11 +24,31 @@ import Rua from "../inputs_cadastro/endereco/rua_input";
 import Botao from "../botao_cadastro/submit_cadastro";
 
 export default function Form(props) {
+  const { id_aluno } = useParams();
   const [logradouro, setLogradouro] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
   const [responsePessoa, setResponsePessoa] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id_aluno !== undefined) {
+      logado();
+    }
+  }, [id_aluno]);
+
+  const logado = async () => {
+    try {
+      let response = await axios.post('/login');
+      response = response.data;
+      if (response.adm !== 1) {
+        navigate('/home');
+      }
+    } catch (error) {
+      navigate('/');
+    }
+  };
 
   const handleBuscarCep = (cep) => {
     if (cep.length < 9) {
@@ -87,7 +108,7 @@ export default function Form(props) {
     const cidade = document.getElementById('cidade').value;
     const bairro = document.getElementById('bairro').value;
     const rua = document.getElementById('rua').value;
-    
+
     try {
       let responseEndereco = await axios.post('api/endereco/', {
         cep: cep,
@@ -98,7 +119,7 @@ export default function Form(props) {
         numero: null
       });
       responseEndereco = responseEndereco.data;
-      
+
       let responsePessoa = await axios.post('api/pessoa/', {
         nome_pessoa: nome,
         dt_nasc_pessoa: dt_nascimento,
@@ -113,10 +134,10 @@ export default function Form(props) {
       });
       responsePessoa = responsePessoa.data;
 
-      const responseAluno = await axios.post('api/aluno',{
-        id_pessoa: responsePessoa.id, 
-        destro_canhoto:maodominante, 
-        id_responsavel:null, 
+      const responseAluno = await axios.post('api/aluno', {
+        id_pessoa: responsePessoa.id,
+        destro_canhoto: maodominante,
+        id_responsavel: null,
         dt_inicio: dataFormatadaMySQL
       });
 
