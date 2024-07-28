@@ -62,7 +62,7 @@ Content-Type: application/json
 {
     "cep":"16401-093",
     "estado":"São-Paulo",
-    "cidade":"Lins",
+    "cidade":"",
     "bairro":"Jardim Tropical", 
     "rua":"São Cristovão", 
     "numero":"261"

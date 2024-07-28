@@ -24,17 +24,21 @@ import Rua from "../inputs_cadastro/endereco/rua_input";
 import Botao from "../botao_cadastro/submit_cadastro";
 
 export default function Form(props) {
-  const { id_aluno } = useParams();
+  let { id_aluno } = useParams();
   const [logradouro, setLogradouro] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
+  let id_endereco = 0;
+  let data_inicio;
   const [responsePessoa, setResponsePessoa] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (id_aluno !== undefined) {
       logado();
+      id_aluno = parseInt(id_aluno);
+      preencherDados();
     }
   }, [id_aluno]);
 
@@ -47,6 +51,56 @@ export default function Form(props) {
       }
     } catch (error) {
       navigate('/');
+    }
+  };
+
+  const formatCPF = (cpf) => {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  };
+
+  const formatRG = (rg) => {
+    return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{1})/, '$1.$2.$3-$4');
+  };
+
+  const formatTelefone = (telefone) => {
+    telefone = telefone.replace(/\D/g, ''); // Remove non-digits
+    if (telefone.length === 11) {
+      return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    } else if (telefone.length === 10) {
+      return telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    }
+    return telefone;
+  };
+
+  const preencherDados = async () => {
+    try {
+      let responsePessoa = await axios.get('/api/pessoa');
+      responsePessoa = responsePessoa.data;
+      responsePessoa = responsePessoa.find(item => item.id_pessoa === id_aluno);
+      console.log(responsePessoa);
+      document.getElementById('email').value = responsePessoa.email_pessoa;
+      document.getElementById('nome').value = responsePessoa.nome_pessoa;
+      document.getElementById('cpf').value = formatCPF(responsePessoa.cpf_pessoa);
+      document.getElementById('rg').value = formatRG(responsePessoa.rg_pessoa);
+      let responseAluno = await axios.get('/api/aluno');
+      responseAluno = responseAluno.data;
+      responseAluno = responseAluno.find(item => item.id_pessoa === id_aluno);
+      data_inicio = responseAluno.dt_inicio;
+      document.getElementById('maodominante').value = responseAluno.destro_canhoto;
+      document.getElementById('telefone').value = formatTelefone(responsePessoa.telefone_pessoa);
+      document.getElementById('dt_nasc').value = formatarData(responsePessoa.dt_nasc_pessoa);
+      document.getElementById('genero').value = responsePessoa.genero;
+      let responseEndereco = await axios.get('/api/endereco');
+      responseEndereco = responseEndereco.data;
+      responseEndereco = responseEndereco.find(item => item.id_endereco === responsePessoa.id_endereco);
+      id_endereco = responsePessoa.id_endereco;
+      document.getElementById('cep').value = responseEndereco.cep;
+      document.getElementById('uf').value = responseEndereco.estado;
+      document.getElementById('cidade').value = responseEndereco.cidade;
+      document.getElementById('bairro').value = responseEndereco.bairro;
+      document.getElementById('rua').value = responseEndereco.rua;
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -85,6 +139,15 @@ export default function Form(props) {
     return inputString.replace(/[.\-()\s]/g, '');
   }
 
+  function formatarData(dateString) {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  }
+
   // Obter a data atual
   const dataAtual = new Date();
   const adicionarZero = (numero) => (numero < 10 ? `0${numero}` : numero);
@@ -108,43 +171,82 @@ export default function Form(props) {
     const cidade = document.getElementById('cidade').value;
     const bairro = document.getElementById('bairro').value;
     const rua = document.getElementById('rua').value;
+    if (id_aluno !== undefined) {
+      console.log(id_endereco);
+      try {
+        let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
+          cep: cep,
+          estado: uf,
+          cidade: cidade,
+          bairro: bairro,
+          rua: rua,
+          numero: null
+        });
 
-    try {
-      let responseEndereco = await axios.post('api/endereco/', {
-        cep: cep,
-        estado: uf,
-        cidade: cidade,
-        bairro: bairro,
-        rua: rua,
-        numero: null
-      });
-      responseEndereco = responseEndereco.data;
+        let responsePessoa = await axios.put(`/api/pessoa/${id_aluno}`, {
+          nome_pessoa: nome,
+          dt_nasc_pessoa: dt_nascimento,
+          cpf_pessoa: cpf,
+          rg_pessoa: rg,
+          email_pessoa: email,
+          senha_pessoa: senha,
+          telefone_pessoa: telefone,
+          genero: genero,
+          id_endereco: id_endereco,
+          adm: null
+        });
 
-      let responsePessoa = await axios.post('api/pessoa/', {
-        nome_pessoa: nome,
-        dt_nasc_pessoa: dt_nascimento,
-        cpf_pessoa: cpf,
-        rg_pessoa: rg,
-        email_pessoa: email,
-        senha_pessoa: senha,
-        telefone_pessoa: telefone,
-        genero: genero,
-        id_endereco: responseEndereco.id,
-        adm: null
-      });
-      responsePessoa = responsePessoa.data;
+        console.log(responsePessoa);
 
-      const responseAluno = await axios.post('api/aluno', {
-        id_pessoa: responsePessoa.id,
-        destro_canhoto: maodominante,
-        id_responsavel: null,
-        dt_inicio: dataFormatadaMySQL
-      });
+        const responseAluno = await axios.put(`/api/aluno/${id_aluno}`, {
+          id_pessoa: id_aluno,
+          destro_canhoto: maodominante,
+          id_responsavel: null,
+        });
 
-      setResponsePessoa(responseAluno.data);
-    } catch (error) {
-      console.log("Erro ao criar aluno: ", error);
+        setResponsePessoa(responseAluno);
+      } catch (error) {
+        console.log("Erro ao criar aluno: ", error);
+      }
+    }else{
+      try {
+        let responseEndereco = await axios.post('/api/endereco/', {
+          cep: cep,
+          estado: uf,
+          cidade: cidade,
+          bairro: bairro,
+          rua: rua,
+          numero: null
+        });
+        responseEndereco = responseEndereco.data;
+
+        let responsePessoa = await axios.post('/api/pessoa/', {
+          nome_pessoa: nome,
+          dt_nasc_pessoa: dt_nascimento,
+          cpf_pessoa: cpf,
+          rg_pessoa: rg,
+          email_pessoa: email,
+          senha_pessoa: senha,
+          telefone_pessoa: telefone,
+          genero: genero,
+          id_endereco: responseEndereco.id,
+          adm: null
+        });
+        responsePessoa = responsePessoa.data;
+
+        const responseAluno = await axios.post('/api/aluno', {
+          id_pessoa: responsePessoa.id,
+          destro_canhoto: maodominante,
+          id_responsavel: null,
+          dt_inicio: dataFormatadaMySQL
+        });
+
+        setResponsePessoa(responseAluno);
+      } catch (error) {
+        console.log("Erro ao criar aluno: ", error);
+      }
     }
+    
   }
 
   // Recarrega a página quando responsePessoa estiver disponível

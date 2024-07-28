@@ -20,10 +20,10 @@ async function createAluno(id_pessoa, destro_canhoto, id_responsavel, dt_inicio)
     }
 }
 
-async function updateAluno(id_pessoa, destro_canhoto, id_responsavel, dt_inicio) {
+async function updateAluno(id_pessoa, destro_canhoto, id_responsavel) {
     try {
-        await db.query('UPDATE aluno SET destro_canhoto = ?, id_responsavel = ?, dt_inicio = ? WHERE id_pessoa = ?', 
-                      [destro_canhoto, id_responsavel, dt_inicio, id_pessoa]);
+        await db.query('UPDATE aluno SET destro_canhoto = ?, id_responsavel = ? WHERE id_pessoa = ?', 
+                      [destro_canhoto, id_responsavel, id_pessoa]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');

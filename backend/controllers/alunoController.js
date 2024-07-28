@@ -17,8 +17,8 @@ router.post('/', asyncHandler(async (req, res) => {
 
 router.put('/:id', asyncHandler(async (req, res) => {
     const id_pessoa = parseInt(req.params.id);
-    const { destro_canhoto, id_responsavel, dt_inicio } = req.body;
-    await alunoModel.updateAluno(id_pessoa, destro_canhoto, id_responsavel, dt_inicio);
+    const { destro_canhoto, id_responsavel} = req.body;
+    await alunoModel.updateAluno(id_pessoa, destro_canhoto, id_responsavel);
     res.status(200).send('Registro atualizado com sucesso!');
 }));
 
