@@ -17,8 +17,8 @@ router.post('/', asyncHandler(async (req, res) => {
 
 router.put('/:id', asyncHandler(async (req, res) => {
     const id_unidade = parseInt(req.params.id);
-    const { nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_responsavel_unidade } = req.body;
-    await unidadeModel.updateUnidade(id_unidade, nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_responsavel_unidade);
+    const { nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco} = req.body;
+    await unidadeModel.updateUnidade(id_unidade, nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco);
     res.status(200).send('Registro atualizado com sucesso!');
 }));
 

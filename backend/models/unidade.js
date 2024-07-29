@@ -20,10 +20,10 @@ async function createUnidade(nome_unidade, cnpj_unidade, telefone_unidade, email
     }
 }
 
-async function updateUnidade(id_unidade, nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_responsavel_unidade) {
+async function updateUnidade(id_unidade, nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco) {
     try {
-        await db.query('UPDATE unidade SET nome_unidade = ?, cnpj_unidade = ?, telefone_unidade = ?, email_unidade = ?, mais_contatos = ?, id_endereco = ?, id_responsavel_unidade = ? WHERE id_unidade = ?', 
-                      [nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_responsavel_unidade, id_unidade]);
+        await db.query('UPDATE unidade SET nome_unidade = ?, cnpj_unidade = ?, telefone_unidade = ?, email_unidade = ?, mais_contatos = ?, id_endereco = ? WHERE id_unidade = ?', 
+                      [nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_unidade]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');

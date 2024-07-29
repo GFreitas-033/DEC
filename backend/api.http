@@ -20,12 +20,12 @@ POST http://localhost:5000/api/pessoa/
 Content-Type: application/json
 
 {
-    "nome_pessoa":"ADMINISTRADOR",
+    "nome_pessoa":"ADMIN",
     "dt_nasc_pessoa":"2004-03-04",
     "cpf_pessoa":"124141241312",
     "rg_pessoa":"4315354134",
     "email_pessoa":"nao importa",
-    "senha_pessoa":"admin123",
+    "senha_pessoa":"1",
     "telefone_pessoa":"149999999",
     "genero":"m",
     "id_endereco":1,
@@ -43,7 +43,7 @@ Content-Type: application/json
 
 {
     "cep":"16401-093",
-    "estado":"São-Paulo",
+    "estado":"SP",
     "cidade":"Lins",
     "bairro":"Jardim Tropical", 
     "rua":"São Cristovão", 

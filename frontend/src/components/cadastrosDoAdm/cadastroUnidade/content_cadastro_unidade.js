@@ -27,6 +27,10 @@ export default function Content_cadastro_Unidade(props) {
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
+  const [cnpj, setCnpj] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [id_endereco, setEndereco] = useState(null);
+  const [responseUnidade, setResponseUnidade] = useState(null);
 
   useEffect(() => {
     if (id_unidade !== undefined) {
@@ -50,30 +54,62 @@ export default function Content_cadastro_Unidade(props) {
         setBairro(dados.bairro);
         setCidade(dados.localidade);
         setUf(dados.uf);
+        document.getElementById('cnpj').value = cnpj;
+        document.getElementById('telefone').value = telefone;
       })
       .catch((error) => {
         console.error('Erro ao buscar CEP:', error);
       });
   };
 
+  function formatCNPJ(cnpj) {
+    cnpj = cnpj.replace(/\D/g, '');
+    return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
+  }
+
+  const formatTelefone = (telefone) => {
+    telefone = telefone.replace(/\D/g, ''); // Remove non-digits
+    if (telefone.length === 11) {
+      return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    } else if (telefone.length === 10) {
+      return telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    }
+    return telefone;
+  };
+
   const preencherDados = async () => {
     // Código para preencher dados
     // Descomentar e completar a lógica quando estiver disponível
-    // try {
-    //   let responseUnidade = await axios.get('/api/unidade');
-    //   responseUnidade = responseUnidade.data;
-    //   const unidade = responseUnidade.find(item => item.id_unidade === id_unidade);
-    //   // Preencher campos com os dados da unidade
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      let responseUnidade = await axios.get('/api/unidade');
+      responseUnidade = responseUnidade.data;
+      responseUnidade = responseUnidade.find(item => item.id_unidade === id_unidade);
+      setEndereco(responseUnidade.id_endereco);
+      document.getElementById('nome').value = responseUnidade.nome_unidade;
+      document.getElementById('email').value = responseUnidade.email_unidade;
+      document.getElementById('cnpj').value = formatCNPJ(responseUnidade.cnpj_unidade);
+      document.getElementById('telefone').value =  formatTelefone(responseUnidade.telefone_unidade);
+      document.getElementById('maisContatos').value = responseUnidade.mais_contatos;
+      setCnpj(formatCNPJ(responseUnidade.cnpj_unidade));
+      setTelefone(formatTelefone(responseUnidade.telefone_unidade));
+      let responseEndereco = await axios.get('/api/endereco');
+      responseEndereco = responseEndereco.data;
+      responseEndereco = responseEndereco.find(item => item.id_endereco === responseUnidade.id_endereco);
+      document.getElementById('cep').value = responseEndereco.cep;
+      document.getElementById('uf').value = responseEndereco.estado;
+      document.getElementById('cidade').value = responseEndereco.cidade;
+      document.getElementById('bairro').value = responseEndereco.bairro;
+      document.getElementById('rua').value = responseEndereco.rua;
+    }catch (error) {
+      console.log(error);
+    }
   };
 
   function tratamentoString(inputString) {
     return inputString.replace(/[.\-()\s]/g, '');
   }
 
-  const cliquei = (event) => {
+  const cliquei = async (event) => {
     event.preventDefault();
     const nome = document.getElementById('nome').value;
     const email = document.getElementById('email').value;
@@ -86,7 +122,31 @@ export default function Content_cadastro_Unidade(props) {
     const rua = document.getElementById('rua').value;
     const maisContatos = document.getElementById('maisContatos').value;
 
-    if (id_unidade === undefined) {
+    if (id_unidade !== undefined) {
+      try {
+        let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
+          cep: cep,
+          estado: uf,
+          cidade: cidade,
+          bairro: bairro,
+          rua: rua,
+          numero: null
+        });
+
+        let responseUnidade = await axios.put(`/api/unidade/${id_unidade}`, {
+          nome_unidade: nome,
+          email_unidade: email,
+          cnpj_unidade: cnpj,
+          telefone_unidade: telefone,
+          mais_contatos: maisContatos,
+          id_endereco: id_endereco
+        });
+
+        setResponseUnidade(responseUnidade);
+      } catch (error) {
+        console.log("Erro ao editar unidade: ", error);
+      }
+    }else{
       navigate('/cadastro/unidade/responsavel', {
         state: {
           nome,
@@ -103,6 +163,10 @@ export default function Content_cadastro_Unidade(props) {
       });
     }
   };
+
+  if (responseUnidade) {
+    window.location.reload();
+  }
 
   return (
     <div className={StyleCadastroUnidade.ContentC}>

@@ -177,7 +177,6 @@ export default function Form(props) {
     const bairro = document.getElementById('bairro').value;
     const rua = document.getElementById('rua').value;
     if (id_aluno !== undefined) {
-      console.log(id_endereco);
       try {
         let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
           cep: cep,
