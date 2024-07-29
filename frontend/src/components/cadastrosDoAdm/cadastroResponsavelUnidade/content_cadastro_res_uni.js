@@ -1,6 +1,7 @@
-import React,{useState} from "react"
-import { useNavigate } from "react-router-dom"
+import React,{useState, useEffect} from "react"
+import { useNavigate, useLocation, useParams } from "react-router-dom"
 import StyleResUni from "../cadastroDoAdm.module.css"
+import axios from "axios"
 
 import Texto from "../../cadastro/textos_cadastro/texto_cadastro"
 
@@ -24,6 +25,26 @@ import Botao from "../../cadastro/botao_cadastro/submit_cadastro"
 
 export default function  Content_cadastro_Unidade(props){
     const navigate = useNavigate()
+    const {state} = useLocation();
+    let { id_res_unidade } = useParams();
+    const [responsePessoa, setResponsePessoa] = useState(null);
+    const nome_unidade = state?.nome;
+    const cnpj_unidade = state?.cnpj;
+    const telefone_unidade = state?.telefone;
+    const email_unidade = state?.email;
+    const maisContatos = state?.maisContatos;
+    const cep_unidade = state?.cep;
+    const uf_unidade = state?.uf;
+    const cidade_unidade = state?.cidade;
+    const bairro_unidade = state?.bairro;
+    const rua_unidade = state?.rua;
+
+    useEffect(() => {
+      if (id_res_unidade !== undefined) {
+        id_res_unidade = parseInt(id_res_unidade);
+        // preencherDados();
+      }
+    }, [id_res_unidade]);
 
     const [logradouro, setLogradouro] = useState("")
     const [bairro, setBairro] = useState("")
@@ -49,11 +70,107 @@ export default function  Content_cadastro_Unidade(props){
           console.error('Erro ao buscar CEP:', error)
         })
     }
+
+    function tratamentoString(inputString) {
+      return inputString.replace(/[.\-()\s]/g, '');
+    }
+
+    async function cliquei() {
+      const email = document.getElementById('email').value;
+      const nome = document.getElementById('nome').value;
+      const cpf = tratamentoString(document.getElementById('cpf').value);
+      const rg = tratamentoString(document.getElementById('rg').value);
+      const telefone = tratamentoString(document.getElementById('telefone').value);
+      const dt_nascimento = document.getElementById('dt_nasc').value;
+      const genero = document.getElementById('genero').value;
+      const cep = document.getElementById('cep').value;
+      const uf = document.getElementById('uf').value;
+      const cidade = document.getElementById('cidade').value;
+      const bairro = document.getElementById('bairro').value;
+      const rua = document.getElementById('rua').value;
+      
+      if (id_res_unidade !== undefined) {
+        
+      }else{
+        const senha = document.getElementById('senha').value;
+        try {
+          let responseEndereco = await axios.post('/api/endereco/', {
+            cep: cep,
+            estado: uf,
+            cidade: cidade,
+            bairro: bairro,
+            rua: rua,
+            numero: null
+          });
+          responseEndereco = responseEndereco.data;
+
+          let responsePessoa = await axios.post('/api/pessoa/', {
+            nome_pessoa: nome,
+            dt_nasc_pessoa: dt_nascimento,
+            cpf_pessoa: cpf,
+            rg_pessoa: rg,
+            email_pessoa: email,
+            senha_pessoa: senha,
+            telefone_pessoa: telefone,
+            genero: genero,
+            id_endereco: responseEndereco.id,
+            adm: null
+          });
+          responsePessoa = responsePessoa.data;
+
+          const responseRes_Unidade = await axios.post('/api/responsavel_unidade/', {
+            id_pessoa: responsePessoa.id,
+          });
+
+          let responseEndereco_Unidade = await axios.post('/api/endereco/', {
+            cep: cep_unidade,
+            estado: uf_unidade,
+            cidade: cidade_unidade,
+            bairro: bairro_unidade,
+            rua: rua_unidade,
+            numero: null
+          });
+          responseEndereco_Unidade = responseEndereco_Unidade.data;
+
+          const responseUnidade = await axios.post('/api/unidade', {
+            nome_unidade: nome_unidade, 
+            cnpj_unidade: cnpj_unidade, 
+            telefone_unidade: telefone_unidade, 
+            email_unidade: email_unidade, 
+            mais_contatos: maisContatos, 
+            id_endereco: responseEndereco_Unidade.id, 
+            id_responsavel_unidade: responsePessoa.id
+          })
+
+          setResponsePessoa(responseUnidade);
+        } catch (error) {
+          console.log("Erro ao criar professor: ", error);
+        }
+      }
+      
+    }
+
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      const form = event.target;
+      if (form.checkValidity()) {
+        cliquei();
+      } else {
+        form.reportValidity();
+      }
+    };
+
+
+    if (responsePessoa) {
+      navigate('/cadastro/unidade');
+    }
+
     return(
         <div className={StyleResUni.ContentC}>
             <h1 className={StyleResUni.titulo}><Texto text={props.texto}/></h1>
 
-            <form className={StyleResUni.content} autoComplete="off"> 
+            <form className={StyleResUni.content} autoComplete="off" onSubmit={handleSubmit}> 
                 <div className={StyleResUni.contentInputs}>
                     <Email />
                     <Senha />
@@ -72,8 +189,8 @@ export default function  Content_cadastro_Unidade(props){
                     <Rua r={logradouro}/>
                 </div>
 
-                <div className={StyleResUni.divBtn} onClick={()=>navigate(props.url)}>
-                    <Botao btn={props.botao} className={StyleResUni.btn}/>
+                <div className={StyleResUni.divBtn}>
+                    <Botao btn={props.botao} onClick={cliquei} className={StyleResUni.btn}/>
                 </div>
             </form>
         </div>
