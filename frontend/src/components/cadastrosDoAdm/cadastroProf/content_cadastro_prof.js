@@ -79,7 +79,6 @@
         console.log(responsePessoa);
         document.getElementById('email').value = responsePessoa.email_pessoa;
         document.getElementById('nome').value = responsePessoa.nome_pessoa;
-        
         setCpf(formatCPF(responsePessoa.cpf_pessoa));
         setRg(formatRG(responsePessoa.rg_pessoa));
         setTelefone(formatTelefone(responsePessoa.telefone_pessoa));
@@ -136,7 +135,6 @@
 
     async function cliquei() {
       const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
       const nome = document.getElementById('nome').value;
       const cpf = tratamentoString(document.getElementById('cpf').value);
       const rg = tratamentoString(document.getElementById('rg').value);
@@ -168,7 +166,6 @@
             cpf_pessoa: cpf,
             rg_pessoa: rg,
             email_pessoa: email,
-            senha_pessoa: senha,
             telefone_pessoa: telefone,
             genero: genero,
             id_endereco: id_endereco
@@ -184,6 +181,7 @@
           console.log("Erro ao editar professor: ", error);
         }
       }else{
+        const senha = document.getElementById('senha').value;
         try {
           let responseEndereco = await axios.post('/api/endereco/', {
             cep: cep,
@@ -237,7 +235,7 @@
           <div className={StyleCadastroProf.contentInputs}>
             <Imagem/>
             <Email/>
-            <Senha/>
+            {id_professor === undefined && <Senha />}
             <Nome/>
             <Cpf/>
             <Rg/>

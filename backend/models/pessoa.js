@@ -26,11 +26,10 @@ async function createPessoa(nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, 
     }
 }
 
-async function updatePessoa(id_pessoa, nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco, adm) {
-    senha_pessoa = await bcrypt.hash(senha_pessoa,saltRounds); 
+async function updatePessoa(id_pessoa, nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, telefone_pessoa,genero, id_endereco) {
     try {
-        await db.query('UPDATE pessoa SET nome_pessoa = ?, dt_nasc_pessoa = ?, cpf_pessoa = ?, rg_pessoa = ?, email_pessoa = ?, senha_pessoa = ?, telefone_pessoa = ?, genero = ?, id_endereco = ? WHERE id_pessoa = ?', 
-                      [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, senha_pessoa, telefone_pessoa,genero, id_endereco, id_pessoa]);
+        await db.query('UPDATE pessoa SET nome_pessoa = ?, dt_nasc_pessoa = ?, cpf_pessoa = ?, rg_pessoa = ?, email_pessoa = ?, telefone_pessoa = ?, genero = ?, id_endereco = ? WHERE id_pessoa = ?', 
+                      [nome_pessoa, dt_nasc_pessoa, cpf_pessoa, rg_pessoa, email_pessoa, telefone_pessoa,genero, id_endereco, id_pessoa]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');

@@ -64,7 +64,6 @@ router.put('/:id', asyncHandler(async (req, res) => {
         cpf_pessoa,
         rg_pessoa,
         email_pessoa,
-        senha_pessoa,
         telefone_pessoa,
         genero,
         id_endereco

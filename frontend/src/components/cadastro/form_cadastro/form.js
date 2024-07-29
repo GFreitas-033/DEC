@@ -32,7 +32,7 @@ export default function Form(props) {
   const [cpf, setCpf] = useState("");
   const [rg, setRg] = useState("");
   const [telefone, setTelefone] = useState("");
-  let id_endereco = 0;
+  const [id_endereco, setEndereco] = useState(null);
   const [responsePessoa, setResponsePessoa] = useState(null);
   const navigate = useNavigate();
 
@@ -79,6 +79,7 @@ export default function Form(props) {
       let responsePessoa = await axios.get('/api/pessoa');
       responsePessoa = responsePessoa.data;
       responsePessoa = responsePessoa.find(item => item.id_pessoa === id_aluno);
+      setEndereco(responsePessoa.id_endereco);
       document.getElementById('email').value = responsePessoa.email_pessoa;
       document.getElementById('nome').value = responsePessoa.nome_pessoa;
       document.getElementById('cpf').value = formatCPF(responsePessoa.cpf_pessoa);
@@ -96,7 +97,6 @@ export default function Form(props) {
       let responseEndereco = await axios.get('/api/endereco');
       responseEndereco = responseEndereco.data;
       responseEndereco = responseEndereco.find(item => item.id_endereco === responsePessoa.id_endereco);
-      id_endereco = responsePessoa.id_endereco;
       document.getElementById('cep').value = responseEndereco.cep;
       document.getElementById('uf').value = responseEndereco.estado;
       document.getElementById('cidade').value = responseEndereco.cidade;
@@ -164,7 +164,6 @@ export default function Form(props) {
 
   async function cliquei() {
     const email = document.getElementById('email').value;
-    const senha = document.getElementById('senha').value;
     const nome = document.getElementById('nome').value;
     const cpf = tratamentoString(document.getElementById('cpf').value);
     const rg = tratamentoString(document.getElementById('rg').value);
@@ -195,7 +194,6 @@ export default function Form(props) {
           cpf_pessoa: cpf,
           rg_pessoa: rg,
           email_pessoa: email,
-          senha_pessoa: senha,
           telefone_pessoa: telefone,
           genero: genero,
           id_endereco: id_endereco
@@ -212,6 +210,7 @@ export default function Form(props) {
         console.log("Erro ao criar aluno: ", error);
       }
     }else{
+      const senha = document.getElementById('senha').value;
       try {
         let responseEndereco = await axios.post('/api/endereco/', {
           cep: cep,
@@ -263,7 +262,7 @@ export default function Form(props) {
         <Texto text={props.texto} />
         <div className={Styles.container_inputs}>
           <Email />
-          <Senha />
+          {id_aluno === undefined && <Senha />}
           <Nome />
           <CPF />
           <RG />
