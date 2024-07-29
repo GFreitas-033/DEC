@@ -23,7 +23,7 @@ async function createTurma(qtd_maxima, id_professor, dia_semana, horario, id_uni
 async function updateTurma(id_turma, qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma) {
     try {
         await db.query('UPDATE turma SET qtd_maxima = ?, id_professor = ?, dia_semana = ?, horario = ?, id_unidade = ?, nome_turma = ? WHERE id_turma = ?', 
-                      [qtd_maxima, id_professor, dia_semana, horario,id_unidade, id_turma, nome_turma]);
+                      [qtd_maxima, id_professor, dia_semana, horario,id_unidade, nome_turma, id_turma]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');

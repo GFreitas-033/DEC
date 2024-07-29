@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import StyleCadastroTurma from "../cadastroDoAdm.module.css";
 import axios from "axios";
 
@@ -17,6 +17,7 @@ import Botao from "../../cadastro/botao_cadastro/submit_cadastro";
 
 export default function Content_cadastro_Turma(props) {
     const navigate = useNavigate();
+    let { id_turma } = useParams();
     const [responseTurma, setResponseTurma] = useState(null);
 
     const handleSubmit = (event) => {
@@ -29,6 +30,25 @@ export default function Content_cadastro_Turma(props) {
         }
     };
 
+    useEffect(() => {
+        if (id_turma !== undefined) {
+          id_turma = parseInt(id_turma);
+          preencherDados();
+        }
+    }, [id_turma]);
+
+    const preencherDados = async () => {
+        let responseTurma = await axios.get('/api/turma');
+        responseTurma = responseTurma.data;
+        responseTurma = responseTurma.find(item => item.id_turma === id_turma);
+        document.getElementById('SelecaoProfessor').value = responseTurma.id_professor;
+        document.getElementById('SelecaoUnidade').value = responseTurma.id_unidade;
+        document.getElementById('Maximo').value = responseTurma.qtd_maxima;
+        document.getElementById('diaSemana').value = responseTurma.dia_semana;
+        document.getElementById('Horario').value = responseTurma.horario;
+        document.getElementById('nome').value = responseTurma.nome_turma;
+    }
+
     async function cliquei() {
         const professor = document.getElementById('SelecaoProfessor').value;
         const unidade = document.getElementById('SelecaoUnidade').value;
@@ -36,21 +56,37 @@ export default function Content_cadastro_Turma(props) {
         const diasemana = document.getElementById('diaSemana').value;
         const horario = document.getElementById('Horario').value;
         const nome_turma = document.getElementById('nome').value;
-
-        try {
-            let responseTurma = await axios.post('/api/turma/', {
-                qtd_maxima: qtdmaxima,
-                id_professor: professor,
-                dia_semana: diasemana,
-                horario: horario,
-                id_unidade: unidade,
-                nome_turma: nome_turma
-            });
-            responseTurma = responseTurma.data;
-            setResponseTurma(responseTurma);
-        } catch (error) {
-            console.log("Erro ao criar turma: ", error);
+        if (id_turma !== undefined) {
+            try {
+                let responseTurma = await axios.put(`/api/turma/${id_turma}`, {
+                    qtd_maxima: qtdmaxima,
+                    id_professor: professor,
+                    dia_semana: diasemana,
+                    horario: horario,
+                    id_unidade: unidade,
+                    nome_turma: nome_turma
+                });
+                setResponseTurma(responseTurma);
+            } catch (error) {
+                console.log("Erro ao criar turma: ", error);
+            }
+        }else{
+            try {
+                let responseTurma = await axios.post('/api/turma/', {
+                    qtd_maxima: qtdmaxima,
+                    id_professor: professor,
+                    dia_semana: diasemana,
+                    horario: horario,
+                    id_unidade: unidade,
+                    nome_turma: nome_turma
+                });
+                responseTurma = responseTurma.data;
+                setResponseTurma(responseTurma);
+            } catch (error) {
+                console.log("Erro ao criar turma: ", error);
+            }
         }
+        
     }
 
     useEffect(() => {
@@ -65,12 +101,12 @@ export default function Content_cadastro_Turma(props) {
 
             <form className={StyleCadastroTurma.content} autoComplete="off" onSubmit={handleSubmit}>
                 <div className={StyleCadastroTurma.contentInputs}>
-                    <Nome id="nome" />
-                    <SelecionarProf id="SelecaoProfessor" />
-                    <SelecionarUni id="SelecaoUnidade" />
-                    <QtdMaxima id="Maximo" />
-                    <DiaSemana id="diaSemana" />
-                    <Horario id="Horario" />
+                    <Nome/>
+                    <SelecionarProf/>
+                    <SelecionarUni/>
+                    <QtdMaxima/>
+                    <DiaSemana/>
+                    <Horario/>
                 </div>
 
                 <div className={StyleCadastroTurma.divBtn}>
