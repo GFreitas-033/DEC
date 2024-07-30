@@ -25,7 +25,11 @@ router.get('/aluno', async (req, res) => {
 router.get('/excluiraluno/:id_aluno', async (req, res) => {
     const id_aluno = parseInt(req.params.id_aluno);
     try {
-        await axios.delete(`http://localhost:5000/api/aluno_has_turma/${id_aluno}`);
+        try {
+            await axios.delete(`http://localhost:5000/api/aluno_has_turma/${id_aluno}`);
+        } catch (error) {
+            console.error(error);
+        }
         await axios.delete(`http://localhost:5000/api/aluno/${id_aluno}`);
         await axios.delete(`http://localhost:5000/api/pessoa/${id_aluno}`);
         res.status(200).send('Registro excluído com sucesso!');
