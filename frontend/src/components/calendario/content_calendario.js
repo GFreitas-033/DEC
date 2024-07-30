@@ -47,7 +47,17 @@ export default function ContentCalendario() {
         return `${hours}:${minutes}`;
     };
 
+    const getCurrentWeekday = () => {
+        const days = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sabado"];
+        const today = new Date().getDay();
+        return days[today];
+    };
+
     const formatDiaSemana = (dia) => {
+        const currentWeekday = getCurrentWeekday();
+        if (dia === currentWeekday) {
+            return "Hoje";
+        }
         const formattedDia = dia.charAt(0).toUpperCase() + dia.slice(1);
         return dia === "sabado" || dia === "domingo" ? formattedDia : `${formattedDia}-Feira`;
     };

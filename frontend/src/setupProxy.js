@@ -43,4 +43,11 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    '/listartodosalunos',
+    createProxyMiddleware({
+      target: 'http://localhost:5000/listartodosalunos',
+      changeOrigin: true,
+    })
+  );
 };

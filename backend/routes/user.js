@@ -28,30 +28,54 @@ router.use("/", loginController);
 router.use("/", calendarioController);
 router.use("/adm", admController);
 
-
-router.get('/listaralunos/:idturma', async (req,res) => {
+router.get('/listaralunos/:idturma', async (req, res) => {
     const id_turma = parseInt(req.params.idturma);
-    try{
+    try {
         const responseTurmas_Alunos = await axios.get('http://localhost:5000/api/aluno_has_turma');
         const dadosTurmas_Alunos = responseTurmas_Alunos.data;
         const alunosTurma = dadosTurmas_Alunos
-        .filter(dado => dado.id_turma === id_turma)
-        .map(dado => dado.id_aluno);
-        
-        // const uniqueAlunosTurma = [...new Set(alunosTurma1)]; se precisar retirar repetencias
+            .filter(dado => dado.id_turma === id_turma)
+            .map(dado => dado.id_aluno);
 
         const responsePessoa = await axios.get('http://localhost:5000/api/pessoa');
         const dadosPessoa = responsePessoa.data;
 
         const nomesAlunos = dadosPessoa
-        .filter(pessoa => alunosTurma.includes(pessoa.id_pessoa))
-        .map(pessoa => pessoa.nome_pessoa);
+            .filter(pessoa => alunosTurma.includes(pessoa.id_pessoa))
+            .map(pessoa => pessoa.nome_pessoa);
 
         res.json(nomesAlunos);
 
-    }catch(error){
+    } catch (error) {
         return res.status(500).json({ message: "Erro ao buscar dados da turma", error: error.message });
     }
-})
+});
+
+// Nova rota para listar todos os alunos
+router.get('/listartodosalunos', async (req, res) => {
+    try {
+        // Pega todos os alunos e seus IDs
+        const responseAlunos = await axios.get('http://localhost:5000/api/aluno');
+        const dadosAlunos = responseAlunos.data;
+        const idsAlunos = dadosAlunos.map(aluno => aluno.id_pessoa);
+
+        // Pega todas as pessoas
+        const responsePessoa = await axios.get('http://localhost:5000/api/pessoa');
+        const dadosPessoa = responsePessoa.data;
+
+        // Filtra as pessoas pelos IDs dos alunos
+        const alunos = dadosPessoa
+            .filter(pessoa => idsAlunos.includes(pessoa.id_pessoa))
+            .map(pessoa => ({
+                id_aluno: pessoa.id_pessoa,
+                nome_aluno: pessoa.nome_pessoa
+            }));
+
+        res.json(alunos);
+
+    } catch (error) {
+        return res.status(500).json({ message: "Erro ao buscar todos os alunos", error: error.message });
+    }
+});
 
 module.exports = router;

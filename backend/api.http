@@ -52,8 +52,7 @@ Content-Type: application/json
 
 ###
 
-GET  http://localhost:5000/api/turma
-
+PUT  http://localhost:5000/calendario/1
 ###
 
 PUT http://localhost:3000/api/endereco/1
