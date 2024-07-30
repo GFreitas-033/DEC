@@ -59,7 +59,7 @@ export default function ContentCalendario() {
             return "Hoje";
         }
         const formattedDia = dia.charAt(0).toUpperCase() + dia.slice(1);
-        return dia === "sabado" || dia === "domingo" ? formattedDia : `${formattedDia}-Feira`;
+        return dia === "sábado" || dia === "domingo" ? formattedDia : `${formattedDia}-Feira`;
     };
 
     const groupByDiaSemana = (data) => {
