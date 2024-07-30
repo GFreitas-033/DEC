@@ -40,21 +40,18 @@ const getColumnsDataByIndices = (sheet, columnIndices) => {
 // Função para formatar a data no padrão SQL (YYYY-MM-DD)
 const formatarDataParaSQL = (data) => {
     if (data instanceof Date) {
-        // Se a data já é um objeto Date, formate-a diretamente
         const dia = String(data.getDate()).padStart(2, '0');
-        const mes = String(data.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+        const mes = String(data.getMonth() + 1).padStart(2, '0');
         const ano = data.getFullYear();
         return `${ano}-${mes}-${dia}`;
     } else if (typeof data === 'number') {
-        // Se a data é um número (serial do Excel), converta-o para data
         const dataExcel = new Date((data - (25567 + 1)) * 86400 * 1000);
         const dia = String(dataExcel.getDate()).padStart(2, '0');
-        const mes = String(dataExcel.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+        const mes = String(dataExcel.getMonth() + 1).padStart(2, '0');
         const ano = dataExcel.getFullYear();
         return `${ano}-${mes}-${dia}`;
     } else if (typeof data === 'string') {
-        // Se a data é uma string, faça a divisão
-        const partes = data.split(/[\/\s:]/); // Dividir por '/' ou espaço ou ':'
+        const partes = data.split(/[\/\s:]/);
         const dia = partes[0].padStart(2, '0');
         const mes = partes[1].padStart(2, '0');
         const ano = partes[2];
@@ -77,32 +74,28 @@ const postData = async (url, data) => {
 
 // Função principal para ler o Excel e enviar os dados
 const processExcelAndSendData = async (filePath) => {
-    // Leia o arquivo Excel
     const workbook = xlsx.readFile(filePath);
-
-    // Selecione a primeira planilha
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
 
-    // Nomes das colunas que queremos ler
     const colunasEndereco = ['Logradouro', 'Número', 'Bairro', 'Cidade', 'CEP'];
-    const colunasPessoa = ['Nome', 'Documento', 'RG', 'Telefone', 'Email', 'Nascimento', 'Sexo'];
+    const colunasPessoa = ['Nome', 'Documento', 'RG', 'Telefone', 'Email', 'Nascimento', 'Sexo', 'Data Matricula'];
 
-    // Obtenha os índices das colunas pelos nomes
     const columnIndicesEndereco = getColumnIndicesByNames(sheet, colunasEndereco);
     const columnIndicesPessoa = getColumnIndicesByNames(sheet, colunasPessoa);
 
     if (Object.keys(columnIndicesEndereco).length > 0 && Object.keys(columnIndicesPessoa).length > 0) {
-        // Obtenha os dados das colunas pelos índices
         const columnsDataEndereco = getColumnsDataByIndices(sheet, columnIndicesEndereco);
         const columnsDataPessoa = getColumnsDataByIndices(sheet, columnIndicesPessoa);
         const rowCount = columnsDataEndereco[Object.keys(columnsDataEndereco)[0]].length;
 
-        // URLs das rotas para onde vamos enviar os dados
         const urlEndereco = 'http://localhost:5000/api/endereco';
         const urlPessoa = 'http://localhost:5000/api/pessoa';
+        const urlAluno = 'http://localhost:5000/api/aluno';
 
-        // Iterar por cada linha e construir os objetos de dados
+        let successCount = 0;
+        let failureCount = 0;
+
         for (let i = 0; i < rowCount; i++) {
             const cepFormatado = columnsDataEndereco['CEP'][i].replace(/[\.-]/g, '');
             const dataEndereco = {
@@ -114,14 +107,13 @@ const processExcelAndSendData = async (filePath) => {
                 estado: "São Paulo"
             };
 
-            // Fazer o POST dos dados do endereço
             const enderecoResponse = await postData(urlEndereco, dataEndereco);
-            console.log(enderecoResponse);
             if (enderecoResponse && enderecoResponse.id) {
                 const nomeCompleto = columnsDataPessoa['Nome'][i];
                 const email = columnsDataPessoa['Email'][i] || `${nomeCompleto.split(' ')[0].toLowerCase()}@email.com`;
                 const genero = columnsDataPessoa['Sexo'][i].toLowerCase() === 'feminino' ? 'f' : 'm';
                 const dataNascimentoSQL = formatarDataParaSQL(columnsDataPessoa['Nascimento'][i]);
+                const dataMatriculaSQL = formatarDataParaSQL(columnsDataPessoa['Data Matricula'][i]);
                 const documentoFormatado = columnsDataPessoa['Documento'][i].replace(/[\.-]/g, '');
                 const rgFormatado = columnsDataPessoa['RG'][i].replace(/[\.-]/g, '');
 
@@ -137,17 +129,35 @@ const processExcelAndSendData = async (filePath) => {
                     id_endereco: enderecoResponse.id
                 };
 
-                // Fazer o POST dos dados da pessoa
-                await postData(urlPessoa, dataPessoa);
+                const pessoaResponse = await postData(urlPessoa, dataPessoa);
+                if (pessoaResponse && pessoaResponse.id) {
+                    const dataAluno = {
+                        id_pessoa: pessoaResponse.id,
+                        destro_canhoto: "",
+                        dt_inicio: dataMatriculaSQL
+                    };
+
+                    const alunoResponse = await postData(urlAluno, dataAluno);
+                    if (alunoResponse) {
+                        successCount++;
+                    } else {
+                        failureCount++;
+                    }
+                } else {
+                    console.error('Falha ao criar pessoa para a linha:', i + 1, 'Dados da pessoa:', dataPessoa);
+                    failureCount++;
+                }
             } else {
                 console.error('Falha ao criar endereço para a linha:', i + 1, 'Dados do endereço:', dataEndereco);
+                failureCount++;
             }
         }
+
+        console.log(`Sucessos: ${successCount}, Falhas: ${failureCount}`);
     } else {
         console.log('Nenhuma das colunas especificadas foi encontrada.');
     }
 };
 
-// Chame a função principal com o caminho do arquivo Excel
-const filePath = 'excel.xlsx';
+const filePath = 'backend/excel.xlsx';
 processExcelAndSendData(filePath);

@@ -20,15 +20,15 @@ POST http://localhost:5000/api/pessoa/
 Content-Type: application/json
 
 {
-    "nome_pessoa":"ADMIN",
+    "nome_pessoa":"TESTE",
     "dt_nasc_pessoa":"2004-03-04",
-    "cpf_pessoa":"124141241312",
-    "rg_pessoa":"4315354134",
+    "cpf_pessoa":"124141312",
+    "rg_pessoa":"431554134",
     "email_pessoa":"nao importa",
     "senha_pessoa":"1",
     "telefone_pessoa":"149999999",
     "genero":"m",
-    "id_endereco":1,
+    "id_endereco":243,
     "adm":1
 }
 
