@@ -82,9 +82,6 @@ export default function Form(props) {
       setEndereco(responsePessoa.id_endereco);
       document.getElementById('email').value = responsePessoa.email_pessoa;
       document.getElementById('nome').value = responsePessoa.nome_pessoa;
-      document.getElementById('cpf').value = formatCPF(responsePessoa.cpf_pessoa);
-      document.getElementById('rg').value = formatRG(responsePessoa.rg_pessoa);
-      document.getElementById('telefone').value = formatTelefone(responsePessoa.telefone_pessoa);
       setCpf(formatCPF(responsePessoa.cpf_pessoa));
       setRg(formatRG(responsePessoa.rg_pessoa));
       setTelefone(formatTelefone(responsePessoa.telefone_pessoa));
@@ -122,9 +119,6 @@ export default function Form(props) {
         setBairro(dados.bairro);
         setCidade(dados.localidade);
         setUf(dados.uf);
-        document.getElementById('cpf').value = cpf;
-        document.getElementById('rg').value = rg;
-        document.getElementById('telefone').value = telefone;
       })
       .catch((error) => {
         console.error('Erro ao buscar CEP:', error);
@@ -263,9 +257,9 @@ export default function Form(props) {
           <Email />
           {id_aluno === undefined && <Senha />}
           <Nome />
-          <CPF />
-          <RG />
-          <Telefone />
+          <CPF value={cpf} setValue={setCpf} />
+          <RG value={rg} setValue={setRg} />
+          <Telefone value={telefone} setValue={setTelefone} />
           <DtNasc />
           <DC />
           <Genero />
