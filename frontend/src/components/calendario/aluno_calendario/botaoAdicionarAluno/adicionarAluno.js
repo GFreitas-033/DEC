@@ -46,10 +46,10 @@ export default function Adicionar_Aluno() {
                 ))}
             </select>
             <button onClick={colocarAluno} className={btnStyle.btnAdicionaAluno}>
-                Adicionar Aluno +
+                Adicionar Aluno
             </button>
             <button className={btnStyle.btnTirarAluno}>
-                Tirar Aluno +
+                Tirar Aluno
             </button>
         </div>
     );

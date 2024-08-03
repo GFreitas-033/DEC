@@ -42,7 +42,7 @@ export default function AlunosCalendario() {
             <Barra_lateral />
             <div className={Calendario.ajuste}>
                 <div className={Calendario.container_alunoscalendario}>
-                    <BotaoAdionarAlunos/>
+                    <BotaoAdionarAlunos />
                     <h1 className={Calendario.textTurma}>{turma.nome_turma}</h1>
                     <p className={Calendario.textLH}>Local: {turma.endereco_completo}</p>
                     <p className={Calendario.textLH}>Horário: {turma.horario}</p>
