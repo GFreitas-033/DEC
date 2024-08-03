@@ -20,15 +20,15 @@ POST http://localhost:5000/api/pessoa/
 Content-Type: application/json
 
 {
-    "nome_pessoa":"TESTE",
+    "nome_pessoa":"Guilherme Front",
     "dt_nasc_pessoa":"2004-03-04",
-    "cpf_pessoa":"124141312",
-    "rg_pessoa":"431554134",
-    "email_pessoa":"nao importa",
+    "cpf_pessoa":"124141315",
+    "rg_pessoa":"431554135",
+    "email_pessoa":"admf",
     "senha_pessoa":"1",
-    "telefone_pessoa":"149999999",
+    "telefone_pessoa":"149999991",
     "genero":"m",
-    "id_endereco":243,
+    "id_endereco":3,
     "adm":1
 }
 
@@ -42,12 +42,12 @@ POST http://localhost:5000/api/endereco HTTP/1.1
 Content-Type: application/json
 
 {
-    "cep":"16401-093",
+    "cep":"16401-140",
     "estado":"SP",
     "cidade":"Lins",
-    "bairro":"Jardim Tropical", 
-    "rua":"São Cristovão", 
-    "numero":"261"
+    "bairro":"Jardim Linense", 
+    "rua":"Nome muito Grande", 
+    "numero":"335"
 }
 
 ###
