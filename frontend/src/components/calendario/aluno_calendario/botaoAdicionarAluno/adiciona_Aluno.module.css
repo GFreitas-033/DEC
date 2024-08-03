@@ -5,7 +5,7 @@
     border-radius: 0.5rem 0 0 0;
     cursor: pointer;
     height: 2rem;
-    width: 50%;
+    width: 33.3%;
 }
 .selectInput:hover{
     background-color: #6e6e6e;
@@ -17,12 +17,26 @@
     background-color: #000;
     color: #FBD034;
     border: none;
+    cursor: pointer;
+    height: 2rem;
+    width: 33.3%;
+}
+.btnAdicionaAluno:hover{
+    background-color: #6e6e6e;
+    color: #FBD034;
+    transition: 0.5s;
+}
+
+.btnTirarAluno{
+    background-color: #000;
+    color: #FBD034;
+    border: none;
     border-radius: 0 0.5rem 0 0;
     cursor: pointer;
     height: 2rem;
-    width: 50%;
+    width: 33.3%;
 }
-.btnAdicionaAluno:hover{
+.btnTirarAluno:hover{
     background-color: #6e6e6e;
     color: #FBD034;
     transition: 0.5s;
