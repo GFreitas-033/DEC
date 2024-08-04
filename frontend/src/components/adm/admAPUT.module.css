@@ -13,12 +13,6 @@
         font-size: 0.7rem;
     }
 
-    .tabela{
-        width: 95%;
-        font-size: 0.8rem;
-        min-height: 50vh;
-        height: auto;
-    }
 }
 
 @media screen and (min-width: 720px){
@@ -32,13 +26,6 @@
 
     .qtd{
         font-size: 1.2rem;
-    }
-
-    .tabela{
-        width: 60%;
-        font-size: 1rem;
-        min-height: 72vh;
-        height: auto;
     }
 }
 
@@ -65,34 +52,7 @@ li{
     justify-content: space-between;
 }
 
-.tabela{
-    display: flex;
-    flex-direction: row;
-    border-radius: 0.6rem;
-    border: 0.2rem solid #FBD034;
-    background-color: #999999;
-}
 
-
-.linhasId{
-    border: 0.1rem #000 solid;
-    border-radius: 0.6rem 0rem 0rem 0.6rem;
-    width: 20%;
-}
-.linhasNome{
-    border: 0.1rem #000 solid;
-    border-radius: 0rem 0.6rem 0.6rem 0rem;
-    width: 80%;
-}
-
-.colunaID{
-    text-align: center;
-}
-
-.topoTable{
-    font-size: 1.3rem;
-    border: none;
-}
 
 .icon{
     width: 2rem;

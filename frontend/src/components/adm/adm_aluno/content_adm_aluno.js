@@ -45,21 +45,29 @@ export default function Content_adm_aluno() {
                 <p className={AdmAluno.qtd}>Quantidade de Alunos: {alunos.length}</p>
             </div>
 
-            <div className={AdmAluno.tabela}>
-                <div className={AdmAluno.linhasId}>
-                    <ul className={AdmAluno.colunaID}>
-                        <li className={AdmAluno.topoTable}><b><u>ID</u></b></li>
-                        {alunos.map(aluno => (
-                            <li key={aluno.id_pessoa}>{aluno.id_pessoa}</li>
-                        ))}
-                    </ul>
-                </div>
+            <table>
+                <tr>
 
-                <div className={AdmAluno.linhasNome}>
-                    <ul>
-                        <li className={AdmAluno.topoTable}><b><u>Nome</u></b></li>
+                    <td>
+                        <p className={AdmAluno.topoTable}><b><u>ID</u></b></p>
+                    </td>
+
+                    <td>
+                        <p className={AdmAluno.topoTable}><b><u>Nome</u></b></p>
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td>
                         {alunos.map(aluno => (
-                            <li key={aluno.id_pessoa}>
+                            <p key={aluno.id_pessoa}>{aluno.id_pessoa}</p>
+                        ))}
+                    </td>
+
+                    <td>
+                        {alunos.map(aluno => (
+                            <p key={aluno.id_pessoa}>
                                 {aluno.nome_pessoa}
                                 <img 
                                     src={Excluir} 
@@ -71,11 +79,11 @@ export default function Content_adm_aluno() {
                                     className={AdmAluno.icon} 
                                     onClick={() => navigate(`/adm/editar_aluno/${aluno.id_pessoa}`)}
                                 />
-                            </li>
+                            </p>
                         ))}
-                    </ul>
-                </div>
-            </div>
+                    </td>
+                </tr>
+            </table>
         </div>
     );
 }
