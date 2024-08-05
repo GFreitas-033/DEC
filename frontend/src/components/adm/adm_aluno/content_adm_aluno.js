@@ -45,44 +45,38 @@ export default function Content_adm_aluno() {
                 <p className={AdmAluno.qtd}>Quantidade de Alunos: {alunos.length}</p>
             </div>
 
-            <table>
-                <tr>
-
-                    <td>
+            <table className={AdmAluno.tabela}>
+                <tr className={AdmAluno.linha}>
+                    <td className={AdmAluno.ids}>
                         <p className={AdmAluno.topoTable}><b><u>ID</u></b></p>
                     </td>
 
-                    <td>
+                    <td className={AdmAluno.nomes}>
                         <p className={AdmAluno.topoTable}><b><u>Nome</u></b></p>
                     </td>
                 </tr>
+                
+                {alunos.map(aluno => (
+                    <tr>
+                        <td key={aluno.id_pessoa} className={AdmAluno.ids}>
+                            {aluno.id_pessoa}
+                        </td>
 
-                <tr>
-
-                    <td>
-                        {alunos.map(aluno => (
-                            <p key={aluno.id_pessoa}>{aluno.id_pessoa}</p>
-                        ))}
-                    </td>
-
-                    <td>
-                        {alunos.map(aluno => (
-                            <p key={aluno.id_pessoa}>
-                                {aluno.nome_pessoa}
-                                <img 
-                                    src={Excluir} 
-                                    className={AdmAluno.icon} 
-                                    onClick={() => excluirAluno(aluno.id_pessoa)}
-                                />
-                                <img 
-                                    src={Editar} 
-                                    className={AdmAluno.icon} 
-                                    onClick={() => navigate(`/adm/editar_aluno/${aluno.id_pessoa}`)}
-                                />
-                            </p>
-                        ))}
-                    </td>
-                </tr>
+                        <td key={aluno.id_pessoa} className={AdmAluno.nomes}>
+                            {aluno.nome_pessoa}
+                            <img 
+                                src={Excluir} 
+                                className={AdmAluno.icon} 
+                                onClick={() => excluirAluno(aluno.id_pessoa)}
+                            />
+                            <img 
+                                src={Editar} 
+                                className={AdmAluno.icon} 
+                                onClick={() => navigate(`/adm/editar_aluno/${aluno.id_pessoa}`)}
+                            />
+                        </td>
+                    </tr>
+                ))}
             </table>
         </div>
     );
