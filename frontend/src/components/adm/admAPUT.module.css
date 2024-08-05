@@ -15,18 +15,21 @@
 
     .tabela{
         width: 100%;
-        border: 0;
-        border-radius: 0;
+    }
+
+    .icon{
+        float: inline-end;
     }
 }
 
 @media screen and (min-width: 720px){
     .titulo{
+        margin-right: 2rem;
         margin-top: 0.5rem;
     }
 
     .divBtn{
-        width: 60%;
+        width: 55%;
     }
 
     .qtd{
@@ -35,13 +38,17 @@
 
     .tabela{
         width: 55%;
-        border: 0.1rem #FBD034 solid;
-        border-radius: 0.5rem;
+    }
+
+    .icon{
+        float: right;
     }
 }
 
-tr{
-    background-color: #000;
+td{
+    line-height: 2rem;
+    vertical-align: middle;
+    border: 0.1rem solid #000;
 }
 
 .contentAdm{
@@ -61,25 +68,26 @@ tr{
 
 .tabela{
     background-color: #999999;
+    border-radius: 0.5rem;
+    border-collapse: collapse;
+}
+
+.tabela td{
+    padding: 0.3rem;
 }
 
 .ids{
     text-align: center;
 }
 
-.nomes{
-    
-}
-
-
 .icon{
-    width: 1rem;
-    height: 1rem;
-    padding: 0.2rem 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.3rem 0.4rem;
 
     cursor: pointer;
-    float: right;
 }
 .icon:hover{
     background-color: #FBD034;
+    transition: 0.5s;
 }

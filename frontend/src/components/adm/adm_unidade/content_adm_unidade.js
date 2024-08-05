@@ -44,20 +44,26 @@ export default function Content_adm_unidade() {
                 <p className={AdmUnidade.qtd}>Quantidade de Unidades: {unidades.length}</p>
             </div>
             
-            <div className={AdmUnidade.tabela}>
-                <div className={AdmUnidade.linhasId}>
-                    <ul className={AdmUnidade.colunaID}>
-                        <li className={AdmUnidade.topoTable}><b><u>ID</u></b></li>
-                        {unidades.map(unidade => (
-                            <li key={unidade.id_unidade}>{unidade.id_unidade}</li>
-                        ))}
-                    </ul>
-                </div>
-                <div className={AdmUnidade.linhasNome}>
-                    <ul>
-                        <li className={AdmUnidade.topoTable}><b><u>Nome</u></b></li>
-                        {unidades.map(unidade => (
-                            <li key={unidade.id_unidade}>
+            <table className={AdmUnidade.tabela}>
+                <thead>
+                    <tr>
+                        <td className={AdmUnidade.ids}>
+                            <p><b><u>ID</u></b></p>
+                        </td>
+                        <td>
+                            <p><b><u>Nome</u></b></p>
+                        </td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {unidades.map(unidade => (
+                        <tr key={unidade.id_unidade}>
+                            <td className={AdmUnidade.ids}>
+                                {unidade.id_unidade}
+                            </td>
+
+                            <td>
                                 {unidade.nome_unidade}
                                 <img 
                                     src={Excluir} 
@@ -69,11 +75,11 @@ export default function Content_adm_unidade() {
                                     className={AdmUnidade.icon} 
                                     onClick={() => navigate(`/adm/editar_unidade/${unidade.id_unidade}`)}
                                 />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }

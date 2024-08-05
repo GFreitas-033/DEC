@@ -44,36 +44,41 @@ export default function Content_adm_professor() {
                 <p className={AdmProf.qtd}>Quantidade de Professores: {professores.length}</p>
             </div>
             
-            <div className={AdmProf.tabela}>
-                <div className={AdmProf.linhasId}>
-                    <ul className={AdmProf.colunaID}>
-                        <li className={AdmProf.topoTable}><b><u>ID</u></b></li>
-                        {professores.map(professor => (
-                            <li key={professor.id_pessoa}>{professor.id_pessoa}</li>
-                        ))}
-                    </ul>
-                </div>
-                <div className={AdmProf.linhasNome}>
-                    <ul>
-                        <li className={AdmProf.topoTable}><b><u>Nome</u></b></li>
-                        {professores.map(professor => (
-                            <li key={professor.id_pessoa}>
+            <table className={AdmProf.tabela}>
+                <thead>
+                    <tr>
+                        <td className={AdmProf.ids}>
+                            <p><b><u>ID</u></b></p>
+                        </td>
+                        <td>
+                            <p><b><u>Nome</u></b></p>
+                        </td>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {professores.map(professor => (
+                        <tr key={professor.id_pessoa}>
+                            <td className={AdmProf.ids}>
+                                {professor.id_pessoa}
+                            </td>
+                            <td>
                                 {professor.nome_pessoa}
                                 <img 
                                     src={Excluir} 
                                     className={AdmProf.icon} 
-                                    onClick={() => excluirProfessor(professor.id_pessoa)}
+                                    ontdck={() => excluirProfessor(professor.id_pessoa)}
                                 />
                                 <img 
                                     src={Editar} 
                                     className={AdmProf.icon} 
                                     onClick={() => navigate(`/adm/editar_prof/${professor.id_pessoa}`)}
                                 />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
