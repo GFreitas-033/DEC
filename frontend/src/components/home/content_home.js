@@ -49,7 +49,9 @@ export default function Content_home() {
             {loading ? (
                 <h1 className={Home.helloworld}>{loadingText}</h1>
             ) : (
-                <h1 className={Home.helloworld}>Bem-Vindo!<br /> {message}</h1>
+                <h1 className={Home.helloworld}>
+                    Bem-Vindo(a)!
+                <br /> {message}</h1>
             )}
         </div>
     );
