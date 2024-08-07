@@ -73,7 +73,7 @@ export default function ContentCalendario() {
         }, {});
     };
 
-    const groupedData = groupByDiaSemana(calendarioData);
+    const groupedData = groupByDiaSemana(calendarioData || []);
 
     return (
         <div className={Calendario.margin_content}>
