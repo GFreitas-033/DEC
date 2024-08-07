@@ -33,12 +33,14 @@ export default function ContentCalendario() {
     useEffect(() => {
         axios.get("/minhasTurmas")
             .then(response => {
-                setCalendarioData(response.data);
+                console.log("Data fetched:", response.data);
+                setCalendarioData(Array.isArray(response.data) ? response.data : []);
                 setDataLoaded(true);
-                console.log(response.data);
             })
             .catch(error => {
                 console.error("Erro ao buscar dados do calendário:", error);
+                setCalendarioData([]);
+                setDataLoaded(true);
             });
     }, []);
 
@@ -63,6 +65,11 @@ export default function ContentCalendario() {
     };
 
     const groupByDiaSemana = (data) => {
+        if (!Array.isArray(data)) {
+            console.error("Expected an array but got:", data);
+            return {};
+        }
+
         return data.reduce((acc, item) => {
             const dia = item.dia_semana;
             if (!acc[dia]) {
@@ -73,7 +80,7 @@ export default function ContentCalendario() {
         }, {});
     };
 
-    const groupedData = groupByDiaSemana(calendarioData || []);
+    const groupedData = groupByDiaSemana(calendarioData);
 
     return (
         <div className={Calendario.margin_content}>
