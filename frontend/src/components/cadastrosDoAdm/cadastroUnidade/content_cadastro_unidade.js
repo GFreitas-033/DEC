@@ -101,6 +101,7 @@ export default function Content_cadastro_Unidade(props) {
       document.getElementById('cidade').value = responseEndereco.cidade;
       document.getElementById('bairro').value = responseEndereco.bairro;
       document.getElementById('rua').value = responseEndereco.rua;
+      document.getElementById('numero').value = responseEndereco.numero;
     }catch (error) {
       console.log(error);
     }
@@ -122,6 +123,7 @@ export default function Content_cadastro_Unidade(props) {
     const bairro = document.getElementById('bairro').value;
     const rua = document.getElementById('rua').value;
     const maisContatos = document.getElementById('maisContatos').value;
+    const numero = document.getElementById('numero').value;
 
     if (id_unidade !== undefined) {
       try {
@@ -131,7 +133,7 @@ export default function Content_cadastro_Unidade(props) {
           cidade: cidade,
           bairro: bairro,
           rua: rua,
-          numero: null
+          numero: numero
         });
 
         let responseUnidade = await axios.put(`/api/unidade/${id_unidade}`, {
@@ -159,7 +161,8 @@ export default function Content_cadastro_Unidade(props) {
           cidade,
           bairro,
           rua,
-          maisContatos
+          maisContatos,
+          numero
         }
       });
     }

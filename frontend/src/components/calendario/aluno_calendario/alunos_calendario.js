@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Barra_lateral from "../../barra_lateral/icons_barra_lateral";
 import Calendario from "./alunoCalendario.module.css";
@@ -10,8 +10,11 @@ export default function AlunosCalendario() {
     const { idturma } = useParams();
     const [alunos, setAlunos] = useState([]);
     const [turma, setTurma] = useState({}); // Estado para armazenar os dados da turma
+    const adm = localStorage.getItem('isAdm');
+    const navigate = useNavigate()
 
     useEffect(() => {
+        logado();
         const fetchAlunos = async () => {
             try {
                 const response = await axios.get(`/listaralunos/${idturma}`);
@@ -37,12 +40,20 @@ export default function AlunosCalendario() {
         fetchTurma();
     }, [idturma]);
 
+    const logado = async () => {
+        try {
+            let response = await axios.post('/login');
+        } catch (error) {
+            navigate('/');
+        }
+    };
+
     return (
         <div className={ContainerCss.container}>
             <Barra_lateral />
             <div className={Calendario.ajuste}>
                 <div className={Calendario.container_alunoscalendario}>
-                    <BotaoAdionarAlunos />
+                    <BotaoAdionarAlunos isAdm={adm}/>
                     <h1 className={Calendario.textTurma}>{turma.nome_turma}</h1>
                     <p className={Calendario.textLH}>Local: {turma.endereco_completo}</p>
                     <p className={Calendario.textLH}>Horário: {turma.horario}</p>

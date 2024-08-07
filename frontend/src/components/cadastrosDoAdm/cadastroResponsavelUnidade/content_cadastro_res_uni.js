@@ -28,6 +28,9 @@ export default function  Content_cadastro_Unidade(props){
     const {state} = useLocation();
     let { id_res_unidade } = useParams();
     const [responsePessoa, setResponsePessoa] = useState(null);
+    const [cpf, setCpf] = useState("");
+    const [rg, setRg] = useState("");
+    const [telefone, setTelefone] = useState("");
     const nome_unidade = state?.nome;
     const cnpj_unidade = state?.cnpj;
     const telefone_unidade = state?.telefone;
@@ -38,6 +41,7 @@ export default function  Content_cadastro_Unidade(props){
     const cidade_unidade = state?.cidade;
     const bairro_unidade = state?.bairro;
     const rua_unidade = state?.rua;
+    const numero_unidade = state?.numero;
 
     useEffect(() => {
       if (id_res_unidade !== undefined) {
@@ -128,7 +132,7 @@ export default function  Content_cadastro_Unidade(props){
             cidade: cidade_unidade,
             bairro: bairro_unidade,
             rua: rua_unidade,
-            numero: null
+            numero: numero_unidade
           });
           responseEndereco_Unidade = responseEndereco_Unidade.data;
 
@@ -175,9 +179,9 @@ export default function  Content_cadastro_Unidade(props){
                     <Email />
                     <Senha />
                     <Nome />
-                    <Cpf />
-                    <Rg />
-                    <Telefone />
+                    <Cpf value={cpf} setValue={setCpf} />
+                    <Rg value={rg} setValue={setRg} />
+                    <Telefone value={telefone} setValue={setTelefone} />
                     <DtNasc />
                     <Genero />
 
