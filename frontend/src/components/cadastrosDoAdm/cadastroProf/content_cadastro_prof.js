@@ -76,9 +76,12 @@
         let responsePessoa = await axios.get('/api/pessoa');
         responsePessoa = responsePessoa.data;
         responsePessoa = responsePessoa.find(item => item.id_pessoa === id_professor);
-        console.log(responsePessoa);
+        setEndereco(responsePessoa.id_endereco);
         document.getElementById('email').value = responsePessoa.email_pessoa;
         document.getElementById('nome').value = responsePessoa.nome_pessoa;
+        document.getElementById('cpf').value = formatCPF(responsePessoa.cpf_pessoa);
+        document.getElementById('rg').value = formatRG(responsePessoa.rg_pessoa);
+        document.getElementById('telefone').value = formatTelefone(responsePessoa.telefone_pessoa);
         setCpf(formatCPF(responsePessoa.cpf_pessoa));
         setRg(formatRG(responsePessoa.rg_pessoa));
         setTelefone(formatTelefone(responsePessoa.telefone_pessoa));
@@ -87,21 +90,24 @@
         let responseEndereco = await axios.get('/api/endereco');
         responseEndereco = responseEndereco.data;
         responseEndereco = responseEndereco.find(item => item.id_endereco === responsePessoa.id_endereco);
-        setEndereco(responsePessoa.id_endereco);
         document.getElementById('cep').value = responseEndereco.cep;
         document.getElementById('uf').value = responseEndereco.estado;
         document.getElementById('cidade').value = responseEndereco.cidade;
         document.getElementById('bairro').value = responseEndereco.bairro;
         document.getElementById('rua').value = responseEndereco.rua;
-        document.getElementById('cpf').value = formatCPF(responsePessoa.cpf_pessoa);
-        document.getElementById('rg').value = formatRG(responsePessoa.rg_pessoa);
-        document.getElementById('telefone').value = formatTelefone(responsePessoa.telefone_pessoa);
       } catch (error) {
         console.log(error);
       }
     };
 
     const handleBuscarCep = (cep) => {
+      if (cep.length < 9) {
+        setLogradouro("");
+        setBairro("");
+        setCidade("");
+        setUf("");
+        return;
+      }
       fetch(`https://viacep.com.br/ws/${cep}/json/`)
         .then((response) => response.json())
         .then((dados) => {
@@ -118,22 +124,13 @@
         });
     };
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      const form = event.target;
-      if (form.checkValidity()) {
-        cliquei();
-      } else {
-        form.reportValidity();
-      }
-    };
-
     function tratamentoString(inputString) {
       return inputString.replace(/[.\-()\s]/g, '');
     }
 
 
-    async function cliquei() {
+    const cliquei = async (event) =>{
+      event.preventDefault();
       const email = document.getElementById('email').value;
       const nome = document.getElementById('nome').value;
       const cpf = tratamentoString(document.getElementById('cpf').value);
@@ -231,7 +228,7 @@
           <Texto text={props.texto} />
         </h1>
 
-        <form className={StyleCadastroProf.content} autoComplete="off" onSubmit={handleSubmit}>
+        <form className={StyleCadastroProf.content} autoComplete="off" onSubmit={cliquei}>
           <div className={StyleCadastroProf.contentInputs}>
             <Imagem/>
             <Email/>
@@ -252,7 +249,7 @@
           </div>
 
           <div className={StyleCadastroProf.divBtn}>
-            <Botao btn={props.botao} onClick={cliquei} className={StyleCadastroProf.btn} />
+            <Botao btn={props.botao} className={StyleCadastroProf.btn} />
           </div>
         </form>
       </div>
