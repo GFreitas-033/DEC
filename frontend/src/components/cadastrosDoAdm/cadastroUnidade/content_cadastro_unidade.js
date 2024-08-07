@@ -177,8 +177,8 @@ export default function Content_cadastro_Unidade(props) {
       <form className={StyleCadastroUnidade.content} autoComplete="off" onSubmit={cliquei}>
         <div className={StyleCadastroUnidade.contentInputs}>
           <Nome />
-          <Cnpj />
-          <Telefone />
+          <Cnpj value={cnpj} setValue={setCnpj} />
+          <Telefone value={telefone} setValue={setTelefone} />
           <Email />
           <MaisContatos />
           <Cep onBuscarCep={handleBuscarCep} />

@@ -237,9 +237,9 @@
             <Email/>
             {id_professor === undefined && <Senha />}
             <Nome/>
-            <Cpf/>
-            <Rg/>
-            <Telefone/>
+            <Cpf value={cpf} setValue={setCpf} />
+            <Rg value={rg} setValue={setRg} />
+            <Telefone value={telefone} setValue={setTelefone} />
             <DtNasc/>
             <Genero/>
 
