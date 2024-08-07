@@ -91,6 +91,7 @@ export default function Content_cadastro_Turma(props) {
 
     useEffect(() => {
         if (responseTurma) {
+            alert("Sucesso!!!");
             window.location.reload();
         }
     }, [responseTurma]);

@@ -39,6 +39,7 @@ export default function Adicionar_Aluno(isAdm) {
     }
 
     if (responseAlunosTurma) {
+        alert("Sucesso!!!");
         window.location.reload();
     }
     if(isAdm.isAdm === "true"){

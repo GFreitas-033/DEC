@@ -24,9 +24,9 @@ export default function Submit_logar(){
         } catch (error) {
             console.log(error);
             if (error.response) {
-                console.log(`Erro: ${error.response.data.message}`);
+                alert(error.response.data.message);
             } else {
-                alert('Erro ao realizar login.');
+                console.log('Erro ao realizar login.');
             }
         }
     }

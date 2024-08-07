@@ -219,6 +219,7 @@
 
     // Recarrega a página quando responsePessoa estiver disponível
     if (responsePessoa) {
+      alert("Sucesso!!!");
       window.location.reload();
     }
 
