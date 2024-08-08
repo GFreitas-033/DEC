@@ -1,4 +1,11 @@
 @media screen and (min-width: 320px){
+    /* .content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+    } */
+    
     .titulo{
         margin-top: 5rem;
     }
@@ -9,6 +16,10 @@
 }
 
 @media screen and (min-width: 720px){
+     .content{
+        width: 50%;
+     }
+
     .titulo{
         margin-top: 2rem;
     }
@@ -31,7 +42,7 @@
 
 .content{
     padding: 1rem; 
-    margin-top: 2rem;
+    margin-top: 1rem;
 
     background-color: #999999;
     border-radius: 0.6rem;
