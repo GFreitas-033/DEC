@@ -45,6 +45,11 @@
     }
 }
 
+table{
+    min-height: 70vh;
+    height: auto;
+}
+
 td{
     line-height: 2rem;
     vertical-align: middle;
