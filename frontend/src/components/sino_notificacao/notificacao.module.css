@@ -1,0 +1,48 @@
+.containerSino {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.sinoImg {
+    width: 3rem;
+    height: 3rem;
+}
+
+.qtnNotificacao {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background-color: #ff0000;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+}
+
+.caixa {
+    position: absolute;
+    top: 3.5rem;
+    right: 0;
+    background-color: #999999;
+    border: 0.1rem solid #FBD034;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 20rem;
+    visibility: hidden;
+}
+
+.mostrar {
+    visibility: visible;
+}
+
+.mensagemConteiner {
+    padding: 0.5rem;
+}
+
+.mensagemConteiner p {
+    margin-bottom: 0.6rem;
+    margin-top: 0.6rem;
+}
