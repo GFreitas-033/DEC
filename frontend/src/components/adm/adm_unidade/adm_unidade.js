@@ -4,6 +4,7 @@ import BarraLateral from "../../barra_lateral/icons_barra_lateral"
 import ContentAdmUnidade from "./content_adm_unidade"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Notifica from "../../sino_notificacao/notificacao"
 
 export default function Adm_unidade(){
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function Adm_unidade(){
         <div className={ContainerCss.container}>
             <BarraLateral />
             <ContentAdmUnidade />
+            <Notifica />
         </div>
     )
 }

@@ -4,6 +4,7 @@ import ContainerCss from "../containers.module.css";
 import BarraLateral from "../barra_lateral/icons_barra_lateral";
 import ContentAdm from "./content_adm";
 import axios from "axios";
+import Notifica from "../sino_notificacao/notificacao"
 
 export default function Adm() {
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function Adm() {
         <div className={ContainerCss.container}>
             <BarraLateral />
             <ContentAdm />
+            <Notifica />
         </div>
     );
 }

@@ -4,6 +4,7 @@ import BarraLateral from "../../barra_lateral/icons_barra_lateral"
 import ContentCadastroResponsavelUnidade from "./content_cadastro_res_uni"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Notifica from "../../sino_notificacao/notificacao"
 
 export default function Cadastro_responsavel_unidade(props){
     const navigate = useNavigate();
@@ -29,6 +30,7 @@ export default function Cadastro_responsavel_unidade(props){
         <div className={ContainerCss.container}>
             <BarraLateral />
             <ContentCadastroResponsavelUnidade texto={props.texto} botao={props.botao}/>
+            <Notifica />
         </div>
     )
 }

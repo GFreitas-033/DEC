@@ -5,6 +5,7 @@ import Barra_lateral from "../../barra_lateral/icons_barra_lateral";
 import Calendario from "./alunoCalendario.module.css";
 import ContainerCss from "../../containers.module.css";
 import BotaoAdionarAlunos from "./botaoAdicionarAluno/adicionarAluno";
+import Notifica from "../../sino_notificacao/notificacao"
 
 export default function AlunosCalendario() {
     const { idturma } = useParams();
@@ -64,6 +65,7 @@ export default function AlunosCalendario() {
                     </ul>
                 </div>
             </div>
+            <Notifica />
         </div>
     );
 }

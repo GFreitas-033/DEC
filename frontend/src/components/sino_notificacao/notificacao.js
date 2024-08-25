@@ -8,6 +8,9 @@ export default function Notificacao() {
     { id: 1, message: 'Notification 1' },
     { id: 2, message: 'Notification 2' },
     { id: 3, message: 'Notification 3' },
+    { id: 4, message: 'Notification 4' },
+    { id: 5, message: 'Notification 5' },
+    { id: 6, message: 'Notification 6' },
   ]);
 
   const NotificationClick = () => {
