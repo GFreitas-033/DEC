@@ -10,10 +10,10 @@ async function readUnidade() {
     }
 }
 
-async function createUnidade(nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_responsavel_unidade) {
+async function createUnidade(nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco) {
     try {
-        await db.query('INSERT INTO unidade (nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_responsavel_unidade) VALUES (?, ?, ?, ?, ?, ?, ?)', 
-                      [nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_responsavel_unidade]);
+        await db.query('INSERT INTO unidade (nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco) VALUES (?, ?, ?, ?, ?, ?)', 
+                      [nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco]);
     } catch (err) {
         console.error('Erro ao criar registro:', err);
         throw new Error('Erro interno do servidor');

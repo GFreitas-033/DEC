@@ -150,25 +150,36 @@ export default function Content_cadastro_Unidade(props) {
         console.log("Erro ao editar unidade: ", error);
       }
     }else{
-      navigate('/cadastro/unidade/responsavel', {
-        state: {
-          nome,
-          email,
-          cnpj,
-          telefone,
-          cep,
-          uf,
-          cidade,
-          bairro,
-          rua,
-          maisContatos,
-          numero
-        }
-      });
+      try {
+        let responseEndereco_Unidade = await axios.post('/api/endereco/', {
+          cep: cep,
+          estado: uf,
+          cidade: cidade,
+          bairro: bairro,
+          rua: rua,
+          numero: numero
+        });
+        responseEndereco_Unidade = responseEndereco_Unidade.data;
+  
+        let responseUnidade = await axios.post('/api/unidade', {
+          nome_unidade: nome, 
+          cnpj_unidade: cnpj, 
+          telefone_unidade: telefone, 
+          email_unidade: email, 
+          mais_contatos: maisContatos, 
+          id_endereco: responseEndereco_Unidade.id
+        })
+        responseUnidade = responseUnidade.data;
+        console.log(responseUnidade);
+        setResponseUnidade(responseUnidade);
+      } catch (error) {
+        console.log("Erro ao criar undidade: ", error);
+      }
     }
   };
 
   if (responseUnidade) {
+    alert("Sucesso!!!");
     window.location.reload();
   }
 

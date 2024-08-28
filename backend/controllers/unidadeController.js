@@ -10,8 +10,8 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 router.post('/', asyncHandler(async (req, res) => {
-    const { nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_responsavel_unidade } = req.body;
-    await unidadeModel.createUnidade(nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_responsavel_unidade);
+    const { nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco} = req.body;
+    await unidadeModel.createUnidade(nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco);
     res.status(201).send('Registro criado com sucesso!');
 }));
 
