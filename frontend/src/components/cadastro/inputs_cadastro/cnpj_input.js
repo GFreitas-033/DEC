@@ -23,7 +23,6 @@ export default function Cnpj_input({ value, setValue }) {
         type="text" 
         id="cnpj" 
         placeholder="Insira um CNPJ aqui" 
-        required 
         className={Cnpj.input} 
         onChange={handleCnpjChange} 
         value={value} 
