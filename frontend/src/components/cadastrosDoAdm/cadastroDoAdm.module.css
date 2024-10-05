@@ -1,11 +1,4 @@
 @media screen and (min-width: 320px){
-    /* .content{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 80%;
-    } */
-    
     .titulo{
         margin-top: 5rem;
     }
