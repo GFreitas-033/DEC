@@ -9,7 +9,7 @@ export default function Adicionar_Aluno(isAdm) {
     const [responseAlunosTurma, setResponseAlunoTurma] = useState(null);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/listartodosalunos")
+        axios.get("/listartodosalunos")
             .then(response => {
                 setAlunos(response.data); // Atualiza o estado com a lista de alunos
             })
