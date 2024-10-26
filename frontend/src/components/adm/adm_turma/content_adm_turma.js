@@ -1,5 +1,3 @@
-// src/components/Content_adm_turma.js
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -59,21 +57,23 @@ export default function Content_adm_turma() {
                 <tbody>
                     {turmas.map(turma => (
                         <tr key={turma.id_turma}>
-                            <td className={AdmTurma.ids}>
-                                {turma.id_turma}
-                            </td>
                             <td>
+                                <div className={AdmTurma.divIds}>
+                                    <p className={AdmTurma.Id}>{turma.id_turma}</p>
+                                    <img 
+                                        src={Excluir} 
+                                        className={AdmTurma.icon} 
+                                        onClick={() => excluirTurma(turma.id_turma)}
+                                    />
+                                    <img 
+                                        src={Editar} 
+                                        className={AdmTurma.icon} 
+                                        onClick={() => navigate(`/adm/editar_turma/${turma.id_turma}`)}
+                                    />
+                                </div>
+                            </td>
+                            <td className={AdmTurma.colunaNome}>
                                 {turma.nome_turma}
-                                <img 
-                                    src={Excluir} 
-                                    className={AdmTurma.icon} 
-                                    onClick={() => excluirTurma(turma.id_turma)}
-                                />
-                                <img 
-                                    src={Editar} 
-                                    className={AdmTurma.icon} 
-                                    onClick={() => navigate(`/adm/editar_turma/${turma.id_turma}`)}
-                                />
                             </td>
                         </tr>
                     ))}

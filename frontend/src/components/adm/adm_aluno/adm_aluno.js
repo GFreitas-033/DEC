@@ -9,7 +9,6 @@ import Notifica from "../../sino_notificacao/notificacao"
 export default function Adm_aluno(){
     const navigate = useNavigate();
 
-
     useEffect(() => {
         logado();
     });

@@ -59,22 +59,23 @@ export default function Content_adm_unidade() {
                 <tbody>
                     {unidades.map(unidade => (
                         <tr key={unidade.id_unidade}>
-                            <td className={AdmUnidade.ids}>
-                                {unidade.id_unidade}
-                            </td>
-
                             <td>
+                                <div className={AdmUnidade.divIds}>
+                                    <p className={AdmUnidade.Id}>{unidade.id_unidade}</p>
+                                    <img 
+                                        src={Excluir} 
+                                        className={AdmUnidade.icon} 
+                                        onClick={() => excluirUnidade(unidade.id_unidade)}
+                                    />
+                                    <img 
+                                        src={Editar} 
+                                        className={AdmUnidade.icon} 
+                                        onClick={() => navigate(`/adm/editar_unidade/${unidade.id_unidade}`)}
+                                    />
+                                </div>
+                            </td>
+                            <td className={AdmUnidade.colunaNome}>
                                 {unidade.nome_unidade}
-                                <img 
-                                    src={Excluir} 
-                                    className={AdmUnidade.icon} 
-                                    onClick={() => excluirUnidade(unidade.id_unidade)}
-                                />
-                                <img 
-                                    src={Editar} 
-                                    className={AdmUnidade.icon} 
-                                    onClick={() => navigate(`/adm/editar_unidade/${unidade.id_unidade}`)}
-                                />
                             </td>
                         </tr>
                     ))}

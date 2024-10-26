@@ -1,24 +1,29 @@
 @media screen and (min-width: 320px){
     .titulo{
         margin-top: 5rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
 
     .divBtn{
-        width: 100%;
+        width: 95%;
     }
 
     .qtd{
+        margin-left: 0.2rem;
         margin-right: 0.8rem;
-        font-size: 0.7rem;
+        font-size: 0.8rem;
     }
 
     .tabela{
-        width: 100%;
+        width: 95%;
     }
 
-    .icon{
-        float: inline-end;
+    .Id{
+        margin-right: 0;
+    }
+
+    .colunaNome{
+        min-width: 10rem;
     }
 }
 
@@ -33,15 +38,19 @@
     }
 
     .qtd{
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .tabela{
         width: 55%;
     }
 
-    .icon{
-        float: right;
+    .Id{
+        margin-right: 1rem;
+    }
+
+    .colunaNome{
+        min-width: 25rem;
     }
 }
 
@@ -51,9 +60,9 @@ table{
 }
 
 td{
-    line-height: 2rem;
-    vertical-align: middle;
-    border: 0.1rem solid #000;
+    line-height: 1rem;
+    border: 0.1rem solid #fff;
+    padding: 0.3rem;
 }
 
 .contentAdm{
@@ -70,13 +79,15 @@ td{
 }
 
 .tabela{
-    background-color: #999999;
-    border-radius: 0.5rem;
+    background-color: #838383;
     border-collapse: collapse;
 }
 
-.tabela td{
-    padding: 0.3rem;
+.divIds{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row-reverse;
 }
 
 .ids{
@@ -86,7 +97,8 @@ td{
 .icon{
     width: 1.5rem;
     height: 1.5rem;
-    padding: 0.3rem 0.4rem;
+    padding: 0.1rem;
+    border-radius: 0.3rem;
 
     cursor: pointer;
 }

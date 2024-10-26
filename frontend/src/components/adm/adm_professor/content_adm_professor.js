@@ -1,5 +1,3 @@
-// src/components/Content_adm_professor.js
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -59,21 +57,23 @@ export default function Content_adm_professor() {
                 <tbody>
                     {professores.map(professor => (
                         <tr key={professor.id_pessoa}>
-                            <td className={AdmProf.ids}>
-                                {professor.id_pessoa}
-                            </td>
                             <td>
+                                <div className={AdmProf.divIds}>
+                                    <p className={AdmProf.Id}>{professor.id_pessoa}</p>
+                                    <img 
+                                        src={Excluir} 
+                                        className={AdmProf.icon} 
+                                        ontdck={() => excluirProfessor(professor.id_pessoa)}
+                                    />
+                                    <img 
+                                        src={Editar} 
+                                        className={AdmProf.icon} 
+                                        onClick={() => navigate(`/adm/editar_prof/${professor.id_pessoa}`)}
+                                    />
+                                </div>
+                            </td>
+                            <td className={AdmProf.colunaNome}>
                                 {professor.nome_pessoa}
-                                <img 
-                                    src={Excluir} 
-                                    className={AdmProf.icon} 
-                                    ontdck={() => excluirProfessor(professor.id_pessoa)}
-                                />
-                                <img 
-                                    src={Editar} 
-                                    className={AdmProf.icon} 
-                                    onClick={() => navigate(`/adm/editar_prof/${professor.id_pessoa}`)}
-                                />
                             </td>
                         </tr>
                     ))}
