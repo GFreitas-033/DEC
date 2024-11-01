@@ -5,18 +5,18 @@ import Texto from "../../cadastro/textos_cadastro/texto_cadastro";
 import axios from "axios";
 
 // Imports dos Inputs para Pessoa
-import Nome from "../../cadastro/inputs_cadastro/nome_input";
-import Cnpj from "../../cadastro/inputs_cadastro/cnpj_input";
-import Telefone from "../../cadastro/inputs_cadastro/telefone_input";
-import Email from "../../cadastro/inputs_cadastro/email_input";
-import MaisContatos from "../../cadastro/inputs_cadastro/mais_contatos_input";
+import Nome from "../../inputs_cadastro/nome_input";
+import Cnpj from "../../inputs_cadastro/cnpj_input";
+import Telefone from "../../inputs_cadastro/telefone_input";
+import Email from "../../inputs_cadastro/email_input";
+import MaisContatos from "../../inputs_cadastro/mais_contatos_input";
 // Imports do Endereço
-import Cep from "../../cadastro/inputs_cadastro/endereco/cep_input";
-import UF from "../../cadastro/inputs_cadastro/endereco/uf_input";
-import Cidade from "../../cadastro/inputs_cadastro/endereco/cidade_input";
-import Bairro from "../../cadastro/inputs_cadastro/endereco/bairro_input";
-import Rua from "../../cadastro/inputs_cadastro/endereco/rua_input";
-import Numero from "../../cadastro/inputs_cadastro/endereco/numero_input";
+import Cep from "../../inputs_cadastro/endereco/cep_input";
+import UF from "../../inputs_cadastro/endereco/uf_input";
+import Cidade from "../../inputs_cadastro/endereco/cidade_input";
+import Bairro from "../../inputs_cadastro/endereco/bairro_input";
+import Rua from "../../inputs_cadastro/endereco/rua_input";
+import Numero from "../../inputs_cadastro/endereco/numero_input";
 
 import Botao from "../botao_cadastro/submit_cadastro";
 

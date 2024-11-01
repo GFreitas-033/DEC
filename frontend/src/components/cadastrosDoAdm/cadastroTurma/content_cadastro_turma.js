@@ -6,12 +6,12 @@ import axios from "axios";
 import Texto from "../../cadastro/textos_cadastro/texto_cadastro";
 
 // Imports dos Inputs
-import SelecionarProf from "../../cadastro/inputs_cadastro/inputsTurma/professor_input";
-import SelecionarUni from "../../cadastro/inputs_cadastro/inputsTurma/unidade_input";
-import QtdMaxima from "../../cadastro/inputs_cadastro/inputsTurma/qtdMaxima_input";
-import DiaSemana from "../../cadastro/inputs_cadastro/inputsTurma/diaSemana_input";
-import Horario from "../../cadastro/inputs_cadastro/inputsTurma/horario_input";
-import Nome from "../../cadastro/inputs_cadastro/inputsTurma/nome_input";
+import SelecionarProf from "../../inputs_cadastro/inputsTurma/professor_input";
+import SelecionarUni from "../../inputs_cadastro/inputsTurma/unidade_input";
+import QtdMaxima from "../../inputs_cadastro/inputsTurma/qtdMaxima_input";
+import DiaSemana from "../../inputs_cadastro/inputsTurma/diaSemana_input";
+import Horario from "../../inputs_cadastro/inputsTurma/horario_input";
+import Nome from "../../inputs_cadastro/inputsTurma/nome_input";
 
 import Botao from "../botao_cadastro/submit_cadastro";
 

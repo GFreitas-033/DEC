@@ -4,14 +4,14 @@ import Styles from "../cadastro/form_cadastro/form.module.css"
 import Texto from "../cadastro/textos_cadastro/texto_cadastro"
 
 // Import dos Input
-import Email from "../cadastro/inputs_cadastro/email_input"
-import Senha from "../cadastro/inputs_cadastro/senha_input"
-import Nome from "../cadastro/inputs_cadastro/nome_input"
-import CPF from "../cadastro/inputs_cadastro/cpf_input"
-import RG from "../cadastro/inputs_cadastro/rg_input"
-import Telefone from "../cadastro/inputs_cadastro/telefone_input"
-import DtNasc from "../cadastro/inputs_cadastro/dt_nasc_input"
-import Genero from "../cadastro/inputs_cadastro/genero_input"
+import Email from "../inputs_cadastro/email_input"
+import Senha from "../inputs_cadastro/senha_input"
+import Nome from "../inputs_cadastro/nome_input"
+import CPF from "../inputs_cadastro/cpf_input"
+import RG from "../inputs_cadastro/rg_input"
+import Telefone from "../inputs_cadastro/telefone_input"
+import DtNasc from "../inputs_cadastro/dt_nasc_input"
+import Genero from "../inputs_cadastro/genero_input"
 // Import Botão
 import Botao from "../cadastrosDoAdm/botao_cadastro/submit_cadastro"
 
