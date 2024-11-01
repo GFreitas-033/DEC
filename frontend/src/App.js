@@ -59,7 +59,7 @@ export default function App(){
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />}></Route>
-        <Route path="/cadastro" element={<Cadastro texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
+        <Route path="/cadastro" element={<Cadastro />}></Route>
         <Route path="/cadastro/responsavel" element={<CadastroResponsavel texto={"Cadastro"} botao={"Cadastrar"}/>}></Route>
         
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} botao={"Cadastrar"}/>}></Route>

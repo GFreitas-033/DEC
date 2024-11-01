@@ -18,7 +18,7 @@ import Bairro from "../../cadastro/inputs_cadastro/endereco/bairro_input";
 import Rua from "../../cadastro/inputs_cadastro/endereco/rua_input";
 import Numero from "../../cadastro/inputs_cadastro/endereco/numero_input";
 
-import Botao from "../../cadastro/botao_cadastro/submit_cadastro";
+import Botao from "../botao_cadastro/submit_cadastro";
 
 export default function Content_cadastro_Unidade(props) {
   const navigate = useNavigate();

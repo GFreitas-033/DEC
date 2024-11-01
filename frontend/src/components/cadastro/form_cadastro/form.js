@@ -21,7 +21,7 @@ import Cidade from "../inputs_cadastro/endereco/cidade_input";
 import Bairro from "../inputs_cadastro/endereco/bairro_input";
 import Rua from "../inputs_cadastro/endereco/rua_input";
 // Import Botão
-import Botao from "../botao_cadastro/submit_cadastro";
+import Botao from "../../cadastrosDoAdm/botao_cadastro/submit_cadastro";
 
 export default function Form(props) {
   let { id_aluno } = useParams();
@@ -250,6 +250,8 @@ export default function Form(props) {
     window.location.reload();
   }
 
+
+
   return (
     <div className={Styles.container_formcadastro}>
       <form id="formcadastroaluno" className={Styles.form} autoComplete="off" onSubmit={handleSubmit}>
@@ -258,19 +260,20 @@ export default function Form(props) {
           <Email />
           {id_aluno === undefined && <Senha />}
           <Nome />
-          <CPF value={cpf} setValue={setCpf} />
           <RG value={rg} setValue={setRg} />
+          <CPF value={cpf} setValue={setCpf} />
           <Telefone value={telefone} setValue={setTelefone} />
           <DtNasc />
-          <DC />
           <Genero />
+          <DC />
+
           <Cep onBuscarCep={handleBuscarCep} />
           <UF u={uf} />
           <Cidade c={cidade} />
           <Bairro b={bairro} />
           <Rua r={logradouro} />
         </div>
-        <Botao btn={props.botao} onClick={cliquei} />
+        <Botao onClick={cliquei} />
       </form>
     </div>
   );

@@ -13,7 +13,7 @@ import Telefone from "../cadastro/inputs_cadastro/telefone_input"
 import DtNasc from "../cadastro/inputs_cadastro/dt_nasc_input"
 import Genero from "../cadastro/inputs_cadastro/genero_input"
 // Import Botão
-import Botao from "../cadastro/botao_cadastro/submit_cadastro"
+import Botao from "../cadastrosDoAdm/botao_cadastro/submit_cadastro"
 
 export default function FormCadastroResponsavel(props){
 

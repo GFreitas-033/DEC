@@ -13,7 +13,7 @@ import DiaSemana from "../../cadastro/inputs_cadastro/inputsTurma/diaSemana_inpu
 import Horario from "../../cadastro/inputs_cadastro/inputsTurma/horario_input";
 import Nome from "../../cadastro/inputs_cadastro/inputsTurma/nome_input";
 
-import Botao from "../../cadastro/botao_cadastro/submit_cadastro";
+import Botao from "../botao_cadastro/submit_cadastro";
 
 export default function Content_cadastro_Turma(props) {
     const navigate = useNavigate();

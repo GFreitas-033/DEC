@@ -22,7 +22,7 @@
   import Bairro from "../../cadastro/inputs_cadastro/endereco/bairro_input";
   import Rua from "../../cadastro/inputs_cadastro/endereco/rua_input";
 
-  import Botao from "../../cadastro/botao_cadastro/submit_cadastro";
+  import Botao from "../botao_cadastro/submit_cadastro";
 
   export default function Content_cadastro_Professor(props) {
     let { id_professor } = useParams();
