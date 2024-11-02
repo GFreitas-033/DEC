@@ -35,48 +35,81 @@ export default function Form() {
   };
 
   const Passo1 = ({ nextStep }) => (
-    <div className={Styles.container_inputs}>
-      <Email />
-      {id_aluno === undefined && <Senha />}
-      <Nome />
-      <RG value={rg} setValue={setRg} />
-      <CPF value={cpf} setValue={setCpf} />
-      <br />
-      <button type="button" onClick={nextStep} className={Styles.button}>
-        Avançar
-      </button>
+    <div>
+        <div className={Styles.textcenter}>
+          <h1>Dados do Aluno</h1>
+        </div>
+        <div className={Styles.container_inputs}>
+          <Email />
+          {id_aluno === undefined && <Senha />}
+          <Nome />
+          <RG value={rg} setValue={setRg} />
+          <CPF value={cpf} setValue={setCpf} />
+          <br />
+          <button type="button" onClick={nextStep} className={Styles.button}>
+            Avançar
+          </button>
+      </div>
     </div>
   )
   
   const Passo2 = ({ nextStep, prevStep }) => (
-    <div className={Styles.container_inputs}>
-      <Telefone value={telefone} setValue={setTelefone} />
-      <DtNasc />
-      <Genero />
-      <DC />
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        Voltar
-      </button>
-      <button type="button" onClick={nextStep} className={Styles.button}>
-        Avançar
-      </button>
+    <div>
+      <div className={Styles.textcenter}>
+        <h1>Dados do Aluno</h1>
+      </div>
+      <div className={Styles.container_inputs}>
+        <Telefone value={telefone} setValue={setTelefone} />
+        <DtNasc />
+        <Genero />
+        <DC />
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          Voltar
+        </button>
+        <button type="button" onClick={nextStep} className={Styles.button}>
+          Avançar
+        </button>
+      </div>
     </div>
   )
   
   const Passo3 = ({ nextStep, prevStep }) => (
-    <div className={Styles.container_inputs}>
-      <Cep onBuscarCep={handleBuscarCep} />
-      <UF u={uf} />
-      <Cidade c={cidade} />
-      <Bairro b={bairro} />
-      <Rua r={logradouro} />
-      <br />
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        Voltar
-      </button>
-      <button type="button" onClick={()=>{nextStep(); cliquei()}} className={Styles.button}>
-        Cadastrar
-      </button>
+    <div>
+      <div className={Styles.textcenter}>
+        <h1>Enderaço do Aluno</h1>
+      </div>
+      <div className={Styles.container_inputs}>
+        <Cep onBuscarCep={handleBuscarCep} />
+        <UF u={uf} />
+        <Cidade c={cidade} />
+        <Bairro b={bairro} />
+        <Rua r={logradouro} />
+        <br />
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          Voltar
+        </button>
+        <button type="button" onClick={nextStep} className={Styles.button}>
+          Avançar
+        </button>
+      </div>
+    </div>
+  )
+
+  const Passo4 = ({ nextStep, prevStep }) => (
+    <div>
+      <div className={Styles.textcenter}>
+        <h1>Turma do Aluno</h1>
+      </div>
+      <div className={Styles.container_inputs}>
+        <Email />
+        <br />
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          Voltar
+        </button>
+        <button type="button" onClick={()=>{nextStep(); cliquei()}} className={Styles.button}>
+          Cadastrar
+        </button>
+      </div>
     </div>
   )
 
@@ -84,8 +117,8 @@ export default function Form() {
     <Passo1 nextStep={nextStep} />,
     <Passo2 nextStep={nextStep} prevStep={prevStep} />,
     <Passo3 nextStep={nextStep} prevStep={prevStep} />,
+    <Passo4 nextStep={nextStep} prevStep={prevStep} />,
   ];
-
 
   let { id_aluno } = useParams();
   const [logradouro, setLogradouro] = useState("");
@@ -317,9 +350,6 @@ export default function Form() {
   return (
     <div className={Styles.container_formcadastro}>
       <form id="formcadastroaluno" className={Styles.form} autoComplete="off">
-        <div className={Styles.textcenter}>
-          <h1>Cadastrar</h1>
-        </div>
         <CSSTransition
           in={true}
           key={step}
