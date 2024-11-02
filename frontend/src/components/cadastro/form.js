@@ -21,106 +21,8 @@ import Cidade from "../inputs_cadastro/endereco/cidade_input";
 import Bairro from "../inputs_cadastro/endereco/bairro_input";
 import Rua from "../inputs_cadastro/endereco/rua_input";
 
-
 export default function Form() {
-  //Nova parte
   const [step, setStep] = useState(0);
-
-  const nextStep = () => {
-    setStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
-  };
-
-  const prevStep = () => {
-    setStep((prevStep) => Math.max(prevStep - 1, 0));
-  };
-
-  const Passo1 = ({ nextStep }) => (
-    <div>
-        <div className={Styles.textcenter}>
-          <h1>Dados do Aluno</h1>
-        </div>
-        <div className={Styles.container_inputs}>
-          <Email />
-          {id_aluno === undefined && <Senha />}
-          <Nome />
-          <RG value={rg} setValue={setRg} />
-          <CPF value={cpf} setValue={setCpf} />
-          <br />
-          <button type="button" onClick={nextStep} className={Styles.button}>
-            Avançar
-          </button>
-      </div>
-    </div>
-  )
-  
-  const Passo2 = ({ nextStep, prevStep }) => (
-    <div>
-      <div className={Styles.textcenter}>
-        <h1>Dados do Aluno</h1>
-      </div>
-      <div className={Styles.container_inputs}>
-        <Telefone value={telefone} setValue={setTelefone} />
-        <DtNasc />
-        <Genero />
-        <DC />
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          Voltar
-        </button>
-        <button type="button" onClick={nextStep} className={Styles.button}>
-          Avançar
-        </button>
-      </div>
-    </div>
-  )
-  
-  const Passo3 = ({ nextStep, prevStep }) => (
-    <div>
-      <div className={Styles.textcenter}>
-        <h1>Enderaço do Aluno</h1>
-      </div>
-      <div className={Styles.container_inputs}>
-        <Cep onBuscarCep={handleBuscarCep} />
-        <UF u={uf} />
-        <Cidade c={cidade} />
-        <Bairro b={bairro} />
-        <Rua r={logradouro} />
-        <br />
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          Voltar
-        </button>
-        <button type="button" onClick={nextStep} className={Styles.button}>
-          Avançar
-        </button>
-      </div>
-    </div>
-  )
-
-  const Passo4 = ({ nextStep, prevStep }) => (
-    <div>
-      <div className={Styles.textcenter}>
-        <h1>Turma do Aluno</h1>
-      </div>
-      <div className={Styles.container_inputs}>
-        <Email />
-        <br />
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          Voltar
-        </button>
-        <button type="button" onClick={()=>{nextStep(); cliquei()}} className={Styles.button}>
-          Cadastrar
-        </button>
-      </div>
-    </div>
-  )
-
-  const steps = [
-    <Passo1 nextStep={nextStep} />,
-    <Passo2 nextStep={nextStep} prevStep={prevStep} />,
-    <Passo3 nextStep={nextStep} prevStep={prevStep} />,
-    <Passo4 nextStep={nextStep} prevStep={prevStep} />,
-  ];
-
-  let { id_aluno } = useParams();
   const [logradouro, setLogradouro] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
@@ -130,6 +32,8 @@ export default function Form() {
   const [telefone, setTelefone] = useState("");
   const [id_endereco, setEndereco] = useState(null);
   const [responsePessoa, setResponsePessoa] = useState(null);
+
+  let { id_aluno } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -139,18 +43,6 @@ export default function Form() {
       preencherDados();
     }
   }, [id_aluno]);
-
-  const logado = async () => {
-    try {
-      let response = await axios.post('/login');
-      response = response.data;
-      if (response.adm !== 1) {
-        navigate('/home');
-      }
-    } catch (error) {
-      navigate('/');
-    }
-  };
 
   const formatCPF = (cpf) => {
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -169,6 +61,74 @@ export default function Form() {
     }
     return telefone;
   };
+
+  const handleBuscarCep = (cep) => {
+    if (cep.length < 9) {
+      setLogradouro("");
+      setBairro("");
+      setCidade("");
+      setUf("");
+      return;
+    }
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((response) => response.json())
+      .then((dados) => {
+        setLogradouro(dados.logradouro);
+        setBairro(dados.bairro);
+        setCidade(dados.localidade);
+        setUf(dados.uf);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar CEP:', error);
+      });
+  };
+
+  const nextStep = () => {
+    setStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
+  };
+
+  const prevStep = () => {
+    setStep((prevStep) => Math.max(prevStep - 1, 0));
+  };
+
+  const steps = [
+    <Passo1 nextStep={nextStep} rg={rg} setRg={setRg} cpf={cpf} setCpf={setCpf} />,
+    <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} />,
+    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} />,
+    <Passo4 prevStep={prevStep} cliquei={cliquei} />
+  ];
+
+  const logado = async () => {
+    try {
+      let response = await axios.post('/login');
+      if (response.data.adm !== 1) {
+        navigate('/home');
+      }
+    } catch (error) {
+      navigate('/');
+    }
+  };
+
+  function tratamentoString(inputString) {
+    return inputString.replace(/[.\-()\s]/g, '');
+  }
+
+  function formatarData(dateString) {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  }
+
+  // Obter a data atual
+  const dataAtual = new Date();
+  const adicionarZero = (numero) => (numero < 10 ? `0${numero}` : numero);
+  const ano = dataAtual.getFullYear();
+  const mes = adicionarZero(dataAtual.getMonth() + 1);
+  const dia = adicionarZero(dataAtual.getDate());
+  const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
 
   const preencherDados = async () => {
     try {
@@ -199,58 +159,6 @@ export default function Form() {
       console.log(error);
     }
   };
-
-  const handleBuscarCep = (cep) => {
-    if (cep.length < 9) {
-      setLogradouro("");
-      setBairro("");
-      setCidade("");
-      setUf("");
-      return;
-    }
-    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-      .then((response) => response.json())
-      .then((dados) => {
-        setLogradouro(dados.logradouro);
-        setBairro(dados.bairro);
-        setCidade(dados.localidade);
-        setUf(dados.uf);
-      })
-      .catch((error) => {
-        console.error('Erro ao buscar CEP:', error);
-      });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    if (form.checkValidity()) {
-      cliquei();
-    } else {
-      form.reportValidity();
-    }
-  };
-
-  function tratamentoString(inputString) {
-    return inputString.replace(/[.\-()\s]/g, '');
-  }
-
-  function formatarData(dateString) {
-    const date = new Date(dateString);
-    const year = date.getUTCFullYear();
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    
-    return `${year}-${month}-${day}`;
-  }
-
-  // Obter a data atual
-  const dataAtual = new Date();
-  const adicionarZero = (numero) => (numero < 10 ? `0${numero}` : numero);
-  const ano = dataAtual.getFullYear();
-  const mes = adicionarZero(dataAtual.getMonth() + 1);
-  const dia = adicionarZero(dataAtual.getDate());
-  const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
 
   async function cliquei() {
     const email = document.getElementById('email').value;
@@ -340,12 +248,10 @@ export default function Form() {
     
   }
 
-  // Recarrega a página quando responsePessoa estiver disponível
   if (responsePessoa) {
     alert("Sucesso!!!");
     window.location.reload();
   }
-
 
   return (
     <div className={Styles.container_formcadastro}>
@@ -361,5 +267,48 @@ export default function Form() {
         </CSSTransition>
       </form>
     </div>
-  )
+  );
 }
+
+const Passo1 = ({ nextStep, rg, setRg, cpf, setCpf }) => (
+  <div className={Styles.container_inputs}>
+    <Email />
+    <Senha />
+    <Nome />
+    <RG value={rg} setValue={setRg} />
+    <CPF value={cpf} setValue={setCpf} />
+    <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+  </div>
+);
+
+const Passo2 = ({ nextStep, prevStep, telefone, setTelefone }) => (
+  <div className={Styles.container_inputs}>
+    <Telefone value={telefone} setValue={setTelefone} />
+    <DtNasc />
+    <Genero />
+    <DC />
+    <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+    <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+  </div>
+);
+
+const Passo3 = ({ nextStep, prevStep, handleBuscarCep, uf, cidade, bairro, logradouro }) => (
+  <div className={Styles.container_inputs}>
+    <Cep onBuscarCep={handleBuscarCep} />
+    <UF u={uf} />
+    <Cidade c={cidade} />
+    <Bairro b={bairro} />
+    <Rua r={logradouro} />
+    <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+    <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+  </div>
+);
+
+const Passo4 = ({ prevStep, cliquei }) => (
+  <div className={Styles.container_inputs}>
+    <Email />
+    <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+    <button type="button" onClick={cliquei} className={Styles.button}>Cadastrar</button>
+  </div>
+);
+
