@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import StyleCadastroTurma from "../cadastroDoAdm.module.css";
 import axios from "axios";
 
-import Texto from "../../cadastro/textos_cadastro/texto_cadastro";
+import Texto from "../../antigo_cadastro/textos_cadastro/texto_cadastro";
 
 // Imports dos Inputs
 import SelecionarProf from "../../inputs_cadastro/inputsTurma/professor_input";

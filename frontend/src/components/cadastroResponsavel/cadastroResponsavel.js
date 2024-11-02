@@ -1,7 +1,7 @@
 import React from "react"
-import Styles from "../cadastro/form_cadastro/form.module.css"
+import Styles from "../antigo_cadastro/form_cadastro/form.module.css"
 
-import Texto from "../cadastro/textos_cadastro/texto_cadastro"
+import Texto from "../antigo_cadastro/textos_cadastro/texto_cadastro"
 
 // Import dos Input
 import Email from "../inputs_cadastro/email_input"

@@ -23,15 +23,11 @@ import AdmProf from "./components/adm/adm_professor/adm_professor"
 import AdmUni from "./components/adm/adm_unidade/adm_unidade"
 import AdmTurma from "./components/adm/adm_turma/adm_turma"
 
-import Novo from "./components/novocadastro/form_cadastro/form"
-
 export default function App(){
 
   return(
     <Routers>
       {/* Links */}
-        <Link to="/novocadastro"></Link>
-
         <Link to="/"></Link>
         <Link to="/cadastro"></Link>
         <Link to="/cadastro/responsavel"></Link>
@@ -89,8 +85,6 @@ export default function App(){
 
         <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>
         <Route path="adm/editar_turma/:id_turma" element={<CadastroTurma texto={"Editar Turma"} botao={"Editar"}/>}></Route>
-      
-        <Route path="/novocadastro" element={<Novo />}></Route>
       </Routes>
     </Routers>
   )
