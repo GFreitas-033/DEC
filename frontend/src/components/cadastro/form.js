@@ -22,6 +22,7 @@ import Bairro from "../inputs_cadastro/endereco/bairro_input";
 import Rua from "../inputs_cadastro/endereco/rua_input";
 
 export default function Form() {
+
   const [step, setStep] = useState(0);
   const [logradouro, setLogradouro] = useState("");
   const [bairro, setBairro] = useState("");
@@ -271,36 +272,53 @@ export default function Form() {
 }
 
 const Passo1 = ({ nextStep, rg, setRg, cpf, setCpf }) => (
-  <div className={Styles.container_inputs}>
-    <Email />
-    <Senha />
-    <Nome />
-    <RG value={rg} setValue={setRg} />
-    <CPF value={cpf} setValue={setCpf} />
-    <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+  <div>
+    <div className={Styles.textcenter}>
+      <h1>Dados do Aluno</h1>
+    </div>
+    <div className={Styles.container_inputs}>
+      <Email />
+      <Senha />
+      <Nome />
+      <RG value={rg} setValue={setRg} />
+      <CPF value={cpf} setValue={setCpf} />
+      <br />
+      <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+    </div>
   </div>
 );
 
 const Passo2 = ({ nextStep, prevStep, telefone, setTelefone }) => (
-  <div className={Styles.container_inputs}>
-    <Telefone value={telefone} setValue={setTelefone} />
-    <DtNasc />
-    <Genero />
-    <DC />
-    <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-    <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+  <div>
+    <div className={Styles.textcenter}>
+      <h1>Dados do Aluno</h1>
+    </div>
+    <div className={Styles.container_inputs}>
+      <Telefone value={telefone} setValue={setTelefone} />
+      <DtNasc />
+      <Genero />
+      <DC />
+      <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+      <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+    </div>
   </div>
 );
 
 const Passo3 = ({ nextStep, prevStep, handleBuscarCep, uf, cidade, bairro, logradouro }) => (
-  <div className={Styles.container_inputs}>
-    <Cep onBuscarCep={handleBuscarCep} />
-    <UF u={uf} />
-    <Cidade c={cidade} />
-    <Bairro b={bairro} />
-    <Rua r={logradouro} />
-    <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-    <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+  <div>
+    <div className={Styles.textcenter}>
+      <h1>Endereço do Aluno</h1>
+    </div>
+    <div className={Styles.container_inputs}>
+      <Cep onBuscarCep={handleBuscarCep} />
+      <UF u={uf} />
+      <Cidade c={cidade} />
+      <Bairro b={bairro} />
+      <Rua r={logradouro} />
+      <br />
+      <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+      <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+    </div>
   </div>
 );
 
@@ -311,4 +329,3 @@ const Passo4 = ({ prevStep, cliquei }) => (
     <button type="button" onClick={cliquei} className={Styles.button}>Cadastrar</button>
   </div>
 );
-
