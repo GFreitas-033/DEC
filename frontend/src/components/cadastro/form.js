@@ -34,6 +34,7 @@ export default function Form() {
   const [id_endereco, setEndereco] = useState(null);
   const [responsePessoa, setResponsePessoa] = useState(null);
 
+  const [idade, setIdade] = useState(null);
   const [cpfResp, setCpfResp] = useState("");
   const [rgResp, setRgResp] = useState("");
   const [telefoneResp, setTelefoneResp] = useState("");
@@ -48,6 +49,17 @@ export default function Form() {
       preencherDados();
     }
   }, [id_aluno]);
+
+  const calcularIdade = (dataNascimento) => {
+    const hoje = new Date();
+    const nascimento = new Date(dataNascimento);
+    let idadeCalculada = hoje.getFullYear() - nascimento.getFullYear();
+    const mes = hoje.getMonth();
+    if (mes < nascimento.getMonth() || (mes === nascimento.getMonth() && hoje.getDate() < nascimento.getDate())) {
+      idadeCalculada--;
+    }
+    setIdade(idadeCalculada); // Atualiza a idade
+  };
 
   const formatCPF = (cpf) => {
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -98,11 +110,19 @@ export default function Form() {
 
   const steps = [
     <Passo1 nextStep={nextStep} rg={rg} setRg={setRg} cpf={cpf} setCpf={setCpf} />,
-    <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} />,
-    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} />,
-    <Passo4 nextStep={nextStep} prevStep={prevStep} rgResp={rgResp} setRgResp={setRgResp} cpfResp={cpfResp} setCpfResp={setCpfResp} />,
-    <Passo5 prevStep={prevStep} telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} cliquei={cliquei} />,
-  ];  
+    <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} setIdade={setIdade} />,
+    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} 
+        isUnder18={idade < 18} // Passa a informação se é menor de 18
+    />,
+  ];
+
+  // Adiciona Passos 4 e 5 somente se a idade for menor que 18
+  if (idade < 18) {
+      steps.push(
+          <Passo4 nextStep={nextStep} prevStep={prevStep} rgResp={rgResp} setRgResp={setRgResp} cpfResp={cpfResp} setCpfResp={setCpfResp} />,
+          <Passo5 prevStep={prevStep} telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} cliquei={cliquei} />
+      );
+  }
 
   const logado = async () => {
     try {
@@ -293,14 +313,14 @@ const Passo1 = ({ nextStep, rg, setRg, cpf, setCpf }) => (
   </div>
 );
 
-const Passo2 = ({ nextStep, prevStep, telefone, setTelefone }) => (
+const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, calcularIdade }) => (
   <div>
     <div className={Styles.textcenter}>
       <h1>Dados do Aluno</h1>
     </div>
     <div className={Styles.container_inputs}>
       <Telefone value={telefone} setValue={setTelefone} />
-      <DtNasc />
+      <DtNasc onChange={(e) => calcularIdade(e.target.value)} />
       <Genero />
       <DC />
       <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
@@ -309,21 +329,23 @@ const Passo2 = ({ nextStep, prevStep, telefone, setTelefone }) => (
   </div>
 );
 
-const Passo3 = ({ nextStep, prevStep, handleBuscarCep, uf, cidade, bairro, logradouro }) => (
+const Passo3 = ({ nextStep, prevStep, handleBuscarCep, uf, cidade, bairro, logradouro, isUnder18, cliquei }) => (
   <div>
-    <div className={Styles.textcenter}>
-      <h1>Endereço do Aluno</h1>
-    </div>
-    <div className={Styles.container_inputs}>
-      <Cep onBuscarCep={handleBuscarCep} />
-      <UF u={uf} />
-      <Cidade c={cidade} />
-      <Bairro b={bairro} />
-      <Rua r={logradouro} />
-      <br />
-      <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-      <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
-    </div>
+      <div className={Styles.textcenter}>
+          <h1>Endereço</h1>
+      </div>
+      <div className={Styles.container_inputs}>
+          <Cep onBuscarCep={handleBuscarCep} />
+          <UF u={uf} />
+          <Cidade c={cidade} />
+          <Bairro b={bairro} />
+          <Rua r={logradouro} />
+          <br />
+          <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+          <button type="button" onClick={isUnder18 ? nextStep : cliquei} className={Styles.button}>
+              {isUnder18 ? "Avançar" : "Cadastrar"}
+          </button>
+      </div>
   </div>
 );
 
