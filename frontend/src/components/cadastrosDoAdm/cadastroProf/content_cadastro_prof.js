@@ -1,7 +1,7 @@
   import React, { useState, useEffect } from "react";
   import { useParams } from "react-router-dom";
   import StyleCadastroProf from "../cadastroDoAdm.module.css";
-  import Texto from "../../antigo_cadastro/textos_cadastro/texto_cadastro";
+  import Texto from "../textos_cadastro/texto_cadastro";
   import axios from "axios";
 
   // Imports dos Inputs para Pessoa

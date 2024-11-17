@@ -35,9 +35,6 @@ export default function Form() {
   const [responsePessoa, setResponsePessoa] = useState(null);
 
   const [idade, setIdade] = useState(null);
-  const [cpfResp, setCpfResp] = useState("");
-  const [rgResp, setRgResp] = useState("");
-  const [telefoneResp, setTelefoneResp] = useState("");
 
   let { id_aluno } = useParams();
   const navigate = useNavigate();
@@ -111,18 +108,8 @@ export default function Form() {
   const steps = [
     <Passo1 nextStep={nextStep} rg={rg} setRg={setRg} cpf={cpf} setCpf={setCpf} />,
     <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} setIdade={setIdade} />,
-    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} 
-        isUnder18={idade < 18} // Passa a informação se é menor de 18
-    />,
+    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} />,
   ];
-
-  // Adiciona Passos 4 e 5 somente se a idade for menor que 18
-  if (idade < 18) {
-      steps.push(
-          <Passo4 nextStep={nextStep} prevStep={prevStep} rgResp={rgResp} setRgResp={setRgResp} cpfResp={cpfResp} setCpfResp={setCpfResp} />,
-          <Passo5 prevStep={prevStep} telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} cliquei={cliquei} />
-      );
-  }
 
   const logado = async () => {
     try {
@@ -346,39 +333,5 @@ const Passo3 = ({ nextStep, prevStep, handleBuscarCep, uf, cidade, bairro, logra
               {isUnder18 ? "Avançar" : "Cadastrar"}
           </button>
       </div>
-  </div>
-);
-
-const Passo4 = ({ nextStep, prevStep, rgResp, setRgResp, cpfResp, setCpfResp }) => (
-  <div>
-    <div className={Styles.textcenter}>
-      <h1>Dados do Responsável</h1>
-    </div>
-    <div className={Styles.container_inputs}>
-      <Email />
-      <Senha />
-      <Nome />
-      <RG value={rgResp} setValue={setRgResp} />
-      <CPF value={cpfResp} setValue={setCpfResp} />
-      <br />
-      <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-      <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
-    </div>
-  </div>
-);
-
-const Passo5 = ({ prevStep, telefoneResp, setTelefoneResp, cliquei }) => (
-  <div>
-    <div className={Styles.textcenter}>
-      <h1>Dados do Responsável</h1>
-    </div>
-    <div className={Styles.container_inputs}>
-      <Telefone value={telefoneResp} setValue={setTelefoneResp} />
-      <DtNasc />
-      <Genero />
-      <br />
-      <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-      <button type="button" onClick={cliquei} className={Styles.button}>Cadastrar</button>
-    </div>
   </div>
 );
