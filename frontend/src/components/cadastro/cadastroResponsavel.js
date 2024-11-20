@@ -1,4 +1,5 @@
 import React,{ useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Styles from "./form.module.css";
 
@@ -19,6 +20,11 @@ export default function FormCadastroResponsavel(){
   const [rgResp, setRgResp] = useState("");
   const [telefoneResp, setTelefoneResp] = useState("");
 
+  const navigate = useNavigate();
+  const trocar = () => {
+    navigate('/cadastro')
+  }
+
   const nextStep = () => {
     setStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
   };
@@ -28,7 +34,7 @@ export default function FormCadastroResponsavel(){
   };
 
   const steps = [
-    <Passo4 nextStep={nextStep} prevStep={prevStep} rgResp={rgResp} setRgResp={setRgResp} cpfResp={cpfResp} setCpfResp={setCpfResp} />,
+    <Passo4 nextStep={nextStep} trocar={trocar} rgResp={rgResp} setRgResp={setRgResp} cpfResp={cpfResp} setCpfResp={setCpfResp} />,
     <Passo5 prevStep={prevStep} telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} />
   ];
 
@@ -49,7 +55,7 @@ export default function FormCadastroResponsavel(){
   )
 }
 
-const Passo4 = ({ nextStep, prevStep, rgResp, setRgResp, cpfResp, setCpfResp }) => (
+const Passo4 = ({ nextStep, trocar, rgResp, setRgResp, cpfResp, setCpfResp }) => (
   <div>
     <div className={Styles.textcenter}>
       <h1>Dados do Responsável</h1>
@@ -61,7 +67,7 @@ const Passo4 = ({ nextStep, prevStep, rgResp, setRgResp, cpfResp, setCpfResp }) 
       <RG value={rgResp} setValue={setRgResp} />
       <CPF value={cpfResp} setValue={setCpfResp} />
       <br />
-      <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+      <button type="button" onClick={trocar} className={Styles.button}>Voltar</button>
       <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
     </div>
   </div>

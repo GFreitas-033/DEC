@@ -31,10 +31,11 @@ export default function Form() {
   const [cpf, setCpf] = useState("");
   const [rg, setRg] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [nascimento, setNascimento] = useState("");
   const [id_endereco, setEndereco] = useState(null);
   const [responsePessoa, setResponsePessoa] = useState(null);
 
-  const [idade, setIdade] = useState(null);
+  const [idade, setIdade] = useState("");
 
   let { id_aluno } = useParams();
   const navigate = useNavigate();
@@ -48,15 +49,25 @@ export default function Form() {
   }, [id_aluno]);
 
   const calcularIdade = (dataNascimento) => {
+    const partes = dataNascimento.split('/');
+
     const hoje = new Date();
-    const nascimento = new Date(dataNascimento);
+    const nascimento = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
     let idadeCalculada = hoje.getFullYear() - nascimento.getFullYear();
     const mes = hoje.getMonth();
     if (mes < nascimento.getMonth() || (mes === nascimento.getMonth() && hoje.getDate() < nascimento.getDate())) {
       idadeCalculada--;
     }
-    setIdade(idadeCalculada); // Atualiza a idade
+    setIdade(idadeCalculada);
   };
+  const isUnder18 = () => {
+    console.log("Idade do aluno:", idade);  // Adicione este log para depuração
+    return idade < 18 && idade > 0;
+  }
+  
+  const trocar = () => {
+    navigate('/cadastro/responsavel')
+  }
 
   const formatCPF = (cpf) => {
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -75,6 +86,12 @@ export default function Form() {
     }
     return telefone;
   };
+
+  const formatDate = (nascimento) => {
+    nascimento = nascimento.replace(/\D/g, '');
+    nascimento = nascimento.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3');
+    return nascimento;
+  }
 
   const handleBuscarCep = (cep) => {
     if (cep.length < 9) {
@@ -107,8 +124,8 @@ export default function Form() {
 
   const steps = [
     <Passo1 nextStep={nextStep} rg={rg} setRg={setRg} cpf={cpf} setCpf={setCpf} />,
-    <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} setIdade={setIdade} />,
-    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} />,
+    <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} calcularIdade={calcularIdade}/>,
+    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} trocar={trocar} isUnder18={isUnder18} cliquei={cliquei}/>,
   ];
 
   const logado = async () => {
@@ -124,15 +141,6 @@ export default function Form() {
 
   function tratamentoString(inputString) {
     return inputString.replace(/[.\-()\s]/g, '');
-  }
-
-  function formatarData(dateString) {
-    const date = new Date(dateString);
-    const year = date.getUTCFullYear();
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    
-    return `${year}-${month}-${day}`;
   }
 
   // Obter a data atual
@@ -154,11 +162,11 @@ export default function Form() {
       setCpf(formatCPF(responsePessoa.cpf_pessoa));
       setRg(formatRG(responsePessoa.rg_pessoa));
       setTelefone(formatTelefone(responsePessoa.telefone_pessoa));
+      setNascimento(formatDate(responsePessoa.dt_nasc_pessoa));
       let responseAluno = await axios.get('/api/aluno');
       responseAluno = responseAluno.data;
       responseAluno = responseAluno.find(item => item.id_pessoa === id_aluno);
       document.getElementById('maodominante').value = responseAluno.destro_canhoto;
-      document.getElementById('dt_nasc').value = formatarData(responsePessoa.dt_nasc_pessoa);
       document.getElementById('genero').value = responsePessoa.genero;
       let responseEndereco = await axios.get('/api/endereco');
       responseEndereco = responseEndereco.data;
@@ -300,23 +308,26 @@ const Passo1 = ({ nextStep, rg, setRg, cpf, setCpf }) => (
   </div>
 );
 
-const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, calcularIdade }) => (
+const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, nascimento, setNascimento, calcularIdade }) => (
   <div>
     <div className={Styles.textcenter}>
       <h1>Dados do Aluno</h1>
     </div>
     <div className={Styles.container_inputs}>
       <Telefone value={telefone} setValue={setTelefone} />
-      <DtNasc onChange={(e) => calcularIdade(e.target.value)} />
+      <DtNasc value={nascimento} setValue={setNascimento} />
       <Genero />
       <DC />
       <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-      <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+      <button type="button" onClick={()=>{
+        nextStep()
+        calcularIdade(nascimento)
+      }} className={Styles.button}>Avançar</button>
     </div>
   </div>
 );
 
-const Passo3 = ({ nextStep, prevStep, handleBuscarCep, uf, cidade, bairro, logradouro, isUnder18, cliquei }) => (
+const Passo3 = ({ prevStep, handleBuscarCep, uf, cidade, bairro, logradouro, isUnder18, cliquei, trocar }) => ( 
   <div>
       <div className={Styles.textcenter}>
           <h1>Endereço</h1>
@@ -329,8 +340,18 @@ const Passo3 = ({ nextStep, prevStep, handleBuscarCep, uf, cidade, bairro, logra
           <Rua r={logradouro} />
           <br />
           <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-          <button type="button" onClick={isUnder18 ? nextStep : cliquei} className={Styles.button}>
-              {isUnder18 ? "Avançar" : "Cadastrar"}
+          <button 
+            type="button" 
+            onClick={() => {
+                if (isUnder18()) {
+                    trocar();
+                } else {
+                    cliquei();
+                }
+            }} 
+            className={Styles.button}
+          >
+              {isUnder18() ? "Avançar" : "Cadastrar"}
           </button>
       </div>
   </div>
