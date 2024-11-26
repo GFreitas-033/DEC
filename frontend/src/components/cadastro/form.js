@@ -93,7 +93,7 @@ export default function Form() {
     const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Meses começam em 0
     const year = date.getUTCFullYear();
     return `${day}/${month}/${year}`;
-}
+  }
 
   const formatTelefone = (telefone) => {
     telefone = telefone.replace(/\D/g, ''); // Remove non-digits
@@ -114,7 +114,7 @@ export default function Form() {
   const convertDate = (date) => {
     const [day, month, year] = date.split('/');
     return `${year}-${month}-${day}`;
-};
+  };
 
   const handleBuscarCep = (cep) => {
     if (cep.length < 9) {
@@ -146,11 +146,11 @@ export default function Form() {
   };
 
   const steps = [
-    <Passo1 nextStep={nextStep} rg={rg} setRg={setRg} cpf={cpf} setCpf={setCpf} email={email} setEmail={setEmail} senha={senha} setSenha={setSenha} nome={nome} setNome={setNome}/>,
-    <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} calcularIdade={calcularIdade} genero={genero} setGenero={setGenero} mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}/>,
-    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} cep={cep} setCep={setCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} isUnder18={isUnder18} cliquei={cliquei}/>,
+    <Passo1 nextStep={nextStep} rg={rg} setRg={setRg} cpf={cpf} setCpf={setCpf} email={email} setEmail={setEmail} senha={senha} setSenha={setSenha} nome={nome} setNome={setNome} />,
+    <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} calcularIdade={calcularIdade} genero={genero} setGenero={setGenero} mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} />,
+    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} cep={cep} setCep={setCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} isUnder18={isUnder18} cliquei={cliquei} />,
     <Passo4 nextStep={nextStep} prevStep={prevStep} rgResp={rgResp} setRgResp={setRgResp} cpfResp={cpfResp} setCpfResp={setCpfResp} emailResp={emailResp} setEmailResp={setEmailResp} nomeResp={nomeResp} setNomeResp={setNomeResp} senhaResp={senhaResp} setSenhaResp={setSenhaResp} />,
-    <Passo5 prevStep={prevStep} telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} nascimentoResp={nascimentoResp} setNascimentoResp={setNascimentoResp} generoResp={generoResp} setGeneroResp={setGeneroResp} cliquei={cliquei}/>,
+    <Passo5 prevStep={prevStep} telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} nascimentoResp={nascimentoResp} setNascimentoResp={setNascimentoResp} generoResp={generoResp} setGeneroResp={setGeneroResp} cliquei={cliquei} />,
   ];
 
   const logado = async () => {
@@ -218,39 +218,90 @@ export default function Form() {
 
   async function cliquei() {
     if (id_aluno !== undefined) {
-      try {
-        let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
-          cep: cep,
-          estado: uf,
-          cidade: cidade,
-          bairro: bairro,
-          rua: logradouro,
-          numero: null
-        });
+      if (nomeResp === "") {
+        try {
+          let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
+            cep: cep,
+            estado: uf,
+            cidade: cidade,
+            bairro: bairro,
+            rua: logradouro,
+            numero: null
+          });
 
-        let responsePessoa = await axios.put(`/api/pessoa/${id_aluno}`, {
-          nome_pessoa: nome,
-          dt_nasc_pessoa: convertDate(nascimento),
-          cpf_pessoa: tratamentoString(cpf),
-          rg_pessoa: tratamentoString(rg),
-          email_pessoa: email,
-          telefone_pessoa: tratamentoString(telefone),
-          genero: genero,
-          id_endereco: id_endereco
-        });
+          let responsePessoa = await axios.put(`/api/pessoa/${id_aluno}`, {
+            nome_pessoa: nome,
+            dt_nasc_pessoa: convertDate(nascimento),
+            cpf_pessoa: tratamentoString(cpf),
+            rg_pessoa: tratamentoString(rg),
+            email_pessoa: email,
+            telefone_pessoa: tratamentoString(telefone),
+            genero: genero,
+            id_endereco: id_endereco
+          });
 
-        const responseAluno = await axios.put(`/api/aluno/${id_aluno}`, {
-          id_pessoa: id_aluno,
-          destro_canhoto: mao_dominante,
-          id_responsavel: null,
-        });
+          const responseAluno = await axios.put(`/api/aluno/${id_aluno}`, {
+            id_pessoa: id_aluno,
+            destro_canhoto: mao_dominante,
+            id_responsavel: null,
+          });
 
-        setResponsePessoa(responseAluno);
-      } catch (error) {
-        console.log("Erro ao criar aluno: ", error);
+          setResponsePessoa(responseAluno);
+        } catch (error) {
+          console.log("Erro ao criar aluno: ", error);
+        }
+      } else {
+        try {
+          id_aluno = parseInt(id_aluno)
+          let dadosPessoaR = await axios.get('/api/aluno');
+          dadosPessoaR = dadosPessoaR.data;
+          dadosPessoaR = dadosPessoaR.find(item => item.id_pessoa === id_aluno);
+          let id_responsavel = dadosPessoaR.id_responsavel;
+
+          let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
+            cep: cep,
+            estado: uf,
+            cidade: cidade,
+            bairro: bairro,
+            rua: logradouro,
+            numero: null
+          });
+
+          let responsePessoa = await axios.put(`/api/pessoa/${id_aluno}`, {
+            nome_pessoa: nome,
+            dt_nasc_pessoa: convertDate(nascimento),
+            cpf_pessoa: tratamentoString(cpf),
+            rg_pessoa: tratamentoString(rg),
+            email_pessoa: email,
+            telefone_pessoa: tratamentoString(telefone),
+            genero: genero,
+            id_endereco: id_endereco
+          });
+
+          let responsePessoaR = await axios.put(`/api/pessoa/${id_responsavel}`, {
+            nome_pessoa: nomeResp,
+            dt_nasc_pessoa: convertDate(nascimentoResp),
+            cpf_pessoa: tratamentoString(cpfResp),
+            rg_pessoa: tratamentoString(rgResp),
+            email_pessoa: emailResp,
+            telefone_pessoa: tratamentoString(telefoneResp),
+            genero: generoResp,
+            id_endereco: id_endereco
+          });
+
+          const responseAluno = await axios.put(`/api/aluno/${id_aluno}`, {
+            id_pessoa: id_aluno,
+            destro_canhoto: mao_dominante,
+            id_responsavel: id_responsavel,
+          });
+
+          setResponsePessoa(responseAluno);
+        } catch (error) {
+          console.log("Erro ao criar aluno: ", error);
+        }
       }
-    }else{
-      if(nomeResp === ""){
+    } else {
+      if (nomeResp === "") {
         try {
           let responseEndereco = await axios.post('/api/endereco/', {
             cep: cep,
@@ -261,7 +312,7 @@ export default function Form() {
             numero: null
           });
           responseEndereco = responseEndereco.data;
-  
+
           let responsePessoa = await axios.post('/api/pessoa/', {
             nome_pessoa: nome,
             dt_nasc_pessoa: convertDate(nascimento),
@@ -275,19 +326,19 @@ export default function Form() {
             adm: null
           });
           responsePessoa = responsePessoa.data;
-  
+
           const responseAluno = await axios.post('/api/aluno', {
             id_pessoa: responsePessoa.id,
             destro_canhoto: mao_dominante,
             id_responsavel: null,
             dt_inicio: dataFormatadaMySQL
           });
-  
+
           setResponsePessoa(responseAluno);
         } catch (error) {
           console.log("Erro ao criar aluno: ", error);
         }
-      }else{
+      } else {
         try {
           let responseEndereco = await axios.post('/api/endereco/', {
             cep: cep,
@@ -298,7 +349,7 @@ export default function Form() {
             numero: null
           });
           responseEndereco = responseEndereco.data;
-  
+
           let responsePessoaR = await axios.post('/api/pessoa/', {
             nome_pessoa: nomeResp,
             dt_nasc_pessoa: convertDate(nascimentoResp),
@@ -312,7 +363,7 @@ export default function Form() {
             adm: null
           });
           responsePessoaR = responsePessoaR.data;
-  
+
           const responseResp = await axios.post('/api/responsavel_aluno', {
             id_pessoa: responsePessoaR.id,
           });
@@ -330,21 +381,21 @@ export default function Form() {
             adm: null
           });
           responsePessoa = responsePessoa.data;
-  
+
           const responseAluno = await axios.post('/api/aluno', {
             id_pessoa: responsePessoa.id,
             destro_canhoto: mao_dominante,
             id_responsavel: responsePessoaR.id,
             dt_inicio: dataFormatadaMySQL
           });
-  
+
           setResponsePessoa(responseAluno);
         } catch (error) {
           console.log("Erro ao criar aluno: ", error);
         }
       }
     }
-    
+
   }
 
   if (responsePessoa) {
@@ -369,15 +420,15 @@ export default function Form() {
   );
 }
 
-const Passo1 = ({ nextStep,email, setEmail, senha, setSenha, nome,setNome, rg, setRg, cpf, setCpf }) => (
+const Passo1 = ({ nextStep, email, setEmail, senha, setSenha, nome, setNome, rg, setRg, cpf, setCpf }) => (
   <div>
     <div className={Styles.textcenter}>
       <h1>Dados do Aluno</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Email value={email} setValue={setEmail}/>
-      <Senha value={senha} setValue={setSenha}/>
-      <Nome value={nome} setValue={setNome}/>
+      <Email value={email} setValue={setEmail} />
+      <Senha value={senha} setValue={setSenha} />
+      <Nome value={nome} setValue={setNome} />
       <RG value={rg} setValue={setRg} />
       <CPF value={cpf} setValue={setCpf} />
       <br />
@@ -394,10 +445,10 @@ const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, nascimento, setNasc
     <div className={Styles.container_inputs}>
       <Telefone value={telefone} setValue={setTelefone} />
       <DtNasc value={nascimento} setValue={setNascimento} />
-      <Genero value={genero} setValue={setGenero}/>
-      <DC value={mao_dominante} setValue={setMao_Dominante}/>
+      <Genero value={genero} setValue={setGenero} />
+      <DC value={mao_dominante} setValue={setMao_Dominante} />
       <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-      <button type="button" onClick={()=>{
+      <button type="button" onClick={() => {
         nextStep()
         calcularIdade(nascimento)
       }} className={Styles.button}>Avançar</button>
@@ -405,33 +456,33 @@ const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, nascimento, setNasc
   </div>
 );
 
-const Passo3 = ({ prevStep, cep, setCep, handleBuscarCep, uf, cidade, bairro, logradouro, isUnder18, cliquei, nextStep}) => ( 
+const Passo3 = ({ prevStep, cep, setCep, handleBuscarCep, uf, cidade, bairro, logradouro, isUnder18, cliquei, nextStep }) => (
   <div>
-      <div className={Styles.textcenter}>
-          <h1>Endereço</h1>
-      </div>
-      <div className={Styles.container_inputs}>
-          <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
-          <UF u={uf} />
-          <Cidade c={cidade} />
-          <Bairro b={bairro} />
-          <Rua r={logradouro} />
-          <br />
-          <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-          <button 
-            type="button" 
-            onClick={() => {
-                if (isUnder18()) {
-                    nextStep();
-                } else {
-                    cliquei();
-                }
-            }} 
-            className={Styles.button}
-          >
-              {isUnder18() ? "Avançar" : "Concluir"}
-          </button>
-      </div>
+    <div className={Styles.textcenter}>
+      <h1>Endereço</h1>
+    </div>
+    <div className={Styles.container_inputs}>
+      <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
+      <UF u={uf} />
+      <Cidade c={cidade} />
+      <Bairro b={bairro} />
+      <Rua r={logradouro} />
+      <br />
+      <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+      <button
+        type="button"
+        onClick={() => {
+          if (isUnder18()) {
+            nextStep();
+          } else {
+            cliquei();
+          }
+        }}
+        className={Styles.button}
+      >
+        {isUnder18() ? "Avançar" : "Concluir"}
+      </button>
+    </div>
   </div>
 );
 
@@ -442,8 +493,8 @@ const Passo4 = ({ prevStep, nextStep, emailResp, setEmailResp, senhaResp, setSen
     </div>
     <div className={Styles.container_inputs}>
       <Email value={emailResp} setValue={setEmailResp} />
-      <Senha value={senhaResp} setValue={setSenhaResp}/>
-      <Nome value={nomeResp} setValue={setNomeResp}/>
+      <Senha value={senhaResp} setValue={setSenhaResp} />
+      <Nome value={nomeResp} setValue={setNomeResp} />
       <RG value={rgResp} setValue={setRgResp} />
       <CPF value={cpfResp} setValue={setCpfResp} />
       <br />
@@ -460,8 +511,8 @@ const Passo5 = ({ prevStep, telefoneResp, setTelefoneResp, nascimentoResp, setNa
     </div>
     <div className={Styles.container_inputs}>
       <Telefone value={telefoneResp} setValue={setTelefoneResp} />
-      <DtNasc value={nascimentoResp} setValue={setNascimentoResp}/>
-      <Genero value={generoResp} setValue={setGeneroResp}/>
+      <DtNasc value={nascimentoResp} setValue={setNascimentoResp} />
+      <Genero value={generoResp} setValue={setGeneroResp} />
       <br />
       <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
       <button type="button" onClick={cliquei} className={Styles.button}>Concluir</button>
