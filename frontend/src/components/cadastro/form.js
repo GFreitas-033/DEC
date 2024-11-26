@@ -83,6 +83,14 @@ export default function Form() {
     return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
   };
 
+  function padraoBR(isoDate) {
+    const date = new Date(isoDate);
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Meses começam em 0
+    const year = date.getUTCFullYear();
+    return `${day}/${month}/${year}`;
+}
+
   const formatTelefone = (telefone) => {
     telefone = telefone.replace(/\D/g, ''); // Remove non-digits
     if (telefone.length === 11) {
@@ -168,25 +176,25 @@ export default function Form() {
       responsePessoa = responsePessoa.data;
       responsePessoa = responsePessoa.find(item => item.id_pessoa === id_aluno);
       setEndereco(responsePessoa.id_endereco);
-      document.getElementById('email').value = responsePessoa.email_pessoa;
-      document.getElementById('nome').value = responsePessoa.nome_pessoa;
+      setEmail(responsePessoa.email_pessoa);
+      setNome(responsePessoa.nome_pessoa);
       setCpf(formatCPF(responsePessoa.cpf_pessoa));
       setRg(formatRG(responsePessoa.rg_pessoa));
       setTelefone(formatTelefone(responsePessoa.telefone_pessoa));
-      setNascimento(formatDate(responsePessoa.dt_nasc_pessoa));
+      setNascimento(padraoBR(responsePessoa.dt_nasc_pessoa));
       let responseAluno = await axios.get('/api/aluno');
       responseAluno = responseAluno.data;
       responseAluno = responseAluno.find(item => item.id_pessoa === id_aluno);
-      document.getElementById('maodominante').value = responseAluno.destro_canhoto;
-      document.getElementById('genero').value = responsePessoa.genero;
+      setMao_Dominante(responseAluno.destro_canhoto);
+      setGenero(responsePessoa.genero);
       let responseEndereco = await axios.get('/api/endereco');
       responseEndereco = responseEndereco.data;
       responseEndereco = responseEndereco.find(item => item.id_endereco === responsePessoa.id_endereco);
-      document.getElementById('cep').value = responseEndereco.cep;
-      document.getElementById('uf').value = responseEndereco.estado;
-      document.getElementById('cidade').value = responseEndereco.cidade;
-      document.getElementById('bairro').value = responseEndereco.bairro;
-      document.getElementById('rua').value = responseEndereco.rua;
+      setCep(responseEndereco.cep);
+      setUf(responseEndereco.estado);
+      setCidade(responseEndereco.cidade);
+      setBairro(responseEndereco.bairro);
+      setLogradouro(responseEndereco.rua);
     } catch (error) {
       console.log(error);
     }
