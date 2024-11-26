@@ -40,6 +40,14 @@ export default function Form() {
   const [nome, setNome] = useState("");
   const [cep, setCep] = useState("");
   const [responsePessoa, setResponsePessoa] = useState(null);
+  const [emailResp, setEmailResp] = useState("");
+  const [senhaResp, setSenhaResp] = useState("");
+  const [nomeResp, setNomeResp] = useState("");
+  const [nascimentoResp, setNascimentoResp] = useState("");
+  const [generoResp, setGeneroResp] = useState("");
+  const [cpfResp, setCpfResp] = useState("");
+  const [rgResp, setRgResp] = useState("");
+  const [telefoneResp, setTelefoneResp] = useState("");
 
   const [idade, setIdade] = useState("");
 
@@ -69,10 +77,6 @@ export default function Form() {
   const isUnder18 = () => {
     console.log("Idade do aluno:", idade);  // Adicione este log para depuração
     return idade < 18 && idade > 0;
-  }
-  
-  const trocar = () => {
-    navigate('/cadastro/responsavel')
   }
 
   const formatCPF = (cpf) => {
@@ -144,7 +148,9 @@ export default function Form() {
   const steps = [
     <Passo1 nextStep={nextStep} rg={rg} setRg={setRg} cpf={cpf} setCpf={setCpf} email={email} setEmail={setEmail} senha={senha} setSenha={setSenha} nome={nome} setNome={setNome}/>,
     <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} calcularIdade={calcularIdade} genero={genero} setGenero={setGenero} mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}/>,
-    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} cep={cep} setCep={setCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} trocar={trocar} isUnder18={isUnder18} cliquei={cliquei}/>,
+    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} cep={cep} setCep={setCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} isUnder18={isUnder18} cliquei={cliquei}/>,
+    <Passo4 nextStep={nextStep} prevStep={prevStep} rgResp={rgResp} setRgResp={setRgResp} cpfResp={cpfResp} setCpfResp={setCpfResp} emailResp={emailResp} setEmailResp={setEmailResp} nomeResp={nomeResp} setNomeResp={setNomeResp} senhaResp={senhaResp} setSenhaResp={setSenhaResp} />,
+    <Passo5 prevStep={prevStep} telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} nascimentoResp={nascimentoResp} setNascimentoResp={setNascimentoResp} generoResp={generoResp} setGeneroResp={setGeneroResp} cliquei={cliquei}/>,
   ];
 
   const logado = async () => {
@@ -173,6 +179,7 @@ export default function Form() {
   const preencherDados = async () => {
     try {
       let responsePessoa = await axios.get('/api/pessoa');
+      let responsePessoaR = responsePessoa.data;
       responsePessoa = responsePessoa.data;
       responsePessoa = responsePessoa.find(item => item.id_pessoa === id_aluno);
       setEndereco(responsePessoa.id_endereco);
@@ -185,6 +192,7 @@ export default function Form() {
       let responseAluno = await axios.get('/api/aluno');
       responseAluno = responseAluno.data;
       responseAluno = responseAluno.find(item => item.id_pessoa === id_aluno);
+      let id_responsavel = responseAluno.id_responsavel;
       setMao_Dominante(responseAluno.destro_canhoto);
       setGenero(responsePessoa.genero);
       let responseEndereco = await axios.get('/api/endereco');
@@ -195,6 +203,14 @@ export default function Form() {
       setCidade(responseEndereco.cidade);
       setBairro(responseEndereco.bairro);
       setLogradouro(responseEndereco.rua);
+      responsePessoaR = responsePessoaR.find(item => item.id_pessoa === id_responsavel);
+      setEmailResp(responsePessoaR.email_pessoa);
+      setNomeResp(responsePessoaR.nome_pessoa);
+      setRgResp(formatRG(responsePessoaR.rg_pessoa));
+      setCpfResp(formatCPF(responsePessoaR.cpf_pessoa));
+      setTelefoneResp(formatTelefone(responsePessoaR.telefone_pessoa));
+      setNascimentoResp(padraoBR(responsePessoaR.dt_nasc_pessoa));
+      setGeneroResp(responsePessoaR.genero);
     } catch (error) {
       console.log(error);
     }
@@ -234,41 +250,98 @@ export default function Form() {
         console.log("Erro ao criar aluno: ", error);
       }
     }else{
-      try {
-        let responseEndereco = await axios.post('/api/endereco/', {
-          cep: cep,
-          estado: uf,
-          cidade: cidade,
-          bairro: bairro,
-          rua: logradouro,
-          numero: null
-        });
-        responseEndereco = responseEndereco.data;
+      if(nomeResp === ""){
+        try {
+          let responseEndereco = await axios.post('/api/endereco/', {
+            cep: cep,
+            estado: uf,
+            cidade: cidade,
+            bairro: bairro,
+            rua: logradouro,
+            numero: null
+          });
+          responseEndereco = responseEndereco.data;
+  
+          let responsePessoa = await axios.post('/api/pessoa/', {
+            nome_pessoa: nome,
+            dt_nasc_pessoa: convertDate(nascimento),
+            cpf_pessoa: tratamentoString(cpf),
+            rg_pessoa: tratamentoString(rg),
+            email_pessoa: email,
+            senha_pessoa: senha,
+            telefone_pessoa: tratamentoString(telefone),
+            genero: genero,
+            id_endereco: responseEndereco.id,
+            adm: null
+          });
+          responsePessoa = responsePessoa.data;
+  
+          const responseAluno = await axios.post('/api/aluno', {
+            id_pessoa: responsePessoa.id,
+            destro_canhoto: mao_dominante,
+            id_responsavel: null,
+            dt_inicio: dataFormatadaMySQL
+          });
+  
+          setResponsePessoa(responseAluno);
+        } catch (error) {
+          console.log("Erro ao criar aluno: ", error);
+        }
+      }else{
+        try {
+          let responseEndereco = await axios.post('/api/endereco/', {
+            cep: cep,
+            estado: uf,
+            cidade: cidade,
+            bairro: bairro,
+            rua: logradouro,
+            numero: null
+          });
+          responseEndereco = responseEndereco.data;
+  
+          let responsePessoaR = await axios.post('/api/pessoa/', {
+            nome_pessoa: nomeResp,
+            dt_nasc_pessoa: convertDate(nascimentoResp),
+            cpf_pessoa: tratamentoString(cpfResp),
+            rg_pessoa: tratamentoString(rgResp),
+            email_pessoa: emailResp,
+            senha_pessoa: senhaResp,
+            telefone_pessoa: tratamentoString(telefoneResp),
+            genero: generoResp,
+            id_endereco: responseEndereco.id,
+            adm: null
+          });
+          responsePessoaR = responsePessoaR.data;
+  
+          const responseResp = await axios.post('/api/responsavel_aluno', {
+            id_pessoa: responsePessoaR.id,
+          });
 
-        let responsePessoa = await axios.post('/api/pessoa/', {
-          nome_pessoa: nome,
-          dt_nasc_pessoa: convertDate(nascimento),
-          cpf_pessoa: tratamentoString(cpf),
-          rg_pessoa: tratamentoString(rg),
-          email_pessoa: email,
-          senha_pessoa: senha,
-          telefone_pessoa: tratamentoString(telefone),
-          genero: genero,
-          id_endereco: responseEndereco.id,
-          adm: null
-        });
-        responsePessoa = responsePessoa.data;
-
-        const responseAluno = await axios.post('/api/aluno', {
-          id_pessoa: responsePessoa.id,
-          destro_canhoto: mao_dominante,
-          id_responsavel: null,
-          dt_inicio: dataFormatadaMySQL
-        });
-
-        setResponsePessoa(responseAluno);
-      } catch (error) {
-        console.log("Erro ao criar aluno: ", error);
+          let responsePessoa = await axios.post('/api/pessoa/', {
+            nome_pessoa: nome,
+            dt_nasc_pessoa: convertDate(nascimento),
+            cpf_pessoa: tratamentoString(cpf),
+            rg_pessoa: tratamentoString(rg),
+            email_pessoa: email,
+            senha_pessoa: senha,
+            telefone_pessoa: tratamentoString(telefone),
+            genero: genero,
+            id_endereco: responseEndereco.id,
+            adm: null
+          });
+          responsePessoa = responsePessoa.data;
+  
+          const responseAluno = await axios.post('/api/aluno', {
+            id_pessoa: responsePessoa.id,
+            destro_canhoto: mao_dominante,
+            id_responsavel: responsePessoaR.id,
+            dt_inicio: dataFormatadaMySQL
+          });
+  
+          setResponsePessoa(responseAluno);
+        } catch (error) {
+          console.log("Erro ao criar aluno: ", error);
+        }
       }
     }
     
@@ -332,7 +405,7 @@ const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, nascimento, setNasc
   </div>
 );
 
-const Passo3 = ({ prevStep, cep, setCep, handleBuscarCep, uf, cidade, bairro, logradouro, isUnder18, cliquei, trocar }) => ( 
+const Passo3 = ({ prevStep, cep, setCep, handleBuscarCep, uf, cidade, bairro, logradouro, isUnder18, cliquei, nextStep}) => ( 
   <div>
       <div className={Styles.textcenter}>
           <h1>Endereço</h1>
@@ -349,7 +422,7 @@ const Passo3 = ({ prevStep, cep, setCep, handleBuscarCep, uf, cidade, bairro, lo
             type="button" 
             onClick={() => {
                 if (isUnder18()) {
-                    trocar();
+                    nextStep();
                 } else {
                     cliquei();
                 }
@@ -359,5 +432,39 @@ const Passo3 = ({ prevStep, cep, setCep, handleBuscarCep, uf, cidade, bairro, lo
               {isUnder18() ? "Avançar" : "Concluir"}
           </button>
       </div>
+  </div>
+);
+
+const Passo4 = ({ prevStep, nextStep, emailResp, setEmailResp, senhaResp, setSenhaResp, nomeResp, setNomeResp, rgResp, setRgResp, cpfResp, setCpfResp }) => (
+  <div>
+    <div className={Styles.textcenter}>
+      <h1>Dados do Responsável</h1>
+    </div>
+    <div className={Styles.container_inputs}>
+      <Email value={emailResp} setValue={setEmailResp} />
+      <Senha value={senhaResp} setValue={setSenhaResp}/>
+      <Nome value={nomeResp} setValue={setNomeResp}/>
+      <RG value={rgResp} setValue={setRgResp} />
+      <CPF value={cpfResp} setValue={setCpfResp} />
+      <br />
+      <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+      <button type="button" onClick={nextStep} className={Styles.button}>Avançar</button>
+    </div>
+  </div>
+);
+
+const Passo5 = ({ prevStep, telefoneResp, setTelefoneResp, nascimentoResp, setNascimentoResp, generoResp, setGeneroResp, cliquei }) => (
+  <div>
+    <div className={Styles.textcenter}>
+      <h1>Dados do Responsável</h1>
+    </div>
+    <div className={Styles.container_inputs}>
+      <Telefone value={telefoneResp} setValue={setTelefoneResp} />
+      <DtNasc value={nascimentoResp} setValue={setNascimentoResp}/>
+      <Genero value={generoResp} setValue={setGeneroResp}/>
+      <br />
+      <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
+      <button type="button" onClick={cliquei} className={Styles.button}>Concluir</button>
+    </div>
   </div>
 );
