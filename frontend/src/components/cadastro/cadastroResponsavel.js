@@ -84,7 +84,7 @@ const Passo5 = ({ prevStep, telefoneResp, setTelefoneResp }) => (
       <Genero />
       <br />
       <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-      <button type="button"  className={Styles.button}>Cadastrar</button>
+      <button type="button"  className={Styles.button}>Concluir</button>
     </div>
   </div>
 );

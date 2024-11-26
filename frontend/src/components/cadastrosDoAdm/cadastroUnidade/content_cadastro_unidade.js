@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import StyleCadastroUnidade from "../cadastroDoAdm.module.css";
 import Texto from "../textos_cadastro/texto_cadastro";
 import axios from "axios";
@@ -21,9 +21,11 @@ import Numero from "../../inputs_cadastro/endereco/numero_input";
 import Botao from "../botao_cadastro/submit_cadastro";
 
 export default function Content_cadastro_Unidade(props) {
-  const navigate = useNavigate();
   let { id_unidade } = useParams();
 
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [cep, setCep] = useState("");
   const [logradouro, setLogradouro] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
@@ -190,12 +192,12 @@ export default function Content_cadastro_Unidade(props) {
       </h1>
       <form className={StyleCadastroUnidade.content} autoComplete="off" onSubmit={cliquei}>
         <div className={StyleCadastroUnidade.contentInputs}>
-          <Nome />
+          <Nome value={nome} setValue={setNome}/>
           <Cnpj value={cnpj} setValue={setCnpj} />
           <Telefone value={telefone} setValue={setTelefone} />
-          <Email />
+          <Email value={email} setValue={setEmail}/>
           <MaisContatos />
-          <Cep onBuscarCep={handleBuscarCep} />
+          <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
           <UF u={uf} />
           <Cidade c={cidade} />
           <Bairro b={bairro} />

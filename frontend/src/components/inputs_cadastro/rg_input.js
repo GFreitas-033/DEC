@@ -8,9 +8,9 @@ export default function Rg_input({ value, setValue }) {
     r = r.replace(/\D+/g, "");
     r = r.replace(/^(\d{2})(\d)/, "$1.$2");
     r = r.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
-    r = r.replace(/^(\d{2})\.(\d{3})\.(\d{3})(\d{1})/, "$1.$2.$3-$4");
-    if (r.length > 12) {
-      r = r.substring(0, 12);
+    r = r.replace(/^(\d{2})\.(\d{3})\.(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    if (r.length > 13) {
+      r = r.substring(0, 13);
     }
     setValue(r);
   }

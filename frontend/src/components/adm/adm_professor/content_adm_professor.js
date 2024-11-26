@@ -63,7 +63,7 @@ export default function Content_adm_professor() {
                                     <img 
                                         src={Excluir} 
                                         className={AdmProf.icon} 
-                                        ontdck={() => excluirProfessor(professor.id_pessoa)}
+                                        onClick={() => excluirProfessor(professor.id_pessoa)}
                                     />
                                     <img 
                                         src={Editar} 

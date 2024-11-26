@@ -18,6 +18,8 @@ import Botao from "../botao_cadastro/submit_cadastro";
 export default function Content_cadastro_Turma(props) {
     const navigate = useNavigate();
     let { id_turma } = useParams();
+    const [nome, setNome] = useState("");
+    
     const [responseTurma, setResponseTurma] = useState(null);
 
     const handleSubmit = (event) => {
@@ -102,7 +104,7 @@ export default function Content_cadastro_Turma(props) {
 
             <form className={StyleCadastroTurma.content} autoComplete="off" onSubmit={handleSubmit}>
                 <div className={StyleCadastroTurma.contentInputs}>
-                    <Nome/>
+                    <Nome value={nome} setValue={setNome}/>
                     <SelecionarProf/>
                     <SelecionarUni/>
                     <QtdMaxima/>

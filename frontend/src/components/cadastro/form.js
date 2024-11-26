@@ -80,7 +80,7 @@ export default function Form() {
   };
 
   const formatRG = (rg) => {
-    return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{1})/, '$1.$2.$3-$4');
+    return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
   };
 
   const formatTelefone = (telefone) => {
@@ -348,7 +348,7 @@ const Passo3 = ({ prevStep, cep, setCep, handleBuscarCep, uf, cidade, bairro, lo
             }} 
             className={Styles.button}
           >
-              {isUnder18() ? "Avançar" : "Cadastrar"}
+              {isUnder18() ? "Avançar" : "Concluir"}
           </button>
       </div>
   </div>

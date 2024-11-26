@@ -26,6 +26,13 @@
 
   export default function Content_cadastro_Professor(props) {
     let { id_professor } = useParams();
+
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [nome, setNome] = useState("");
+    const [dtNasc, setDtnasc] = useState("");
+    const [genero, setGenero] = useState("");
+    const [cep, setCep] = useState("");
     const [logradouro, setLogradouro] = useState("");
     const [bairro, setBairro] = useState("");
     const [cidade, setCidade] = useState("");
@@ -232,16 +239,16 @@
         <form className={StyleCadastroProf.content} autoComplete="off" onSubmit={cliquei}>
           <div className={StyleCadastroProf.contentInputs}>
             <Imagem/>
-            <Email/>
-            {id_professor === undefined && <Senha />}
-            <Nome/>
+            <Email value={email} setValue={setEmail}/>
+            {id_professor === undefined && <Senha value={senha} setValue={setSenha}/>}
+            <Nome value={nome} setValue={setNome}/>
             <Cpf value={cpf} setValue={setCpf} />
             <Rg value={rg} setValue={setRg} />
             <Telefone value={telefone} setValue={setTelefone} />
-            <DtNasc/>
-            <Genero/>
+            <DtNasc value={dtNasc} setValue={setDtnasc}/>
+            <Genero value={genero} setValue={setGenero}/>
 
-            <Cep onBuscarCep={handleBuscarCep}/>
+            <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
 
             <UF u={uf}/>
             <Cidade c={cidade}/>
