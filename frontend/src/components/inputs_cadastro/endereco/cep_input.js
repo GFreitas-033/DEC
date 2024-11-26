@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Cep from "../input.module.css";
 
-export default function Cep_input({ onBuscarCep }) {
-    const [cep, setCep] = useState("");
-
+export default function Cep_input({ onBuscarCep, value, setValue }) {
+    
     useEffect(() => {
-        if (cep.length === 9) {
-            onBuscarCep(cep);
+        if (value.length === 9) {
+            onBuscarCep(value);
         }
-    }, [cep, onBuscarCep]);
+    }, [value, onBuscarCep]);
 
     const buscarCep = (event) => {
         let c = event.target.value;
@@ -18,7 +17,7 @@ export default function Cep_input({ onBuscarCep }) {
         if (c.length > 9) {
             c = c.substring(0, 9);
         }
-        setCep(c);
+        setValue(c);
     };
 
     return (
@@ -32,7 +31,7 @@ export default function Cep_input({ onBuscarCep }) {
                     required
                     className={Cep.input}
                     onChange={buscarCep}
-                    value={cep}
+                    value={value}
                     autoComplete="off"
                 />
                 <br />

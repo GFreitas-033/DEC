@@ -33,6 +33,12 @@ export default function Form() {
   const [telefone, setTelefone] = useState("");
   const [nascimento, setNascimento] = useState("");
   const [id_endereco, setEndereco] = useState(null);
+  const [genero, setGenero] = useState("");
+  const [mao_dominante, setMao_Dominante] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [nome, setNome] = useState("");
+  const [cep, setCep] = useState("");
   const [responsePessoa, setResponsePessoa] = useState(null);
 
   const [idade, setIdade] = useState("");
@@ -123,9 +129,9 @@ export default function Form() {
   };
 
   const steps = [
-    <Passo1 nextStep={nextStep} rg={rg} setRg={setRg} cpf={cpf} setCpf={setCpf} />,
-    <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} calcularIdade={calcularIdade}/>,
-    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} trocar={trocar} isUnder18={isUnder18} cliquei={cliquei}/>,
+    <Passo1 nextStep={nextStep} rg={rg} setRg={setRg} cpf={cpf} setCpf={setCpf} email={email} setEmail={setEmail} senha={senha} setSenha={setSenha} nome={nome} setNome={setNome}/>,
+    <Passo2 nextStep={nextStep} prevStep={prevStep} telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} calcularIdade={calcularIdade} genero={genero} setGenero={setGenero} mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}/>,
+    <Passo3 nextStep={nextStep} prevStep={prevStep} handleBuscarCep={handleBuscarCep} cep={cep} setCep={setCep} uf={uf} cidade={cidade} bairro={bairro} logradouro={logradouro} trocar={trocar} isUnder18={isUnder18} cliquei={cliquei}/>,
   ];
 
   const logado = async () => {
@@ -291,15 +297,15 @@ export default function Form() {
   );
 }
 
-const Passo1 = ({ nextStep, rg, setRg, cpf, setCpf }) => (
+const Passo1 = ({ nextStep,email, setEmail, senha, setSenha, nome,setNome, rg, setRg, cpf, setCpf }) => (
   <div>
     <div className={Styles.textcenter}>
       <h1>Dados do Aluno</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Email />
-      <Senha />
-      <Nome />
+      <Email value={email} setValue={setEmail}/>
+      <Senha value={senha} setValue={setSenha}/>
+      <Nome value={nome} setValue={setNome}/>
       <RG value={rg} setValue={setRg} />
       <CPF value={cpf} setValue={setCpf} />
       <br />
@@ -308,7 +314,7 @@ const Passo1 = ({ nextStep, rg, setRg, cpf, setCpf }) => (
   </div>
 );
 
-const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, nascimento, setNascimento, calcularIdade }) => (
+const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, nascimento, setNascimento, calcularIdade, genero, setGenero, mao_dominante, setMao_Dominante }) => (
   <div>
     <div className={Styles.textcenter}>
       <h1>Dados do Aluno</h1>
@@ -316,8 +322,8 @@ const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, nascimento, setNasc
     <div className={Styles.container_inputs}>
       <Telefone value={telefone} setValue={setTelefone} />
       <DtNasc value={nascimento} setValue={setNascimento} />
-      <Genero />
-      <DC />
+      <Genero value={genero} setValue={setGenero}/>
+      <DC value={mao_dominante} setValue={setMao_Dominante}/>
       <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
       <button type="button" onClick={()=>{
         nextStep()
@@ -327,13 +333,13 @@ const Passo2 = ({ nextStep, prevStep, telefone, setTelefone, nascimento, setNasc
   </div>
 );
 
-const Passo3 = ({ prevStep, handleBuscarCep, uf, cidade, bairro, logradouro, isUnder18, cliquei, trocar }) => ( 
+const Passo3 = ({ prevStep, cep, setCep, handleBuscarCep, uf, cidade, bairro, logradouro, isUnder18, cliquei, trocar }) => ( 
   <div>
       <div className={Styles.textcenter}>
           <h1>Endereço</h1>
       </div>
       <div className={Styles.container_inputs}>
-          <Cep onBuscarCep={handleBuscarCep} />
+          <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
           <UF u={uf} />
           <Cidade c={cidade} />
           <Bairro b={bairro} />
