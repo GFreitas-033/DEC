@@ -84,24 +84,21 @@
         responsePessoa = responsePessoa.data;
         responsePessoa = responsePessoa.find(item => item.id_pessoa === id_professor);
         setEndereco(responsePessoa.id_endereco);
-        document.getElementById('email').value = responsePessoa.email_pessoa;
-        document.getElementById('nome').value = responsePessoa.nome_pessoa;
-        document.getElementById('cpf').value = formatCPF(responsePessoa.cpf_pessoa);
-        document.getElementById('rg').value = formatRG(responsePessoa.rg_pessoa);
-        document.getElementById('telefone').value = formatTelefone(responsePessoa.telefone_pessoa);
+        setEmail(responsePessoa.email_pessoa);
+        setNome(responsePessoa.nome_pessoa);
         setCpf(formatCPF(responsePessoa.cpf_pessoa));
         setRg(formatRG(responsePessoa.rg_pessoa));
         setTelefone(formatTelefone(responsePessoa.telefone_pessoa));
-        document.getElementById('dt_nasc').value = formatarData(responsePessoa.dt_nasc_pessoa);
-        document.getElementById('genero').value = responsePessoa.genero;
+        setDtnasc(formatarData(responsePessoa.dt_nasc_pessoa));
+        setGenero(responsePessoa.genero);
         let responseEndereco = await axios.get('/api/endereco');
         responseEndereco = responseEndereco.data;
         responseEndereco = responseEndereco.find(item => item.id_endereco === responsePessoa.id_endereco);
-        document.getElementById('cep').value = responseEndereco.cep;
-        document.getElementById('uf').value = responseEndereco.estado;
-        document.getElementById('cidade').value = responseEndereco.cidade;
-        document.getElementById('bairro').value = responseEndereco.bairro;
-        document.getElementById('rua').value = responseEndereco.rua;
+        setCep(responseEndereco.cep);
+        setUf(responseEndereco.estado);
+        setCidade(responseEndereco.cidade);
+        setBairro(responseEndereco.bairro);
+        setLogradouro(responseEndereco.rua);
       } catch (error) {
         console.log(error);
       }

@@ -88,21 +88,19 @@ export default function Content_cadastro_Unidade(props) {
       responseUnidade = responseUnidade.data;
       responseUnidade = responseUnidade.find(item => item.id_unidade === id_unidade);
       setEndereco(responseUnidade.id_endereco);
-      document.getElementById('nome').value = responseUnidade.nome_unidade;
-      document.getElementById('email').value = responseUnidade.email_unidade;
-      document.getElementById('cnpj').value = formatCNPJ(responseUnidade.cnpj_unidade);
-      document.getElementById('telefone').value =  formatTelefone(responseUnidade.telefone_unidade);
+      setNome(responseUnidade.nome_unidade);
+      setEmail(responseUnidade.email_unidade);
       document.getElementById('maisContatos').value = responseUnidade.mais_contatos;
       setCnpj(formatCNPJ(responseUnidade.cnpj_unidade));
       setTelefone(formatTelefone(responseUnidade.telefone_unidade));
       let responseEndereco = await axios.get('/api/endereco');
       responseEndereco = responseEndereco.data;
       responseEndereco = responseEndereco.find(item => item.id_endereco === responseUnidade.id_endereco);
-      document.getElementById('cep').value = responseEndereco.cep;
-      document.getElementById('uf').value = responseEndereco.estado;
-      document.getElementById('cidade').value = responseEndereco.cidade;
-      document.getElementById('bairro').value = responseEndereco.bairro;
-      document.getElementById('rua').value = responseEndereco.rua;
+      setCep(responseEndereco.cep);
+      setUf(responseEndereco.estado);
+      setCidade(responseEndereco.cidade);
+      setBairro(responseEndereco.bairro);
+      setLogradouro(responseEndereco.rua);
       document.getElementById('numero').value = responseEndereco.numero;
     }catch (error) {
       console.log(error);
