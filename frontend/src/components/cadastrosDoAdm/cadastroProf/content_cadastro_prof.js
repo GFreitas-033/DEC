@@ -78,6 +78,14 @@
       return telefone;
     };
 
+    function padraoBR(isoDate) {
+      const date = new Date(isoDate);
+      const day = String(date.getUTCDate()).padStart(2, '0');
+      const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Meses começam em 0
+      const year = date.getUTCFullYear();
+      return `${day}/${month}/${year}`;
+    }
+
     const preencherDados = async () => {
       try {
         let responsePessoa = await axios.get('/api/pessoa');
@@ -89,7 +97,7 @@
         setCpf(formatCPF(responsePessoa.cpf_pessoa));
         setRg(formatRG(responsePessoa.rg_pessoa));
         setTelefone(formatTelefone(responsePessoa.telefone_pessoa));
-        setDtnasc(formatarData(responsePessoa.dt_nasc_pessoa));
+        setDtnasc(padraoBR(responsePessoa.dt_nasc_pessoa));
         setGenero(responsePessoa.genero);
         let responseEndereco = await axios.get('/api/endereco');
         responseEndereco = responseEndereco.data;
