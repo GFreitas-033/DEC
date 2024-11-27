@@ -132,6 +132,10 @@
       return inputString.replace(/[.\-()\s]/g, '');
     }
 
+    const convertDate = (date) => {
+      const [day, month, year] = date.split('/');
+      return `${year}-${month}-${day}`;
+    };
 
     const cliquei = async (event) =>{
       event.preventDefault();
@@ -163,7 +167,7 @@
           console.log(id_endereco);
           let responsePessoa = await axios.put(`/api/pessoa/${id_professor}`, {
             nome_pessoa: nome,
-            dt_nasc_pessoa: dt_nascimento,
+            dt_nasc_pessoa: convertDate(dt_nascimento),
             cpf_pessoa: cpf,
             rg_pessoa: rg,
             email_pessoa: email,
@@ -196,7 +200,7 @@
 
           let responsePessoa = await axios.post('/api/pessoa/', {
             nome_pessoa: nome,
-            dt_nasc_pessoa: dt_nascimento,
+            dt_nasc_pessoa: convertDate(dt_nascimento),
             cpf_pessoa: cpf,
             rg_pessoa: rg,
             email_pessoa: email,
