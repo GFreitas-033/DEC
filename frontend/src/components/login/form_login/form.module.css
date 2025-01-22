@@ -32,14 +32,14 @@
     box-sizing: border-box;
     z-index: 1;
 
-    /* border: none; */
+    /* border: solid 0.3rem;
+    border-image: linear-gradient(90deg, #EFBF14, #000) 1;  */
 
-    /* border-radius: 1rem; */
-    /* background: linear-gradient(90deg, #EFBF14, #000); */
-    /* padding: 0.3rem;*/
-    
-    border: 0.3rem solid; 
-    border-image: linear-gradient(90deg, #EFBF14, #000) 1; 
+    border: solid 0.4rem transparent;
+    border-radius: 2rem;
+    background:
+    linear-gradient( #fff, #fff) padding-box,
+    linear-gradient(90deg, #EFBF14, #000) border-box;
 }
 
 .form::before {
