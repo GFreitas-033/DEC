@@ -8,13 +8,19 @@ import Botao from "../botao_logar/submit_logar"
 
 export default function form(){
   return(
-    <div className={Styles.container_formlogin}>
-      <form className={Styles.form} autoComplete="off">
-        <Texto />
-        <Email />
-        <Senha />
-        <Botao />
-      </form>
+    <div>
+        <div className={Styles.backgroundContainer}>
+            <img src={require('../../../imgs/background1.png')} alt="Background" className={Styles.responsiveImg} draggable="false"/>
+        </div>
+      <div className={Styles.container_formlogin}>
+        <form className={Styles.form} autoComplete="off">
+          <Texto />
+          <Email />
+          <Senha />
+          <Botao />
+        </form>
+      </div>
     </div>
+
   )
 }

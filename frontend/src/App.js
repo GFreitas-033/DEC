@@ -5,7 +5,6 @@ import {BrowserRouter as Routers, Routes, Route, Link} from "react-router-dom"
 // Import das Telas
 import Login from "./components/login/form_login/form"
 import Cadastro from "./components/cadastro/form"
-import CadastroResp from "./components/cadastro/cadastroResponsavel"
 
 import CadastroProf from "./components/cadastrosDoAdm/cadastroProf/cadastro_prof"
 import CadastroUnidade from "./components/cadastrosDoAdm/cadastroUnidade/cadastro_unidade"
@@ -30,7 +29,6 @@ export default function App(){
       {/* Links */}
         <Link to="/"></Link>
         <Link to="/cadastro"></Link>
-        <Link to="/cadastro/responsavel"></Link>
 
         <Link to="/cadastro/professor"></Link>
         <Link to="/cadastro/unidade"></Link>
@@ -61,7 +59,6 @@ export default function App(){
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/cadastro" element={<Cadastro />}></Route>
-        <Route path="/cadastro/responsavel" element={<CadastroResp />}></Route>
         
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} botao={"Cadastrar"}  url={"/cadastro/unidade/responsavel"}/>}></Route>
