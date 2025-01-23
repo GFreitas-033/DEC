@@ -23,7 +23,6 @@
 }
 
 .form{
-    text-align: center;
     width: 50rem;
     height: 30rem;
     background-color: #fff;
@@ -36,6 +35,25 @@
 
 .container_inputs{
     display: grid;
+}
+
+.textcenter{
+    width: 30rem;
+    padding: 0.3rem;
+    background-color: #000;
+    border: 0;
+    color: #fff;
+    border-radius: 0.4rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.centro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 @media screen and (min-width:  720px) {
