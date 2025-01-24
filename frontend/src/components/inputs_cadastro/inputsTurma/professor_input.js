@@ -30,7 +30,7 @@ export default function Professor_input() {
   return (
     <div className={ProfessorStyle.esquerda}>
       <label className={ProfessorStyle.label}><b>Professor</b></label><br />
-      <select id="SelecaoProfessor" className={ProfessorStyle.input}>
+      <select id="SelecaoProfessor" className={`${ProfessorStyle.input} ${ProfessorStyle.professorTurma}`}>
         <option value="" selected disabled>Selecionar</option>
         {professores.map(professor => (
           <option key={professor.id} value={professor.id}>{professor.nome}</option>

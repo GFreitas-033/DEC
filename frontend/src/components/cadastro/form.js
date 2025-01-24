@@ -175,9 +175,12 @@ export default function Form(){
           cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
           telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
           mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}  calcularIdade={calcularIdade}/>,
-        <Passo2 prevStep={prevStep} nomeResp={nomeResp} setNomeResp={setNomeResp} emailResp={emailResp} setEmailResp={setEmailResp} 
+        <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp={nomeResp} setNomeResp={setNomeResp} emailResp={emailResp} setEmailResp={setEmailResp} 
           cpfResp={cpfResp} setCpfResp={setCpfResp} generoResp={generoResp} setGeneroResp={setGeneroResp} rgResp={rgResp} setRgResp={setRgResp}
           telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} />,
+        <Passo3 prevStep={prevStep} nomeResp={nomeResp} setNomeResp={setNomeResp} emailResp={emailResp} setEmailResp={setEmailResp} 
+        cpfResp={cpfResp} setCpfResp={setCpfResp} generoResp={generoResp} setGeneroResp={setGeneroResp} rgResp={rgResp} setRgResp={setRgResp}
+        telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} />,
     ];
 
     return(
@@ -220,7 +223,7 @@ const Passo1 = ({ nextStep, calcularIdade, nome, setNome, email, setEmail, cpf, 
 
             <DtNasc value={nascimento} setValue={setNascimento}/>
             <DC value={mao_dominante} setValue={setMao_Dominante}/>
-            <br />
+            
             <button type="button" onClick={() => {
                 nextStep()
                 calcularIdade(nascimento)
@@ -232,7 +235,7 @@ const Passo1 = ({ nextStep, calcularIdade, nome, setNome, email, setEmail, cpf, 
     </div>
 );
 
-const Passo2 = ({ prevStep, nomeResp, setNomeResp, emailResp, setEmailResp, cpfResp, setCpfResp, generoResp, setGeneroResp, rgResp, setRgResp, telefoneResp, setTelefoneResp}) => (
+const Passo2 = ({ nextStep, prevStep, nomeResp, setNomeResp, emailResp, setEmailResp, cpfResp, setCpfResp, generoResp, setGeneroResp, rgResp, setRgResp, telefoneResp, setTelefoneResp}) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Dados do Responsável 1</h1>
@@ -251,13 +254,40 @@ const Passo2 = ({ prevStep, nomeResp, setNomeResp, emailResp, setEmailResp, cpfR
             <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
             Anterior
         </button>
-        <button type="button"  className={Styles.button}>
-            Finalizar Cadastro
-            <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+            Próximo
+            <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         </button>
     </div>
   </div>
 );
+
+const Passo3 = ({ prevStep, nomeResp, setNomeResp, emailResp, setEmailResp, cpfResp, setCpfResp, generoResp, setGeneroResp, rgResp, setRgResp, telefoneResp, setTelefoneResp}) => (
+    <div className={Styles.centro}>
+      <div className={Styles.textcenter}>
+        <h1>Dados do Responsável 2</h1>
+      </div>
+      <div className={Styles.container_inputs}>
+          <Nome value={nomeResp} setValue={setNomeResp} />
+          <Email value={emailResp} setValue={setEmailResp} />
+  
+          <CPF value={cpfResp} setValue={setCpfResp} />
+          <Genero value={generoResp} setValue={setGeneroResp} />
+  
+          <RG value={rgResp} setValue={setRgResp} />
+          <Telefone value={telefoneResp} setValue={setTelefoneResp} />
+  
+          <button type="button" onClick={prevStep} className={Styles.button}>
+              <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+              Anterior
+          </button>
+          <button type="button"  className={Styles.button}>
+              Finalizar Cadastro
+              <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          </button>
+      </div>
+    </div>
+  );
 
 // const Passo5 = ({ prevStep, telefoneResp, setTelefoneResp, nascimentoResp, setNascimentoResp, generoResp, setGeneroResp, cliquei }) => (
 //   <div>
