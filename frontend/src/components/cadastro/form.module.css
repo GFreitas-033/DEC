@@ -56,6 +56,29 @@
     flex-direction: column;
 }
 
+.button{
+    background-color: #EFBF14;
+    color: #000;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 0 0.5rem 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+.button:hover{
+    background-color: #efaa14;
+}
+
+.iconNavegar{
+    margin: 0 0.2rem 0 0.2rem;
+    width: 1rem;
+    height: 1rem;
+}
+
 @media screen and (min-width:  720px) {
     .container_inputs{
         grid-template-columns: auto auto;

@@ -224,7 +224,10 @@ const Passo1 = ({ nextStep, calcularIdade, nome, setNome, email, setEmail, cpf, 
             <button type="button" onClick={() => {
                 nextStep()
                 calcularIdade(nascimento)
-            }} className={Styles.button}>Avançar</button>
+            }} className={Styles.button}>
+                Próximo
+                <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+            </button>
         </div>
     </div>
 );
@@ -244,9 +247,14 @@ const Passo2 = ({ prevStep, nomeResp, setNomeResp, emailResp, setEmailResp, cpfR
         <RG value={rgResp} setValue={setRgResp} />
         <Telefone value={telefoneResp} setValue={setTelefoneResp} />
 
-        <br />
-        <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-        <button type="button" onClick={alert("Para aqui")} className={Styles.button}>Concluir</button>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+            <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+            Anterior
+        </button>
+        <button type="button"  className={Styles.button}>
+            Finalizar Cadastro
+            <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
     </div>
   </div>
 );
