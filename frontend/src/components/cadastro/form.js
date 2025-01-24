@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Styles from "./form.module.css";
-import axios from "axios";
+// import axios from "axios";
 
 // // Import dos Input
 import Nome from "../inputs_cadastro/nome_input";
@@ -23,7 +23,9 @@ import DC from "../inputs_cadastro/destro_canhoto_input";
 
 export default function Form(){
     const [step, setStep] = useState(0);
-    const [responsePessoa, setResponsePessoa] = useState(null);
+    // const [responsePessoa, setResponsePessoa] = useState(null);
+    // let { id_aluno } = useParams();
+    // const navigate = useNavigate();
 
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
@@ -43,12 +45,12 @@ export default function Form(){
     const [rgResp, setRgResp] = useState("");   
     const [telefoneResp, setTelefoneResp] = useState("");
 
-    const [logradouro, setLogradouro] = useState("");
-    const [bairro, setBairro] = useState("");
-    const [cidade, setCidade] = useState("");
-    const [uf, setUf] = useState("");
-    const [cep, setCep] = useState("");
-    const [id_endereco, setEndereco] = useState(null);    
+    // const [cep, setCep] = useState("");
+    // const [logradouro, setLogradouro] = useState("");
+    // const [bairro, setBairro] = useState("");
+    // const [cidade, setCidade] = useState("");
+    // const [uf, setUf] = useState("");
+    // const [id_endereco, setEndereco] = useState(null);    
 
     const nextStep = () => {
         setStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
@@ -58,16 +60,9 @@ export default function Form(){
         setStep((prevStep) => Math.max(prevStep - 1, 0));
     };
         
-    const steps = [
-      <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail} 
-        cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
-        telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
-        mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}  calcularIdade={calcularIdade}/>,
-      <Passo2 prevStep={prevStep} />,
-    ];
 
-    let { id_aluno } = useParams();
-    const navigate = useNavigate();
+
+
 
     // useEffect(() => {
     //   if (id_aluno !== undefined) {
@@ -94,42 +89,42 @@ export default function Form(){
       return idade < 18 && idade > 0;
     }
 
-    const formatCPF = (cpf) => {
-        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-    };
+    // const formatCPF = (cpf) => {
+    //     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    // };
 
-    const formatRG = (rg) => {
-        return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-    };
+    // const formatRG = (rg) => {
+    //     return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    // };
 
-    function padraoBR(isoDate) {
-      const date = new Date(isoDate);
-      const day = String(date.getUTCDate()).padStart(2, '0');
-      const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Meses começam em 0
-      const year = date.getUTCFullYear();
-      return `${day}/${month}/${year}`;
-    }
+    // function padraoBR(isoDate) {
+    //   const date = new Date(isoDate);
+    //   const day = String(date.getUTCDate()).padStart(2, '0');
+    //   const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Meses começam em 0
+    //   const year = date.getUTCFullYear();
+    //   return `${day}/${month}/${year}`;
+    // }
 
-    const formatTelefone = (telefone) => {
-      telefone = telefone.replace(/\D/g, ''); // Remove non-digits
-      if (telefone.length === 11) {
-        return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-      } else if (telefone.length === 10) {
-        return telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-      }
-      return telefone;
-    };
+    // const formatTelefone = (telefone) => {
+    //   telefone = telefone.replace(/\D/g, ''); // Remove non-digits
+    //   if (telefone.length === 11) {
+    //     return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    //   } else if (telefone.length === 10) {
+    //     return telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    //   }
+    //   return telefone;
+    // };
 
-    const formatDate = (nascimento) => {
-      nascimento = nascimento.replace(/\D/g, '');
-      nascimento = nascimento.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3');
-      return nascimento;
-    }
+    // const formatDate = (nascimento) => {
+    //   nascimento = nascimento.replace(/\D/g, '');
+    //   nascimento = nascimento.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3');
+    //   return nascimento;
+    // }
 
-    const convertDate = (date) => {
-      const [day, month, year] = date.split('/');
-      return `${year}-${month}-${day}`;
-    };
+    // const convertDate = (date) => {
+    //   const [day, month, year] = date.split('/');
+    //   return `${year}-${month}-${day}`;
+    // };
 
 //   const handleBuscarCep = (cep) => {
 //     if (cep.length < 9) {
@@ -152,28 +147,38 @@ export default function Form(){
 //       });
 //   };
 
-    const logado = async () => {
-      try {
-        let response = await axios.post('/login');
-        if (response.data.adm !== 1) {
-          navigate('/home');
-        }
-      } catch (error) {
-        navigate('/');
-      }
-    };
+    // const logado = async () => {
+    //   try {
+    //     let response = await axios.post('/login');
+    //     if (response.data.adm !== 1) {
+    //       navigate('/home');
+    //     }
+    //   } catch (error) {
+    //     navigate('/');
+    //   }
+    // };
 
-    function tratamentoString(inputString) {
-      return inputString.replace(/[.\-()\s]/g, '');
-    }
+    // function tratamentoString(inputString) {
+    //   return inputString.replace(/[.\-()\s]/g, '');
+    // }
 
     // Obter a data atual
-    const dataAtual = new Date();
-    const adicionarZero = (numero) => (numero < 10 ? `0${numero}` : numero);
-    const ano = dataAtual.getFullYear();
-    const mes = adicionarZero(dataAtual.getMonth() + 1);
-    const dia = adicionarZero(dataAtual.getDate());
-    const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
+    // const dataAtual = new Date();
+    // const adicionarZero = (numero) => (numero < 10 ? `0${numero}` : numero);
+    // const ano = dataAtual.getFullYear();
+    // const mes = adicionarZero(dataAtual.getMonth() + 1);
+    // const dia = adicionarZero(dataAtual.getDate());
+    // const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
+
+    const steps = [
+        <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail} 
+          cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
+          telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
+          mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}  calcularIdade={calcularIdade}/>,
+        <Passo2 prevStep={prevStep} nomeResp={nomeResp} setNomeResp={setNomeResp} emailResp={emailResp} setEmailResp={setEmailResp} 
+          cpfResp={cpfResp} setCpfResp={setCpfResp} generoResp={generoResp} setGeneroResp={setGeneroResp} rgResp={rgResp} setRgResp={setRgResp}
+          telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} />,
+    ];
 
     return(
         <div>
