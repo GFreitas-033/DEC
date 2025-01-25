@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import Styles from "./form.module.css";
 // import axios from "axios";
 
-// // Import dos Input
+// Import dos Input
 import Nome from "../inputs_cadastro/nome_input";
 import Email from "../inputs_cadastro/email_input";
 import CPF from "../inputs_cadastro/cpf_input";
@@ -14,12 +14,13 @@ import Telefone from "../inputs_cadastro/telefone_input";
 import DtNasc from "../inputs_cadastro/dt_nasc_input";
 import DC from "../inputs_cadastro/destro_canhoto_input";
 
-// // Import dos Input de Endereço
-// import Cep from "../inputs_cadastro/endereco/cep_input";
-// import UF from "../inputs_cadastro/endereco/uf_input";
-// import Cidade from "../inputs_cadastro/endereco/cidade_input";
-// import Bairro from "../inputs_cadastro/endereco/bairro_input";
-// import Rua from "../inputs_cadastro/endereco/rua_input";
+// Import dos Input de Endereço
+import Cep from "../inputs_cadastro/endereco/cep_input";
+import UF from "../inputs_cadastro/endereco/uf_input";
+import Cidade from "../inputs_cadastro/endereco/cidade_input";
+import Bairro from "../inputs_cadastro/endereco/bairro_input";
+import Rua from "../inputs_cadastro/endereco/rua_input";
+import Numero from "../inputs_cadastro/endereco/numero_input";
 
 export default function Form(){
     const [step, setStep] = useState(0);
@@ -38,31 +39,35 @@ export default function Form(){
 
     const [idade, setIdade] = useState("");
 
-    const [nomeResp, setNomeResp] = useState("");
-    const [emailResp, setEmailResp] = useState("");
-    const [cpfResp, setCpfResp] = useState("");
-    const [generoResp, setGeneroResp] = useState("");
-    const [rgResp, setRgResp] = useState("");   
-    const [telefoneResp, setTelefoneResp] = useState("");
+    const [nomeResp1, setNomeResp1] = useState("");
+    const [emailResp1, setEmailResp1] = useState("");
+    const [cpfResp1, setCpfResp1] = useState("");
+    const [generoResp1, setGeneroResp1] = useState("");
+    const [rgResp1, setRgResp1] = useState("");   
+    const [telefoneResp1, setTelefoneResp1] = useState("");
 
-    // const [cep, setCep] = useState("");
-    // const [logradouro, setLogradouro] = useState("");
-    // const [bairro, setBairro] = useState("");
-    // const [cidade, setCidade] = useState("");
-    // const [uf, setUf] = useState("");
-    // const [id_endereco, setEndereco] = useState(null);    
+    const [nomeResp2, setNomeResp2] = useState("");
+    const [emailResp2, setEmailResp2] = useState("");
+    const [cpfResp2, setCpfResp2] = useState("");
+    const [generoResp2, setGeneroResp2] = useState("");
+    const [rgResp2, setRgResp2] = useState("");   
+    const [telefoneResp2, setTelefoneResp2] = useState("");
+
+    const [cep, setCep] = useState("");
+    const [logradouro, setLogradouro] = useState("");
+    const [bairro, setBairro] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [uf, setUf] = useState("");
+    const [numero, setNumero] = useState("");
+    const [id_endereco, setEndereco] = useState(null); 
 
     const nextStep = () => {
         setStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
     };
-        
+
     const prevStep = () => {
         setStep((prevStep) => Math.max(prevStep - 1, 0));
     };
-        
-
-
-
 
     // useEffect(() => {
     //   if (id_aluno !== undefined) {
@@ -84,10 +89,10 @@ export default function Form(){
         }
         setIdade(idadeCalculada);
     };
-    const isUnder18 = () => {
-      console.log("Idade do aluno:", idade);  // Adicione este log para depuração
-      return idade < 18 && idade > 0;
-    }
+    // const isUnder18 = () => {
+    //   console.log("Idade do aluno:", idade);  // Adicione este log para depuração
+    //   return idade < 18 && idade > 0;
+    // }
 
     // const formatCPF = (cpf) => {
     //     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -126,26 +131,26 @@ export default function Form(){
     //   return `${year}-${month}-${day}`;
     // };
 
-//   const handleBuscarCep = (cep) => {
-//     if (cep.length < 9) {
-//       setLogradouro("");
-//       setBairro("");
-//       setCidade("");
-//       setUf("");
-//       return;
-//     }
-//     fetch(`https://viacep.com.br/ws/${cep}/json/`)
-//       .then((response) => response.json())
-//       .then((dados) => {
-//         setLogradouro(dados.logradouro);
-//         setBairro(dados.bairro);
-//         setCidade(dados.localidade);
-//         setUf(dados.uf);
-//       })
-//       .catch((error) => {
-//         console.error('Erro ao buscar CEP:', error);
-//       });
-//   };
+    const handleBuscarCep = (cep) => {
+      if (cep.length < 9) {
+        setLogradouro("");
+        setBairro("");
+        setCidade("");
+        setUf("");
+        return;
+      }
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then((response) => response.json())
+        .then((dados) => {
+          setLogradouro(dados.logradouro);
+          setBairro(dados.bairro);
+          setCidade(dados.localidade);
+          setUf(dados.uf);
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar CEP:', error);
+        });
+    };
 
     // const logado = async () => {
     //   try {
@@ -175,12 +180,14 @@ export default function Form(){
           cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
           telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
           mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}  calcularIdade={calcularIdade}/>,
-        <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp={nomeResp} setNomeResp={setNomeResp} emailResp={emailResp} setEmailResp={setEmailResp} 
-          cpfResp={cpfResp} setCpfResp={setCpfResp} generoResp={generoResp} setGeneroResp={setGeneroResp} rgResp={rgResp} setRgResp={setRgResp}
-          telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} />,
-        <Passo3 prevStep={prevStep} nomeResp={nomeResp} setNomeResp={setNomeResp} emailResp={emailResp} setEmailResp={setEmailResp} 
-        cpfResp={cpfResp} setCpfResp={setCpfResp} generoResp={generoResp} setGeneroResp={setGeneroResp} rgResp={rgResp} setRgResp={setRgResp}
-        telefoneResp={telefoneResp} setTelefoneResp={setTelefoneResp} />,
+        <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1} 
+          cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
+          telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} />,
+        <Passo3 nextStep={nextStep} prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
+            cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
+            telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} />,
+        <Passo4 prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
+            bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}/>
     ];
 
     return(
@@ -206,7 +213,7 @@ export default function Form(){
 }
 
 
-const Passo1 = ({ nextStep, calcularIdade, nome, setNome, email, setEmail, cpf, setCpf, genero, setGenero, rg, setRg, telefone, setTelefone, nascimento, setNascimento, mao_dominante, setMao_Dominante}) => (
+const Passo1 = ({ nextStep, calcularIdade, nome, setNome, email, setEmail, cpf, setCpf, genero, setGenero, rg, setRg, telefone, setTelefone, nascimento, setNascimento, mao_dominante, setMao_Dominante }) => (
     <div className={Styles.centro}>
         <div className={Styles.textcenter}>
           <h1>Dados do Aluno</h1>
@@ -235,20 +242,20 @@ const Passo1 = ({ nextStep, calcularIdade, nome, setNome, email, setEmail, cpf, 
     </div>
 );
 
-const Passo2 = ({ nextStep, prevStep, nomeResp, setNomeResp, emailResp, setEmailResp, cpfResp, setCpfResp, generoResp, setGeneroResp, rgResp, setRgResp, telefoneResp, setTelefoneResp}) => (
+const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEmailResp1, cpfResp1, setCpfResp1, generoResp1, setGeneroResp1, rgResp1, setRgResp1, telefoneResp1, setTelefoneResp1 }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Dados do Responsável 1</h1>
     </div>
     <div className={Styles.container_inputs}>
-        <Nome value={nomeResp} setValue={setNomeResp} />
-        <Email value={emailResp} setValue={setEmailResp} />
+        <Nome value={nomeResp1} setValue={setNomeResp1} />
+        <Email value={emailResp1} setValue={setEmailResp1} />
 
-        <CPF value={cpfResp} setValue={setCpfResp} />
-        <Genero value={generoResp} setValue={setGeneroResp} />
+        <CPF value={cpfResp1} setValue={setCpfResp1} />
+        <Genero value={generoResp1} setValue={setGeneroResp1} />
 
-        <RG value={rgResp} setValue={setRgResp} />
-        <Telefone value={telefoneResp} setValue={setTelefoneResp} />
+        <RG value={rgResp1} setValue={setRgResp1} />
+        <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
 
         <button type="button" onClick={prevStep} className={Styles.button}>
             <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
@@ -262,22 +269,48 @@ const Passo2 = ({ nextStep, prevStep, nomeResp, setNomeResp, emailResp, setEmail
   </div>
 );
 
-const Passo3 = ({ prevStep, nomeResp, setNomeResp, emailResp, setEmailResp, cpfResp, setCpfResp, generoResp, setGeneroResp, rgResp, setRgResp, telefoneResp, setTelefoneResp}) => (
+const Passo3 = ({ nextStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2 }) => (
     <div className={Styles.centro}>
       <div className={Styles.textcenter}>
         <h1>Dados do Responsável 2</h1>
       </div>
       <div className={Styles.container_inputs}>
-          <Nome value={nomeResp} setValue={setNomeResp} />
-          <Email value={emailResp} setValue={setEmailResp} />
-  
-          <CPF value={cpfResp} setValue={setCpfResp} />
-          <Genero value={generoResp} setValue={setGeneroResp} />
-  
-          <RG value={rgResp} setValue={setRgResp} />
-          <Telefone value={telefoneResp} setValue={setTelefoneResp} />
-  
-          <button type="button" onClick={prevStep} className={Styles.button}>
+        <Nome value={nomeResp2} setValue={setNomeResp2} />
+        <Email value={emailResp2} setValue={setEmailResp2} />
+
+        <CPF value={cpfResp2} setValue={setCpfResp2} />
+        <Genero value={generoResp2} setValue={setGeneroResp2} />
+
+        <RG value={rgResp2} setValue={setRgResp2} />
+        <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
+
+        <button type="button" onClick={prevStep} className={Styles.button}>
+            <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+            Anterior
+        </button>
+        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+            Próximo
+            <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
+    </div>
+);
+
+  const Passo4 = ({ prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero }) => (
+    <div className={Styles.centro}>
+      <div className={Styles.textcenter}>
+        <h1>Endereço</h1>
+      </div>
+      <div className={Styles.container_inputs}>
+        <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
+        <UF u={uf} />
+
+        <Cidade c={cidade} />
+        <Bairro b={bairro} />
+
+        <Rua r={logradouro} />
+        <Numero value={numero} setValue={setNumero} />
+        <button type="button" onClick={prevStep} className={Styles.button}>
               <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
               Anterior
           </button>
@@ -287,20 +320,4 @@ const Passo3 = ({ prevStep, nomeResp, setNomeResp, emailResp, setEmailResp, cpfR
           </button>
       </div>
     </div>
-  );
-
-// const Passo5 = ({ prevStep, telefoneResp, setTelefoneResp, nascimentoResp, setNascimentoResp, generoResp, setGeneroResp, cliquei }) => (
-//   <div>
-//     <div className={Styles.textcenter}>
-//       <h1>Dados do Responsável</h1>
-//     </div>
-//     <div className={Styles.container_inputs}>
-//       <Telefone value={telefoneResp} setValue={setTelefoneResp} />
-//       <DtNasc value={nascimentoResp} setValue={setNascimentoResp} />
-//       <Genero value={generoResp} setValue={setGeneroResp} />
-//       <br />
-//       <button type="button" onClick={prevStep} className={Styles.button}>Voltar</button>
-//       <button type="button" onClick={cliquei} className={Styles.button}>Concluir</button>
-//     </div>
-//   </div>
-// );
+);
