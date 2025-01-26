@@ -23,99 +23,99 @@ import Rua from "../inputs_cadastro/endereco/rua_input";
 import Numero from "../inputs_cadastro/endereco/numero_input";
 
 export default function Form(){
-    const [step, setStep] = useState(0);
-    // const [responsePessoa, setResponsePessoa] = useState(null);
-    // let { id_aluno } = useParams();
-    // const navigate = useNavigate();
+  const [step, setStep] = useState(0);
+  // const [responsePessoa, setResponsePessoa] = useState(null);
+  // let { id_aluno } = useParams();
+  // const navigate = useNavigate();
 
-    const [nome, setNome] = useState("");
-    const [email, setEmail] = useState("");
-    const [cpf, setCpf] = useState("");
-    const [genero, setGenero] = useState("");
-    const [rg, setRg] = useState("");
-    const [telefone, setTelefone] = useState("");
-    const [nascimento, setNascimento] = useState("");
-    const [mao_dominante, setMao_Dominante] = useState("");
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [genero, setGenero] = useState("");
+  const [rg, setRg] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [nascimento, setNascimento] = useState("");
+  const [mao_dominante, setMao_Dominante] = useState("");
 
-    const [vdd, setVdd] = useState(false);
+  const [vdd, setVdd] = useState(false);
 
-    const [nomeResp1, setNomeResp1] = useState("");
-    const [emailResp1, setEmailResp1] = useState("");
-    const [cpfResp1, setCpfResp1] = useState("");
-    const [generoResp1, setGeneroResp1] = useState("");
-    const [rgResp1, setRgResp1] = useState("");   
-    const [telefoneResp1, setTelefoneResp1] = useState("");
+  const [nomeResp1, setNomeResp1] = useState("");
+  const [emailResp1, setEmailResp1] = useState("");
+  const [cpfResp1, setCpfResp1] = useState("");
+  const [generoResp1, setGeneroResp1] = useState("");
+  const [rgResp1, setRgResp1] = useState("");   
+  const [telefoneResp1, setTelefoneResp1] = useState("");
 
-    const [nomeResp2, setNomeResp2] = useState("");
-    const [emailResp2, setEmailResp2] = useState("");
-    const [cpfResp2, setCpfResp2] = useState("");
-    const [generoResp2, setGeneroResp2] = useState("");
-    const [rgResp2, setRgResp2] = useState("");   
-    const [telefoneResp2, setTelefoneResp2] = useState("");
+  const [nomeResp2, setNomeResp2] = useState("");
+  const [emailResp2, setEmailResp2] = useState("");
+  const [cpfResp2, setCpfResp2] = useState("");
+  const [generoResp2, setGeneroResp2] = useState("");
+  const [rgResp2, setRgResp2] = useState("");   
+  const [telefoneResp2, setTelefoneResp2] = useState("");
 
-    const [cep, setCep] = useState("");
-    const [logradouro, setLogradouro] = useState("");
-    const [bairro, setBairro] = useState("");
-    const [cidade, setCidade] = useState("");
-    const [uf, setUf] = useState("");
-    const [numero, setNumero] = useState("");
-    const [id_endereco, setEndereco] = useState(null); 
+  const [cep, setCep] = useState("");
+  const [logradouro, setLogradouro] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [uf, setUf] = useState("");
+  const [numero, setNumero] = useState("");
+  const [id_endereco, setEndereco] = useState(null); 
 
-    const nextStep = () => {
-      setStep((prevStep) => {
-        if (vdd) { // Maior de idade
-          if (prevStep === 0){
-            setVdd(false)
-            return 3 // Pular passos 2 e 3
-          }; 
-          return Math.min(prevStep + 1, steps.length - 1);
-        } else { // Menor de idade
-          return Math.min(prevStep + 1, steps.length - 1);
-        }
-      });
-    };
+  const nextStep = () => {
+    setStep((prevStep) => {
+      if (vdd) { // Maior de idade
+        if (prevStep === 0){
+          setVdd(false)
+          return 3 // Pular passos 2 e 3
+        }; 
+        return Math.min(prevStep + 1, steps.length - 1);
+      } else { // Menor de idade
+        return Math.min(prevStep + 1, steps.length - 1);
+      }
+    });
+  };
     
-    const prevStep = () => {
-      setStep((prevStep) => {
-        if (vdd) { // Maior de idade
-          if (prevStep === 3){
-            setVdd(false)
-            return 0 // Voltar direto para o passo 1
-          };
-          return Math.max(prevStep - 1, 0);
-        } else { // Menor de idade
-          return Math.max(prevStep - 1, 0);
-        }
-      });
-    };
+  const prevStep = () => {
+    setStep((prevStep) => {
+      if (vdd) { // Maior de idade
+        if (prevStep === 3){
+          setVdd(false)
+          return 0 // Voltar direto para o passo 1
+        };
+        return Math.max(prevStep - 1, 0);
+      } else { // Menor de idade
+        return Math.max(prevStep - 1, 0);
+      }
+    });
+  };
 
-    // useEffect(() => {
-    //   if (id_aluno !== undefined) {
-    //     logado();
-    //     id_aluno = parseInt(id_aluno);
-    //     preencherDados();
-    //   }
-    // }, [id_aluno]);
+  // useEffect(() => {
+  //   if (id_aluno !== undefined) {
+  //     logado();
+  //     id_aluno = parseInt(id_aluno);
+  //     preencherDados();
+  //   }
+  // }, [id_aluno]);
 
-    const calcularIdade = (dataNascimento) => {
-        const partes = dataNascimento.split('/');
-        
-        const hoje = new Date();
-        const nascimento = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
-        let idadeCalculada = hoje.getFullYear() - nascimento.getFullYear();
-        const mes = hoje.getMonth();
-        if (mes < nascimento.getMonth() || (mes === nascimento.getMonth() && hoje.getDate() < nascimento.getDate())) {
-          idadeCalculada--;
-        }
+  const calcularIdade = (dataNascimento) => {
+    const partes = dataNascimento.split('/');
+      
+    const hoje = new Date();
+    const nascimento = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
+    let idadeCalculada = hoje.getFullYear() - nascimento.getFullYear();
+    const mes = hoje.getMonth();
+    if (mes < nascimento.getMonth() || (mes === nascimento.getMonth() && hoje.getDate() < nascimento.getDate())) {
+      idadeCalculada--;
+    }
 
-        if(idadeCalculada < 18 && idadeCalculada > 0){
-          setVdd(false);
-        }else{
-          setVdd(true);
-        }
+    if(idadeCalculada < 18 && idadeCalculada > 0){
+      setVdd(false);
+    }else{
+      setVdd(true);
+    }
 
-        return idadeCalculada;
-    };
+    return idadeCalculada;
+  };
 
     // const formatCPF = (cpf) => {
     //     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -198,75 +198,80 @@ export default function Form(){
     // const dia = adicionarZero(dataAtual.getDate());
     // const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
 
-    const steps = [
-        <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail} 
-          cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
-          telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
-          mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}  calcularIdade={calcularIdade} setStep={setStep}/>,
-        <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1} 
-          cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
-          telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} />,
-        <Passo3 nextStep={nextStep} prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
-            cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
-            telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} />,
-        <Passo4 prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
-            bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}/>
-    ];
+  const steps = [
+      <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail} 
+        cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
+        telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
+        mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}  calcularIdade={calcularIdade} setStep={setStep} />,
+      
+      <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1} 
+        cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
+        telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} />,
+      
+      <Passo3 nextStep={nextStep} prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
+          cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
+          telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} />,
+      
+      <Passo4 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
+          bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep} />,
+      
+      <Passo5 prevStep={prevStep} />,
+  ];
 
-    return(
-        <div>
-            <div className={Styles.backgroundContainer}>
-                <img src={require('../../imgs/background1.png')} alt="Background" className={Styles.responsiveImg} draggable="false"/>
-            </div>
-            <div className={Styles.container}>
-                <form id="formcadastroaluno" className={Styles.form} autoComplete="off">
-                    <CSSTransition
-                    in={true}
-                    key={step}
-                    timeout={300}
-                    classNames="fade"
-                    unmountOnExit
-                    >
-                        {steps[step]}
-                    </CSSTransition>
-                </form>
-            </div>
-        </div>
-    )
+  return(
+    <div>
+      <div className={Styles.backgroundContainer}>
+        <img src={require('../../imgs/background1.png')} alt="Background" className={Styles.responsiveImg} draggable="false"/>
+      </div>
+      <div className={Styles.container}>
+        <form id="formcadastroaluno" className={Styles.form} autoComplete="off">
+          <CSSTransition
+          in={true}
+          key={step}
+          timeout={300}
+          classNames="fade"
+          unmountOnExit
+          >
+            {steps[step]}
+          </CSSTransition>
+        </form>
+      </div>
+    </div>
+  )
 }
 
 
 const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEmail, cpf, setCpf, genero, setGenero, rg, setRg, telefone, setTelefone, nascimento, setNascimento, mao_dominante, setMao_Dominante }) => (
-    <div className={Styles.centro}>
-        <div className={Styles.textcenter}>
-          <h1>Dados do Aluno</h1>
-        </div>
-        <div className={Styles.container_inputs}>
-            <Nome value={nome} setValue={setNome}/>
-            <Email value={email} setValue={setEmail}/>
-
-            <CPF value={cpf} setValue={setCpf}/>
-            <Genero value={genero} setValue={setGenero}/>
-
-            <RG value={rg} setValue={setRg}/>
-            <Telefone value={telefone} setValue={setTelefone}/>
-
-            <DtNasc value={nascimento} setValue={setNascimento}/>
-            <DC value={mao_dominante} setValue={setMao_Dominante}/>
-            
-            <button type="button" onClick={() => {
-              let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
-              if (idade > 18) {
-                setStep(3); // Se maior de idade, pula para o passo 4
-              } else {
-                nextStep(); // Continua normalmente se menor de idade
-              }
-            }} className={Styles.button}>
-              Próximo
-              <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-            </button>
-        </div>
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Dados do Aluno</h1>
     </div>
+    <div className={Styles.container_inputs}>
+      <Nome value={nome} setValue={setNome}/>
+      <Email value={email} setValue={setEmail}/>
+
+      <CPF value={cpf} setValue={setCpf}/>
+      <Genero value={genero} setValue={setGenero}/>
+
+      <RG value={rg} setValue={setRg}/>
+      <Telefone value={telefone} setValue={setTelefone}/>
+
+      <DtNasc value={nascimento} setValue={setNascimento}/>
+      <DC value={mao_dominante} setValue={setMao_Dominante}/>
+            
+      <button type="button" onClick={() => {
+        let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
+        if (idade > 18) {
+          setStep(3); // Se maior de idade, pula para o passo 4
+        } else {
+          nextStep(); // Continua normalmente se menor de idade
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
+    </div>
+  </div>
 );
 
 const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEmailResp1, cpfResp1, setCpfResp1, generoResp1, setGeneroResp1, rgResp1, setRgResp1, telefoneResp1, setTelefoneResp1 }) => (
@@ -275,76 +280,124 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
       <h1>Dados do Responsável 1</h1>
     </div>
     <div className={Styles.container_inputs}>
-        <Nome value={nomeResp1} setValue={setNomeResp1} />
-        <Email value={emailResp1} setValue={setEmailResp1} />
+      <Nome value={nomeResp1} setValue={setNomeResp1} />
+      <Email value={emailResp1} setValue={setEmailResp1} />
 
-        <CPF value={cpfResp1} setValue={setCpfResp1} />
-        <Genero value={generoResp1} setValue={setGeneroResp1} />
+      <CPF value={cpfResp1} setValue={setCpfResp1} />
+      <Genero value={generoResp1} setValue={setGeneroResp1} />
 
-        <RG value={rgResp1} setValue={setRgResp1} />
-        <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
+      <RG value={rgResp1} setValue={setRgResp1} />
+      <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
 
-        <button type="button" onClick={prevStep} className={Styles.button}>
-            <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-            Anterior
-        </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-            Próximo
-            <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        </button>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        Anterior
+      </button>
+      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
     </div>
   </div>
 );
 
 const Passo3 = ({ nextStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2 }) => (
-    <div className={Styles.centro}>
-      <div className={Styles.textcenter}>
-        <h1>Dados do Responsável 2</h1>
-      </div>
-      <div className={Styles.container_inputs}>
-        <Nome value={nomeResp2} setValue={setNomeResp2} />
-        <Email value={emailResp2} setValue={setEmailResp2} />
-
-        <CPF value={cpfResp2} setValue={setCpfResp2} />
-        <Genero value={generoResp2} setValue={setGeneroResp2} />
-
-        <RG value={rgResp2} setValue={setRgResp2} />
-        <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
-
-        <button type="button" onClick={prevStep} className={Styles.button}>
-            <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-            Anterior
-        </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-            Próximo
-            <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        </button>
-      </div>
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Dados do Responsável 2</h1>
     </div>
+    <div className={Styles.container_inputs}>
+      <Nome value={nomeResp2} setValue={setNomeResp2} />
+      <Email value={emailResp2} setValue={setEmailResp2} />
+
+      <CPF value={cpfResp2} setValue={setCpfResp2} />
+      <Genero value={generoResp2} setValue={setGeneroResp2} />
+
+      <RG value={rgResp2} setValue={setRgResp2} />
+      <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
+
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        Anterior
+      </button>
+      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
+    </div>
+  </div>
 );
 
-  const Passo4 = ({ prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero }) => (
-    <div className={Styles.centro}>
-      <div className={Styles.textcenter}>
-        <h1>Endereço</h1>
-      </div>
-      <div className={Styles.container_inputs}>
-        <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
-        <UF u={uf} />
-
-        <Cidade c={cidade} />
-        <Bairro b={bairro} />
-
-        <Rua r={logradouro} />
-        <Numero value={numero} setValue={setNumero} />
-        <button type="button" onClick={prevStep} className={Styles.button}>
-              <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-              Anterior
-          </button>
-          <button type="button"  className={Styles.button}>
-              Finalizar Cadastro
-              <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-          </button>
-      </div>
+const Passo4 = ({ nextStep, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Endereço</h1>
     </div>
+    <div className={Styles.container_inputs}>
+      <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
+      <UF u={uf} />
+
+      <Cidade c={cidade} />
+      <Bairro b={bairro} />
+
+      <Rua r={logradouro} />
+      <Numero value={numero} setValue={setNumero} />
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        Anterior
+      </button>
+      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
+    </div>
+  </div>
+);
+
+const Passo5 = ({ prevStep }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Informações sobre o Pagamento</h1>
+    </div>
+    <div className={Styles.container_Passo5}>
+      <div>
+        <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
+
+        <div className={Styles.opcoes}>
+          <input type="radio" id="mensal" name="plano" value="mensal" />
+          <label htmlFor="mensal" className={Styles.escolha}>Mensal</label>
+
+          <input type="radio" id="semestral" name="plano" value="semestral" />
+          <label htmlFor="semestral" className={Styles.escolha}>Semestral</label>
+
+          <input type="radio" id="anual" name="plano" value="anual" />
+          <label htmlFor="anual" className={Styles.escolha}>Anual</label>
+        </div>
+      </div>
+
+      <div>
+        <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
+
+        <div className={Styles.opcoes}>
+          <input type="radio" id="10" name="data" value="10" />
+          <label htmlFor="10" className={Styles.escolha}>10</label>
+  
+          <input type="radio" id="20" name="data" value="20" />
+          <label htmlFor="20" className={Styles.escolha}>20</label>
+  
+          <input type="radio" id="30" name="data" value="30" />
+          <label htmlFor="30" className={Styles.escolha}>30</label>
+        </div>
+      </div>
+
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        Anterior
+      </button>
+      <button type="button"  className={Styles.button}>
+        Finalizar Cadastro
+        <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
+    </div>
+  </div>
 );
