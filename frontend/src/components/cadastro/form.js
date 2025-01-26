@@ -37,7 +37,7 @@ export default function Form(){
     const [nascimento, setNascimento] = useState("");
     const [mao_dominante, setMao_Dominante] = useState("");
 
-    const [idade, setIdade] = useState("");
+    const [vdd, setVdd] = useState(false);
 
     const [nomeResp1, setNomeResp1] = useState("");
     const [emailResp1, setEmailResp1] = useState("");
@@ -62,11 +62,31 @@ export default function Form(){
     const [id_endereco, setEndereco] = useState(null); 
 
     const nextStep = () => {
-        setStep((prevStep) => Math.min(prevStep + 1, steps.length - 1));
+      setStep((prevStep) => {
+        if (vdd) { // Maior de idade
+          if (prevStep === 0){
+            setVdd(false)
+            return 3 // Pular passos 2 e 3
+          }; 
+          return Math.min(prevStep + 1, steps.length - 1);
+        } else { // Menor de idade
+          return Math.min(prevStep + 1, steps.length - 1);
+        }
+      });
     };
-
+    
     const prevStep = () => {
-        setStep((prevStep) => Math.max(prevStep - 1, 0));
+      setStep((prevStep) => {
+        if (vdd) { // Maior de idade
+          if (prevStep === 3){
+            setVdd(false)
+            return 0 // Voltar direto para o passo 1
+          };
+          return Math.max(prevStep - 1, 0);
+        } else { // Menor de idade
+          return Math.max(prevStep - 1, 0);
+        }
+      });
     };
 
     // useEffect(() => {
@@ -87,12 +107,15 @@ export default function Form(){
         if (mes < nascimento.getMonth() || (mes === nascimento.getMonth() && hoje.getDate() < nascimento.getDate())) {
           idadeCalculada--;
         }
-        setIdade(idadeCalculada);
+
+        if(idadeCalculada < 18 && idadeCalculada > 0){
+          setVdd(false);
+        }else{
+          setVdd(true);
+        }
+
+        return idadeCalculada;
     };
-    // const isUnder18 = () => {
-    //   console.log("Idade do aluno:", idade);  // Adicione este log para depuração
-    //   return idade < 18 && idade > 0;
-    // }
 
     // const formatCPF = (cpf) => {
     //     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -179,7 +202,7 @@ export default function Form(){
         <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail} 
           cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
           telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
-          mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}  calcularIdade={calcularIdade}/>,
+          mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}  calcularIdade={calcularIdade} setStep={setStep}/>,
         <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1} 
           cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
           telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} />,
@@ -213,7 +236,7 @@ export default function Form(){
 }
 
 
-const Passo1 = ({ nextStep, calcularIdade, nome, setNome, email, setEmail, cpf, setCpf, genero, setGenero, rg, setRg, telefone, setTelefone, nascimento, setNascimento, mao_dominante, setMao_Dominante }) => (
+const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEmail, cpf, setCpf, genero, setGenero, rg, setRg, telefone, setTelefone, nascimento, setNascimento, mao_dominante, setMao_Dominante }) => (
     <div className={Styles.centro}>
         <div className={Styles.textcenter}>
           <h1>Dados do Aluno</h1>
@@ -232,11 +255,15 @@ const Passo1 = ({ nextStep, calcularIdade, nome, setNome, email, setEmail, cpf, 
             <DC value={mao_dominante} setValue={setMao_Dominante}/>
             
             <button type="button" onClick={() => {
-                nextStep()
-                calcularIdade(nascimento)
+              let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
+              if (idade > 18) {
+                setStep(3); // Se maior de idade, pula para o passo 4
+              } else {
+                nextStep(); // Continua normalmente se menor de idade
+              }
             }} className={Styles.button}>
-                Próximo
-                <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+              Próximo
+              <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
             </button>
         </div>
     </div>
