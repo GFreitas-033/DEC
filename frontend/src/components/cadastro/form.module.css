@@ -88,18 +88,12 @@
 }
 
 
-/* Estilo do Passo 5*/
+/* Estilo do Input de Radio */
 input[type="radio"] {
     display: none;
 }
 input[type="radio"]:checked + label {
     background-color: #EFBF14;
-}
-
-.container_Passo5{
-    display: flex;
-    flex-direction: column;
-    user-select: none;
 }
 
 .divRadio{
@@ -135,4 +129,22 @@ input[type="radio"]:checked + label {
 }
 .divBotoes>button{
     margin: 1rem;
+}
+
+/* Estilo do Passo 5*/
+.container_Passo5{
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+/* Estilo do Passo Escolhas */
+.container_Passo_Escolhas {
+    user-select: none;
+}
+
+.container_Passo_Escolhas .divRadio .opcoes{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 1rem;
 }

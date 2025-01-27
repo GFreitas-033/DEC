@@ -215,7 +215,13 @@ export default function Form(){
       <Passo4 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
           bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep} />,
       
-      <Passo5 prevStep={prevStep} />,
+      <Passo5 nextStep={nextStep} prevStep={prevStep} />,
+
+      <Passo6 nextStep={nextStep} prevStep={prevStep} />,
+
+      <Passo7 nextStep={nextStep} prevStep={prevStep} />,
+
+      <Passo8 prevStep={prevStep} />,
   ];
 
   return(
@@ -354,7 +360,7 @@ const Passo4 = ({ nextStep, prevStep, handleBuscarCep, cep, setCep, logradouro, 
   </div>
 );
 
-const Passo5 = ({ prevStep }) => (
+const Passo5 = ({ nextStep, prevStep }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Informações sobre o Pagamento</h1>
@@ -394,11 +400,116 @@ const Passo5 = ({ prevStep }) => (
           <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
           Anterior
         </button>
-        <button type="button"  className={Styles.button}>
-          Finalizar Cadastro
-          <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         </button>
       </div>
+    </div>
+  </div>
+);
+
+const Passo6 = ({ nextStep, prevStep }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Escolha a Sua Unidade</h1>
+    </div>
+    <div className={Styles.container_Passo_Escolhas}>
+
+      <div className={Styles.divRadio}>
+        <div className={Styles.opcoes}>
+          <input type="radio" id="unidade1" name="unidade" value="u1" />
+          <label htmlFor="unidade1" className={Styles.escolha}>Unidade 1</label>
+
+          <input type="radio" id="unidade2" name="unidade" value="u2" />
+          <label htmlFor="unidade2" className={Styles.escolha}>Unidade 2</label>
+
+          <input type="radio" id="unidade3" name="unidade" value="u3" />
+          <label htmlFor="unidade3" className={Styles.escolha}>Unidade 3</label>
+
+          <input type="radio" id="unidade4" name="unidade" value="u4" />
+          <label htmlFor="unidade4" className={Styles.escolha}>Unidade 4</label>
+
+          <input type="radio" id="unidade5" name="unidade" value="u5" />
+          <label htmlFor="unidade5" className={Styles.escolha}>Unidade 5</label>
+
+          <input type="radio" id="unidade6" name="unidade" value="u6" />
+          <label htmlFor="unidade6" className={Styles.escolha}>Unidade 6</label>
+        </div>
+      </div>
+
+      <div className={Styles.divBotoes}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          Anterior
+        </button>
+        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
+const Passo7 = ({ nextStep, prevStep }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Escolha a Sua Turma</h1>
+    </div>
+    <div className={Styles.container_Passo_Escolhas}>
+
+      <div className={Styles.divRadio}>
+        <div className={Styles.opcoes}>
+          <input type="radio" id="turma1" name="turma" value="t1" />
+          <label htmlFor="turma1" className={Styles.escolha}>Turma 1</label>
+
+          <input type="radio" id="turma2" name="turma" value="t2" />
+          <label htmlFor="turma2" className={Styles.escolha}>Turma 2</label>
+
+          <input type="radio" id="turma3" name="turma" value="t3" />
+          <label htmlFor="turma3" className={Styles.escolha}>Turma 3</label>
+
+          <input type="radio" id="turma4" name="turma" value="t4" />
+          <label htmlFor="turma4" className={Styles.escolha}>Turma 4</label>
+
+          <input type="radio" id="turma5" name="turma" value="t5" />
+          <label htmlFor="turma5" className={Styles.escolha}>Turma 5</label>
+
+          <input type="radio" id="turma6" name="turma" value="t6" />
+          <label htmlFor="turma6" className={Styles.escolha}>Turma 6</label>
+        </div>
+      </div>
+
+      <div className={Styles.divBotoes}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          Anterior
+        </button>
+        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
+const Passo8 = ({ prevStep }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Contrato</h1>
+    </div>
+    <div className={Styles.container_inputs}>
+
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        Anterior
+      </button>
+      <button type="button"  className={Styles.button}>
+        Finalizar Cadastro
+        <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
     </div>
   </div>
 );
