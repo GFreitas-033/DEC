@@ -88,14 +88,32 @@
 }
 
 
-
 /* Estilo do Passo 5*/
+input[type="radio"] {
+    display: none;
+}
+input[type="radio"]:checked + label {
+    background-color: #EFBF14;
+}
+
+.container_Passo5{
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.divRadio{
+    margin: 0 1.2rem 1.6rem 1.2rem;
+}
+
 .labelTextCenter{
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
-.opcoes {
+
+.opcoes{
   display: flex;
 }
 
@@ -105,16 +123,16 @@
   align-items: center;
   width: 9rem;
   height: 3.5rem;
-  background-color: #ffffff;
-  border-radius: 0.5rem;
+  background-color: #fff;
+  border-radius: 0.8rem;
   cursor: pointer;
   font-size: 1rem;
-  color: #000;
 }
 
-input[type="radio"] {
-  display: none;
+.divBotoes{
+    display: flex;
+    width: 100%;
 }
-input[type="radio"]:checked + label {
-  background-color: #EFBF14;
+.divBotoes>button{
+    margin: 1rem;
 }

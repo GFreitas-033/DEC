@@ -360,9 +360,9 @@ const Passo5 = ({ prevStep }) => (
       <h1>Informações sobre o Pagamento</h1>
     </div>
     <div className={Styles.container_Passo5}>
-      <div>
-        <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
 
+      <div className={Styles.divRadio}>
+        <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
         <div className={Styles.opcoes}>
           <input type="radio" id="mensal" name="plano" value="mensal" />
           <label htmlFor="mensal" className={Styles.escolha}>Mensal</label>
@@ -375,9 +375,8 @@ const Passo5 = ({ prevStep }) => (
         </div>
       </div>
 
-      <div>
+      <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
-
         <div className={Styles.opcoes}>
           <input type="radio" id="10" name="data" value="10" />
           <label htmlFor="10" className={Styles.escolha}>10</label>
@@ -390,14 +389,16 @@ const Passo5 = ({ prevStep }) => (
         </div>
       </div>
 
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        Anterior
-      </button>
-      <button type="button"  className={Styles.button}>
-        Finalizar Cadastro
-        <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-      </button>
+      <div className={Styles.divBotoes}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          Anterior
+        </button>
+        <button type="button"  className={Styles.button}>
+          Finalizar Cadastro
+          <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
     </div>
   </div>
 );
