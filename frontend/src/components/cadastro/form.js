@@ -449,26 +449,16 @@ const Passo7 = ({ nextStep, prevStep }) => (
     </div>
     <div className={Styles.container_Passo_Escolhas}>
 
-      <div className={Styles.divRadio}>
-        <div className={Styles.opcoes}>
-          <input type="radio" id="turma1" name="turma" value="t1" />
-          <label htmlFor="turma1" className={Styles.escolha}>Turma 1</label>
-
-          <input type="radio" id="turma2" name="turma" value="t2" />
-          <label htmlFor="turma2" className={Styles.escolha}>Turma 2</label>
-
-          <input type="radio" id="turma3" name="turma" value="t3" />
-          <label htmlFor="turma3" className={Styles.escolha}>Turma 3</label>
-
-          <input type="radio" id="turma4" name="turma" value="t4" />
-          <label htmlFor="turma4" className={Styles.escolha}>Turma 4</label>
-
-          <input type="radio" id="turma5" name="turma" value="t5" />
-          <label htmlFor="turma5" className={Styles.escolha}>Turma 5</label>
-
-          <input type="radio" id="turma6" name="turma" value="t6" />
-          <label htmlFor="turma6" className={Styles.escolha}>Turma 6</label>
-        </div>
+      <div className={Styles.divSelect}>
+        <select id="escolha_turma" name="escolha_turma" className={Styles.select}>
+          <option value="" selected disabled>Selecionar</option>
+          <option value="turma1">Lins DEC Adulto 15:30</option>
+          <option value="turma2">Turma 2</option>
+          <option value="turma3">Turma 3</option>
+          <option value="turma4">Turma 4</option>
+          <option value="turma5">Turma 5</option>
+          <option value="turma6">Turma 6</option>
+        </select>
       </div>
 
       <div className={Styles.divBotoes}>
@@ -490,16 +480,34 @@ const Passo8 = ({ prevStep }) => (
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>
     </div>
-    <div className={Styles.container_inputs}>
 
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        Anterior
-      </button>
-      <button type="button"  className={Styles.button}>
-        Finalizar Cadastro
-        <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-      </button>
+    <div className={Styles.divContrato}>
+      <p className={Styles.contrato}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
+        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
+        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
+        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
+        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
+
+        <div className={Styles.checkboxContainer}>
+          <input type="checkbox" id="aceitarContrato" />
+          <label htmlFor="aceitarContrato">Aceito os termos</label>
+        </div>
+      </p>
+
+      <div className={Styles.divBotoes}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          Anterior
+        </button>
+        <button type="button"  className={Styles.button}>
+          Finalizar Cadastro
+          <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
     </div>
   </div>
 );

@@ -149,6 +149,7 @@ input[type="radio"]:checked + label {
     justify-content: center;
     margin-top: 3rem;
     margin-bottom: 3rem;
+    border: #000 solid 1px;
 }
 
 .select {
@@ -181,4 +182,30 @@ input[type="radio"]:checked + label {
 option{
     background-color: #EFBF14;
     color: #000;
+}
+
+/* Estilo do Contrato */
+.divContrato {
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem; /* Reduzi o espaçamento entre os elementos */
+}
+  
+.contrato {
+    max-height: 15rem; /* Define a altura máxima para o contrato */
+    overflow-y: scroll; /* Ativa o scroll vertical */
+    padding: 1rem;
+    border: 0.1rem solid #000; /* Adiciona uma borda para delimitar o contrato */
+    background-color: #fff;
+    line-height: 1.5;
+}
+
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Espaço entre o checkbox e o texto */
+    margin-top: 2rem;
 }
