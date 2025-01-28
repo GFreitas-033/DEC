@@ -143,8 +143,42 @@ input[type="radio"]:checked + label {
     user-select: none;
 }
 
-.container_Passo_Escolhas .divRadio .opcoes{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0 1rem;
+/* Estilo Escolha Unidade e Turma */
+.divSelect {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.select {
+    appearance: none; /* Remove a seta padrão do select */
+    cursor: pointer;
+
+    text-align: center;
+    font-size: 1rem;
+    text-overflow: ellipsis; /* Coloca '...' se o texto for grande */
+    
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(90deg, #EFBF14, #000) border-box;
+    border-radius: 2rem;
+    border: 0.2rem solid transparent;
+
+    padding: 1rem;
+    min-width: 30rem;
+    max-width: 30rem;
+    
+    white-space: nowrap; /* Impede quebra de linha */
+    overflow: hidden; /* Garante que o texto não ultrapasse o limite */
+}
+
+.select:focus {
+    outline: none;
+    border-color: transparent;
+}
+
+option{
+    background-color: #EFBF14;
+    color: #000;
 }

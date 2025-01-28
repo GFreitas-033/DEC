@@ -416,26 +416,16 @@ const Passo6 = ({ nextStep, prevStep }) => (
     </div>
     <div className={Styles.container_Passo_Escolhas}>
 
-      <div className={Styles.divRadio}>
-        <div className={Styles.opcoes}>
-          <input type="radio" id="unidade1" name="unidade" value="u1" />
-          <label htmlFor="unidade1" className={Styles.escolha}>Unidade 1</label>
-
-          <input type="radio" id="unidade2" name="unidade" value="u2" />
-          <label htmlFor="unidade2" className={Styles.escolha}>Unidade 2</label>
-
-          <input type="radio" id="unidade3" name="unidade" value="u3" />
-          <label htmlFor="unidade3" className={Styles.escolha}>Unidade 3</label>
-
-          <input type="radio" id="unidade4" name="unidade" value="u4" />
-          <label htmlFor="unidade4" className={Styles.escolha}>Unidade 4</label>
-
-          <input type="radio" id="unidade5" name="unidade" value="u5" />
-          <label htmlFor="unidade5" className={Styles.escolha}>Unidade 5</label>
-
-          <input type="radio" id="unidade6" name="unidade" value="u6" />
-          <label htmlFor="unidade6" className={Styles.escolha}>Unidade 6</label>
-        </div>
+      <div className={Styles.divSelect}>
+        <select id="escolha_unidade" name="escolha_unidade" className={Styles.select}>
+          <option value="" selected disabled>Selecionar</option>
+          <option value="unidade1">Unidade 1</option>
+          <option value="unidade2">Unidade 2</option>
+          <option value="unidade3">Unidade 3</option>
+          <option value="unidade4">Unidade 4</option>
+          <option value="unidade5">Unidade 5</option>
+          <option value="unidade6">Unidade 6</option>
+        </select>
       </div>
 
       <div className={Styles.divBotoes}>
