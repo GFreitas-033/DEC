@@ -149,7 +149,6 @@ input[type="radio"]:checked + label {
     justify-content: center;
     margin-top: 3rem;
     margin-bottom: 3rem;
-    border: #000 solid 1px;
 }
 
 .select {
