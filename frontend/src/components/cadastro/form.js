@@ -264,18 +264,20 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
 
       <DtNasc value={nascimento} setValue={setNascimento}/>
       <DC value={mao_dominante} setValue={setMao_Dominante}/>
-            
-      <button type="button" onClick={() => {
-        let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
-        if (idade > 18) {
-          setStep(3); // Se maior de idade, pula para o passo 4
-        } else {
-          nextStep(); // Continua normalmente se menor de idade
-        }
-      }} className={Styles.button}>
-        Próximo
-        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-      </button>
+
+      <div className={Styles.divBotoes}>  
+        <button type="button" onClick={() => {
+          let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
+          if (idade > 18) {
+            setStep(3); // Se maior de idade, pula para o passo 4
+          } else {
+            nextStep(); // Continua normalmente se menor de idade
+          }
+        }} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
     </div>
   </div>
 );
@@ -295,14 +297,16 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
       <RG value={rgResp1} setValue={setRgResp1} />
       <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
 
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        Anterior
-      </button>
-      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-        Próximo
-        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-      </button>
+      <div className={Styles.divBotoes}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          Anterior
+        </button>
+        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
     </div>
   </div>
 );
@@ -322,14 +326,16 @@ const Passo3 = ({ nextStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEm
       <RG value={rgResp2} setValue={setRgResp2} />
       <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
 
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        Anterior
-      </button>
-      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-        Próximo
-        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-      </button>
+      <div className={Styles.divBotoes}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          Anterior
+        </button>
+        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
     </div>
   </div>
 );
@@ -348,14 +354,17 @@ const Passo4 = ({ nextStep, prevStep, handleBuscarCep, cep, setCep, logradouro, 
 
       <Rua r={logradouro} />
       <Numero value={numero} setValue={setNumero} />
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        Anterior
-      </button>
-      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-        Próximo
-        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-      </button>
+
+      <div className={Styles.divBotoes}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          Anterior
+        </button>
+        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
     </div>
   </div>
 );

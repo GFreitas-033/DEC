@@ -56,24 +56,6 @@
     flex-direction: column;
 }
 
-.button{
-    width: 95%;
-    background-color: #EFBF14;
-    color: #000;
-    border: none;
-    border-radius: 2rem;
-    padding: 0.5rem 0 0.5rem 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    cursor: pointer;
-}
-.button:hover{
-    background-color: #efaa14;
-}
-
 .iconNavegar{
     margin: 0 0.2rem 0 0.2rem;
     width: 1rem;
@@ -123,12 +105,38 @@ input[type="radio"]:checked + label {
   font-size: 1rem;
 }
 
+
+/* Estilo Botão */
 .divBotoes{
     display: flex;
-    width: 100%;
+    justify-content: center;
+
+    position: fixed;
+    top: 40rem;
+    left: 34.98rem;
+
+    width: 50rem;
+
+    border: #000 solid 0.1rem;
 }
-.divBotoes>button{
-    margin: 1rem;
+.divBotoes
+
+.button{
+    width: 95%;
+    background-color: #EFBF14;
+    color: #000;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 0 0.5rem 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+.button:hover{
+    background-color: #efaa14;
 }
 
 /* Estilo do Passo 5*/

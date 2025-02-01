@@ -21,7 +21,7 @@ export default function Rg_input({ value, setValue }) {
       <input 
         type="text" 
         id="rg" 
-        placeholder="Insira um Rg aqui" 
+        placeholder="Insira um RG aqui" 
         required 
         className={Rg.input} 
         onChange={formatarRG} 

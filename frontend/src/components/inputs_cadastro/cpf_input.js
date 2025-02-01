@@ -21,7 +21,7 @@ export default function Cpf_input({ value, setValue }) {
       <input 
         type="text" 
         id="cpf" 
-        placeholder="Insira um Cpf aqui" 
+        placeholder="Insira um CPF aqui" 
         required 
         className={Cpf.input} 
         onChange={formatarCPF} 

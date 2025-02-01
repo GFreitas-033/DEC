@@ -19,8 +19,8 @@ export default function Telefone_input({ value, setValue }) {
       <label className={Telefone.label}><b>Telefone</b></label><br />
       <input 
         type="text" 
-        id="telefone" 
-        placeholder="Insira um Telefone aqui" 
+        id="telefone/Whatsapp" 
+        placeholder="Insira um Telefone/Whatsapp aqui" 
         required 
         className={Telefone.input} 
         onChange={formatarTel} 
