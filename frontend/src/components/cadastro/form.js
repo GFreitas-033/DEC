@@ -214,7 +214,7 @@ export default function Form(){
       
       <Passo4 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
           bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep} />,
-      
+
       <Passo5 nextStep={nextStep} prevStep={prevStep} />,
 
       <Passo6 nextStep={nextStep} prevStep={prevStep} />,
@@ -265,19 +265,17 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
       <DtNasc value={nascimento} setValue={setNascimento}/>
       <DC value={mao_dominante} setValue={setMao_Dominante}/>
 
-      <div className={Styles.divBotoes}>  
-        <button type="button" onClick={() => {
-          let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
-          if (idade > 18) {
-            setStep(3); // Se maior de idade, pula para o passo 4
-          } else {
-            nextStep(); // Continua normalmente se menor de idade
-          }
-        }} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        </button>
-      </div>
+      <button type="button" onClick={() => {
+        let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
+        if (idade > 18) {
+          setStep(3); // Se maior de idade, pula para o passo 4
+        } else {
+          nextStep(); // Continua normalmente se menor de idade
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
     </div>
   </div>
 );
@@ -297,16 +295,14 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
       <RG value={rgResp1} setValue={setRgResp1} />
       <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
 
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-          Anterior
-        </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        </button>
-      </div>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        Anterior
+      </button>
+      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
     </div>
   </div>
 );
@@ -326,16 +322,14 @@ const Passo3 = ({ nextStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEm
       <RG value={rgResp2} setValue={setRgResp2} />
       <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
 
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-          Anterior
-        </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        </button>
-      </div>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        Anterior
+      </button>
+      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
     </div>
   </div>
 );
@@ -355,70 +349,19 @@ const Passo4 = ({ nextStep, prevStep, handleBuscarCep, cep, setCep, logradouro, 
       <Rua r={logradouro} />
       <Numero value={numero} setValue={setNumero} />
 
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-          Anterior
-        </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        </button>
-      </div>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        Anterior
+      </button>
+      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
     </div>
   </div>
 );
 
 const Passo5 = ({ nextStep, prevStep }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Informações sobre o Pagamento</h1>
-    </div>
-    <div className={Styles.container_Passo5}>
-
-      <div className={Styles.divRadio}>
-        <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
-        <div className={Styles.opcoes}>
-          <input type="radio" id="mensal" name="plano" value="mensal" />
-          <label htmlFor="mensal" className={Styles.escolha}>Mensal</label>
-
-          <input type="radio" id="semestral" name="plano" value="semestral" />
-          <label htmlFor="semestral" className={Styles.escolha}>Semestral</label>
-
-          <input type="radio" id="anual" name="plano" value="anual" />
-          <label htmlFor="anual" className={Styles.escolha}>Anual</label>
-        </div>
-      </div>
-
-      <div className={Styles.divRadio}>
-        <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
-        <div className={Styles.opcoes}>
-          <input type="radio" id="10" name="data" value="10" />
-          <label htmlFor="10" className={Styles.escolha}>10</label>
-  
-          <input type="radio" id="20" name="data" value="20" />
-          <label htmlFor="20" className={Styles.escolha}>20</label>
-  
-          <input type="radio" id="30" name="data" value="30" />
-          <label htmlFor="30" className={Styles.escolha}>30</label>
-        </div>
-      </div>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-          Anterior
-        </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        </button>
-      </div>
-    </div>
-  </div>
-);
-
-const Passo6 = ({ nextStep, prevStep }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Unidade</h1>
@@ -451,7 +394,7 @@ const Passo6 = ({ nextStep, prevStep }) => (
   </div>
 );
 
-const Passo7 = ({ nextStep, prevStep }) => (
+const Passo6 = ({ nextStep, prevStep }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
@@ -468,6 +411,55 @@ const Passo7 = ({ nextStep, prevStep }) => (
           <option value="turma5">Turma 5</option>
           <option value="turma6">Turma 6</option>
         </select>
+      </div>
+
+      <div className={Styles.divBotoes}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          Anterior
+        </button>
+        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
+const Passo7 = ({ nextStep, prevStep }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Informações sobre o Pagamento</h1>
+    </div>
+    <div className={Styles.container_Passo5}>
+
+      <div className={Styles.divRadio}>
+        <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
+        <div className={Styles.opcoes}>
+          <input type="radio" id="mensal" name="plano" value="mensal" />
+          <label htmlFor="mensal" className={Styles.escolha}>Pacote<br />Mensal</label>
+
+          <input type="radio" id="semestral" name="plano" value="semestral" />
+          <label htmlFor="semestral" className={Styles.escolha}>Pacote<br />6 meses</label>
+
+          <input type="radio" id="anual" name="plano" value="anual" />
+          <label htmlFor="anual" className={Styles.escolha}>Pacote<br />12 meses</label>
+        </div>
+      </div>
+
+      <div className={Styles.divRadio}>
+        <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
+        <div className={Styles.opcoes}>
+          <input type="radio" id="10" name="data" value="10" />
+          <label htmlFor="10" className={Styles.escolha}>10</label>
+  
+          <input type="radio" id="20" name="data" value="20" />
+          <label htmlFor="20" className={Styles.escolha}>20</label>
+  
+          <input type="radio" id="30" name="data" value="30" />
+          <label htmlFor="30" className={Styles.escolha}>30</label>
+        </div>
       </div>
 
       <div className={Styles.divBotoes}>
