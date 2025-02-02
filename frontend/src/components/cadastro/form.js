@@ -202,7 +202,7 @@ export default function Form(){
       <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail} 
         cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
         telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
-        mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante}  calcularIdade={calcularIdade} setStep={setStep} />,
+        mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep} />,
       
       <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1} 
         cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
@@ -210,18 +210,21 @@ export default function Form(){
       
       <Passo3 nextStep={nextStep} prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
           cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
-          telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} />,
+          telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} />,
       
-      <Passo4 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
-          bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep} />,
-
-      <Passo5 nextStep={nextStep} prevStep={prevStep} />,
+      <Passo4 nextStep={nextStep} prevStep={prevStep} />,
+        
+      <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
+          bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
+          nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} />,
 
       <Passo6 nextStep={nextStep} prevStep={prevStep} />,
 
       <Passo7 nextStep={nextStep} prevStep={prevStep} />,
 
-      <Passo8 prevStep={prevStep} />,
+      <Passo8 nextStep={nextStep} prevStep={prevStep} />,
+
+      <Passo9 prevStep={prevStep} />,
   ];
 
   return(
@@ -307,7 +310,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
   </div>
 );
 
-const Passo3 = ({ nextStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2 }) => (
+const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2 }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Dados do Responsável 2</h1>
@@ -326,6 +329,45 @@ const Passo3 = ({ nextStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEm
         <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         Anterior
       </button>
+      <button type="button" onClick={() => {
+        setStep(4);
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+      </button>
+    </div>
+  </div>
+);
+
+const Passo4 = ({ nextStep, prevStep }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Responsável Financeiro</h1>
+    </div>
+    <div className={Styles.container_inputs}>
+      <div className={Styles.checkboxContainer}>
+        <input
+          type="checkbox"
+          id="responsavel"
+          checked={ehResponsavel}
+          onChange={() => setEhResponsavel(!ehResponsavel)}
+        />
+        <label htmlFor="responsavel">Você será o Responsável Financeiro?</label>
+      </div>
+
+      {!ehResponsavel && (
+        <>
+          <Nome value={nomeRespFin} setValue={setNomeRespFin} />
+          <Email value={emailRespFin} setValue={setEmailRespFin} />
+          <CPF value={cpfRespFin} setValue={setCpfRespFin} />
+          <Telefone value={telefoneRespFin} setValue={setTelefoneRespFin} />
+        </>
+      )}
+
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        Anterior
+      </button>
       <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
         Próximo
         <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
@@ -334,7 +376,7 @@ const Passo3 = ({ nextStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEm
   </div>
 );
 
-const Passo4 = ({ nextStep, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero }) => (
+const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
@@ -349,7 +391,14 @@ const Passo4 = ({ nextStep, prevStep, handleBuscarCep, cep, setCep, logradouro, 
       <Rua r={logradouro} />
       <Numero value={numero} setValue={setNumero} />
 
-      <button type="button" onClick={prevStep} className={Styles.button}>
+      <button type="button" onClick={() => {
+        let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
+        if (idade < 18) {
+          setStep(2); // Se menor de idade, pula para o passo 3
+        } else {
+          prevStep(); // Continua normalmente se maior de idade
+        }
+      }} className={Styles.button}>
         <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         Anterior
       </button>
@@ -361,7 +410,7 @@ const Passo4 = ({ nextStep, prevStep, handleBuscarCep, cep, setCep, logradouro, 
   </div>
 );
 
-const Passo5 = ({ nextStep, prevStep }) => (
+const Passo6 = ({ nextStep, prevStep }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Unidade</h1>
@@ -394,7 +443,7 @@ const Passo5 = ({ nextStep, prevStep }) => (
   </div>
 );
 
-const Passo6 = ({ nextStep, prevStep }) => (
+const Passo7 = ({ nextStep, prevStep }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
@@ -427,7 +476,7 @@ const Passo6 = ({ nextStep, prevStep }) => (
   </div>
 );
 
-const Passo7 = ({ nextStep, prevStep }) => (
+const Passo8 = ({ nextStep, prevStep }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Informações sobre o Pagamento</h1>
@@ -476,7 +525,7 @@ const Passo7 = ({ nextStep, prevStep }) => (
   </div>
 );
 
-const Passo8 = ({ prevStep }) => (
+const Passo9 = ({ prevStep }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>
