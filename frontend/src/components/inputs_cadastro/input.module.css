@@ -7,7 +7,7 @@
     border: 0.1rem solid #000;
 }
 input::placeholder{
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     color: #000;
 }
 

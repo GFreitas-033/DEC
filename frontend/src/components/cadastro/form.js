@@ -366,7 +366,7 @@ const Passo4 = ({ nextStep, prevStep, booleanFin, setBooleanFin, nomeFin, setNom
         id="responsavelFin"
         onChange={() => setBooleanFin(!booleanFin)}
       />
-      <label htmlFor="responsavel">Você será o Responsável Financeiro?</label>
+      <label htmlFor="responsavelFin">Você será o Responsável Financeiro?</label>
     </div>
 
     <div className={Styles.container_inputs}>
@@ -500,7 +500,7 @@ const Passo8 = ({ nextStep, prevStep }) => (
     <div className={Styles.textcenter}>
       <h1>Informações sobre o Pagamento</h1>
     </div>
-    <div className={Styles.container_Passo5}>
+    <div className={Styles.container_Passo8}>
 
       <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>

@@ -16,7 +16,7 @@ export default function Telefone_input({ value, setValue }) {
 
   return (
     <div className={Telefone.esquerda}>
-      <label className={Telefone.label}><b>Telefone</b></label><br />
+      <label className={Telefone.label}><b>Telefone/Whatsapp</b></label><br />
       <input 
         type="text" 
         id="telefone/Whatsapp" 
