@@ -28,6 +28,7 @@ export default function Form(){
   // let { id_aluno } = useParams();
   // const navigate = useNavigate();
 
+  // States do Aluno
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
@@ -39,6 +40,7 @@ export default function Form(){
 
   const [vdd, setVdd] = useState(false);
 
+  // States do 1° Responsavel
   const [nomeResp1, setNomeResp1] = useState("");
   const [emailResp1, setEmailResp1] = useState("");
   const [cpfResp1, setCpfResp1] = useState("");
@@ -46,6 +48,7 @@ export default function Form(){
   const [rgResp1, setRgResp1] = useState("");   
   const [telefoneResp1, setTelefoneResp1] = useState("");
 
+  // States do 2° Responsavel
   const [nomeResp2, setNomeResp2] = useState("");
   const [emailResp2, setEmailResp2] = useState("");
   const [cpfResp2, setCpfResp2] = useState("");
@@ -53,6 +56,16 @@ export default function Form(){
   const [rgResp2, setRgResp2] = useState("");   
   const [telefoneResp2, setTelefoneResp2] = useState("");
 
+  // States do Responsavel Financeiro
+  const [nomeFin, setNomeFin] = useState("");
+  const [emailFin, setEmailFin] = useState("");
+  const [cpfFin, setCpfFin] = useState("");
+  const [generoFin, setGeneroFin] = useState("");
+  const [rgFin, setRgFin] = useState("");   
+  const [telefoneFin, setTelefoneFin] = useState("");
+  const [booleanFin, setBooleanFin] = useState(true);
+
+  // States do Endereço
   const [cep, setCep] = useState("");
   const [logradouro, setLogradouro] = useState("");
   const [bairro, setBairro] = useState("");
@@ -208,15 +221,17 @@ export default function Form(){
         cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
         telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} />,
       
-      <Passo3 nextStep={nextStep} prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
-          cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
-          telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} />,
+      <Passo3 prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
+        cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
+        telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} />,
       
-      <Passo4 nextStep={nextStep} prevStep={prevStep} />,
+      <Passo4 nextStep={nextStep} prevStep={prevStep} nomeFin={nomeFin} setNomeFin={setNomeFin} emailFin={emailFin} setEmailFin={setEmailFin} 
+        cpfFin={cpfFin} setCpfFin={setCpfFin} generoFin={generoFin} setGeneroFin={setGeneroFin} rgFin={rgFin} setRgFin={setRgFin}
+        telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} booleanFin={booleanFin} setBooleanFin={setBooleanFin} />,
         
       <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
-          bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
-          nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} />,
+        bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
+        nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} />,
 
       <Passo6 nextStep={nextStep} prevStep={prevStep} />,
 
@@ -339,28 +354,32 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
   </div>
 );
 
-const Passo4 = ({ nextStep, prevStep }) => (
+const Passo4 = ({ nextStep, prevStep, booleanFin, setBooleanFin, nomeFin, setNomeFin, emailFin, setEmailFin, cpfFin, setCpfFin, generoFin, setGeneroFin, rgFin, setRgFin, telefoneFin, setTelefoneFin }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Responsável Financeiro</h1>
     </div>
-    <div className={Styles.container_inputs}>
-      <div className={Styles.checkboxContainer}>
-        <input
-          type="checkbox"
-          id="responsavel"
-          checked={ehResponsavel}
-          onChange={() => setEhResponsavel(!ehResponsavel)}
-        />
-        <label htmlFor="responsavel">Você será o Responsável Financeiro?</label>
-      </div>
+    
+    <div className={Styles.checkboxContainer}>
+      <input
+        type="checkbox"
+        id="responsavelFin"
+        onChange={() => setBooleanFin(!booleanFin)}
+      />
+      <label htmlFor="responsavel">Você será o Responsável Financeiro?</label>
+    </div>
 
-      {!ehResponsavel && (
+    <div className={Styles.container_inputs}>
+      {booleanFin && (
         <>
-          <Nome value={nomeRespFin} setValue={setNomeRespFin} />
-          <Email value={emailRespFin} setValue={setEmailRespFin} />
-          <CPF value={cpfRespFin} setValue={setCpfRespFin} />
-          <Telefone value={telefoneRespFin} setValue={setTelefoneRespFin} />
+          <Nome value={nomeFin} setValue={setNomeFin} />
+          <Email value={emailFin} setValue={setEmailFin} />
+
+          <CPF value={cpfFin} setValue={setCpfFin} />
+          <Genero value={generoFin} setValue={setGeneroFin} />
+
+          <RG value={rgFin} setValue={setRgFin} />
+          <Telefone value={telefoneFin} setValue={setTelefoneFin} />
         </>
       )}
 
