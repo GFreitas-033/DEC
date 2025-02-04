@@ -56,15 +56,6 @@ export default function Form(){
   const [rgResp2, setRgResp2] = useState("");   
   const [telefoneResp2, setTelefoneResp2] = useState("");
 
-  // States do Responsavel Financeiro
-  const [nomeFin, setNomeFin] = useState("");
-  const [emailFin, setEmailFin] = useState("");
-  const [cpfFin, setCpfFin] = useState("");
-  const [generoFin, setGeneroFin] = useState("");
-  const [rgFin, setRgFin] = useState("");   
-  const [telefoneFin, setTelefoneFin] = useState("");
-  const [booleanFin, setBooleanFin] = useState(true);
-
   // States do Endereço
   const [cep, setCep] = useState("");
   const [logradouro, setLogradouro] = useState("");
@@ -224,10 +215,6 @@ export default function Form(){
       <Passo3 prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
         cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
         telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} />,
-      
-      <Passo4 nextStep={nextStep} prevStep={prevStep} nomeFin={nomeFin} setNomeFin={setNomeFin} emailFin={emailFin} setEmailFin={setEmailFin} 
-        cpfFin={cpfFin} setCpfFin={setCpfFin} generoFin={generoFin} setGeneroFin={setGeneroFin} rgFin={rgFin} setRgFin={setRgFin}
-        telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} booleanFin={booleanFin} setBooleanFin={setBooleanFin} />,
         
       <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
         bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
@@ -236,8 +223,6 @@ export default function Form(){
       <Passo6 nextStep={nextStep} prevStep={prevStep} />,
 
       <Passo7 nextStep={nextStep} prevStep={prevStep} />,
-
-      <Passo8 nextStep={nextStep} prevStep={prevStep} />,
 
       <Passo9 prevStep={prevStep} />,
   ];
@@ -345,49 +330,8 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
         Anterior
       </button>
       <button type="button" onClick={() => {
-        setStep(4);
+        setStep(3);
       }} className={Styles.button}>
-        Próximo
-        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-      </button>
-    </div>
-  </div>
-);
-
-const Passo4 = ({ nextStep, prevStep, booleanFin, setBooleanFin, nomeFin, setNomeFin, emailFin, setEmailFin, cpfFin, setCpfFin, generoFin, setGeneroFin, rgFin, setRgFin, telefoneFin, setTelefoneFin }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Responsável Financeiro</h1>
-    </div>
-    
-    <div className={Styles.checkboxContainer}>
-      <input
-        type="checkbox"
-        id="responsavelFin"
-        onChange={() => setBooleanFin(!booleanFin)}
-      />
-      <label htmlFor="responsavelFin">Você será o Responsável Financeiro?</label>
-    </div>
-
-    <div className={Styles.container_inputs}>
-      {booleanFin && (
-        <>
-          <Nome value={nomeFin} setValue={setNomeFin} />
-          <Email value={emailFin} setValue={setEmailFin} />
-
-          <CPF value={cpfFin} setValue={setCpfFin} />
-          <Genero value={generoFin} setValue={setGeneroFin} />
-
-          <RG value={rgFin} setValue={setRgFin} />
-          <Telefone value={telefoneFin} setValue={setTelefoneFin} />
-        </>
-      )}
-
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        Anterior
-      </button>
-      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
         Próximo
         <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
       </button>
@@ -495,55 +439,6 @@ const Passo7 = ({ nextStep, prevStep }) => (
   </div>
 );
 
-const Passo8 = ({ nextStep, prevStep }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Informações sobre o Pagamento</h1>
-    </div>
-    <div className={Styles.container_Passo8}>
-
-      <div className={Styles.divRadio}>
-        <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
-        <div className={Styles.opcoes}>
-          <input type="radio" id="mensal" name="plano" value="mensal" />
-          <label htmlFor="mensal" className={Styles.escolha}>Pacote<br />Mensal</label>
-
-          <input type="radio" id="semestral" name="plano" value="semestral" />
-          <label htmlFor="semestral" className={Styles.escolha}>Pacote<br />6 meses</label>
-
-          <input type="radio" id="anual" name="plano" value="anual" />
-          <label htmlFor="anual" className={Styles.escolha}>Pacote<br />12 meses</label>
-        </div>
-      </div>
-
-      <div className={Styles.divRadio}>
-        <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
-        <div className={Styles.opcoes}>
-          <input type="radio" id="10" name="data" value="10" />
-          <label htmlFor="10" className={Styles.escolha}>10</label>
-  
-          <input type="radio" id="20" name="data" value="20" />
-          <label htmlFor="20" className={Styles.escolha}>20</label>
-  
-          <input type="radio" id="30" name="data" value="30" />
-          <label htmlFor="30" className={Styles.escolha}>30</label>
-        </div>
-      </div>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-          Anterior
-        </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        </button>
-      </div>
-    </div>
-  </div>
-);
-
 const Passo9 = ({ prevStep }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
@@ -563,7 +458,7 @@ const Passo9 = ({ prevStep }) => (
 
         <div className={Styles.checkboxContainer}>
           <input type="checkbox" id="aceitarContrato" />
-          <label htmlFor="aceitarContrato">Aceito os termos</label>
+          <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>
       </p>
 

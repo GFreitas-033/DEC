@@ -4,7 +4,11 @@ import {BrowserRouter as Routers, Routes, Route, Link} from "react-router-dom"
 
 // Import das Telas
 import Login from "./components/login/form_login/form"
-import Cadastro from "./components/cadastro/form"
+import PaganteTrue from "./components/cadastro/paganteTrue"
+import PaganteFalse from "./components/cadastro/paganteFalse"
+import AlunoEscola from "./components/cadastro/Escola"
+
+import Cadastro from "./components/cadastro-antigo/form"
 
 import CadastroProf from "./components/cadastrosDoAdm/cadastroProf/cadastro_prof"
 import CadastroUnidade from "./components/cadastrosDoAdm/cadastroUnidade/cadastro_unidade"
@@ -28,7 +32,9 @@ export default function App(){
     <Routers>
       {/* Links */}
         <Link to="/"></Link>
-        <Link to="/cadastro"></Link>
+        <Link to="/cadastro/aluno/Pagante"></Link>
+        <Link to="/cadastro/aluno/NaoPagante"></Link>
+        <Link to="/cadastro/aluno/Escola"></Link>
 
         <Link to="/cadastro/professor"></Link>
         <Link to="/cadastro/unidade"></Link>
@@ -58,7 +64,9 @@ export default function App(){
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />}></Route>
-        <Route path="/cadastro" element={<Cadastro />}></Route>
+        <Route path="/cadastro/aluno/Pagante" element={<PaganteTrue />}></Route>
+        <Route path="/cadastro/aluno/NaoPagante" element={<PaganteFalse />}></Route>
+        <Route path="/cadastro/aluno/Escola" element={<AlunoEscola />}></Route>
         
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} botao={"Cadastrar"}  url={"/cadastro/unidade/responsavel"}/>}></Route>
