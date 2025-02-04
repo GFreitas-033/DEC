@@ -48,14 +48,6 @@ export default function Form(){
   const [rgResp1, setRgResp1] = useState("");   
   const [telefoneResp1, setTelefoneResp1] = useState("");
 
-  // States do 2° Responsavel
-  const [nomeResp2, setNomeResp2] = useState("");
-  const [emailResp2, setEmailResp2] = useState("");
-  const [cpfResp2, setCpfResp2] = useState("");
-  const [generoResp2, setGeneroResp2] = useState("");
-  const [rgResp2, setRgResp2] = useState("");   
-  const [telefoneResp2, setTelefoneResp2] = useState("");
-
   // States do Endereço
   const [cep, setCep] = useState("");
   const [logradouro, setLogradouro] = useState("");
@@ -82,16 +74,14 @@ export default function Form(){
   const prevStep = () => {
     setStep((prevStep) => {
       if (vdd) { // Maior de idade
-        if (prevStep === 3){
-          setVdd(false)
-          return 0 // Voltar direto para o passo 1
-        };
-        return Math.max(prevStep - 1, 0);
-      } else { // Menor de idade
+        if (prevStep === 5) return 0; // Se estiver no endereço, volta para o primeiro passo
+        return Math.max(prevStep - 1, 0); // Caso contrário, volta um passo normalmente
+      } else { // Menor de idade segue o fluxo normal
         return Math.max(prevStep - 1, 0);
       }
     });
   };
+
 
   // useEffect(() => {
   //   if (id_aluno !== undefined) {
@@ -211,10 +201,6 @@ export default function Form(){
       <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1} 
         cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
         telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} />,
-      
-      <Passo3 prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
-        cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
-        telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} />,
         
       <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
         bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
@@ -223,8 +209,6 @@ export default function Form(){
       <Passo6 nextStep={nextStep} prevStep={prevStep} />,
 
       <Passo7 nextStep={nextStep} prevStep={prevStep} />,
-
-      <Passo9 prevStep={prevStep} />,
   ];
 
   return(
@@ -271,13 +255,13 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
       <button type="button" onClick={() => {
         let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
         if (idade > 18) {
-          setStep(3); // Se maior de idade, pula para o passo 4
+          setStep(2); // Se maior de idade, pula para o passo
         } else {
           nextStep(); // Continua normalmente se menor de idade
         }
       }} className={Styles.button}>
         Próximo
-        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
       </button>
     </div>
   </div>
@@ -286,7 +270,7 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
 const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEmailResp1, cpfResp1, setCpfResp1, generoResp1, setGeneroResp1, rgResp1, setRgResp1, telefoneResp1, setTelefoneResp1 }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
-      <h1>Dados do Responsável 1</h1>
+      <h1>Dados do Responsável</h1>
     </div>
     <div className={Styles.container_inputs}>
       <Nome value={nomeResp1} setValue={setNomeResp1} />
@@ -299,47 +283,18 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
       <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
 
       <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         Anterior
       </button>
       <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
         Próximo
-        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
       </button>
     </div>
   </div>
 );
 
-const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2 }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Dados do Responsável 2</h1>
-    </div>
-    <div className={Styles.container_inputs}>
-      <Nome value={nomeResp2} setValue={setNomeResp2} />
-      <Email value={emailResp2} setValue={setEmailResp2} />
-
-      <CPF value={cpfResp2} setValue={setCpfResp2} />
-      <Genero value={generoResp2} setValue={setGeneroResp2} />
-
-      <RG value={rgResp2} setValue={setRgResp2} />
-      <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
-
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        Anterior
-      </button>
-      <button type="button" onClick={() => {
-        setStep(3);
-      }} className={Styles.button}>
-        Próximo
-        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-      </button>
-    </div>
-  </div>
-);
-
-const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero }) => (
+const Passo5 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
@@ -356,18 +311,18 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
 
       <button type="button" onClick={() => {
         let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
-        if (idade < 18) {
-          setStep(2); // Se menor de idade, pula para o passo 3
+        if (idade >= 18) {
+          setStep(0); // Voltar diretamente para o Passo1 se for maior de idade
         } else {
-          prevStep(); // Continua normalmente se maior de idade
+          prevStep();
         }
       }} className={Styles.button}>
-        <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         Anterior
       </button>
       <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
         Próximo
-        <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
       </button>
     </div>
   </div>
@@ -394,12 +349,12 @@ const Passo6 = ({ nextStep, prevStep }) => (
 
       <div className={Styles.divBotoes}>
         <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
           Anterior
         </button>
         <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
           Próximo
-          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         </button>
       </div>
     </div>
@@ -427,49 +382,12 @@ const Passo7 = ({ nextStep, prevStep }) => (
 
       <div className={Styles.divBotoes}>
         <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-          Anterior
-        </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-        </button>
-      </div>
-    </div>
-  </div>
-);
-
-const Passo9 = ({ prevStep }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Contrato</h1>
-    </div>
-
-    <div className={Styles.divContrato}>
-      <p className={Styles.contrato}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-
-        <div className={Styles.checkboxContainer}>
-          <input type="checkbox" id="aceitarContrato" />
-          <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
-        </div>
-      </p>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
           Anterior
         </button>
         <button type="button"  className={Styles.button}>
           Finalizar Cadastro
-          <img src={require('../../imgs/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         </button>
       </div>
     </div>

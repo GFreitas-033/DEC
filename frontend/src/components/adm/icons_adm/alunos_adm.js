@@ -1,6 +1,6 @@
 import React from "react"
 import Style_adm from "./icons_adm.module.css"
-import Alunos from "../../../imgs/icon4.png"
+import Alunos from "../../../imgs/icons/icon4.png"
 import { useNavigate} from "react-router-dom"
 
 export default function Alunos_adm(){

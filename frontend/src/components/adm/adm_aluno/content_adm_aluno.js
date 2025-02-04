@@ -1,12 +1,9 @@
-// src/components/Content_adm_aluno.js
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdmAluno from "../admAPUT.module.css";
-
-import Editar from "../../../imgs/Editar.png";
-import Excluir from "../../../imgs/Excluir.png";
+import Editar from "../../../imgs/icons/Editar.png";
+import Excluir from "../../../imgs/icons/Excluir.png";
 
 export default function Content_adm_aluno() {
     const navigate = useNavigate();

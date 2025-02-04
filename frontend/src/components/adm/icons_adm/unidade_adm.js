@@ -1,6 +1,6 @@
 import React from "react"
 import Style_adm from "./icons_adm.module.css"
-import Unidade from "../../../imgs/icon5.png"
+import Unidade from "../../../imgs/icons/icon5.png"
 import { useNavigate} from "react-router-dom"
 
 export default function Unidade_adm(){

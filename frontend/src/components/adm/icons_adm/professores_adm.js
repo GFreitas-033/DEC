@@ -1,6 +1,6 @@
 import React from "react"
 import Style_adm from "./icons_adm.module.css"
-import Prof from "../../../imgs/icon7.png"
+import Prof from "../../../imgs/icons/icon7.png"
 import { useNavigate } from "react-router-dom"
 
 export default function Professores_adm(){

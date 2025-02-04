@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 // Import de Icons
 import Logo from "../../imgs/logo2.png";
-import Casa from "../../imgs/icon2.png";
-import Calendario from "../../imgs/icon3.png";
-import Adm from "../../imgs/icon1.png";
-import Logout from "../../imgs/logout.png";
+import Casa from "../../imgs/icons/icon2.png";
+import Calendario from "../../imgs/icons/icon3.png";
+import Adm from "../../imgs/icons/icon1.png";
+import Logout from "../../imgs/icons/logout.png";
 
 export default function Barra_lateral() {
     const [isAdm, setIsAdm] = useState(false);

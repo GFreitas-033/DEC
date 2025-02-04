@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Sino from "../../imgs/notificacao.png"
+import Sino from "../../imgs/icons/notificacao.png"
 import Sino_Style from "./notificacao.module.css"
 
 export default function Notificacao() {
