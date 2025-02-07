@@ -22,7 +22,7 @@ import Bairro from "../inputs_cadastro/endereco/bairro_input";
 import Rua from "../inputs_cadastro/endereco/rua_input";
 import Numero from "../inputs_cadastro/endereco/numero_input";
 
-export default function Form(){
+export default function Form() {
   const [step, setStep] = useState(0);
   // const [responsePessoa, setResponsePessoa] = useState(null);
   // let { id_aluno } = useParams();
@@ -45,7 +45,7 @@ export default function Form(){
   const [emailResp1, setEmailResp1] = useState("");
   const [cpfResp1, setCpfResp1] = useState("");
   const [generoResp1, setGeneroResp1] = useState("");
-  const [rgResp1, setRgResp1] = useState("");   
+  const [rgResp1, setRgResp1] = useState("");
   const [telefoneResp1, setTelefoneResp1] = useState("");
 
   // States do 2° Responsavel
@@ -53,7 +53,7 @@ export default function Form(){
   const [emailResp2, setEmailResp2] = useState("");
   const [cpfResp2, setCpfResp2] = useState("");
   const [generoResp2, setGeneroResp2] = useState("");
-  const [rgResp2, setRgResp2] = useState("");   
+  const [rgResp2, setRgResp2] = useState("");
   const [telefoneResp2, setTelefoneResp2] = useState("");
 
   // States do Endereço
@@ -63,52 +63,52 @@ export default function Form(){
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
   const [numero, setNumero] = useState("");
-  const [id_endereco, setEndereco] = useState(null); 
-  
-    // States de Unidades e Turmas
-    const [unidades, setUnidades] = useState([]);
-    const [turmas, setTurmas] = useState([]);
-    const [selectedUnidade, setSelectedUnidade] = useState("");
-    const [selectedTurma, setSelectedTurma] = useState("");
-  
-    // State de contrato
-    const [aceitouContrato, setAceitouContrato] = useState(false);
-  
-    const handleCheckboxChange = (event) => {
-      setAceitouContrato(event.target.checked);
-    };
-  
-    // Função para verificar se os campos foram preenchidos
-    const areAllFieldsFilled = (fields) => {
-      const emptyFields = Object.entries(fields)
-        .filter(([key, value]) => value.trim() === "")
-        .map(([key]) => key);
-  
-      if (emptyFields.length === 0) {
-        return true; 
-      }
-  
-      return `Os seguintes campos estão vazios: ${emptyFields.join(", ")}`;
-    };
+  const [id_endereco, setEndereco] = useState(null);
+
+  // States de Unidades e Turmas
+  const [unidades, setUnidades] = useState([]);
+  const [turmas, setTurmas] = useState([]);
+  const [selectedUnidade, setSelectedUnidade] = useState("");
+  const [selectedTurma, setSelectedTurma] = useState("");
+
+  // State de contrato
+  const [aceitouContrato, setAceitouContrato] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setAceitouContrato(event.target.checked);
+  };
+
+  // Função para verificar se os campos foram preenchidos
+  const areAllFieldsFilled = (fields) => {
+    const emptyFields = Object.entries(fields)
+      .filter(([key, value]) => value.trim() === "")
+      .map(([key]) => key);
+
+    if (emptyFields.length === 0) {
+      return true;
+    }
+
+    return `Os seguintes campos estão vazios: ${emptyFields.join(", ")}`;
+  };
 
   const nextStep = () => {
     setStep((prevStep) => {
       if (vdd) { // Maior de idade
-        if (prevStep === 0){
+        if (prevStep === 0) {
           setVdd(false)
           return 3 // Pular passos 2 e 3
-        }; 
+        };
         return Math.min(prevStep + 1, steps.length - 1);
       } else { // Menor de idade
         return Math.min(prevStep + 1, steps.length - 1);
       }
     });
   };
-    
+
   const prevStep = () => {
     setStep((prevStep) => {
       if (vdd) { // Maior de idade
-        if (prevStep === 3){
+        if (prevStep === 3) {
           setVdd(false)
           return 0 // Voltar direto para o passo 1
         };
@@ -129,35 +129,35 @@ export default function Form(){
 
   useEffect(() => {
     axios.get('/api/unidade')
-        .then(response => {
-            setUnidades(response.data); // Define os dados no estado
-        })
-        .catch(error => {
-            console.error("Erro ao buscar unidades:", error);
-        });
+      .then(response => {
+        setUnidades(response.data); // Define os dados no estado
+      })
+      .catch(error => {
+        console.error("Erro ao buscar unidades:", error);
+      });
   }, []);
 
   useEffect(() => {
     if (selectedUnidade) {
-        let id_selectedUnidade = parseInt(selectedUnidade);
-        axios.get('/api/turma')
-            .then(response => {
-                const turmasFiltradas = response.data.filter(turma => turma.id_unidade === id_selectedUnidade);
-                setTurmas(turmasFiltradas);
-                setSelectedTurma(""); // Reseta a turma ao trocar de unidade
-            })
-            .catch(error => {
-                console.error("Erro ao buscar turmas:", error);
-            });
+      let id_selectedUnidade = parseInt(selectedUnidade);
+      axios.get('/api/turma')
+        .then(response => {
+          const turmasFiltradas = response.data.filter(turma => turma.id_unidade === id_selectedUnidade);
+          setTurmas(turmasFiltradas);
+          setSelectedTurma(""); // Reseta a turma ao trocar de unidade
+        })
+        .catch(error => {
+          console.error("Erro ao buscar turmas:", error);
+        });
     } else {
-        setTurmas([]);
-        setSelectedTurma("");
+      setTurmas([]);
+      setSelectedTurma("");
     }
-}, [selectedUnidade]);
+  }, [selectedUnidade]);
 
   const calcularIdade = (dataNascimento) => {
     const partes = dataNascimento.split('/');
-      
+
     const hoje = new Date();
     const nascimento = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
     let idadeCalculada = hoje.getFullYear() - nascimento.getFullYear();
@@ -166,248 +166,248 @@ export default function Form(){
       idadeCalculada--;
     }
 
-    if(idadeCalculada < 18 && idadeCalculada > 0){
+    if (idadeCalculada < 18 && idadeCalculada > 0) {
       setVdd(false);
-    }else{
+    } else {
       setVdd(true);
     }
 
     return idadeCalculada;
   };
 
-    // const formatCPF = (cpf) => {
-    //     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-    // };
+  // const formatCPF = (cpf) => {
+  //     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  // };
 
-    // const formatRG = (rg) => {
-    //     return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-    // };
+  // const formatRG = (rg) => {
+  //     return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  // };
 
-    // function padraoBR(isoDate) {
-    //   const date = new Date(isoDate);
-    //   const day = String(date.getUTCDate()).padStart(2, '0');
-    //   const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Meses começam em 0
-    //   const year = date.getUTCFullYear();
-    //   return `${day}/${month}/${year}`;
-    // }
+  // function padraoBR(isoDate) {
+  //   const date = new Date(isoDate);
+  //   const day = String(date.getUTCDate()).padStart(2, '0');
+  //   const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Meses começam em 0
+  //   const year = date.getUTCFullYear();
+  //   return `${day}/${month}/${year}`;
+  // }
 
-    // const formatTelefone = (telefone) => {
-    //   telefone = telefone.replace(/\D/g, ''); // Remove non-digits
-    //   if (telefone.length === 11) {
-    //     return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-    //   } else if (telefone.length === 10) {
-    //     return telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-    //   }
-    //   return telefone;
-    // };
+  // const formatTelefone = (telefone) => {
+  //   telefone = telefone.replace(/\D/g, ''); // Remove non-digits
+  //   if (telefone.length === 11) {
+  //     return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+  //   } else if (telefone.length === 10) {
+  //     return telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+  //   }
+  //   return telefone;
+  // };
 
-    // const formatDate = (nascimento) => {
-    //   nascimento = nascimento.replace(/\D/g, '');
-    //   nascimento = nascimento.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3');
-    //   return nascimento;
-    // }
+  // const formatDate = (nascimento) => {
+  //   nascimento = nascimento.replace(/\D/g, '');
+  //   nascimento = nascimento.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3');
+  //   return nascimento;
+  // }
 
-    // const convertDate = (date) => {
-    //   const [day, month, year] = date.split('/');
-    //   return `${year}-${month}-${day}`;
-    // };
+  // const convertDate = (date) => {
+  //   const [day, month, year] = date.split('/');
+  //   return `${year}-${month}-${day}`;
+  // };
 
-    const handleBuscarCep = (cep) => {
-      if (cep.length < 9) {
-        setLogradouro("");
-        setBairro("");
-        setCidade("");
-        setUf("");
-        return;
-      }
-      fetch(`https://viacep.com.br/ws/${cep}/json/`)
-        .then((response) => response.json())
-        .then((dados) => {
-          setLogradouro(dados.logradouro);
-          setBairro(dados.bairro);
-          setCidade(dados.localidade);
-          setUf(dados.uf);
-        })
-        .catch((error) => {
-          console.error('Erro ao buscar CEP:', error);
-        });
+  const handleBuscarCep = (cep) => {
+    if (cep.length < 9) {
+      setLogradouro("");
+      setBairro("");
+      setCidade("");
+      setUf("");
+      return;
+    }
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((response) => response.json())
+      .then((dados) => {
+        setLogradouro(dados.logradouro);
+        setBairro(dados.bairro);
+        setCidade(dados.localidade);
+        setUf(dados.uf);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar CEP:', error);
+      });
+  };
+
+  // const logado = async () => {
+  //   try {
+  //     let response = await axios.post('/login');
+  //     if (response.data.adm !== 1) {
+  //       navigate('/home');
+  //     }
+  //   } catch (error) {
+  //     navigate('/');
+  //   }
+  // };
+
+  // function tratamentoString(inputString) {
+  //   return inputString.replace(/[.\-()\s]/g, '');
+  // }
+
+  // Obter a data atual
+  // const dataAtual = new Date();
+  // const adicionarZero = (numero) => (numero < 10 ? `0${numero}` : numero);
+  // const ano = dataAtual.getFullYear();
+  // const mes = adicionarZero(dataAtual.getMonth() + 1);
+  // const dia = adicionarZero(dataAtual.getDate());
+  // const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
+
+  // Cadastro do aluno
+  async function cadastrar() {
+
+    const unformatCPF = (cpf) => {
+      return cpf.replace(/\D/g, '');
     };
+    const unformatTelefone = (telefone) => {
+      return telefone.replace(/\D/g, '');
+    };
+    const unformatRG = (rg) => {
+      return rg.replace(/\D/g, '');
+    };
+    const converterParaSQL = (dataBR) => {
+      const [dia, mes, ano] = dataBR.split('/'); // Divide a string nos "/"
+      return `${ano}-${mes}-${dia}`; // Reorganiza no formato SQL
+    }
 
-    // const logado = async () => {
-    //   try {
-    //     let response = await axios.post('/login');
-    //     if (response.data.adm !== 1) {
-    //       navigate('/home');
-    //     }
-    //   } catch (error) {
-    //     navigate('/');
-    //   }
-    // };
+    function dataAtualSQL() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+      const day = String(date.getDate()).padStart(2, '0');
 
-    // function tratamentoString(inputString) {
-    //   return inputString.replace(/[.\-()\s]/g, '');
-    // }
+      return `${year}-${month}-${day}`;
+    }
 
-    // Obter a data atual
-    // const dataAtual = new Date();
-    // const adicionarZero = (numero) => (numero < 10 ? `0${numero}` : numero);
-    // const ano = dataAtual.getFullYear();
-    // const mes = adicionarZero(dataAtual.getMonth() + 1);
-    // const dia = adicionarZero(dataAtual.getDate());
-    // const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
+    let dataInicio = dataAtualSQL();
 
-// Cadastro do aluno
-async function cadastrar(){
+    let responseEndereco = await axios.post('/api/endereco', {
+      cep: cep,
+      estado: uf,
+      cidade: cidade,
+      bairro: bairro,
+      rua: logradouro,
+      numero: numero,
+    });
+    responseEndereco = responseEndereco.data;
 
-  const unformatCPF = (cpf) => {
-    return cpf.replace(/\D/g, '');
-  };
-  const unformatTelefone = (telefone) => {
-    return telefone.replace(/\D/g, '');
-  };
-  const unformatRG = (rg) => {
-    return rg.replace(/\D/g, '');
-  };
-  const converterParaSQL = (dataBR) => {
-    const [dia, mes, ano] = dataBR.split('/'); // Divide a string nos "/"
-    return `${ano}-${mes}-${dia}`; // Reorganiza no formato SQL
-  }
+    let idResp1;
+    let idResp2;
+    let responsePessoa;
 
-  function dataAtualSQL() {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
-    const day = String(date.getDate()).padStart(2, '0');
+    if (nomeResp1 != '' && cpfResp1 != '' && rgResp1 != '' && emailResp1 != '' && telefoneResp1 != '' && generoResp1 != '') {
+      responsePessoa = await axios.post('/api/pessoa', {
+        nome_pessoa: nomeResp1,
+        dt_nasc_pessoa: '1999-01-01',
+        cpf_pessoa: unformatCPF(cpfResp1),
+        rg_pessoa: unformatRG(rgResp1),
+        email_pessoa: emailResp1,
+        telefone_pessoa: unformatTelefone(telefoneResp1),
+        genero: generoResp1,
+        id_endereco: responseEndereco.id,
+      });
+      responsePessoa = responsePessoa.data;
+      idResp1 = responsePessoa.id;
+      let responseRespAluno = await axios.post('/api/responsavel_aluno', {
+        id_pessoa: idResp1
+      });
+    }
 
-    return `${year}-${month}-${day}`;
-  }
 
-  let dataInicio = dataAtualSQL();
+    if (nomeResp2 != '' && cpfResp2 != '' && rgResp2 != '' && emailResp2 != '' && telefoneResp2 != '' && generoResp2 != '') {
+      responsePessoa = await axios.post('/api/pessoa', {
+        nome_pessoa: nomeResp2,
+        dt_nasc_pessoa: '1999-01-01',
+        cpf_pessoa: unformatCPF(cpfResp2),
+        rg_pessoa: unformatRG(rgResp2),
+        email_pessoa: emailResp2,
+        telefone_pessoa: unformatTelefone(telefoneResp2),
+        genero: generoResp2,
+        id_endereco: responseEndereco.id,
+      });
+      responsePessoa = responsePessoa.data;
+      idResp2 = responsePessoa.id;
+      let responseRespAluno = await axios.post('/api/responsavel_aluno', {
+        id_pessoa: idResp2
+      });
+    }
 
-  let responseEndereco = await axios.post('/api/endereco',{
-    cep: cep,
-    estado: uf,
-    cidade: cidade,
-    bairro: bairro,
-    rua: logradouro,
-    numero: numero,
-  });
-  responseEndereco = responseEndereco.data;
-  
-  let idResp1;
-  let idResp2;
-  let responsePessoa;
-
-  if(nomeResp1 != '' && cpfResp1 != '' && rgResp1 != '' && emailResp1 != '' && telefoneResp1 != '' && generoResp1 != ''){
-    responsePessoa = await axios.post('/api/pessoa',{
-      nome_pessoa: nomeResp1,
-      dt_nasc_pessoa: '1999-01-01',
-      cpf_pessoa: unformatCPF(cpfResp1),
-      rg_pessoa: unformatRG(rgResp1),
-      email_pessoa: emailResp1,
-      telefone_pessoa: unformatTelefone(telefoneResp1),
-      genero: generoResp1,
+    responsePessoa = await axios.post('/api/pessoa', {
+      nome_pessoa: nome,
+      dt_nasc_pessoa: converterParaSQL(nascimento),
+      cpf_pessoa: unformatCPF(cpf),
+      rg_pessoa: unformatRG(rg),
+      email_pessoa: email,
+      telefone_pessoa: unformatTelefone(telefone),
+      genero: genero,
       id_endereco: responseEndereco.id,
-    });
+    })
     responsePessoa = responsePessoa.data;
-    idResp1 = responsePessoa.id;
-    let responseRespAluno = await axios.post('/api/responsavel_aluno',{
-      id_pessoa: idResp1
-    });
-  }
-  
 
-  if(nomeResp2 != '' && cpfResp2 != '' && rgResp2 != '' && emailResp2 != '' && telefoneResp2 != '' && generoResp2 != ''){
-    responsePessoa = await axios.post('/api/pessoa',{
-      nome_pessoa: nomeResp2,
-      dt_nasc_pessoa: '1999-01-01', 
-      cpf_pessoa: unformatCPF(cpfResp2),
-      rg_pessoa: unformatRG(rgResp2),
-      email_pessoa: emailResp2,
-      telefone_pessoa: unformatTelefone(telefoneResp2),
-      genero: generoResp2,
-      id_endereco: responseEndereco.id,
-    });
-    responsePessoa = responsePessoa.data;
-    idResp2 = responsePessoa.id;
-    let responseRespAluno = await axios.post('/api/responsavel_aluno',{
-      id_pessoa: idResp2
-    });
-  }
-  
-  responsePessoa = await axios.post('/api/pessoa',{
-    nome_pessoa: nome,
-    dt_nasc_pessoa: converterParaSQL(nascimento), 
-    cpf_pessoa: unformatCPF(cpf),
-    rg_pessoa: unformatRG(rg),
-    email_pessoa: email,
-    telefone_pessoa: unformatTelefone(telefone),
-    genero: genero,
-    id_endereco: responseEndereco.id,
-  })
-  responsePessoa = responsePessoa.data;
-
-    let responseAluno = await axios.post('/api/aluno',{
-      id_pessoa: responsePessoa.id, 
-      destro_canhoto: mao_dominante, 
-      id_responsavel: idResp1, 
-      dt_inicio: dataInicio,  
+    let responseAluno = await axios.post('/api/aluno', {
+      id_pessoa: responsePessoa.id,
+      destro_canhoto: mao_dominante,
+      id_responsavel: idResp1,
+      dt_inicio: dataInicio,
       tipo_aluno: 'naoPagante',
       id_responsavel2: idResp2,
     })
 
-  
-  
-  let responseAlunoHasTurma = await axios.post('/api/aluno_has_turma',{
-    id_aluno: responsePessoa.id,
-    id_turma: parseInt(selectedTurma)
-  });
 
-  if(responseAlunoHasTurma){
-    alert('Cadastro concluído!');
-    window.location.reload();
+
+    let responseAlunoHasTurma = await axios.post('/api/aluno_has_turma', {
+      id_aluno: responsePessoa.id,
+      id_turma: parseInt(selectedTurma)
+    });
+
+    if (responseAlunoHasTurma) {
+      alert('Cadastro concluído!');
+      window.location.reload();
+    }
+
   }
 
-}
-
   const steps = [
-      <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail} 
-        cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
-        telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
-        mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled}/>,
-      
-      <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1} 
-        cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
-        telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} areAllFieldsFilled={areAllFieldsFilled}/>,
-      
-      <Passo3 prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
-        cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
-        telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep}/>,
-        
-      <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
-        bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
-        nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep}  areAllFieldsFilled={areAllFieldsFilled}/>,
+    <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail}
+      cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg}
+      telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento}
+      mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} />,
 
-      <Passo6 nextStep={nextStep} prevStep={prevStep} unidades={unidades} setSelectedUnidade={setSelectedUnidade} selectedUnidade={selectedUnidade} areAllFieldsFilled={areAllFieldsFilled}/>,
+    <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1}
+      cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
+      telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} areAllFieldsFilled={areAllFieldsFilled} />,
 
-      <Passo7 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} areAllFieldsFilled={areAllFieldsFilled}/>,
+    <Passo3 prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2}
+      cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
+      telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} />,
 
-      <Passo9 prevStep={prevStep} cadastrar={cadastrar} aceitouContrato={aceitouContrato} handleCheckboxChange={handleCheckboxChange}/>,
+    <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
+      bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
+      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} />,
+
+    <Passo6 nextStep={nextStep} prevStep={prevStep} unidades={unidades} setSelectedUnidade={setSelectedUnidade} selectedUnidade={selectedUnidade} areAllFieldsFilled={areAllFieldsFilled} />,
+
+    <Passo7 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} areAllFieldsFilled={areAllFieldsFilled} />,
+
+    <Passo9 prevStep={prevStep} cadastrar={cadastrar} aceitouContrato={aceitouContrato} handleCheckboxChange={handleCheckboxChange} />,
   ];
 
-  return(
+  return (
     <div>
       <div className={Styles.backgroundContainer}>
-        <img src={require('../../imgs/backgroundDesktop/backNormal.png')} alt="Background" className={Styles.responsiveImg} draggable="false"/>
+        <img src={require('../../imgs/backgroundDesktop/backNormal.png')} alt="Background" className={Styles.responsiveImg} draggable="false" />
       </div>
       <div className={Styles.container}>
         <form id="formcadastroaluno" className={Styles.form} autoComplete="off">
           <CSSTransition
-          in={true}
-          key={step}
-          timeout={300}
-          classNames="fade"
-          unmountOnExit
+            in={true}
+            key={step}
+            timeout={300}
+            classNames="fade"
+            unmountOnExit
           >
             {steps[step]}
           </CSSTransition>
@@ -424,33 +424,33 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
       <h1>Dados do Aluno</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Nome value={nome} setValue={setNome}/>
-      <Email value={email} setValue={setEmail}/>
+      <Nome value={nome} setValue={setNome} />
+      <Email value={email} setValue={setEmail} />
 
-      <CPF value={cpf} setValue={setCpf}/>
-      <Genero value={genero} setValue={setGenero}/>
+      <CPF value={cpf} setValue={setCpf} />
+      <Genero value={genero} setValue={setGenero} />
 
-      <RG value={rg} setValue={setRg}/>
-      <Telefone value={telefone} setValue={setTelefone}/>
+      <RG value={rg} setValue={setRg} />
+      <Telefone value={telefone} setValue={setTelefone} />
 
-      <DtNasc value={nascimento} setValue={setNascimento}/>
-      <DC value={mao_dominante} setValue={setMao_Dominante}/>
+      <DtNasc value={nascimento} setValue={setNascimento} />
+      <DC value={mao_dominante} setValue={setMao_Dominante} />
 
       <button type="button" onClick={() => {
-                let camposPreenchidos = areAllFieldsFilled([nome, email, cpf, genero, rg, telefone, nascimento, mao_dominante])
-                if(camposPreenchidos == true){
-                  let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
-                  if (idade >= 18) {
-                    setStep(3); // Se maior de idade, pula para o passo 4
-                  } else {
-                  nextStep(); // Continua normalmente se menor de idade
-                };
-                }else{
-                  alert('Preencha os campos obrigatórios!')
-                }
-            }} className={Styles.button}>
+        let camposPreenchidos = areAllFieldsFilled([nome, email, cpf, genero, rg, telefone, nascimento, mao_dominante])
+        if (camposPreenchidos == true) {
+          let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
+          if (idade >= 18) {
+            setStep(3); // Se maior de idade, pula para o passo 4
+          } else {
+            nextStep(); // Continua normalmente se menor de idade
+          };
+        } else {
+          alert('Preencha os campos obrigatórios!')
+        }
+      }} className={Styles.button}>
         Próximo
-        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
   </div>
@@ -472,17 +472,18 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
       <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
 
       <button type="button" onClick={prevStep} className={Styles.button}>
-              <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
-              Anterior
-            </button>
-            <button type="button" onClick={() => { 
-              if(areAllFieldsFilled([nomeResp1, emailResp1, cpfResp1, generoResp1, rgResp1, telefoneResp1]) == true){
-                nextStep()
-              }else{
-                alert('Preencha os campos obrigatórios!')
-              }}} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        if (areAllFieldsFilled([nomeResp1, emailResp1, cpfResp1, generoResp1, rgResp1, telefoneResp1]) == true) {
+          nextStep()
+        } else {
+          alert('Preencha os campos obrigatórios!')
+        }
+      }} className={Styles.button}>
         Próximo
-        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
   </div>
@@ -504,14 +505,14 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
       <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
 
       <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
       </button>
       <button type="button" onClick={() => {
         setStep(3);
       }} className={Styles.button}>
         Próximo
-        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
   </div>
@@ -540,18 +541,18 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
           prevStep(); // Continua normalmente se maior de idade
         }
       }} className={Styles.button}>
-        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
       </button>
       <button type="button" onClick={() => {
-                if(areAllFieldsFilled([cep, uf, cidade, bairro, logradouro, numero]) == true){
-                  nextStep()
-                }else{
-                  alert('Preencha os campos obrigatórios!');
-                }
-              }} className={Styles.button}>
+        if (areAllFieldsFilled([cep, uf, cidade, bairro, logradouro, numero]) == true) {
+          nextStep()
+        } else {
+          alert('Preencha os campos obrigatórios!');
+        }
+      }} className={Styles.button}>
         Próximo
-        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
   </div>
@@ -564,37 +565,37 @@ const Passo6 = ({ nextStep, prevStep, selectedUnidade, setSelectedUnidade, unida
     </div>
     <div className={Styles.container_Passo_Escolhas}>
 
-        <div className={Styles.divSelect}>
-                     <select
-                         id="escolha_unidade"
-                         name="escolha_unidade"
-                         className={Styles.select}
-                         value={selectedUnidade}
-                         onChange={(e) => setSelectedUnidade(e.target.value)}
-                     >
-                         <option value="" disabled>Selecionar Unidade</option>
-                         {unidades.map(unidade => (
-                             <option key={unidade.id_unidade} value={unidade.id_unidade}>
-                                 {unidade.nome_unidade}
-                             </option>
-                         ))}
-                     </select>
-           </div>
+      <div className={Styles.divSelect}>
+        <select
+          id="escolha_unidade"
+          name="escolha_unidade"
+          className={Styles.select}
+          value={selectedUnidade}
+          onChange={(e) => setSelectedUnidade(e.target.value)}
+        >
+          <option value="" disabled>Selecionar Unidade</option>
+          {unidades.map(unidade => (
+            <option key={unidade.id_unidade} value={unidade.id_unidade}>
+              {unidade.nome_unidade}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className={Styles.divBotoes}>
         <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
           Anterior
         </button>
         <button type="button" onClick={() => {
-                  if(areAllFieldsFilled([selectedUnidade]) == true){
-                    nextStep()
-                  }else{
-                    alert('Preencha os campos obrigatórios!');
-                  }
-                  }} className={Styles.button}>
+          if (areAllFieldsFilled([selectedUnidade]) == true) {
+            nextStep()
+          } else {
+            alert('Preencha os campos obrigatórios!');
+          }
+        }} className={Styles.button}>
           Próximo
-          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         </button>
       </div>
     </div>
@@ -609,37 +610,37 @@ const Passo7 = ({ nextStep, prevStep, selectedTurma, setSelectedTurma, turmas, a
     <div className={Styles.container_Passo_Escolhas}>
 
       <div className={Styles.divSelect}>
-                      <select
-                          id="escolha_turma"
-                          name="escolha_turma"
-                          className={Styles.select}
-                          value={selectedTurma}
-                          onChange={(e) => setSelectedTurma(e.target.value)}
-                          disabled={!turmas.length} // Desabilita se não houver turmas disponíveis
-                      >
-                          <option value="" disabled>Selecionar Turma</option>
-                          {turmas.map(turma => (
-                              <option key={turma.id_turma} value={turma.id_turma}>
-                                  {turma.nome_turma}
-                              </option>
-                          ))}
-                      </select>
-            </div>
+        <select
+          id="escolha_turma"
+          name="escolha_turma"
+          className={Styles.select}
+          value={selectedTurma}
+          onChange={(e) => setSelectedTurma(e.target.value)}
+          disabled={!turmas.length} // Desabilita se não houver turmas disponíveis
+        >
+          <option value="" disabled>Selecionar Turma</option>
+          {turmas.map(turma => (
+            <option key={turma.id_turma} value={turma.id_turma}>
+              {turma.nome_turma}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className={Styles.divBotoes}>
         <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
           Anterior
         </button>
         <button type="button" onClick={() => {
-                  if(areAllFieldsFilled([selectedTurma]) == true){
-                    nextStep()
-                  }else{
-                    alert('Preencha os campos obrigatórios!');
-                  }
-                  }} className={Styles.button}>
+          if (areAllFieldsFilled([selectedTurma]) == true) {
+            nextStep()
+          } else {
+            alert('Preencha os campos obrigatórios!');
+          }
+        }} className={Styles.button}>
           Próximo
-          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         </button>
       </div>
     </div>
@@ -654,35 +655,35 @@ const Passo9 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange }) 
 
     <div className={Styles.divContrato}>
       <p className={Styles.contrato}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio 
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
 
         <div className={Styles.checkboxContainer}>
-                  <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange}/>
-                  <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
+          <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
+          <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>
       </p>
 
       <div className={Styles.divBotoes}>
         <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
           Anterior
         </button>
-        <button type="button"  className={Styles.button} onClick={() => {
-                  if(aceitouContrato == true){
-                    cadastrar();
-                  }else{
-                    alert('Leia e aceite o contrato para finalizar o cadastro');
-                  }
-                }}>
+        <button type="button" className={Styles.button} onClick={() => {
+          if (aceitouContrato == true) {
+            cadastrar();
+          } else {
+            alert('Leia e aceite o contrato para finalizar o cadastro');
+          }
+        }}>
           Finalizar Cadastro
-          <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
+          <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         </button>
       </div>
     </div>
