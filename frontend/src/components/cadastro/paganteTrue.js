@@ -140,15 +140,16 @@ export default function Form() {
   //   }
   // }, [id_aluno]);
 
-  useEffect(() => {
-    axios.get('/api/unidade')
-      .then(response => {
-        setUnidades(response.data); // Define os dados no estado
-      })
+  async function pesquisarUnidades() {
+    axios.post('/api/unidade/cidade', {
+      cidade: cidade
+    }).then(response => {
+      setUnidades(response.data); // Define os dados no estado
+    })
       .catch(error => {
         console.error("Erro ao buscar unidades:", error);
       });
-  }, []);
+  }
 
   useEffect(() => {
     if (selectedUnidade) {
@@ -436,7 +437,7 @@ export default function Form() {
 
     <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
       bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
-      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} />,
+      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} pesquisarUnidades={pesquisarUnidades} />,
 
     <Passo6 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} areAllFieldsFilled={areAllFieldsFilled} />,
 
@@ -612,7 +613,7 @@ const Passo4 = ({ nextStep, prevStep, booleanFin, setBooleanFin, nomeFin, setNom
   </div>
 );
 
-const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled }) => (
+const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
@@ -640,7 +641,8 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
       </button>
       <button type="button" onClick={() => {
         if (areAllFieldsFilled([cep, uf, cidade, bairro, logradouro, numero]) == true) {
-          nextStep()
+          pesquisarUnidades();
+          nextStep();
         } else {
           alert('Preencha os campos obrigatórios!');
         }

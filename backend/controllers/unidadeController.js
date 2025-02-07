@@ -28,4 +28,24 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     res.status(200).send('Registro excluído com sucesso!');
 }));
 
+router.post('/cidade', asyncHandler(async (req, res) => {
+    const { cidade } = req.body;
+
+    if (!cidade) {
+        return res.status(400).json({ error: "O nome da cidade é obrigatório." });
+    }
+
+    try {
+        const unidades = await unidadeModel.findUnidadesByCidade(cidade);
+
+        if (unidades.length === 0) {
+            return res.status(404).json({ message: "Nenhuma unidade encontrada para essa cidade." });
+        }
+
+        res.json(unidades);
+    } catch (error) {
+        res.status(500).json({ error: "Erro ao buscar unidades: " + error.message });
+    }
+}));
+
 module.exports = router;

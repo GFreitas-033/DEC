@@ -110,15 +110,17 @@ export default function Form() {
   //   }
   // }, [id_aluno]);
 
-  useEffect(() => {
-    axios.get('/api/unidade')
-      .then(response => {
-        setUnidades(response.data); // Define os dados no estado
-      })
+
+  async function pesquisarUnidades() {
+    axios.post('/api/unidade/cidade', {
+      cidade: cidade
+    }).then(response => {
+      setUnidades(response.data); // Define os dados no estado
+    })
       .catch(error => {
         console.error("Erro ao buscar unidades:", error);
       });
-  }, []);
+  }
 
   useEffect(() => {
     if (selectedUnidade) {
@@ -345,7 +347,7 @@ export default function Form() {
 
     <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
       bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
-      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} />,
+      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} pesquisarUnidades={pesquisarUnidades} />,
 
     <Passo6 nextStep={nextStep} prevStep={prevStep} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} unidades={unidades} areAllFieldsFilled={areAllFieldsFilled} />,
 
@@ -441,7 +443,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
   </div>
 );
 
-const Passo5 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled }) => (
+const Passo5 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
@@ -457,12 +459,7 @@ const Passo5 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handle
       <Numero value={numero} setValue={setNumero} />
 
       <button type="button" onClick={() => {
-        let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
-        if (idade >= 18) {
-          setStep(0); // Voltar diretamente para o Passo1 se for maior de idade
-        } else {
-          prevStep();
-        }
+        prevStep();
       }} className={Styles.button}>
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
@@ -473,6 +470,7 @@ const Passo5 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handle
         } else {
           alert('Preencha os campos obrigatórios!');
         }
+        pesquisarUnidades();
       }} className={Styles.button}>
         Próximo
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />

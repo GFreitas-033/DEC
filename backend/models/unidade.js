@@ -39,9 +39,22 @@ async function deleteUnidade(id_unidade) {
     }
 }
 
+const findUnidadesByCidade = async (cidade) => {
+    const query = `
+        SELECT u.*
+        FROM unidade u
+        JOIN endereco e ON u.id_endereco = e.id_endereco
+        WHERE e.cidade = ?;
+    `;
+
+    const [rows] = await db.execute(query, [cidade]);
+    return rows;
+};
+
 module.exports = {
     readUnidade,
     createUnidade,
     updateUnidade,
-    deleteUnidade
+    deleteUnidade,
+    findUnidadesByCidade
 };
