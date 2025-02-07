@@ -10,7 +10,7 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 router.post('/', asyncHandler(async (req, res) => {
-    const {
+    let {
         nome_pessoa,
         dt_nasc_pessoa,
         cpf_pessoa,
@@ -22,6 +22,10 @@ router.post('/', asyncHandler(async (req, res) => {
         id_endereco,
         adm
     } = req.body;
+    
+    if(senha_pessoa == null){
+        senha_pessoa = 'douradoesgrima'
+    }
 
     novaPessoa = await pessoaModel.createPessoa(
         nome_pessoa,

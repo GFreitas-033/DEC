@@ -10,20 +10,20 @@ async function readAluno() {
     }
 }
 
-async function createAluno(id_pessoa, destro_canhoto, id_responsavel, dt_inicio) {
+async function createAluno(id_pessoa, destro_canhoto, id_responsavel, dt_inicio, tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2) {
     try {
-        await db.query('INSERT INTO aluno (id_pessoa, destro_canhoto, id_responsavel,dt_inicio) VALUES (?,?, ?, ?)', 
-                      [id_pessoa, destro_canhoto, id_responsavel,dt_inicio]);
+        await db.query('INSERT INTO aluno (id_pessoa, destro_canhoto, id_responsavel,dt_inicio, tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2) VALUES (?,?, ?, ?, ?, ?, ?, ?)', 
+                      [id_pessoa, destro_canhoto, id_responsavel,dt_inicio, tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2]);
     } catch (err) {
         console.error('Erro ao criar registro:', err);
         throw new Error('Erro interno do servidor');
     }
 }
 
-async function updateAluno(id_pessoa, destro_canhoto, id_responsavel) {
+async function updateAluno(id_pessoa, destro_canhoto, id_responsavel,tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2) {
     try {
-        await db.query('UPDATE aluno SET destro_canhoto = ?, id_responsavel = ? WHERE id_pessoa = ?', 
-                      [destro_canhoto, id_responsavel, id_pessoa]);
+        await db.query('UPDATE aluno SET destro_canhoto = ?, id_responsavel = ?, tipo_plano = ?, dia_pagamento = ?, tipo_aluno = ?, id_responsavel2 = ? WHERE id_pessoa = ?', 
+                      [destro_canhoto, id_responsavel, id_pessoa, tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');

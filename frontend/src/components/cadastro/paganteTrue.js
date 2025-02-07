@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { useNavigate, useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Styles from "./form.module.css";
-// import axios from "axios";
+import axios from "axios";
 
 // Import dos Input
 import Nome from "../inputs_cadastro/nome_input";
@@ -74,6 +74,16 @@ export default function Form(){
   const [numero, setNumero] = useState("");
   const [id_endereco, setEndereco] = useState(null); 
 
+  // States do Pagamento
+  const [plano, setPlano] = useState("");
+  const [d_Vencimento, setD_Vencimento] = useState("");
+
+  // States de Unidades e Turmas
+  const [unidades, setUnidades] = useState([]);
+  const [turmas, setTurmas] = useState([]);
+  const [selectedUnidade, setSelectedUnidade] = useState("");
+  const [selectedTurma, setSelectedTurma] = useState("");
+
   const nextStep = () => {
     setStep((prevStep) => {
       if (vdd) { // Maior de idade
@@ -109,6 +119,34 @@ export default function Form(){
   //     preencherDados();
   //   }
   // }, [id_aluno]);
+
+  useEffect(() => {
+    axios.get('/api/unidade')
+        .then(response => {
+            setUnidades(response.data); // Define os dados no estado
+        })
+        .catch(error => {
+            console.error("Erro ao buscar unidades:", error);
+        });
+  }, []);
+
+  useEffect(() => {
+    if (selectedUnidade) {
+        let id_selectedUnidade = parseInt(selectedUnidade);
+        axios.get('/api/turma')
+            .then(response => {
+                const turmasFiltradas = response.data.filter(turma => turma.id_unidade === id_selectedUnidade);
+                setTurmas(turmasFiltradas);
+                setSelectedTurma(""); // Reseta a turma ao trocar de unidade
+            })
+            .catch(error => {
+                console.error("Erro ao buscar turmas:", error);
+            });
+    } else {
+        setTurmas([]);
+        setSelectedTurma("");
+    }
+}, [selectedUnidade]);
 
   const calcularIdade = (dataNascimento) => {
     const partes = dataNascimento.split('/');
@@ -167,6 +205,8 @@ export default function Form(){
     //   return `${year}-${month}-${day}`;
     // };
 
+    
+
     const handleBuscarCep = (cep) => {
       if (cep.length < 9) {
         setLogradouro("");
@@ -211,6 +251,148 @@ export default function Form(){
     // const dia = adicionarZero(dataAtual.getDate());
     // const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
 
+  // Cadastro do aluno
+  async function cadastrar(){
+
+    const unformatCPF = (cpf) => {
+      return cpf.replace(/\D/g, '');
+    };
+    const unformatTelefone = (telefone) => {
+      return telefone.replace(/\D/g, '');
+    };
+    const unformatRG = (rg) => {
+      return rg.replace(/\D/g, '');
+    };
+    const converterParaSQL = (dataBR) => {
+      const [dia, mes, ano] = dataBR.split('/'); // Divide a string nos "/"
+      return `${ano}-${mes}-${dia}`; // Reorganiza no formato SQL
+    }
+
+    function dataAtualSQL() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+      const day = String(date.getDate()).padStart(2, '0');
+  
+      return `${year}-${month}-${day}`;
+    }
+
+    let dataInicio = dataAtualSQL();
+
+    let responseEndereco = await axios.post('/api/endereco',{
+      cep: cep,
+      estado: uf,
+      cidade: cidade,
+      bairro: bairro,
+      rua: logradouro,
+      numero: numero,
+    });
+    responseEndereco = responseEndereco.data;
+    
+    let idResp1;
+    let idResp2;
+    let idFin;
+    let responsePessoa;
+
+    if(nomeFin != '' && cpfFin != '' && rgFin != '' && emailFin != '' && telefoneFin != '' && generoFin != ''){
+      responsePessoa = await axios.post('/api/pessoa',{
+        nome_pessoa: nomeFin,
+        dt_nasc_pessoa: '1999-01-01',
+        cpf_pessoa: unformatCPF(cpfFin),
+        rg_pessoa: unformatRG(rgFin),
+        email_pessoa: emailFin,
+        telefone_pessoa: unformatTelefone(telefoneFin),
+        genero: generoFin,
+        id_endereco: responseEndereco.id,
+      });
+      responsePessoa = responsePessoa.data;
+      idFin = responsePessoa.id;
+      let responseRespAluno = await axios.post('/api/responsavel_aluno',{
+        id_pessoa: idFin
+      });
+    }
+
+    if(nomeResp1 != '' && cpfResp1 != '' && rgResp1 != '' && emailResp1 != '' && telefoneResp1 != '' && generoResp1 != ''){
+      responsePessoa = await axios.post('/api/pessoa',{
+        nome_pessoa: nomeResp1,
+        dt_nasc_pessoa: '1999-01-01',
+        cpf_pessoa: unformatCPF(cpfResp1),
+        rg_pessoa: unformatRG(rgResp1),
+        email_pessoa: emailResp1,
+        telefone_pessoa: unformatTelefone(telefoneResp1),
+        genero: generoResp1,
+        id_endereco: responseEndereco.id,
+      });
+      responsePessoa = responsePessoa.data;
+      idResp1 = responsePessoa.id;
+      let responseRespAluno = await axios.post('/api/responsavel_aluno',{
+        id_pessoa: idResp1
+      });
+    }
+    
+
+    if(nomeResp2 != '' && cpfResp2 != '' && rgResp2 != '' && emailResp2 != '' && telefoneResp2 != '' && generoResp2 != ''){
+      responsePessoa = await axios.post('/api/pessoa',{
+        nome_pessoa: nomeResp2,
+        dt_nasc_pessoa: '1999-01-01', 
+        cpf_pessoa: unformatCPF(cpfResp2),
+        rg_pessoa: unformatRG(rgResp2),
+        email_pessoa: emailResp2,
+        telefone_pessoa: unformatTelefone(telefoneResp2),
+        genero: generoResp2,
+        id_endereco: responseEndereco.id,
+      });
+      responsePessoa = responsePessoa.data;
+      idResp2 = responsePessoa.id;
+      let responseRespAluno = await axios.post('/api/responsavel_aluno',{
+        id_pessoa: idResp2
+      });
+    }
+    
+    responsePessoa = await axios.post('/api/pessoa',{
+      nome_pessoa: nome,
+      dt_nasc_pessoa: converterParaSQL(nascimento), 
+      cpf_pessoa: unformatCPF(cpf),
+      rg_pessoa: unformatRG(rg),
+      email_pessoa: email,
+      telefone_pessoa: unformatTelefone(telefone),
+      genero: genero,
+      id_endereco: responseEndereco.id,
+    })
+    responsePessoa = responsePessoa.data;
+    if(cpfResp1 == ''){
+      let responseAluno = await axios.post('/api/aluno',{
+      id_pessoa: responsePessoa.id, 
+      destro_canhoto: mao_dominante, 
+      id_responsavel: idFin, 
+      dt_inicio: dataInicio, 
+      tipo_plano: plano, 
+      dia_pagamento: d_Vencimento, 
+      tipo_aluno: 'pagante',
+    })
+    }else{
+      let responseAluno = await axios.post('/api/aluno',{
+        id_pessoa: responsePessoa.id, 
+        destro_canhoto: mao_dominante, 
+        id_responsavel: idResp1, 
+        dt_inicio: dataInicio, 
+        tipo_plano: plano, 
+        dia_pagamento: d_Vencimento, 
+        tipo_aluno: 'pagante',
+        id_responsavel2: idResp2,
+      })
+    }
+    
+    
+    let responseAlunoHasTurma = await axios.post('/api/aluno_has_turma',{
+      id_aluno: responsePessoa.id,
+      id_turma: parseInt(selectedTurma)
+    });
+
+    console.log(responseAlunoHasTurma);
+
+  }
+
   const steps = [
       <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail} 
         cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
@@ -233,13 +415,13 @@ export default function Form(){
         bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
         nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} />,
 
-      <Passo6 nextStep={nextStep} prevStep={prevStep} />,
+      <Passo6 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}/>,
 
-      <Passo7 nextStep={nextStep} prevStep={prevStep} />,
+      <Passo7 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} />,
 
-      <Passo8 nextStep={nextStep} prevStep={prevStep} />,
+      <Passo8 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} setD_Vencimento={setD_Vencimento}/>,
 
-      <Passo9 prevStep={prevStep} />,
+      <Passo9 prevStep={prevStep} cadastrar={cadastrar}/>,
   ];
 
   return(
@@ -430,23 +612,28 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
   </div>
 );
 
-const Passo6 = ({ nextStep, prevStep }) => (
+const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Unidade</h1>
     </div>
     <div className={Styles.container_Passo_Escolhas}>
 
-      <div className={Styles.divSelect}>
-        <select id="escolha_unidade" name="escolha_unidade" className={Styles.select}>
-          <option value="" selected disabled>Selecionar</option>
-          <option value="unidade1">Unidade 1</option>
-          <option value="unidade2">Unidade 2</option>
-          <option value="unidade3">Unidade 3</option>
-          <option value="unidade4">Unidade 4</option>
-          <option value="unidade5">Unidade 5</option>
-          <option value="unidade6">Unidade 6</option>
-        </select>
+    <div className={Styles.divSelect}>
+                <select
+                    id="escolha_unidade"
+                    name="escolha_unidade"
+                    className={Styles.select}
+                    value={selectedUnidade}
+                    onChange={(e) => setSelectedUnidade(e.target.value)}
+                >
+                    <option value="" disabled>Selecionar Unidade</option>
+                    {unidades.map(unidade => (
+                        <option key={unidade.id_unidade} value={unidade.id_unidade}>
+                            {unidade.nome_unidade}
+                        </option>
+                    ))}
+                </select>
       </div>
 
       <div className={Styles.divBotoes}>
@@ -463,23 +650,29 @@ const Passo6 = ({ nextStep, prevStep }) => (
   </div>
 );
 
-const Passo7 = ({ nextStep, prevStep }) => (
+const Passo7 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
     </div>
     <div className={Styles.container_Passo_Escolhas}>
 
-      <div className={Styles.divSelect}>
-        <select id="escolha_turma" name="escolha_turma" className={Styles.select}>
-          <option value="" selected disabled>Selecionar</option>
-          <option value="turma1">Lins DEC Adulto 15:30</option>
-          <option value="turma2">Turma 2</option>
-          <option value="turma3">Turma 3</option>
-          <option value="turma4">Turma 4</option>
-          <option value="turma5">Turma 5</option>
-          <option value="turma6">Turma 6</option>
-        </select>
+    <div className={Styles.divSelect}>
+                <select
+                    id="escolha_turma"
+                    name="escolha_turma"
+                    className={Styles.select}
+                    value={selectedTurma}
+                    onChange={(e) => setSelectedTurma(e.target.value)}
+                    disabled={!turmas.length} // Desabilita se não houver turmas disponíveis
+                >
+                    <option value="" disabled>Selecionar Turma</option>
+                    {turmas.map(turma => (
+                        <option key={turma.id_turma} value={turma.id_turma}>
+                            {turma.nome_turma}
+                        </option>
+                    ))}
+                </select>
       </div>
 
       <div className={Styles.divBotoes}>
@@ -496,7 +689,7 @@ const Passo7 = ({ nextStep, prevStep }) => (
   </div>
 );
 
-const Passo8 = ({ nextStep, prevStep }) => (
+const Passo8 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento}) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Informações sobre o Pagamento</h1>
@@ -506,13 +699,16 @@ const Passo8 = ({ nextStep, prevStep }) => (
       <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
         <div className={Styles.opcoes}>
-          <input type="radio" id="mensal" name="plano" value="mensal" />
+          <input type="radio" id="mensal" name="plano" value="mensal" checked={plano === 'mensal'} onChange={(e) =>
+                setPlano(e.target.value)}/>
           <label htmlFor="mensal" className={Styles.escolha}>Pacote<br />Mensal</label>
 
-          <input type="radio" id="semestral" name="plano" value="semestral" />
+          <input type="radio" id="semestral" name="plano" value="semestral" checked={plano === 'semestral'} onChange={(e) =>
+                setPlano(e.target.value)}/>
           <label htmlFor="semestral" className={Styles.escolha}>Pacote<br />6 meses</label>
 
-          <input type="radio" id="anual" name="plano" value="anual" />
+          <input type="radio" id="anual" name="plano" value="anual"  checked={plano === 'anual'} onChange={(e) =>
+                setPlano(e.target.value)}/>
           <label htmlFor="anual" className={Styles.escolha}>Pacote<br />12 meses</label>
         </div>
       </div>
@@ -520,13 +716,16 @@ const Passo8 = ({ nextStep, prevStep }) => (
       <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
         <div className={Styles.opcoes}>
-          <input type="radio" id="10" name="data" value="10" />
+          <input type="radio" id="10" name="data" value="10" checked={d_Vencimento === '10'} onChange={(e) =>
+                setD_Vencimento(e.target.value)}/>
           <label htmlFor="10" className={Styles.escolha}>10</label>
   
-          <input type="radio" id="20" name="data" value="20" />
+          <input type="radio" id="20" name="data" value="20" checked={d_Vencimento === '20'} onChange={(e) =>
+                setD_Vencimento(e.target.value)}/>
           <label htmlFor="20" className={Styles.escolha}>20</label>
   
-          <input type="radio" id="30" name="data" value="30" />
+          <input type="radio" id="30" name="data" value="30" checked={d_Vencimento === '30'} onChange={(e) =>
+                setD_Vencimento(e.target.value)}/>
           <label htmlFor="30" className={Styles.escolha}>30</label>
         </div>
       </div>
@@ -545,7 +744,7 @@ const Passo8 = ({ nextStep, prevStep }) => (
   </div>
 );
 
-const Passo9 = ({ prevStep }) => (
+const Passo9 = ({ prevStep, cadastrar }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>
@@ -573,7 +772,7 @@ const Passo9 = ({ prevStep }) => (
           <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
           Anterior
         </button>
-        <button type="button"  className={Styles.button}>
+        <button type="button"  className={Styles.button} onClick={cadastrar}>
           Finalizar Cadastro
           <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         </button>

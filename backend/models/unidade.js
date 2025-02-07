@@ -10,20 +10,20 @@ async function readUnidade() {
     }
 }
 
-async function createUnidade(nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco) {
+async function createUnidade(nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, tipo) {
     try {
-        await db.query('INSERT INTO unidade (nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco) VALUES (?, ?, ?, ?, ?, ?)', 
-                      [nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco]);
+        await db.query('INSERT INTO unidade (nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, tipo) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+                      [nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, tipo]);
     } catch (err) {
         console.error('Erro ao criar registro:', err);
         throw new Error('Erro interno do servidor');
     }
 }
 
-async function updateUnidade(id_unidade, nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco) {
+async function updateUnidade(id_unidade, nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, tipo) {
     try {
-        await db.query('UPDATE unidade SET nome_unidade = ?, cnpj_unidade = ?, telefone_unidade = ?, email_unidade = ?, mais_contatos = ?, id_endereco = ? WHERE id_unidade = ?', 
-                      [nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_unidade]);
+        await db.query('UPDATE unidade SET nome_unidade = ?, cnpj_unidade = ?, telefone_unidade = ?, email_unidade = ?, mais_contatos = ?, id_endereco = ?, tipo = ? WHERE id_unidade = ?', 
+                      [nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, id_unidade, tipo]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');
