@@ -84,6 +84,26 @@ export default function Form(){
   const [selectedUnidade, setSelectedUnidade] = useState("");
   const [selectedTurma, setSelectedTurma] = useState("");
 
+  // State de contrato
+  const [aceitouContrato, setAceitouContrato] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setAceitouContrato(event.target.checked);
+  };
+
+  // Função para verificar se os campos foram preenchidos
+  const areAllFieldsFilled = (fields) => {
+    const emptyFields = Object.entries(fields)
+      .filter(([key, value]) => value.trim() === "")
+      .map(([key]) => key);
+
+    if (emptyFields.length === 0) {
+      return true; 
+    }
+
+    return `Os seguintes campos estão vazios: ${emptyFields.join(", ")}`;
+  };
+
   const nextStep = () => {
     setStep((prevStep) => {
       if (vdd) { // Maior de idade
@@ -389,7 +409,10 @@ export default function Form(){
       id_turma: parseInt(selectedTurma)
     });
 
-    console.log(responseAlunoHasTurma);
+    if(responseAlunoHasTurma){
+      alert('Cadastro concluído!');
+      window.location.reload();
+    }
 
   }
 
@@ -397,31 +420,31 @@ export default function Form(){
       <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail} 
         cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg} 
         telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento} 
-        mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep} />,
+        mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled}/>,
       
       <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1} 
         cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
-        telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} />,
+        telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} areAllFieldsFilled={areAllFieldsFilled}/>,
       
       <Passo3 prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2} 
         cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
-        telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} />,
+        telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled}/>,
       
       <Passo4 nextStep={nextStep} prevStep={prevStep} nomeFin={nomeFin} setNomeFin={setNomeFin} emailFin={emailFin} setEmailFin={setEmailFin} 
         cpfFin={cpfFin} setCpfFin={setCpfFin} generoFin={generoFin} setGeneroFin={setGeneroFin} rgFin={rgFin} setRgFin={setRgFin}
-        telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} booleanFin={booleanFin} setBooleanFin={setBooleanFin} />,
+        telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} booleanFin={booleanFin} setBooleanFin={setBooleanFin} areAllFieldsFilled={areAllFieldsFilled}/>,
         
       <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} 
         bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
-        nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} />,
+        nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled}/>,
 
-      <Passo6 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}/>,
+      <Passo6 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} areAllFieldsFilled={areAllFieldsFilled}/>,
 
-      <Passo7 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} />,
+      <Passo7 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} areAllFieldsFilled={areAllFieldsFilled}/>,
 
-      <Passo8 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} setD_Vencimento={setD_Vencimento}/>,
+      <Passo8 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled}/>,
 
-      <Passo9 prevStep={prevStep} cadastrar={cadastrar}/>,
+      <Passo9 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} handleCheckboxChange={handleCheckboxChange}/>,
   ];
 
   return(
@@ -447,7 +470,7 @@ export default function Form(){
 }
 
 
-const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEmail, cpf, setCpf, genero, setGenero, rg, setRg, telefone, setTelefone, nascimento, setNascimento, mao_dominante, setMao_Dominante }) => (
+const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEmail, cpf, setCpf, genero, setGenero, rg, setRg, telefone, setTelefone, nascimento, setNascimento, mao_dominante, setMao_Dominante, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Dados do Aluno</h1>
@@ -466,12 +489,17 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
       <DC value={mao_dominante} setValue={setMao_Dominante}/>
 
       <button type="button" onClick={() => {
-        let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
-        if (idade >= 18) {
-          setStep(3); // Se maior de idade, pula para o passo 4
-        } else {
-          nextStep(); // Continua normalmente se menor de idade
-        }
+          let camposPreenchidos = areAllFieldsFilled([nome, email, cpf, genero, rg, telefone, nascimento, mao_dominante])
+          if(camposPreenchidos == true){
+            let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
+            if (idade >= 18) {
+              setStep(3); // Se maior de idade, pula para o passo 4
+            } else {
+            nextStep(); // Continua normalmente se menor de idade
+          };
+          }else{
+            alert('Preencha os campos obrigatórios!')
+          }
       }} className={Styles.button}>
         Próximo
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
@@ -480,7 +508,7 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
   </div>
 );
 
-const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEmailResp1, cpfResp1, setCpfResp1, generoResp1, setGeneroResp1, rgResp1, setRgResp1, telefoneResp1, setTelefoneResp1 }) => (
+const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEmailResp1, cpfResp1, setCpfResp1, generoResp1, setGeneroResp1, rgResp1, setRgResp1, telefoneResp1, setTelefoneResp1, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Dados do Responsável 1</h1>
@@ -499,7 +527,12 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         Anterior
       </button>
-      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+      <button type="button" onClick={() => { 
+        if(areAllFieldsFilled([nomeResp1, emailResp1, cpfResp1, generoResp1, rgResp1, telefoneResp1]) == true){
+          nextStep()
+        }else{
+          alert('Preencha os campos obrigatórios!')
+        }}} className={Styles.button}>
         Próximo
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
       </button>
@@ -507,7 +540,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
   </div>
 );
 
-const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2 }) => (
+const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2}) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Dados do Responsável 2</h1>
@@ -578,7 +611,7 @@ const Passo4 = ({ nextStep, prevStep, booleanFin, setBooleanFin, nomeFin, setNom
   </div>
 );
 
-const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero }) => (
+const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
@@ -604,7 +637,13 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         Anterior
       </button>
-      <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+      <button type="button" onClick={() => {
+          if(areAllFieldsFilled([cep, uf, cidade, bairro, logradouro, numero]) == true){
+            nextStep()
+          }else{
+            alert('Preencha os campos obrigatórios!');
+          }
+        }} className={Styles.button}>
         Próximo
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
       </button>
@@ -612,7 +651,7 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
   </div>
 );
 
-const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade }) => (
+const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Unidade</h1>
@@ -641,7 +680,13 @@ const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
           <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
           Anterior
         </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+        <button type="button" onClick={() => {
+          if(areAllFieldsFilled([selectedUnidade]) == true){
+            nextStep()
+          }else{
+            alert('Preencha os campos obrigatórios!');
+          }
+          }} className={Styles.button}>
           Próximo
           <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         </button>
@@ -650,7 +695,7 @@ const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
   </div>
 );
 
-const Passo7 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma }) => (
+const Passo7 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
@@ -680,7 +725,13 @@ const Passo7 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma })
           <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
           Anterior
         </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+        <button type="button" onClick={() => {
+          if(areAllFieldsFilled([selectedTurma]) == true){
+            nextStep()
+          }else{
+            alert('Preencha os campos obrigatórios!');
+          }
+          }} className={Styles.button}>
           Próximo
           <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         </button>
@@ -735,7 +786,13 @@ const Passo8 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencim
           <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
           Anterior
         </button>
-        <button type="button" onClick={() => {nextStep()}} className={Styles.button}>
+        <button type="button" onClick={() => {
+          if(plano != '' && d_Vencimento !=''){
+            nextStep()
+          }else{
+            alert('Preencha os campos obrigatórios!');
+          }
+          }} className={Styles.button}>
           Próximo
           <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         </button>
@@ -744,7 +801,7 @@ const Passo8 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencim
   </div>
 );
 
-const Passo9 = ({ prevStep, cadastrar }) => (
+const Passo9 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>
@@ -762,7 +819,7 @@ const Passo9 = ({ prevStep, cadastrar }) => (
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
 
         <div className={Styles.checkboxContainer}>
-          <input type="checkbox" id="aceitarContrato" />
+          <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange}/>
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>
       </p>
@@ -772,7 +829,13 @@ const Passo9 = ({ prevStep, cadastrar }) => (
           <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
           Anterior
         </button>
-        <button type="button"  className={Styles.button} onClick={cadastrar}>
+        <button type="button"  className={Styles.button} onClick={() => {
+          if(aceitouContrato == true){
+            cadastrar();
+          }else{
+            alert('Leia e aceite o contrato para finalizar o cadastro');
+          }
+        }}>
           Finalizar Cadastro
           <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false"/>
         </button>
