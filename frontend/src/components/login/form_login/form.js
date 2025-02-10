@@ -10,7 +10,10 @@ export default function form(){
   return(
     <div>
         <div className={Styles.backgroundContainer}>
-            <img src={require('../../../imgs/background1.png')} alt="Background" className={Styles.responsiveImg} draggable="false"/>
+            <img src={require('../../../imgs/backgroundDesktop/backNormal.png')} 
+              alt="Background" className={Styles.responsiveImg} id={Styles.backDesk} draggable="false"/>
+            <img src={require('../../../imgs/backgroundMobile/backNormalMob.png')} 
+              alt="Background" className={Styles.responsiveImg} id={Styles.backMob} draggable="false"/>
         </div>
         
         <div className={Styles.container_formlogin}>

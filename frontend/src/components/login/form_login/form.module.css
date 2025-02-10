@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     z-index: -1;
 }
@@ -57,14 +57,34 @@
     z-index: -1;
 }
 
-@media screen and (min-width:  320px) {
+@media screen and (min-width: 320px) {
     .form {
         padding: 2.4rem;
     }
 }
 
-@media screen and (min-width:  400px) {
+@media screen and (min-width: 400px) {
     .form {
         padding: 3.4rem;
+    }
+}
+
+@media screen and (max-width: 1080px){
+    #backMob{
+        display: block;
+    }
+
+    #backDesk{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1080px){
+    #backMob{
+        display: none;
+    }
+    
+    #backDesk{
+        display: block;
     }
 }
