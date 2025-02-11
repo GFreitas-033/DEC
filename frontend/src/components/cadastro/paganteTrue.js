@@ -72,7 +72,6 @@ export default function Form() {
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
   const [numero, setNumero] = useState("");
-  const [id_endereco, setEndereco] = useState(null);
 
   // States do Pagamento
   const [plano, setPlano] = useState("");
@@ -226,8 +225,6 @@ export default function Form() {
   //   return `${year}-${month}-${day}`;
   // };
 
-
-
   const handleBuscarCep = (cep) => {
     if (cep.length < 9) {
       setLogradouro("");
@@ -315,7 +312,7 @@ export default function Form() {
     let idFin;
     let responsePessoa;
 
-    if (nomeFin != '' && cpfFin != '' && rgFin != '' && emailFin != '' && telefoneFin != '' && generoFin != '') {
+    if (nomeFin !== '' && cpfFin !== '' && rgFin !== '' && emailFin !== '' && telefoneFin !== '' && generoFin !== '') {
       responsePessoa = await axios.post('/api/pessoa', {
         nome_pessoa: nomeFin,
         dt_nasc_pessoa: '1999-01-01',
@@ -333,7 +330,7 @@ export default function Form() {
       });
     }
 
-    if (nomeResp1 != '' && cpfResp1 != '' && rgResp1 != '' && emailResp1 != '' && telefoneResp1 != '' && generoResp1 != '') {
+    if (nomeResp1 !== '' && cpfResp1 !== '' && rgResp1 !== '' && emailResp1 !== '' && telefoneResp1 !== '' && generoResp1 !== '') {
       responsePessoa = await axios.post('/api/pessoa', {
         nome_pessoa: nomeResp1,
         dt_nasc_pessoa: '1999-01-01',
@@ -352,7 +349,7 @@ export default function Form() {
     }
 
 
-    if (nomeResp2 != '' && cpfResp2 != '' && rgResp2 != '' && emailResp2 != '' && telefoneResp2 != '' && generoResp2 != '') {
+    if (nomeResp2 !== '' && cpfResp2 !== '' && rgResp2 !== '' && emailResp2 !== '' && telefoneResp2 !== '' && generoResp2 !== '') {
       responsePessoa = await axios.post('/api/pessoa', {
         nome_pessoa: nomeResp2,
         dt_nasc_pessoa: '1999-01-01',
@@ -381,7 +378,7 @@ export default function Form() {
       id_endereco: responseEndereco.id,
     })
     responsePessoa = responsePessoa.data;
-    if (cpfResp1 == '') {
+    if (cpfResp1 === '') {
       let responseAluno = await axios.post('/api/aluno', {
         id_pessoa: responsePessoa.id,
         destro_canhoto: mao_dominante,
@@ -494,7 +491,7 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
 
       <button type="button" onClick={() => {
         let camposPreenchidos = areAllFieldsFilled([nome, email, cpf, genero, rg, telefone, nascimento, mao_dominante])
-        if (camposPreenchidos == true) {
+        if (camposPreenchidos === true) {
           let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
           if (idade >= 18) {
             setStep(3); // Se maior de idade, pula para o passo 4
@@ -532,7 +529,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
         Anterior
       </button>
       <button type="button" onClick={() => {
-        if (areAllFieldsFilled([nomeResp1, emailResp1, cpfResp1, generoResp1, rgResp1, telefoneResp1]) == true) {
+        if (areAllFieldsFilled([nomeResp1, emailResp1, cpfResp1, generoResp1, rgResp1, telefoneResp1]) === true) {
           nextStep()
         } else {
           alert('Preencha os campos obrigatórios!')
@@ -643,7 +640,7 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
         Anterior
       </button>
       <button type="button" onClick={() => {
-        if (areAllFieldsFilled([cep, uf, cidade, bairro, logradouro, numero]) == true) {
+        if (areAllFieldsFilled([cep, uf, cidade, bairro, logradouro, numero]) === true) {
           pesquisarUnidades();
           nextStep();
         } else {
@@ -687,7 +684,7 @@ const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
           Anterior
         </button>
         <button type="button" onClick={() => {
-          if (areAllFieldsFilled([selectedUnidade]) == true) {
+          if (areAllFieldsFilled([selectedUnidade]) === true) {
             nextStep()
           } else {
             alert('Preencha os campos obrigatórios!');
@@ -732,7 +729,7 @@ const Passo7 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
           Anterior
         </button>
         <button type="button" onClick={() => {
-          if (areAllFieldsFilled([selectedTurma]) == true) {
+          if (areAllFieldsFilled([selectedTurma]) === true) {
             nextStep()
           } else {
             alert('Preencha os campos obrigatórios!');
@@ -793,7 +790,7 @@ const Passo8 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencim
           Anterior
         </button>
         <button type="button" onClick={() => {
-          if (plano != '' && d_Vencimento != '') {
+          if (plano !== '' && d_Vencimento !== '') {
             nextStep()
           } else {
             alert('Preencha os campos obrigatórios!');
@@ -836,7 +833,7 @@ const Passo9 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, hand
           Anterior
         </button>
         <button type="button" className={Styles.button} onClick={() => {
-          if (aceitouContrato == true) {
+          if (aceitouContrato === true) {
             cadastrar();
           } else {
             alert('Leia e aceite o contrato para finalizar o cadastro');
