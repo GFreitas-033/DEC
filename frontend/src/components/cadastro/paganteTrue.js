@@ -57,13 +57,13 @@ export default function Form() {
   const [telefoneResp2, setTelefoneResp2] = useState("");
 
   // States do Responsavel Financeiro
+  const [son, setSon] = useState();
   const [nomeFin, setNomeFin] = useState("");
   const [emailFin, setEmailFin] = useState("");
   const [cpfFin, setCpfFin] = useState("");
   const [generoFin, setGeneroFin] = useState("");
   const [rgFin, setRgFin] = useState("");
   const [telefoneFin, setTelefoneFin] = useState("");
-  const [booleanFin, setBooleanFin] = useState(true);
 
   // States do Endereço
   const [cep, setCep] = useState("");
@@ -428,21 +428,23 @@ export default function Form() {
       cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
       telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo4 nextStep={nextStep} prevStep={prevStep} nomeFin={nomeFin} setNomeFin={setNomeFin} emailFin={emailFin} setEmailFin={setEmailFin}
-      cpfFin={cpfFin} setCpfFin={setCpfFin} generoFin={generoFin} setGeneroFin={setGeneroFin} rgFin={rgFin} setRgFin={setRgFin}
-      telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} booleanFin={booleanFin} setBooleanFin={setBooleanFin} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo4 nextStep={nextStep} prevStep={prevStep} son={son} setSon={setSon} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
+    <Passo5 nextStep={nextStep} prevStep={prevStep} nomeFin={nomeFin} setNomeFin={setNomeFin} emailFin={emailFin} setEmailFin={setEmailFin}
+      cpfFin={cpfFin} setCpfFin={setCpfFin} generoFin={generoFin} setGeneroFin={setGeneroFin} rgFin={rgFin} setRgFin={setRgFin}
+      telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} son={son} areAllFieldsFilled={areAllFieldsFilled} />,
+
+    <Passo6 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
       bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
       nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} pesquisarUnidades={pesquisarUnidades} />,
 
-    <Passo6 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo7 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo8 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo8 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo9 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo9 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} handleCheckboxChange={handleCheckboxChange} />,
+    <Passo10 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} handleCheckboxChange={handleCheckboxChange} />,
   ];
 
   return (
@@ -571,24 +573,47 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
   </div>
 );
 
-const Passo4 = ({ nextStep, prevStep, booleanFin, setBooleanFin, nomeFin, setNomeFin, emailFin, setEmailFin, cpfFin, setCpfFin, generoFin, setGeneroFin, rgFin, setRgFin, telefoneFin, setTelefoneFin }) => (
+const Passo4 = ({ nextStep, prevStep, son, setSon }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Responsável Financeiro</h1>
     </div>
 
     <div className={Styles.checkboxContainer}>
-      <input
-        type="checkbox"
-        checked={!booleanFin}
-        id="responsavelFin"
-        onChange={() => setBooleanFin(!booleanFin)}
-      />
-      <label htmlFor="responsavelFin">Você será o Responsável Financeiro?</label>
+      <label className={Styles.labelTextCenter}>Você será o Responsável Financeiro?</label>
+      <div className={Styles.SimOuNao}>
+        <input type="radio" id="sim" name="sim" value="sim" checked={son === 'sim'} onChange={(e) =>
+          setSon(e.target.value)} />
+        <label htmlFor="sim" className={Styles.escolha}>Sim</label>
+        
+        <input type="radio" id="nao" name="nao" value="nao" checked={son === 'nao'} onChange={(e) =>
+          setSon(e.target.value)} />
+        <label htmlFor="nao" className={Styles.escolha}>Não</label>
+      </div>
     </div>
 
     <div className={Styles.container_inputs}>
-      {booleanFin && (
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => { nextStep() }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
+    </div>
+  </div>
+);
+
+const Passo5 = ({ nextStep, prevStep, son, nomeFin, setNomeFin, emailFin, setEmailFin, cpfFin, setCpfFin, generoFin, setGeneroFin, rgFin, setRgFin, telefoneFin, setTelefoneFin }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Responsável Financeiro</h1>
+    </div>
+
+    <div className={Styles.container_inputs}>
+      
+      {son && (
         <>
           <Nome value={nomeFin} setValue={setNomeFin} />
           <Email value={emailFin} setValue={setEmailFin} />
@@ -613,7 +638,7 @@ const Passo4 = ({ nextStep, prevStep, booleanFin, setBooleanFin, nomeFin, setNom
   </div>
 );
 
-const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
+const Passo6 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
@@ -654,7 +679,7 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
   </div>
 );
 
-const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled }) => (
+const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Unidade</h1>
@@ -698,7 +723,7 @@ const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
   </div>
 );
 
-const Passo7 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, areAllFieldsFilled }) => (
+const Passo8 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
@@ -743,7 +768,7 @@ const Passo7 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
   </div>
 );
 
-const Passo8 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento }) => (
+const Passo9 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Informações sobre o Pagamento</h1>
@@ -804,7 +829,7 @@ const Passo8 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencim
   </div>
 );
 
-const Passo9 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange }) => (
+const Passo10 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>
@@ -821,7 +846,7 @@ const Passo9 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, hand
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
 
-        <div className={Styles.checkboxContainer}>
+        <div className={Styles.contratoContainer}>
           <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>

@@ -666,7 +666,7 @@ const Passo9 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange }) 
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
 
-        <div className={Styles.checkboxContainer}>
+        <div className={Styles.contratoContainer}>
           <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>

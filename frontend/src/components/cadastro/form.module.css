@@ -178,14 +178,15 @@ input[type="radio"]:checked + label {
     margin: 1rem;
 }
 
-/* Estilo Passo 4 */
-.checkboxContainer{
-    margin-bottom: 2rem;
-    padding: 0 5rem;
-    user-select: none;
+/* Estilo Passo */
+.SimOuNao{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
 }
 
-/* Estilo do Passo 8 */
+/* Estilo do Passo */
 .container_Passo8{
     display: flex;
     flex-direction: column;
@@ -255,7 +256,7 @@ option{
     line-height: 1.5;
 }
 
-.checkboxContainer {
+.contratoContainer {
     display: flex;
     align-items: center;
     justify-content: center;
