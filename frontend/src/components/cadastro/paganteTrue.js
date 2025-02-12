@@ -418,11 +418,13 @@ export default function Form() {
     <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail}
       cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg}
       telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento}
-      mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} />,
+      mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep}
+      areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1}
-      cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
-      telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1}
+      setEmailResp1={setEmailResp1} cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1}
+      rgResp1={rgResp1} setRgResp1={setRgResp1} telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} 
+      areAllFieldsFilled={areAllFieldsFilled} />,
 
     <Passo3 prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2}
       cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
@@ -439,13 +441,17 @@ export default function Form() {
       nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} son={son} areAllFieldsFilled={areAllFieldsFilled} 
       pesquisarUnidades={pesquisarUnidades} />,
 
-    <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}
+      areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo8 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo8 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} 
+      areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo9 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo9 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} 
+      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo10 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} handleCheckboxChange={handleCheckboxChange} />,
+    <Passo10 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} 
+      handleCheckboxChange={handleCheckboxChange} />,
   ];
 
   return (
