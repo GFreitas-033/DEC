@@ -523,7 +523,7 @@ const Passo6 = ({ nextStep, prevStep, selectedUnidade, setSelectedUnidade, unida
   </div>
 );
 
-const Passo7 = ({ nextStep, prevStep, selectedTurma, setSelectedTurma, turmas, cadastrar }) => (
+const Passo7 = ({ prevStep, selectedTurma, setSelectedTurma, turmas, cadastrar }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>

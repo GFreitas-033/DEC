@@ -57,13 +57,13 @@ export default function Form() {
   const [telefoneResp2, setTelefoneResp2] = useState("");
 
   // States do Responsavel Financeiro
+  const [son, setSon] = useState("");
   const [nomeFin, setNomeFin] = useState("");
   const [emailFin, setEmailFin] = useState("");
   const [cpfFin, setCpfFin] = useState("");
   const [generoFin, setGeneroFin] = useState("");
   const [rgFin, setRgFin] = useState("");
   const [telefoneFin, setTelefoneFin] = useState("");
-  const [booleanFin, setBooleanFin] = useState(true);
 
   // States do Endereço
   const [cep, setCep] = useState("");
@@ -418,31 +418,40 @@ export default function Form() {
     <Passo1 nextStep={nextStep} nome={nome} setNome={setNome} email={email} setEmail={setEmail}
       cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg}
       telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento}
-      mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} />,
+      mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep}
+      areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1} setEmailResp1={setEmailResp1}
-      cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
-      telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1}
+      setEmailResp1={setEmailResp1} cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1}
+      rgResp1={rgResp1} setRgResp1={setRgResp1} telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} 
+      areAllFieldsFilled={areAllFieldsFilled} />,
 
     <Passo3 prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2}
       cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
       telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo4 nextStep={nextStep} prevStep={prevStep} nomeFin={nomeFin} setNomeFin={setNomeFin} emailFin={emailFin} setEmailFin={setEmailFin}
+    <Passo4 nextStep={nextStep} prevStep={prevStep} son={son} setSon={setSon} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} />,
+
+    <Passo5 nextStep={nextStep} prevStep={prevStep} nomeFin={nomeFin} setNomeFin={setNomeFin} emailFin={emailFin} setEmailFin={setEmailFin}
       cpfFin={cpfFin} setCpfFin={setCpfFin} generoFin={generoFin} setGeneroFin={setGeneroFin} rgFin={rgFin} setRgFin={setRgFin}
-      telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} booleanFin={booleanFin} setBooleanFin={setBooleanFin} areAllFieldsFilled={areAllFieldsFilled} />,
+      telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
+    <Passo6 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
       bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
-      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} pesquisarUnidades={pesquisarUnidades} />,
+      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} son={son} areAllFieldsFilled={areAllFieldsFilled} 
+      pesquisarUnidades={pesquisarUnidades} />,
 
-    <Passo6 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}
+      areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo7 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo8 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} 
+      areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo8 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo9 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} 
+      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo9 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} handleCheckboxChange={handleCheckboxChange} />,
+    <Passo10 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} 
+      handleCheckboxChange={handleCheckboxChange} />,
   ];
 
   return (
@@ -479,16 +488,12 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
     <div className={Styles.container_inputs}>
       <Nome value={nome} setValue={setNome} />
       <Email value={email} setValue={setEmail} />
-
       <CPF value={cpf} setValue={setCpf} />
       <Genero value={genero} setValue={setGenero} />
-
       <RG value={rg} setValue={setRg} />
       <Telefone value={telefone} setValue={setTelefone} />
-
       <DtNasc value={nascimento} setValue={setNascimento} />
       <DC value={mao_dominante} setValue={setMao_Dominante} />
-
       <button type="button" onClick={() => {
         let camposPreenchidos = areAllFieldsFilled([nome, email, cpf, genero, rg, telefone, nascimento, mao_dominante])
         if (camposPreenchidos === true) {
@@ -517,13 +522,12 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
     <div className={Styles.container_inputs}>
       <Nome value={nomeResp1} setValue={setNomeResp1} />
       <Email value={emailResp1} setValue={setEmailResp1} />
-
       <CPF value={cpfResp1} setValue={setCpfResp1} />
       <Genero value={generoResp1} setValue={setGeneroResp1} />
-
       <RG value={rgResp1} setValue={setRgResp1} />
       <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
-
+    </div>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
@@ -550,19 +554,18 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
     <div className={Styles.container_inputs}>
       <Nome value={nomeResp2} setValue={setNomeResp2} />
       <Email value={emailResp2} setValue={setEmailResp2} />
-
       <CPF value={cpfResp2} setValue={setCpfResp2} />
       <Genero value={generoResp2} setValue={setGeneroResp2} />
-
       <RG value={rgResp2} setValue={setRgResp2} />
       <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
-
+    </div>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
       </button>
       <button type="button" onClick={() => {
-        setStep(4);
+        setStep(5);
       }} className={Styles.button}>
         Próximo
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
@@ -571,36 +574,55 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
   </div>
 );
 
-const Passo4 = ({ nextStep, prevStep, booleanFin, setBooleanFin, nomeFin, setNomeFin, emailFin, setEmailFin, cpfFin, setCpfFin, generoFin, setGeneroFin, rgFin, setRgFin, telefoneFin, setTelefoneFin }) => (
+const Passo4 = ({ nextStep, prevStep, setStep, son, setSon }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Responsável Financeiro</h1>
     </div>
-
     <div className={Styles.checkboxContainer}>
-      <input
-        type="checkbox"
-        checked={!booleanFin}
-        id="responsavelFin"
-        onChange={() => setBooleanFin(!booleanFin)}
-      />
-      <label htmlFor="responsavelFin">Você será o Responsável Financeiro?</label>
+      <label className={Styles.labelTextCenter}>Você será o Responsável Financeiro?</label>
+      <div className={Styles.SimOuNao}>
+        <input type="radio" id="sim" name="sim" value="sim" checked={son === 'sim'} onChange={(e) =>
+          setSon(e.target.value)} />
+        <label htmlFor="sim" className={Styles.escolha}>Sim</label>
+        <input type="radio" id="nao" name="nao" value="nao" checked={son === 'nao'} onChange={(e) =>
+          setSon(e.target.value)} />
+        <label htmlFor="nao" className={Styles.escolha}>Não</label>
+      </div>
     </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => { 
+        if(son === 'sim'){
+          setStep(5);
+        }else if(son === 'nao'){
+          nextStep() 
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
+    </div>
+  </div>
+);
 
+const Passo5 = ({ nextStep, prevStep, nomeFin, setNomeFin, emailFin, setEmailFin, cpfFin, setCpfFin, generoFin, setGeneroFin, rgFin, setRgFin, telefoneFin, setTelefoneFin }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Responsável Financeiro</h1>
+    </div>
     <div className={Styles.container_inputs}>
-      {booleanFin && (
-        <>
-          <Nome value={nomeFin} setValue={setNomeFin} />
-          <Email value={emailFin} setValue={setEmailFin} />
-
-          <CPF value={cpfFin} setValue={setCpfFin} />
-          <Genero value={generoFin} setValue={setGeneroFin} />
-
-          <RG value={rgFin} setValue={setRgFin} />
-          <Telefone value={telefoneFin} setValue={setTelefoneFin} />
-        </>
-      )}
-
+      <Nome value={nomeFin} setValue={setNomeFin} />
+      <Email value={emailFin} setValue={setEmailFin} />
+      <CPF value={cpfFin} setValue={setCpfFin} />
+      <Genero value={generoFin} setValue={setGeneroFin} />
+      <RG value={rgFin} setValue={setRgFin} />
+      <Telefone value={telefoneFin} setValue={setTelefoneFin} />
+    </div>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
@@ -613,7 +635,7 @@ const Passo4 = ({ nextStep, prevStep, booleanFin, setBooleanFin, nomeFin, setNom
   </div>
 );
 
-const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
+const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
@@ -621,19 +643,22 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
     <div className={Styles.container_inputs}>
       <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
       <UF u={uf} />
-
       <Cidade c={cidade} />
       <Bairro b={bairro} />
-
       <Rua r={logradouro} />
       <Numero value={numero} setValue={setNumero} />
-
+    </div>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={() => {
         let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
         if (idade < 18) {
           setStep(2); // Se menor de idade, pula para o passo 3
         } else {
-          prevStep(); // Continua normalmente se maior de idade
+          if(son === 'sim'){
+            setStep(3); 
+          }else if(son === 'nao'){
+            prevStep();
+          }
         }
       }} className={Styles.button}>
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
@@ -654,13 +679,12 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
   </div>
 );
 
-const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled }) => (
+const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Unidade</h1>
     </div>
     <div className={Styles.container_Passo_Escolhas}>
-
       <div className={Styles.divSelect}>
         <select
           id="escolha_unidade"
@@ -677,34 +701,32 @@ const Passo6 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
           ))}
         </select>
       </div>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-          Anterior
-        </button>
-        <button type="button" onClick={() => {
-          if (areAllFieldsFilled([selectedUnidade]) === true) {
-            nextStep()
-          } else {
-            alert('Preencha os campos obrigatórios!');
-          }
-        }} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        </button>
-      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        if (areAllFieldsFilled([selectedUnidade]) === true) {
+          nextStep()
+        } else {
+          alert('Preencha os campos obrigatórios!');
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
     </div>
   </div>
 );
 
-const Passo7 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, areAllFieldsFilled }) => (
+const Passo8 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
     </div>
     <div className={Styles.container_Passo_Escolhas}>
-
       <div className={Styles.divSelect}>
         <select
           id="escolha_turma"
@@ -722,34 +744,32 @@ const Passo7 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
           ))}
         </select>
       </div>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-          Anterior
-        </button>
-        <button type="button" onClick={() => {
-          if (areAllFieldsFilled([selectedTurma]) === true) {
-            nextStep()
-          } else {
-            alert('Preencha os campos obrigatórios!');
-          }
-        }} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        </button>
-      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        if (areAllFieldsFilled([selectedTurma]) === true) {
+          nextStep()
+        } else {
+          alert('Preencha os campos obrigatórios!');
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
     </div>
   </div>
 );
 
-const Passo8 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento }) => (
+const Passo9 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
-      <h1>Informações sobre o Pagamento</h1>
+      <h1>Informações sobre<br/> Pagamento</h1>
     </div>
     <div className={Styles.container_Passo8}>
-
       <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
         <div className={Styles.opcoes}>
@@ -766,50 +786,45 @@ const Passo8 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencim
           <label htmlFor="anual" className={Styles.escolha}>Pacote<br />12 meses</label>
         </div>
       </div>
-
       <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
         <div className={Styles.opcoes}>
           <input type="radio" id="10" name="data" value="10" checked={d_Vencimento === '10'} onChange={(e) =>
             setD_Vencimento(e.target.value)} />
           <label htmlFor="10" className={Styles.escolha}>10</label>
-
           <input type="radio" id="20" name="data" value="20" checked={d_Vencimento === '20'} onChange={(e) =>
             setD_Vencimento(e.target.value)} />
           <label htmlFor="20" className={Styles.escolha}>20</label>
-
           <input type="radio" id="30" name="data" value="30" checked={d_Vencimento === '30'} onChange={(e) =>
             setD_Vencimento(e.target.value)} />
           <label htmlFor="30" className={Styles.escolha}>30</label>
         </div>
       </div>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-          Anterior
-        </button>
-        <button type="button" onClick={() => {
-          if (plano !== '' && d_Vencimento !== '') {
-            nextStep()
-          } else {
-            alert('Preencha os campos obrigatórios!');
-          }
-        }} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        </button>
-      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        if (plano !== '' && d_Vencimento !== '') {
+          nextStep()
+        } else {
+          alert('Preencha os campos obrigatórios!');
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
     </div>
   </div>
 );
 
-const Passo9 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange }) => (
+const Passo10 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>
     </div>
-
     <div className={Styles.divContrato}>
       <p className={Styles.contrato}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
@@ -820,29 +835,27 @@ const Passo9 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, hand
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-
-        <div className={Styles.checkboxContainer}>
+        <div className={Styles.contratoContainer}>
           <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>
       </p>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-          Anterior
-        </button>
-        <button type="button" className={Styles.button} onClick={() => {
-          if (aceitouContrato === true) {
-            cadastrar();
-          } else {
-            alert('Leia e aceite o contrato para finalizar o cadastro');
-          }
-        }}>
-          Finalizar Cadastro
-          <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        </button>
-      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" className={Styles.button} onClick={() => {
+        if (aceitouContrato === true) {
+          cadastrar();
+        } else {
+          alert('Leia e aceite o contrato para finalizar o cadastro');
+        }
+      }}>
+        Finalizar Cadastro
+        <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
     </div>
   </div>
 );
