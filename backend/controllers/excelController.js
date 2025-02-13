@@ -134,7 +134,8 @@ const processExcelAndSendData = async (filePath) => {
                     const dataAluno = {
                         id_pessoa: pessoaResponse.id,
                         destro_canhoto: "",
-                        dt_inicio: dataMatriculaSQL
+                        dt_inicio: dataMatriculaSQL,
+                        tipo_aluno: "default",
                     };
 
                     const alunoResponse = await postData(urlAluno, dataAluno);
@@ -159,5 +160,5 @@ const processExcelAndSendData = async (filePath) => {
     }
 };
 
-const filePath = 'backend/excel.xlsx';
+const filePath = 'excel.xlsx';
 processExcelAndSendData(filePath);
