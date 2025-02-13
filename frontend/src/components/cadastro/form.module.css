@@ -56,13 +56,11 @@
     width: 30rem;
     padding: 0.3rem;
     background-color: #000;
-    border: 0;
     color: #fff;
     border-radius: 0.4rem;
     margin-top: 0.5rem;
     margin-bottom: 2rem;
     text-align: center;
-    font-size: 0.9rem;
 }
 
 .centro{
@@ -89,6 +87,33 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 0 1rem;
     }
+
+    .textcenter{
+        font-size: 0.9rem;
+    }
+
+    .divRadio{
+        margin: 0 1.2rem 1.6rem 1.2rem;
+    }
+    
+    .labelTextCenter{
+        display: flex;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .opcoes{
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+    }
+    
+    .escolha{
+      width: 8rem;
+      height: 3.5rem;
+      font-size: 1rem;
+    }
 }
 
 @media screen and (max-width: 1080px) {
@@ -105,8 +130,38 @@
         flex-direction: column;
     }
 
+    .textcenter{
+        font-size: 0.8rem;
+    }
+
     button{
         margin-left: 0.2rem;
+        margin-bottom: 1rem;
+    }
+
+
+    /* Estilo Radio */
+    .divRadio{
+        margin: 0 1.2rem 1.6rem 1.2rem;
+    }
+    
+    .labelTextCenter{
+        display: flex;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .opcoes{
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+    }
+    
+    .escolha{
+      width: 5.6rem;
+      height: 3rem;
+      font-size: 0.9rem;
     }
 }
 
@@ -136,29 +191,28 @@ input[type="radio"]:checked + label {
 
 .opcoes{
   display: flex;
+  justify-content: space-around;
+  text-align: center;
 }
 
 .escolha{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 9rem;
-  height: 3.5rem;
   background-color: #fff;
   border-radius: 0.8rem;
   cursor: pointer;
-  font-size: 1rem;
+  border: #000 solid 0.1rem;
 }
-
 
 /* Estilo Botão */
 .button{
-    width: 95%;
+    width: 15rem;
     background-color: #EFBF14;
     color: #000;
     border: none;
     border-radius: 2rem;
-    padding: 0.5rem 0 0.5rem 0;
+    padding: 0.5rem 0;
 
     display: flex;
     justify-content: center;
@@ -170,12 +224,12 @@ input[type="radio"]:checked + label {
     background-color: #efaa14;
 }
 
-.divBotoes{
+.divBotao{
     display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
     width: 100%;
-}
-.divBotoes>button{
-    margin: 1rem;
+    margin-top: 2rem;
 }
 
 /* Estilo Passo */

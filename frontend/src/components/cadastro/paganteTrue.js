@@ -488,16 +488,12 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
     <div className={Styles.container_inputs}>
       <Nome value={nome} setValue={setNome} />
       <Email value={email} setValue={setEmail} />
-
       <CPF value={cpf} setValue={setCpf} />
       <Genero value={genero} setValue={setGenero} />
-
       <RG value={rg} setValue={setRg} />
       <Telefone value={telefone} setValue={setTelefone} />
-
       <DtNasc value={nascimento} setValue={setNascimento} />
       <DC value={mao_dominante} setValue={setMao_Dominante} />
-
       <button type="button" onClick={() => {
         let camposPreenchidos = areAllFieldsFilled([nome, email, cpf, genero, rg, telefone, nascimento, mao_dominante])
         if (camposPreenchidos === true) {
@@ -526,13 +522,12 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
     <div className={Styles.container_inputs}>
       <Nome value={nomeResp1} setValue={setNomeResp1} />
       <Email value={emailResp1} setValue={setEmailResp1} />
-
       <CPF value={cpfResp1} setValue={setCpfResp1} />
       <Genero value={generoResp1} setValue={setGeneroResp1} />
-
       <RG value={rgResp1} setValue={setRgResp1} />
       <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
-
+    </div>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
@@ -559,13 +554,12 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
     <div className={Styles.container_inputs}>
       <Nome value={nomeResp2} setValue={setNomeResp2} />
       <Email value={emailResp2} setValue={setEmailResp2} />
-
       <CPF value={cpfResp2} setValue={setCpfResp2} />
       <Genero value={generoResp2} setValue={setGeneroResp2} />
-
       <RG value={rgResp2} setValue={setRgResp2} />
       <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
-
+    </div>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
@@ -585,21 +579,18 @@ const Passo4 = ({ nextStep, prevStep, setStep, son, setSon }) => (
     <div className={Styles.textcenter}>
       <h1>Responsável Financeiro</h1>
     </div>
-
     <div className={Styles.checkboxContainer}>
       <label className={Styles.labelTextCenter}>Você será o Responsável Financeiro?</label>
       <div className={Styles.SimOuNao}>
         <input type="radio" id="sim" name="sim" value="sim" checked={son === 'sim'} onChange={(e) =>
           setSon(e.target.value)} />
         <label htmlFor="sim" className={Styles.escolha}>Sim</label>
-        
         <input type="radio" id="nao" name="nao" value="nao" checked={son === 'nao'} onChange={(e) =>
           setSon(e.target.value)} />
         <label htmlFor="nao" className={Styles.escolha}>Não</label>
       </div>
     </div>
-
-    <div className={Styles.container_inputs}>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
@@ -623,17 +614,15 @@ const Passo5 = ({ nextStep, prevStep, nomeFin, setNomeFin, emailFin, setEmailFin
     <div className={Styles.textcenter}>
       <h1>Responsável Financeiro</h1>
     </div>
-
     <div className={Styles.container_inputs}>
       <Nome value={nomeFin} setValue={setNomeFin} />
       <Email value={emailFin} setValue={setEmailFin} />
-
       <CPF value={cpfFin} setValue={setCpfFin} />
       <Genero value={generoFin} setValue={setGeneroFin} />
-
       <RG value={rgFin} setValue={setRgFin} />
       <Telefone value={telefoneFin} setValue={setTelefoneFin} />
-
+    </div>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
         <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         Anterior
@@ -654,13 +643,12 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
     <div className={Styles.container_inputs}>
       <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
       <UF u={uf} />
-
       <Cidade c={cidade} />
       <Bairro b={bairro} />
-
       <Rua r={logradouro} />
       <Numero value={numero} setValue={setNumero} />
-
+    </div>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={() => {
         let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
         if (idade < 18) {
@@ -697,7 +685,6 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
       <h1>Escolha a Sua Unidade</h1>
     </div>
     <div className={Styles.container_Passo_Escolhas}>
-
       <div className={Styles.divSelect}>
         <select
           id="escolha_unidade"
@@ -714,23 +701,22 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
           ))}
         </select>
       </div>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-          Anterior
-        </button>
-        <button type="button" onClick={() => {
-          if (areAllFieldsFilled([selectedUnidade]) === true) {
-            nextStep()
-          } else {
-            alert('Preencha os campos obrigatórios!');
-          }
-        }} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        </button>
-      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        if (areAllFieldsFilled([selectedUnidade]) === true) {
+          nextStep()
+        } else {
+          alert('Preencha os campos obrigatórios!');
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
     </div>
   </div>
 );
@@ -741,7 +727,6 @@ const Passo8 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
       <h1>Escolha a Sua Turma</h1>
     </div>
     <div className={Styles.container_Passo_Escolhas}>
-
       <div className={Styles.divSelect}>
         <select
           id="escolha_turma"
@@ -759,23 +744,22 @@ const Passo8 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
           ))}
         </select>
       </div>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-          Anterior
-        </button>
-        <button type="button" onClick={() => {
-          if (areAllFieldsFilled([selectedTurma]) === true) {
-            nextStep()
-          } else {
-            alert('Preencha os campos obrigatórios!');
-          }
-        }} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        </button>
-      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        if (areAllFieldsFilled([selectedTurma]) === true) {
+          nextStep()
+        } else {
+          alert('Preencha os campos obrigatórios!');
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
     </div>
   </div>
 );
@@ -783,10 +767,9 @@ const Passo8 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
 const Passo9 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
-      <h1>Informações sobre o Pagamento</h1>
+      <h1>Informações sobre<br/> Pagamento</h1>
     </div>
     <div className={Styles.container_Passo8}>
-
       <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
         <div className={Styles.opcoes}>
@@ -803,40 +786,36 @@ const Passo9 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencim
           <label htmlFor="anual" className={Styles.escolha}>Pacote<br />12 meses</label>
         </div>
       </div>
-
       <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
         <div className={Styles.opcoes}>
           <input type="radio" id="10" name="data" value="10" checked={d_Vencimento === '10'} onChange={(e) =>
             setD_Vencimento(e.target.value)} />
           <label htmlFor="10" className={Styles.escolha}>10</label>
-
           <input type="radio" id="20" name="data" value="20" checked={d_Vencimento === '20'} onChange={(e) =>
             setD_Vencimento(e.target.value)} />
           <label htmlFor="20" className={Styles.escolha}>20</label>
-
           <input type="radio" id="30" name="data" value="30" checked={d_Vencimento === '30'} onChange={(e) =>
             setD_Vencimento(e.target.value)} />
           <label htmlFor="30" className={Styles.escolha}>30</label>
         </div>
       </div>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-          Anterior
-        </button>
-        <button type="button" onClick={() => {
-          if (plano !== '' && d_Vencimento !== '') {
-            nextStep()
-          } else {
-            alert('Preencha os campos obrigatórios!');
-          }
-        }} className={Styles.button}>
-          Próximo
-          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        </button>
-      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        if (plano !== '' && d_Vencimento !== '') {
+          nextStep()
+        } else {
+          alert('Preencha os campos obrigatórios!');
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
     </div>
   </div>
 );
@@ -846,7 +825,6 @@ const Passo10 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, han
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>
     </div>
-
     <div className={Styles.divContrato}>
       <p className={Styles.contrato}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
@@ -857,29 +835,27 @@ const Passo10 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, han
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
         maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-
         <div className={Styles.contratoContainer}>
           <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>
       </p>
-
-      <div className={Styles.divBotoes}>
-        <button type="button" onClick={prevStep} className={Styles.button}>
-          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-          Anterior
-        </button>
-        <button type="button" className={Styles.button} onClick={() => {
-          if (aceitouContrato === true) {
-            cadastrar();
-          } else {
-            alert('Leia e aceite o contrato para finalizar o cadastro');
-          }
-        }}>
-          Finalizar Cadastro
-          <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        </button>
-      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" className={Styles.button} onClick={() => {
+        if (aceitouContrato === true) {
+          cadastrar();
+        } else {
+          alert('Leia e aceite o contrato para finalizar o cadastro');
+        }
+      }}>
+        Finalizar Cadastro
+        <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
     </div>
   </div>
 );
