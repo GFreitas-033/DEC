@@ -76,6 +76,7 @@
 }
 
 @media screen and (min-width: 1081px) {
+    /* Estilo das telas principais */
     .form{
         width: 50rem;
         height: 30rem;
@@ -92,6 +93,7 @@
         font-size: 0.9rem;
     }
 
+    /* Estilo Radio */
     .divRadio{
         margin: 0 1.2rem 1.6rem 1.2rem;
     }
@@ -99,7 +101,6 @@
     .labelTextCenter{
         display: flex;
         justify-content: center;
-        font-size: 1.5rem;
         margin-bottom: 0.5rem;
     }
     
@@ -114,9 +115,15 @@
       height: 3.5rem;
       font-size: 1rem;
     }
+
+    /* Estilo do Contrato */
+    .divContrato {
+        max-width: 30rem;
+    }
 }
 
 @media screen and (max-width: 1080px) {
+    /* Estilo das telas principais */
     .form{
         width: 20rem;
         height: 30rem;
@@ -134,11 +141,10 @@
         font-size: 0.8rem;
     }
 
+    /* Estilo Botão */
     button{
-        margin-left: 0.2rem;
         margin-bottom: 1rem;
     }
-
 
     /* Estilo Radio */
     .divRadio{
@@ -146,9 +152,7 @@
     }
     
     .labelTextCenter{
-        display: flex;
-        justify-content: center;
-        font-size: 1.5rem;
+        text-align: center;
         margin-bottom: 0.5rem;
     }
     
@@ -162,6 +166,11 @@
       width: 5.6rem;
       height: 3rem;
       font-size: 0.9rem;
+    }
+
+    /* Estilo do Contrato */
+    .divContrato {
+        max-width: 18rem;
     }
 }
 
@@ -232,7 +241,7 @@ input[type="radio"]:checked + label {
     margin-top: 2rem;
 }
 
-/* Estilo Passo */
+/* Estilos dos Passos */
 .SimOuNao{
     display: flex;
     justify-content: space-evenly;
@@ -240,19 +249,17 @@ input[type="radio"]:checked + label {
     margin-right: 1rem;
 }
 
-/* Estilo do Passo */
 .container_Passo8{
     display: flex;
     flex-direction: column;
     user-select: none;
 }
 
-/* Estilo do Passo Escolhas */
+/* Estilo do Passo Escolha */
 .container_Passo_Escolhas {
     user-select: none;
 }
 
-/* Estilo Escolha Unidade e Turma */
 .divSelect {
     display: flex;
     justify-content: center;
@@ -261,12 +268,12 @@ input[type="radio"]:checked + label {
 }
 
 .select {
-    appearance: none; /* Remove a seta padrão do select */
+    appearance: none;
     cursor: pointer;
 
     text-align: center;
     font-size: 1rem;
-    text-overflow: ellipsis; /* Coloca '...' se o texto for grande */
+    text-overflow: ellipsis;
     
     background:
         linear-gradient(#fff, #fff) padding-box,
@@ -278,8 +285,8 @@ input[type="radio"]:checked + label {
     min-width: 30rem;
     max-width: 30rem;
     
-    white-space: nowrap; /* Impede quebra de linha */
-    overflow: hidden; /* Garante que o texto não ultrapasse o limite */
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .select:focus {
@@ -294,7 +301,6 @@ option{
 
 /* Estilo do Contrato */
 .divContrato {
-    max-width: 30rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
