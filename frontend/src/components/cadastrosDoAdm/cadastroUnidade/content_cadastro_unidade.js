@@ -34,6 +34,8 @@ export default function Content_cadastro_Unidade(props) {
   const [telefone, setTelefone] = useState("");
   const [id_endereco, setEndereco] = useState(null);
   const [responseUnidade, setResponseUnidade] = useState(null);
+  const [numero, setNumero] = useState("");
+  const [maisContatos, setMaisContatos] = useState("");
 
   useEffect(() => {
     if (id_unidade !== undefined) {
@@ -57,8 +59,8 @@ export default function Content_cadastro_Unidade(props) {
         setBairro(dados.bairro);
         setCidade(dados.localidade);
         setUf(dados.uf);
-        document.getElementById('cnpj').value = cnpj;
-        document.getElementById('telefone').value = telefone;
+        setCnpj(cnpj);
+        setTelefone(telefone);
       })
       .catch((error) => {
         console.error('Erro ao buscar CEP:', error);
@@ -90,7 +92,7 @@ export default function Content_cadastro_Unidade(props) {
       setEndereco(responseUnidade.id_endereco);
       setNome(responseUnidade.nome_unidade);
       setEmail(responseUnidade.email_unidade);
-      document.getElementById('maisContatos').value = responseUnidade.mais_contatos;
+      setMaisContatos(responseUnidade.mais_contatos);
       setCnpj(formatCNPJ(responseUnidade.cnpj_unidade));
       setTelefone(formatTelefone(responseUnidade.telefone_unidade));
       let responseEndereco = await axios.get('/api/endereco');
@@ -101,7 +103,7 @@ export default function Content_cadastro_Unidade(props) {
       setCidade(responseEndereco.cidade);
       setBairro(responseEndereco.bairro);
       setLogradouro(responseEndereco.rua);
-      document.getElementById('numero').value = responseEndereco.numero;
+      setNumero(responseEndereco.numero);
     }catch (error) {
       console.log(error);
     }
@@ -113,17 +115,6 @@ export default function Content_cadastro_Unidade(props) {
 
   const cliquei = async (event) => {
     event.preventDefault();
-    const nome = document.getElementById('nome').value;
-    const email = document.getElementById('email').value;
-    const cnpj = tratamentoString(document.getElementById('cnpj').value);
-    const telefone = tratamentoString(document.getElementById('telefone').value);
-    const cep = document.getElementById('cep').value;
-    const uf = document.getElementById('uf').value;
-    const cidade = document.getElementById('cidade').value;
-    const bairro = document.getElementById('bairro').value;
-    const rua = document.getElementById('rua').value;
-    const maisContatos = document.getElementById('maisContatos').value;
-    const numero = document.getElementById('numero').value;
 
     if (id_unidade !== undefined) {
       try {
@@ -132,17 +123,18 @@ export default function Content_cadastro_Unidade(props) {
           estado: uf,
           cidade: cidade,
           bairro: bairro,
-          rua: rua,
+          rua: logradouro,
           numero: numero
         });
 
         let responseUnidade = await axios.put(`/api/unidade/${id_unidade}`, {
           nome_unidade: nome,
           email_unidade: email,
-          cnpj_unidade: cnpj,
-          telefone_unidade: telefone,
+          cnpj_unidade: tratamentoString(cnpj),
+          telefone_unidade: tratamentoString(telefone),
           mais_contatos: maisContatos,
-          id_endereco: id_endereco
+          id_endereco: id_endereco,
+          tipo: ""
         });
 
         setResponseUnidade(responseUnidade);
@@ -156,7 +148,7 @@ export default function Content_cadastro_Unidade(props) {
           estado: uf,
           cidade: cidade,
           bairro: bairro,
-          rua: rua,
+          rua: logradouro,
           numero: numero
         });
         responseEndereco_Unidade = responseEndereco_Unidade.data;
@@ -167,7 +159,8 @@ export default function Content_cadastro_Unidade(props) {
           telefone_unidade: telefone, 
           email_unidade: email, 
           mais_contatos: maisContatos, 
-          id_endereco: responseEndereco_Unidade.id
+          id_endereco: responseEndereco_Unidade.id,
+          tipo: ""
         })
         responseUnidade = responseUnidade.data;
         console.log(responseUnidade);
@@ -194,13 +187,13 @@ export default function Content_cadastro_Unidade(props) {
           <Cnpj value={cnpj} setValue={setCnpj} />
           <Telefone value={telefone} setValue={setTelefone} />
           <Email value={email} setValue={setEmail}/>
-          <MaisContatos />
+          <MaisContatos value={maisContatos} setValue={setMaisContatos}/>
           <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
           <UF u={uf} />
           <Cidade c={cidade} />
           <Bairro b={bairro} />
           <Rua r={logradouro} />
-          <Numero />
+          <Numero value={numero} setValue={setNumero} />
         </div>
         <div className={StyleCadastroUnidade.divBtn}>
           <Botao btn={props.botao} className={StyleCadastroUnidade.btn} />
