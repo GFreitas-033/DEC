@@ -116,6 +116,12 @@
       font-size: 1rem;
     }
 
+    /* Estilo Escolha dos Dias da Semana*/
+    .divCheckbox{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
     /* Estilo do Contrato */
     .divContrato {
         max-width: 30rem;
@@ -161,11 +167,16 @@
       justify-content: space-around;
       text-align: center;
     }
-    
+
     .escolha{
       width: 5.6rem;
       height: 3rem;
       font-size: 0.9rem;
+    }
+
+    /* Estilo Escolha dos Dias da Semana*/
+    .divCheckbox{
+        grid-template-columns: auto;
     }
 
     /* Estilo do Contrato */
@@ -297,6 +308,17 @@ input[type="radio"]:checked + label {
 option{
     background-color: #EFBF14;
     color: #000;
+}
+
+/* Estilo Escolha dos Dias da Semana */
+.divCheckbox{
+    display: grid;
+    font-size: 1.4rem;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5); /* Aumenta o tamanho */
+    margin: 0.5rem; /* Espaçamento ao redor do checkbox */
 }
 
 /* Estilo do Contrato */

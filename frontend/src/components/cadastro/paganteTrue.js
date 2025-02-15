@@ -444,13 +444,15 @@ export default function Form() {
     <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}
       areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo8 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} 
+    <Passo8 nextStep={nextStep} prevStep={prevStep} />,
+
+    <Passo9 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} 
       areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo9 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} 
+    <Passo10 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} 
       setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo10 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} 
+    <Passo11 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} 
       handleCheckboxChange={handleCheckboxChange} />,
   ];
 
@@ -721,7 +723,51 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
   </div>
 );
 
-const Passo8 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, areAllFieldsFilled }) => (
+const Passo8 = ({ nextStep, prevStep }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Escolha os dias das<br /> aulas de Esgrima.</h1>
+    </div>
+    <div className={Styles.divCheckbox}>
+      <div>
+        <input type="checkbox" id="segunda" name="dias" value="segunda" />
+        <label for="segunda">Segunda-feira</label>
+      </div>
+      <div>
+        <input type="checkbox" id="terca" name="dias" value="terca" />
+        <label for="terca">Terça-feira</label>
+      </div>
+      <div>
+        <input type="checkbox" id="quarta" name="dias" value="quarta" />
+        <label for="quarta">Quarta-feira</label>
+      </div>
+      <div>
+        <input type="checkbox" id="quinta" name="dias" value="quinta" />
+        <label for="quinta">Quinta-feira</label>
+      </div>
+      <div>
+        <input type="checkbox" id="sexta" name="dias" value="sexta" />
+        <label for="sexta">Sexta-feira</label>
+      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        
+          nextStep()
+        
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
+    </div>
+  </div>
+);
+
+const Passo9 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
@@ -764,7 +810,7 @@ const Passo8 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
   </div>
 );
 
-const Passo9 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento }) => (
+const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Informações sobre<br/> Pagamento</h1>
@@ -820,7 +866,7 @@ const Passo9 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencim
   </div>
 );
 
-const Passo10 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange }) => (
+const Passo11 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>

@@ -91,12 +91,7 @@ export default function Form() {
 
   const prevStep = () => {
     setStep((prevStep) => {
-      if (vdd) { // Maior de idade
-        if (prevStep === 5) return 0; // Se estiver no endereço, volta para o primeiro passo
-        return Math.max(prevStep - 1, 0); // Caso contrário, volta um passo normalmente
-      } else { // Menor de idade segue o fluxo normal
-        return Math.max(prevStep - 1, 0);
-      }
+      return Math.max(prevStep - 1, 0);
     });
   };
 
@@ -344,13 +339,15 @@ export default function Form() {
       cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
       telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
+    <Passo3 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
       bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
       nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} pesquisarUnidades={pesquisarUnidades} />,
 
-    <Passo6 nextStep={nextStep} prevStep={prevStep} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} unidades={unidades} areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo4 nextStep={nextStep} prevStep={prevStep} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} unidades={unidades} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo7 nextStep={nextStep} prevStep={prevStep} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} turmas={turmas} cadastrar={cadastrar} />,
+    <Passo5 nextStep={nextStep}  prevStep={prevStep}/>,
+    
+    <Passo6 nextStep={nextStep} prevStep={prevStep} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} turmas={turmas} cadastrar={cadastrar} />,
   ];
 
   return (
@@ -446,7 +443,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
   </div>
 );
 
-const Passo5 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
+const Passo3 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
@@ -486,7 +483,7 @@ const Passo5 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handle
   </div>
 );
 
-const Passo6 = ({ nextStep, prevStep, selectedUnidade, setSelectedUnidade, unidades, areAllFieldsFilled }) => (
+const Passo4 = ({ nextStep, prevStep, selectedUnidade, setSelectedUnidade, unidades, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Unidade</h1>
@@ -528,7 +525,51 @@ const Passo6 = ({ nextStep, prevStep, selectedUnidade, setSelectedUnidade, unida
   </div>
 );
 
-const Passo7 = ({ prevStep, selectedTurma, setSelectedTurma, turmas, cadastrar }) => (
+const Passo5 = ({ nextStep, prevStep }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Escolha os dias das<br /> aulas de Esgrima.</h1>
+    </div>
+    <div className={Styles.divCheckbox}>
+      <div>
+        <input type="checkbox" id="segunda" name="dias" value="segunda" />
+        <label for="segunda">Segunda-feira</label>
+      </div>
+      <div>
+        <input type="checkbox" id="terca" name="dias" value="terca" />
+        <label for="terca">Terça-feira</label>
+      </div>
+      <div>
+        <input type="checkbox" id="quarta" name="dias" value="quarta" />
+        <label for="quarta">Quarta-feira</label>
+      </div>
+      <div>
+        <input type="checkbox" id="quinta" name="dias" value="quinta" />
+        <label for="quinta">Quinta-feira</label>
+      </div>
+      <div>
+        <input type="checkbox" id="sexta" name="dias" value="sexta" />
+        <label for="sexta">Sexta-feira</label>
+      </div>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        
+          nextStep()
+        
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
+    </div>
+  </div>
+);
+
+const Passo6 = ({ prevStep, selectedTurma, setSelectedTurma, turmas, cadastrar }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
