@@ -1,5 +1,5 @@
 import React from "react";
-import Cnpj from "./input.module.css";
+import Cnpj from "../input.module.css";
 
 export default function Cnpj_input({ value, setValue }) {
 

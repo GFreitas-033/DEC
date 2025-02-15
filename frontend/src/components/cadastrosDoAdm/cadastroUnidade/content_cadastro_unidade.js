@@ -6,10 +6,11 @@ import axios from "axios";
 
 // Imports dos Inputs para Pessoa
 import Nome from "../../inputs_cadastro/nome_input";
-import Cnpj from "../../inputs_cadastro/cnpj_input";
+import Cnpj from "../../inputs_cadastro/inputsUnidade/cnpj_input";
 import Telefone from "../../inputs_cadastro/telefone_input";
 import Email from "../../inputs_cadastro/email_input";
-import MaisContatos from "../../inputs_cadastro/mais_contatos_input";
+import MaisContatos from "../../inputs_cadastro/inputsUnidade/mais_contatos_input";
+import TipoUnidade from "../../inputs_cadastro/inputsUnidade/tipoUnidade_input";
 // Imports do Endereço
 import Cep from "../../inputs_cadastro/endereco/cep_input";
 import UF from "../../inputs_cadastro/endereco/uf_input";
@@ -36,6 +37,7 @@ export default function Content_cadastro_Unidade(props) {
   const [responseUnidade, setResponseUnidade] = useState(null);
   const [numero, setNumero] = useState("");
   const [maisContatos, setMaisContatos] = useState("");
+  const [tipoUnidade, setTipoUnidade] = useState("");
 
   useEffect(() => {
     if (id_unidade !== undefined) {
@@ -95,6 +97,7 @@ export default function Content_cadastro_Unidade(props) {
       setMaisContatos(responseUnidade.mais_contatos);
       setCnpj(formatCNPJ(responseUnidade.cnpj_unidade));
       setTelefone(formatTelefone(responseUnidade.telefone_unidade));
+      setTipoUnidade(responseUnidade.tipo);
       let responseEndereco = await axios.get('/api/endereco');
       responseEndereco = responseEndereco.data;
       responseEndereco = responseEndereco.find(item => item.id_endereco === responseUnidade.id_endereco);
@@ -134,7 +137,7 @@ export default function Content_cadastro_Unidade(props) {
           telefone_unidade: tratamentoString(telefone),
           mais_contatos: maisContatos,
           id_endereco: id_endereco,
-          tipo: ""
+          tipo: tipoUnidade,
         });
 
         setResponseUnidade(responseUnidade);
@@ -160,7 +163,7 @@ export default function Content_cadastro_Unidade(props) {
           email_unidade: email, 
           mais_contatos: maisContatos, 
           id_endereco: responseEndereco_Unidade.id,
-          tipo: ""
+          tipo: tipoUnidade,
         })
         responseUnidade = responseUnidade.data;
         console.log(responseUnidade);
@@ -188,6 +191,7 @@ export default function Content_cadastro_Unidade(props) {
           <Telefone value={telefone} setValue={setTelefone} />
           <Email value={email} setValue={setEmail}/>
           <MaisContatos value={maisContatos} setValue={setMaisContatos}/>
+          <TipoUnidade value={tipoUnidade} setValue={setTipoUnidade} />
           <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
           <UF u={uf} />
           <Cidade c={cidade} />

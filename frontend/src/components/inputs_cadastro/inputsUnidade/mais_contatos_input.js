@@ -1,5 +1,5 @@
 import React from "react"
-import Mais from "./input.module.css"
+import Mais from "../input.module.css"
 
 export default function Mais_contatos_input({value, setValue}){
     function salvar(e){
