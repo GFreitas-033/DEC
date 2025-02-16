@@ -18,7 +18,6 @@ router.post('/', asyncHandler(async (req, res) => {
 router.put('/:id', asyncHandler(async (req, res) => {
     const id_unidade = parseInt(req.params.id);
     const { nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, tipo} = req.body;
-    console.log(nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, tipo)
     await unidadeModel.updateUnidade(id_unidade, nome_unidade, cnpj_unidade, telefone_unidade, email_unidade, mais_contatos, id_endereco, tipo);
     res.status(200).send('Registro atualizado com sucesso!');
 }));
@@ -29,15 +28,35 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     res.status(200).send('Registro excluído com sucesso!');
 }));
 
-router.post('/cidade', asyncHandler(async (req, res) => {
-    const { cidade } = req.body;
+router.post('/cidade/1tipo', asyncHandler(async (req, res) => {
+    const { cidade, tipo } = req.body;
 
     if (!cidade) {
         return res.status(400).json({ error: "O nome da cidade é obrigatório." });
     }
 
     try {
-        const unidades = await unidadeModel.findUnidadesByCidade(cidade);
+        const unidades = await unidadeModel.findUnidadesByCidade(cidade,tipo);
+
+        if (unidades.length === 0) {
+            return res.status(404).json({ message: "Nenhuma unidade encontrada para essa cidade." });
+        }
+
+        res.json(unidades);
+    } catch (error) {
+        res.status(500).json({ error: "Erro ao buscar unidades: " + error.message });
+    }
+}));
+
+router.post('/cidade/2tipo', asyncHandler(async (req, res) => {
+    const { cidade, tipo1, tipo2 } = req.body;
+
+    if (!cidade) {
+        return res.status(400).json({ error: "O nome da cidade é obrigatório." });
+    }
+
+    try {
+        const unidades = await unidadeModel.findUnidadesByCidadeAndTipos(cidade,tipo1, tipo2);
 
         if (unidades.length === 0) {
             return res.status(404).json({ message: "Nenhuma unidade encontrada para essa cidade." });

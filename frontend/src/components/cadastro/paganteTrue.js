@@ -140,8 +140,10 @@ export default function Form() {
   // }, [id_aluno]);
 
   async function pesquisarUnidades() {
-    axios.post('/api/unidade/cidade', {
-      cidade: cidade
+    axios.post('/api/unidade/cidade/2tipo', {
+      cidade: cidade,
+      tipo1: 'dec',
+      tipo2: 'particular'
     }).then(response => {
       setUnidades(response.data); // Define os dados no estado
     })
@@ -748,6 +750,10 @@ const Passo8 = ({ nextStep, prevStep }) => (
       <div>
         <input type="checkbox" id="sexta" name="dias" value="sexta" />
         <label for="sexta">Sexta-feira</label>
+      </div>
+      <div>
+        <input type="checkbox" id="sabado" name="dias" value="sabado" />
+        <label for="sabado">Sábado</label>
       </div>
     </div>
     <div className={Styles.divBotao}>

@@ -106,8 +106,9 @@ export default function Form() {
 
 
   async function pesquisarUnidades() {
-    axios.post('/api/unidade/cidade', {
-      cidade: cidade
+    axios.post('/api/unidade/cidade/1tipo', {
+      cidade: cidade,
+      tipo: 'publica'
     }).then(response => {
       setUnidades(response.data); // Define os dados no estado
     })

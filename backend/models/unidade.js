@@ -39,22 +39,46 @@ async function deleteUnidade(id_unidade) {
     }
 }
 
-const findUnidadesByCidade = async (cidade) => {
-    const query = `
-        SELECT u.*
-        FROM unidade u
-        JOIN endereco e ON u.id_endereco = e.id_endereco
-        WHERE e.cidade = ?;
-    `;
+async function findUnidadesByCidade(cidade, tipo) {
+    try {
+        const query = `
+            SELECT u.*
+            FROM unidade u
+            JOIN endereco e ON u.id_endereco = e.id_endereco
+            WHERE e.cidade = ? AND u.tipo = ?;
+        `;
 
-    const [rows] = await db.execute(query, [cidade]);
-    return rows;
-};
+        const [rows] = await db.execute(query, [cidade, tipo]);
+        return rows;
+    } catch (err) {
+        console.error('Erro ao buscar unidades:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+async function findUnidadesByCidadeAndTipos(cidade, tipo1, tipo2) {
+    try {
+        const query = `
+            SELECT u.*
+            FROM unidade u
+            JOIN endereco e ON u.id_endereco = e.id_endereco
+            WHERE e.cidade = ? AND (u.tipo = ? OR u.tipo = ?);
+        `;
+
+        const [rows] = await db.execute(query, [cidade, tipo1, tipo2]);
+        return rows;
+    } catch (err) {
+        console.error('Erro ao buscar unidades com dois tipos:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
 
 module.exports = {
     readUnidade,
     createUnidade,
     updateUnidade,
     deleteUnidade,
-    findUnidadesByCidade
+    findUnidadesByCidade,
+    findUnidadesByCidadeAndTipos
 };
