@@ -321,6 +321,27 @@ input[type="checkbox"] {
     margin: 0.5rem; /* Espaçamento ao redor do checkbox */
 }
 
+/* Estilo Escolha de Turma */
+.divEscolhaTurma {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    max-height: 15rem;
+    overflow-y: auto; /* Ative o scroll */
+    padding-right: 1rem; /* Empurra o conteúdo e a scrollbar para a direita */
+}
+
+/* Personalizar a barra de rolagem */
+.divEscolhaTurma::-webkit-scrollbar {
+    width: 8px; /* Largura da barra */
+}
+
+.divEscolhaTurma::-webkit-scrollbar-thumb {
+    background-color: #888; /* Cor da barra */
+    border-radius: 4px; /* Deixa arredondado */
+}
+
 /* Estilo do Contrato */
 .divContrato {
     display: flex;

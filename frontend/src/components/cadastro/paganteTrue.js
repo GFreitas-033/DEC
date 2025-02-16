@@ -772,24 +772,25 @@ const Passo9 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
     </div>
-    <div className={Styles.container_Passo_Escolhas}>
-      <div className={Styles.divSelect}>
-        <select
-          id="escolha_turma"
-          name="escolha_turma"
-          className={Styles.select}
-          value={selectedTurma}
-          onChange={(e) => setSelectedTurma(e.target.value)}
-          disabled={!turmas.length} // Desabilita se não houver turmas disponíveis
-        >
-          <option value="" disabled>Selecionar Turma</option>
-          {turmas.map(turma => (
-            <option key={turma.id_turma} value={turma.id_turma}>
-              {turma.nome_turma}
-            </option>
-          ))}
-        </select>
-      </div>
+    <div className={Styles.divEscolhaTurma}>
+      {/* Checkboxes para selecionar a turma */}
+      {turmas.length > 0 ? (
+        turmas.map((turma) => (
+          <div key={turma.id_turma} className={Styles.escolhaTurma}>
+            <input
+              type="checkbox"
+              id={`turma-${turma.id_turma}`}
+              name="escolha_turma"
+              value={turma.id_turma}
+              checked={selectedTurma === turma.id_turma} // Permite selecionar apenas um
+              onChange={() => setSelectedTurma(turma.id_turma)} // Atualiza a seleção
+            />
+            <label htmlFor={`turma-${turma.id_turma}`}>{turma.nome_turma}</label>
+          </div>
+        ))
+      ) : (
+        <p>Nenhuma turma disponível.</p>
+      )}
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
