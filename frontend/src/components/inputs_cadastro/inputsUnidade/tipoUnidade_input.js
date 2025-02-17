@@ -9,7 +9,7 @@ export default function TipoUnidade_input({ value, setValue }) {
 
   return (
     <div className={tipoUnidade.esquerda}>
-      <label className={tipoUnidade.label}><b>tipoUnidade</b></label><br />
+      <label className={tipoUnidade.label}><b>Tipo da Unidade</b></label><br />
       <select id="tipoUnidade" className={tipoUnidade.input} value={value} onChange={salvar}>
           <option value="" disabled>Selecionar</option>
           <option value="dec">DEC</option>

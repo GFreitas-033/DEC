@@ -583,7 +583,7 @@ const Passo4 = ({ nextStep, prevStep, setStep, son, setSon }) => (
     <div className={Styles.textcenter}>
       <h1>Responsável Financeiro</h1>
     </div>
-    <div className={Styles.checkboxContainer}>
+    <div>
       <label className={Styles.labelTextCenter}>Você será o Responsável Financeiro?</label>
       <div className={Styles.SimOuNao}>
         <input type="radio" id="sim" name="sim" value="sim" checked={son === 'sim'} onChange={(e) =>
@@ -728,32 +728,32 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
 const Passo8 = ({ nextStep, prevStep }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
-      <h1>Escolha os dias das<br /> aulas de Esgrima.</h1>
+      <h1>Quantos dias por semana<br />Você vai Treinar?</h1>
     </div>
-    <div className={Styles.divCheckbox}>
+    <div className={Styles.divEscolhaDia}>
       <div>
-        <input type="checkbox" id="segunda" name="dias" value="segunda" />
-        <label for="segunda">Segunda-feira</label>
+        <input type="radio" id="1" name="dia" value="1" />
+        <label htmlFor="1">1 Dia</label>
       </div>
       <div>
-        <input type="checkbox" id="terca" name="dias" value="terca" />
-        <label for="terca">Terça-feira</label>
+        <input type="radio" id="2" name="dia" value="2" />
+        <label htmlFor="2">2 Dias</label>
       </div>
       <div>
-        <input type="checkbox" id="quarta" name="dias" value="quarta" />
-        <label for="quarta">Quarta-feira</label>
+        <input type="radio" id="3" name="dia" value="3" />
+        <label htmlFor="3">3 Dias</label>
       </div>
       <div>
-        <input type="checkbox" id="quinta" name="dias" value="quinta" />
-        <label for="quinta">Quinta-feira</label>
+        <input type="radio" id="4" name="dia" value="4" />
+        <label htmlFor="4">4 Dias</label>
       </div>
       <div>
-        <input type="checkbox" id="sexta" name="dias" value="sexta" />
-        <label for="sexta">Sexta-feira</label>
+        <input type="radio" id="5" name="dia" value="5" />
+        <label htmlFor="5">5 Dias</label>
       </div>
       <div>
-        <input type="checkbox" id="sabado" name="dias" value="sabado" />
-        <label for="sabado">Sábado</label>
+        <input type="radio" id="6" name="dia" value="6" />
+        <label htmlFor="6">6 Dias</label>
       </div>
     </div>
     <div className={Styles.divBotao}>

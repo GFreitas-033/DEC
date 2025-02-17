@@ -34,100 +34,7 @@
     }
 }
 
-/* Estilo Principal */
-.container{
-    width: 100vw;
-    height: 100dvh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.form{
-    background-color: #fff;
-    border: solid 0.4rem transparent;
-    border-radius: 2rem;
-    background:
-        linear-gradient( #fff, #fff) padding-box,
-        linear-gradient(90deg, #EFBF14, #000) border-box;
-}
-
-.textcenter{
-    width: 30rem;
-    padding: 0.3rem;
-    background-color: #000;
-    color: #fff;
-    border-radius: 0.4rem;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.centro{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.iconNavegar{
-    margin: 0 0.2rem 0 0.2rem;
-    width: 1rem;
-    height: 1rem;
-}
-
-@media screen and (min-width: 1081px) {
-    /* Estilo das telas principais */
-    .form{
-        width: 50rem;
-        height: 30rem;
-    }
-
-    .container_inputs{
-        display: grid;
-        min-width: 28.9rem;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0 1rem;
-    }
-
-    .textcenter{
-        font-size: 0.9rem;
-    }
-
-    /* Estilo Radio */
-    .divRadio{
-        margin: 0 1.2rem 1.6rem 1.2rem;
-    }
-    
-    .labelTextCenter{
-        display: flex;
-        justify-content: center;
-        margin-bottom: 0.5rem;
-    }
-    
-    .opcoes{
-      display: flex;
-      justify-content: space-around;
-      text-align: center;
-    }
-    
-    .escolha{
-      width: 8rem;
-      height: 3.5rem;
-      font-size: 1rem;
-    }
-
-    /* Estilo Escolha dos Dias da Semana*/
-    .divCheckbox{
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-    }
-
-    /* Estilo do Contrato */
-    .divContrato {
-        max-width: 30rem;
-    }
-}
-
+/* Responsividade */
 @media screen and (max-width: 1080px) {
     /* Estilo das telas principais */
     .form{
@@ -175,8 +82,9 @@
     }
 
     /* Estilo Escolha dos Dias da Semana*/
-    .divCheckbox{
+    .divEscolhaDia{
         grid-template-columns: auto;
+        gap: 1rem;
     }
 
     /* Estilo do Contrato */
@@ -185,16 +93,104 @@
     }
 }
 
+@media screen and (min-width: 1081px) {
+    /* Estilo das telas principais */
+    .form{
+        width: 50rem;
+        height: 30rem;
+    }
+
+    .container_inputs{
+        display: grid;
+        min-width: 28.9rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0 1rem;
+    }
+
+    .textcenter{
+        font-size: 0.9rem;
+    }
+
+    /* Estilo Radio */
+    .divRadio{
+        margin: 0 1.2rem 1.6rem 1.2rem;
+    }
+    
+    .labelTextCenter{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .opcoes{
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+    }
+    
+    .escolha{
+      width: 8rem;
+      height: 3.5rem;
+      font-size: 1rem;
+    }
+
+    /* Estilo Escolha dos Dias da Semana*/
+    .divEscolhaDia{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem 10rem;
+    }
+
+    /* Estilo do Contrato */
+    .divContrato {
+        max-width: 30rem;
+    }
+}
+
+/* Estilo Principal */
+.container{
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    background-color: #fff;
+    border: solid 0.4rem transparent;
+    border-radius: 2rem;
+    background:
+        linear-gradient( #fff, #fff) padding-box,
+        linear-gradient(90deg, #EFBF14, #000) border-box;
+}
+
+.textcenter{
+    width: 30rem;
+    padding: 0.3rem;
+    background-color: #000;
+    color: #fff;
+    border-radius: 0.4rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.centro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 /* Personaliza o tamanho da barra de rolagem */
 .form::-webkit-scrollbar {
     display: none;
 }
 
 /* Estilo do Input de Radio */
-input[type="radio"] {
+.opcoes, .SimOuNao input[type="radio"] {
     display: none;
 }
-input[type="radio"]:checked + label {
+.opcoes, .SimOuNao input[type="radio"]:checked + label {
     background-color: #EFBF14;
 }
 
@@ -252,6 +248,12 @@ input[type="radio"]:checked + label {
     margin-top: 2rem;
 }
 
+.iconNavegar{
+    margin: 0 0.2rem 0 0.2rem;
+    width: 1rem;
+    height: 1rem;
+}
+
 /* Estilos dos Passos */
 .SimOuNao{
     display: flex;
@@ -266,7 +268,7 @@ input[type="radio"]:checked + label {
     user-select: none;
 }
 
-/* Estilo do Passo Escolha */
+/* Estilo dos Selects */
 .container_Passo_Escolhas {
     user-select: none;
 }
@@ -311,12 +313,12 @@ option{
 }
 
 /* Estilo Escolha dos Dias da Semana */
-.divCheckbox{
+.divEscolhaDia{
     display: grid;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
-input[type="checkbox"] {
+.divEscolhaDia input[type="radio"] {
     transform: scale(1.5); /* Aumenta o tamanho */
     margin: 0.5rem; /* Espaçamento ao redor do checkbox */
 }
@@ -328,18 +330,22 @@ input[type="checkbox"] {
     align-items: flex-start;
     gap: 1rem;
     max-height: 15rem;
-    overflow-y: auto; /* Ative o scroll */
-    padding-right: 1rem; /* Empurra o conteúdo e a scrollbar para a direita */
+    overflow-y: auto;
+    padding-right: 1rem;
 }
 
-/* Personalizar a barra de rolagem */
+input[type="checkbox"] {
+    transform: scale(1.5); /* Aumenta o tamanho */
+    margin: 0.5rem; /* Espaçamento ao redor do checkbox */
+}
+
 .divEscolhaTurma::-webkit-scrollbar {
-    width: 8px; /* Largura da barra */
+    width: 8px;
 }
 
 .divEscolhaTurma::-webkit-scrollbar-thumb {
-    background-color: #888; /* Cor da barra */
-    border-radius: 4px; /* Deixa arredondado */
+    background-color: #888;
+    border-radius: 4px;
 }
 
 /* Estilo do Contrato */
@@ -347,14 +353,14 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem; /* Reduzi o espaçamento entre os elementos */
+    gap: 1rem;
 }
   
 .contrato {
-    max-height: 15rem; /* Define a altura máxima para o contrato */
-    overflow-y: scroll; /* Ativa o scroll vertical */
+    max-height: 15rem;
+    overflow-y: scroll;
     padding: 1rem;
-    border: 0.1rem solid #000; /* Adiciona uma borda para delimitar o contrato */
+    border: 0.1rem solid #000;
     background-color: #fff;
     line-height: 1.5;
 }
@@ -363,6 +369,6 @@ input[type="checkbox"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem; /* Espaço entre o checkbox e o texto */
+    gap: 0.5rem;
     margin-top: 2rem;
 }
