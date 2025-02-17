@@ -8,8 +8,6 @@ import PaganteTrue from "./components/cadastro/paganteTrue"
 import PaganteFalse from "./components/cadastro/paganteFalse"
 import AlunoEscola from "./components/cadastro/Escola"
 
-import Cadastro from "./components/cadastro-antigo/form"
-
 import CadastroProf from "./components/cadastrosDoAdm/cadastroProf/cadastro_prof"
 import CadastroUnidade from "./components/cadastrosDoAdm/cadastroUnidade/cadastro_unidade"
 import CadastroTurma from "./components/cadastrosDoAdm/cadastroTurma/cadastro_turma"
@@ -32,9 +30,14 @@ export default function App(){
     <Routers>
       {/* Links */}
         <Link to="/"></Link>
+
         <Link to="/cadastro/aluno/Pagante"></Link>
         <Link to="/cadastro/aluno/NaoPagante"></Link>
         <Link to="/cadastro/aluno/Escola"></Link>
+
+        <Link to="/editar/aluno/Pagante"></Link>
+        <Link to="/editar/aluno/NaoPagante"></Link>
+        <Link to="/editar/aluno/Escola"></Link>
 
         <Link to="/cadastro/professor"></Link>
         <Link to="/cadastro/unidade"></Link>
@@ -49,7 +52,6 @@ export default function App(){
         <Link to="/adm"></Link>
   
         <Link to="adm/adm_aluno"></Link>
-        <Link to="adm/editar_aluno"></Link>
 
         <Link to="adm/adm_prof"></Link>
         <Link to="adm/editar_prof"></Link>
@@ -64,9 +66,14 @@ export default function App(){
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />}></Route>
+
         <Route path="/cadastro/aluno/Pagante" element={<PaganteTrue />}></Route>
         <Route path="/cadastro/aluno/NaoPagante" element={<PaganteFalse />}></Route>
         <Route path="/cadastro/aluno/Escola" element={<AlunoEscola />}></Route>
+
+        <Route path="/editar/aluno/Pagante" element={<PaganteTrue />}></Route>
+        <Route path="/editar/aluno/NaoPagante" element={<PaganteFalse />}></Route>
+        <Route path="/editar/aluno/Escola" element={<AlunoEscola />}></Route>
         
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} botao={"Cadastrar"}/>}></Route>
         <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} botao={"Cadastrar"}  url={"/cadastro/unidade/responsavel"}/>}></Route>
@@ -80,7 +87,6 @@ export default function App(){
         <Route path="/adm" element={<Adm />}></Route>
         
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
-        <Route path="adm/editar_aluno/:id_aluno" element={<Cadastro texto={"Editar"}  botao={"Editar"}/>}></Route>
 
         <Route path="adm/adm_prof" element={<AdmProf />}></Route>
         <Route path="adm/editar_prof/:id_professor" element={<CadastroProf texto={"Editar Professor"} botao={"Editar"}/>}></Route>
