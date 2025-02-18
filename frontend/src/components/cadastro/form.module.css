@@ -187,10 +187,10 @@
 }
 
 /* Estilo do Input de Radio */
-.opcoes, .SimOuNao input[type="radio"] {
+.radioStyle input[type="radio"] {
     display: none;
 }
-.opcoes, .SimOuNao input[type="radio"]:checked + label {
+.radioStyle input[type="radio"]:checked + label {
     background-color: #EFBF14;
 }
 

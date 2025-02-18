@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Calendario from "./calendario.module.css";
+import Filtro from "./filtroDiaSemana/filtro"
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function ContentCalendario() {
-    const [mostrar, setMostrar] = useState(false);
-
     const [calendarioData, setCalendarioData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [dataLoaded, setDataLoaded] = useState(false);
@@ -45,10 +44,6 @@ export default function ContentCalendario() {
                 setDataLoaded(true);
             });
     }, []);
-    
-    const FiltroAulaClick = () => {
-        setMostrar(prevMostrar => !prevMostrar);
-    };
 
     const formatHorario = (horario) => {
         const [hours, minutes] = horario.split(":");
@@ -94,8 +89,8 @@ export default function ContentCalendario() {
                 <div className={Calendario.div_helloworld}><h1 className={Calendario.helloworld}>{loadingText}</h1></div>
             ) : (
                 Object.keys(groupedData).map((dia, index) => (
-                    <div>
-                        
+                    <div className={Calendario.marginTop}>
+                        <Filtro />
                         <div key={index}>
                             <h1 className={Calendario.textDia}>
                                 <u>{formatDiaSemana(dia)}</u>
@@ -116,36 +111,3 @@ export default function ContentCalendario() {
         </div>
     );
 }
-
-
-<div className={Calendario.containerSino} onClick={FiltroAulaClick}>
-<h2>Filtrar</h2>
-
-<div className={`${Calendario.caixa} ${mostrar ? Calendario.mostrar : ''}`}>
-    <div className={Calendario.mensagemConteiner}>
-    <div>
-        <input type="checkbox" id="segunda" name="dias" value="segunda" />
-        <label htmlFor="segunda">Segunda-feira</label>
-    </div>
-    <div>
-        <input type="checkbox" id="terca" name="dias" value="terca" />
-        <label htmlFor="terca">Terça-feira</label>
-    </div>
-    <div>
-        <input type="checkbox" id="quarta" name="dias" value="quarta" />
-        <label htmlFor="quarta">Quarta-feira</label>
-    </div>
-    <div>
-        <input type="checkbox" id="quinta" name="dias" value="quinta" />
-        <label htmlFor="quinta">Quinta-feira</label>
-    </div>
-    <div>
-        <input type="checkbox" id="sexta" name="dias" value="sexta" />
-        <label htmlFor="sexta">Sexta-feira</label>
-    </div>
-    <div>
-        <input type="checkbox" id="sabado" name="dias" value="sabado" />
-        <label htmlFor="sabado">Sábado</label>
-    </div>
-</div>
-</div>

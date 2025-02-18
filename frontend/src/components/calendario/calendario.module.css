@@ -24,6 +24,10 @@
         margin-top: 4rem;
         margin-left: 0;
     }
+    
+    .marginTop{
+        margin-top: 3rem;
+    }
 }
 
 @media screen and (min-width: 720px){
@@ -43,6 +47,10 @@
     .margin_content{
         margin-left: 4rem;
         margin-top: 0;
+    }
+    
+    .marginTop{
+        margin-top: 5rem;
     }
 }
 

@@ -585,7 +585,7 @@ const Passo4 = ({ nextStep, prevStep, setStep, son, setSon }) => (
     </div>
     <div>
       <label className={Styles.labelTextCenter}>Você será o Responsável Financeiro?</label>
-      <div className={Styles.SimOuNao}>
+      <div className={`${Styles.SimOuNao} ${Styles.radioStyle}`}>
         <input type="radio" id="sim" name="sim" value="sim" checked={son === 'sim'} onChange={(e) =>
           setSon(e.target.value)} />
         <label htmlFor="sim" className={Styles.escolha}>Sim</label>
@@ -787,9 +787,10 @@ const Passo9 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
               type="checkbox"
               id={`turma-${turma.id_turma}`}
               name="escolha_turma"
-              value={turma.id_turma}
-              checked={selectedTurma === turma.id_turma} // Permite selecionar apenas um
-              onChange={() => setSelectedTurma(turma.id_turma)} // Atualiza a seleção
+              // Arrumar Two
+              // value={turma.id_turma}
+              // checked={selectedTurma === turma.id_turma} // Permite selecionar apenas um
+              // onChange={() => setSelectedTurma(turma.id_turma)} // Atualiza a seleção
             />
             <label htmlFor={`turma-${turma.id_turma}`}>{turma.nome_turma}</label>
           </div>
@@ -804,11 +805,13 @@ const Passo9 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, a
         Anterior
       </button>
       <button type="button" onClick={() => {
-        if (areAllFieldsFilled([selectedTurma]) === true) {
-          nextStep()
-        } else {
-          alert('Preencha os campos obrigatórios!');
-        }
+        nextStep()
+        // Arrumar One
+        // if (areAllFieldsFilled([selectedTurma]) === true) {
+        //   nextStep()
+        // } else {
+        //   alert('Preencha os campos obrigatórios!');
+        // }
       }} className={Styles.button}>
         Próximo
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
@@ -825,7 +828,7 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
     <div className={Styles.container_Passo8}>
       <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
-        <div className={Styles.opcoes}>
+        <div className={`${Styles.opcoes} ${Styles.radioStyle}`}>
           <input type="radio" id="mensal" name="plano" value="mensal" checked={plano === 'mensal'} onChange={(e) =>
             setPlano(e.target.value)} />
           <label htmlFor="mensal" className={Styles.escolha}>Pacote<br />Mensal</label>
@@ -841,7 +844,7 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
       </div>
       <div className={Styles.divRadio}>
         <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
-        <div className={Styles.opcoes}>
+        <div className={`${Styles.opcoes} ${Styles.radioStyle}`}>
           <input type="radio" id="10" name="data" value="10" checked={d_Vencimento === '10'} onChange={(e) =>
             setD_Vencimento(e.target.value)} />
           <label htmlFor="10" className={Styles.escolha}>10</label>
