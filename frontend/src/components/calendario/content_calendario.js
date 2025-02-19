@@ -13,7 +13,7 @@ export default function ContentCalendario() {
 
   useEffect(() => {
     axios
-      .get("/minhasTurmas")
+      .get("/minhasturmas")
       .then((response) => {
         setCalendarioData(response.data);
         setDataLoaded(true);
