@@ -147,18 +147,7 @@
 
     const cliquei = async (event) =>{
       event.preventDefault();
-      const email = document.getElementById('email').value;
-      const nome = document.getElementById('nome').value;
-      const cpf = tratamentoString(document.getElementById('cpf').value);
-      const rg = tratamentoString(document.getElementById('rg').value);
-      const telefone = tratamentoString(document.getElementById('telefone').value);
-      const dt_nascimento = document.getElementById('dt_nasc').value;
-      const genero = document.getElementById('genero').value;
-      const cep = document.getElementById('cep').value;
-      const uf = document.getElementById('uf').value;
-      const cidade = document.getElementById('cidade').value;
-      const bairro = document.getElementById('bairro').value;
-      const rua = document.getElementById('rua').value;
+
       const caminho_foto = document.getElementById('imagem').value;
       
       if (id_professor !== undefined) {
@@ -169,17 +158,17 @@
             estado: uf,
             cidade: cidade,
             bairro: bairro,
-            rua: rua,
+            rua: logradouro,
             numero: null
           });
           console.log(id_endereco);
           let responsePessoa = await axios.put(`/api/pessoa/${id_professor}`, {
             nome_pessoa: nome,
-            dt_nasc_pessoa: convertDate(dt_nascimento),
-            cpf_pessoa: cpf,
-            rg_pessoa: rg,
+            dt_nasc_pessoa: convertDate(dtNasc),
+            cpf_pessoa: tratamentoString(cpf),
+            rg_pessoa: tratamentoString(rg),
             email_pessoa: email,
-            telefone_pessoa: telefone,
+            telefone_pessoa: tratamentoString(telefone),
             genero: genero,
             id_endereco: id_endereco
           });
@@ -201,19 +190,19 @@
             estado: uf,
             cidade: cidade,
             bairro: bairro,
-            rua: rua,
+            rua: logradouro,
             numero: null
           });
           responseEndereco = responseEndereco.data;
 
           let responsePessoa = await axios.post('/api/pessoa/', {
             nome_pessoa: nome,
-            dt_nasc_pessoa: convertDate(dt_nascimento),
-            cpf_pessoa: cpf,
-            rg_pessoa: rg,
+            dt_nasc_pessoa: convertDate(dtNasc),
+            cpf_pessoa: tratamentoString(cpf),
+            rg_pessoa: tratamentoString(rg),
             email_pessoa: email,
             senha_pessoa: senha,
-            telefone_pessoa: telefone,
+            telefone_pessoa: tratamentoString(telefone),
             genero: genero,
             id_endereco: responseEndereco.id,
             adm: null
