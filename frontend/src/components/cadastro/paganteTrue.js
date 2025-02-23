@@ -81,7 +81,8 @@ export default function Form() {
   const [unidades, setUnidades] = useState([]);
   const [turmas, setTurmas] = useState([]);
   const [selectedUnidade, setSelectedUnidade] = useState("");
-  const [selectedTurma, setSelectedTurma] = useState("");
+  const [selectedTurmas, setSelectedTurmas] = useState("");
+  const [selectedDay, setSelectedDay] = useState("");
 
   // State de contrato
   const [aceitouContrato, setAceitouContrato] = useState(false);
@@ -139,6 +140,21 @@ export default function Form() {
   //   }
   // }, [id_aluno]);
 
+  const handleChange = (event) => {
+    setSelectedDay(event.target.value);
+  };
+
+  const handleChangeTurmas = (turmaId) => {
+    setSelectedTurmas((prev) => {
+      if (prev.includes(turmaId)) {
+        return prev.filter((id) => id !== turmaId); // Remove se já estiver selecionado
+      } else if (prev.length < selectedDay) {
+        return [...prev, turmaId]; // Adiciona se ainda houver espaço
+      }
+      return prev; // Mantém o mesmo estado se já atingiu o limite
+    });
+  };
+
   async function pesquisarUnidades() {
     axios.post('/api/unidade/cidade/2tipo', {
       cidade: cidade,
@@ -159,14 +175,14 @@ export default function Form() {
         .then(response => {
           const turmasFiltradas = response.data.filter(turma => turma.id_unidade === id_selectedUnidade);
           setTurmas(turmasFiltradas);
-          setSelectedTurma(""); // Reseta a turma ao trocar de unidade
+          setSelectedTurmas(""); // Reseta a turma ao trocar de unidade
         })
         .catch(error => {
           console.error("Erro ao buscar turmas:", error);
         });
     } else {
       setTurmas([]);
-      setSelectedTurma("");
+      setSelectedTurmas("");
     }
   }, [selectedUnidade]);
 
@@ -403,11 +419,14 @@ export default function Form() {
       })
     }
 
-
-    let responseAlunoHasTurma = await axios.post('/api/aluno_has_turma', {
-      id_aluno: responsePessoa.id,
-      id_turma: parseInt(selectedTurma)
-    });
+    let responseAlunoHasTurma;
+    for(let i=0;i<selectedDay;i++){
+      responseAlunoHasTurma = await axios.post('/api/aluno_has_turma', {
+        id_aluno: responsePessoa.id,
+        id_turma: parseInt(selectedTurmas[i])
+      });
+    }
+    
 
     if (responseAlunoHasTurma) {
       alert('Cadastro concluído!');
@@ -446,10 +465,10 @@ export default function Form() {
     <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}
       areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo8 nextStep={nextStep} prevStep={prevStep} />,
+    <Passo8 nextStep={nextStep} prevStep={prevStep} handleChange={handleChange} selectedDay={selectedDay} areAllFieldsFilled={areAllFieldsFilled}/>,
 
-    <Passo9 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurma={selectedTurma} setSelectedTurma={setSelectedTurma} 
-      areAllFieldsFilled={areAllFieldsFilled} />,
+    <Passo9 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurmas={selectedTurmas} setSelectedTurmas={setSelectedTurmas} 
+      areAllFieldsFilled={areAllFieldsFilled} handleChangeTurmas={handleChangeTurmas}/>,
 
     <Passo10 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} 
       setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} />,
@@ -725,99 +744,87 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
   </div>
 );
 
-const Passo8 = ({ nextStep, prevStep }) => (
+const Passo8 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFilled}) => (
   <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Quantos dias por semana<br />Você vai Treinar?</h1>
+      <div className={Styles.textcenter}>
+        <h1>Quantos dias por semana<br />Você vai Treinar?</h1>
+      </div>
+      <div className={Styles.divEscolhaDia}>
+        {[1, 2, 3, 4, 5, 6].map((num) => (
+          <div key={num}>
+            <input 
+              type="radio" 
+              id={num.toString()} 
+              name="dia" 
+              value={num} 
+              checked={selectedDay === num.toString()} 
+              onChange={handleChange} 
+            />
+            <label htmlFor={num.toString()}>{num} Dia{num > 1 ? "s" : ""}</label>
+          </div>
+        ))}
+      </div>
+      <div className={Styles.divBotao}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+          Anterior
+        </button>
+        <button type="button" onClick={() => {
+            if(areAllFieldsFilled([selectedDay]) === true){
+              nextStep();
+            }else{
+              alert('Preencha os campos obrigatórios!');
+            }
+          
+          }} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        </button>
+      </div>
     </div>
-    <div className={Styles.divEscolhaDia}>
-      <div>
-        <input type="radio" id="1" name="dia" value="1" />
-        <label htmlFor="1">1 Dia</label>
-      </div>
-      <div>
-        <input type="radio" id="2" name="dia" value="2" />
-        <label htmlFor="2">2 Dias</label>
-      </div>
-      <div>
-        <input type="radio" id="3" name="dia" value="3" />
-        <label htmlFor="3">3 Dias</label>
-      </div>
-      <div>
-        <input type="radio" id="4" name="dia" value="4" />
-        <label htmlFor="4">4 Dias</label>
-      </div>
-      <div>
-        <input type="radio" id="5" name="dia" value="5" />
-        <label htmlFor="5">5 Dias</label>
-      </div>
-      <div>
-        <input type="radio" id="6" name="dia" value="6" />
-        <label htmlFor="6">6 Dias</label>
-      </div>
-    </div>
-    <div className={Styles.divBotao}>
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        Anterior
-      </button>
-      <button type="button" onClick={() => {
-        
-          nextStep()
-        
-      }} className={Styles.button}>
-        Próximo
-        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-      </button>
-    </div>
-  </div>
 );
 
-const Passo9 = ({ nextStep, prevStep, turmas, selectedTurma, setSelectedTurma, areAllFieldsFilled }) => (
+const Passo9 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas, areAllFieldsFilled, handleChangeTurmas }) => (
   <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Escolha a Sua Turma</h1>
+      <div className={Styles.textcenter}>
+        <h1>Escolha a Sua Turma</h1>
+      </div>
+      <div className={Styles.divEscolhaTurma}>
+        {turmas.length > 0 ? (
+          turmas.map((turma) => (
+            <div key={turma.id_turma} className={Styles.escolhaTurma}>
+              <input
+                type="checkbox"
+                id={`turma-${turma.id_turma}`}
+                name="escolha_turma"
+                value={turma.id_turma}
+                checked={selectedTurmas.includes(turma.id_turma)}
+                onChange={() => handleChangeTurmas(turma.id_turma)}
+              />
+              <label htmlFor={`turma-${turma.id_turma}`}>{turma.nome_turma}</label>
+            </div>
+          ))
+        ) : (
+          <p>Nenhuma turma disponível.</p>
+        )}
+      </div>
+      <div className={Styles.divBotao}>
+        <button type="button" onClick={prevStep} className={Styles.button}>
+          <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+          Anterior
+        </button>
+        <button type="button" onClick={() => {
+          if(selectedTurmas != ''){
+            nextStep();
+          }else{
+            alert('Preencha os campos obrigatórios!');
+          }
+        }} className={Styles.button}>
+          Próximo
+          <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        </button>
+      </div>
     </div>
-    <div className={Styles.divEscolhaTurma}>
-      {/* Checkboxes para selecionar a turma */}
-      {turmas.length > 0 ? (
-        turmas.map((turma) => (
-          <div key={turma.id_turma} className={Styles.escolhaTurma}>
-            <input
-              type="checkbox"
-              id={`turma-${turma.id_turma}`}
-              name="escolha_turma"
-              // Arrumar Two
-              // value={turma.id_turma}
-              // checked={selectedTurma === turma.id_turma} // Permite selecionar apenas um
-              // onChange={() => setSelectedTurma(turma.id_turma)} // Atualiza a seleção
-            />
-            <label htmlFor={`turma-${turma.id_turma}`}>{turma.nome_turma}</label>
-          </div>
-        ))
-      ) : (
-        <p>Nenhuma turma disponível.</p>
-      )}
-    </div>
-    <div className={Styles.divBotao}>
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        Anterior
-      </button>
-      <button type="button" onClick={() => {
-        nextStep()
-        // Arrumar One
-        // if (areAllFieldsFilled([selectedTurma]) === true) {
-        //   nextStep()
-        // } else {
-        //   alert('Preencha os campos obrigatórios!');
-        // }
-      }} className={Styles.button}>
-        Próximo
-        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-      </button>
-    </div>
-  </div>
 );
 
 const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento }) => (

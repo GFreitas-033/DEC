@@ -12,15 +12,11 @@ Content-Type: application/json
 
 ###
 
-GET  http://localhost:5000/adm/professor
-
-###
-
 POST http://localhost:5000/api/pessoa/
 Content-Type: application/json
 
 {
-    "nome_pessoa":"Guilherme Front",
+    "nome_pessoa":"Tomás Fiori Bolsoni",
     "dt_nasc_pessoa":"2004-03-04",
     "cpf_pessoa":"124141315",
     "rg_pessoa":"431554135",
@@ -31,10 +27,6 @@ Content-Type: application/json
     "id_endereco":3,
     "adm":1
 }
-
-###
-
-DELETE http://localhost:3000/api/aluno_has_turma/249
 
 ### Endereco
 
@@ -51,70 +43,3 @@ Content-Type: application/json
 }
 
 ###
-
-PUT  http://localhost:5000/calendario/1
-###
-
-PUT http://localhost:3000/api/endereco/1
-Content-Type: application/json
-
-{
-    "cep":"16401-093",
-    "estado":"São-Paulo",
-    "cidade":"",
-    "bairro":"Jardim Tropical", 
-    "rua":"São Cristovão", 
-    "numero":"261"
-}
-
-###
-
-GET http://localhost:5000/adm/excluirturma/2
-
-###
-
-POST http://localhost:5000/api/aluno_has_turma HTTP/1.1
-Content-Type: application/json
-
-{
-    "id_aluno":3,
-    "id_turma":4
-}
-
-###
-
-POST http://localhost:5000/api/turma HTTP/1.1
-Content-Type: application/json
-
-{
-    "qtd_maxima":10, 
-    "id_professor":2, 
-    "dia_semana":"quarta", 
-    "horario":"16:00:00", 
-    "id_unidade":1,
-    "nome_turma":"Turma Teste"
-}
-
-### Create Unidade
-POST http://localhost:5000/api/unidade
-Content-Type: application/json
-
-{
-  "nome_unidade": "Unidade Teste",
-  "cnpj_unidade": "12345678000190",
-  "telefone_unidade": "11987654321",
-  "email_unidade": "teste@unidade.com",
-  "mais_contatos": "Contato Adicional",
-  "id_endereco": 1,
-  "id_responsavel_unidade": 2
-}
-
-### Create Responsavel Unidade
-POST http://localhost:5000/api/responsavel_unidade
-Content-Type: application/json
-
-{
-  "id_pessoa": 2
-}
-
-
