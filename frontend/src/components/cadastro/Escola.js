@@ -136,7 +136,7 @@ export default function Form() {
   useEffect(() => {
     if (selectedUnidade) {
       let id_selectedUnidade = parseInt(selectedUnidade);
-      axios.get('/api/turma')
+      axios.get('/api/turma/formatada')
         .then(response => {
           const turmasFiltradas = response.data.filter(turma => turma.id_unidade === id_selectedUnidade);
           setTurmas(turmasFiltradas);
@@ -602,7 +602,7 @@ const Passo6 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
                 checked={selectedTurmas.includes(turma.id_turma)}
                 onChange={() => handleChangeTurmas(turma.id_turma)}
               />
-              <label htmlFor={`turma-${turma.id_turma}`}>{turma.nome_turma}</label>
+              <label htmlFor={`turma-${turma.id_turma}`}>{turma.nome_formatado}</label>
             </div>
           ))
         ) : (

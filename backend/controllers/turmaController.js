@@ -9,6 +9,11 @@ router.get('/', asyncHandler(async (req, res) => {
     res.json(data);
 }));
 
+router.get('/formatada', asyncHandler(async (req, res) => {
+    const data = await turmaModel.readTurmaFormatada();
+    res.json(data);
+}));
+
 router.post('/', asyncHandler(async (req, res) => {
     const { qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma} = req.body;
     await turmaModel.createTurma(qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma);
