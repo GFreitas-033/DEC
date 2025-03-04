@@ -1,47 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import btnStyle from "./adiciona_Aluno.module.css";
 
-export default function Adicionar_Aluno(isAdm) {
+export default function Adicionar_Aluno({ isAdm }) {
     const [alunos, setAlunos] = useState([]);
     const { idturma } = useParams();
     const [responseAlunosTurma, setResponseAlunoTurma] = useState(null);
 
-    const [filteredAlunos, setFilteredAlunos] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [selectedAluno, setSelectedAluno] = useState("");
+    const [filtrarAluno, setFiltrarAluno] = useState([]);
+    const [achar, setAchar] = useState("");
+    const [alunoSelecionado, setAlunoSelecionado] = useState(null);
+    const [mostrarLista, setMostrarLista] = useState(false);
 
     useEffect(() => {
         axios.get("/listartodosalunos")
-            .then(response => {
-                setAlunos(response.data); // Atualiza o estado com a lista de alunos
-                setFilteredAlunos(response.data); // Inicialmente, todos os alunos são filtrados
-            })
-            .catch(error => {
-                console.error("Erro ao buscar alunos:", error);
-            });
+        .then(response => {
+            setAlunos(response.data);
+            setFiltrarAluno(response.data);
+        })
+        .catch(error => {
+            console.error("Erro ao buscar alunos:", error);
+        });
     }, []);
 
     useEffect(() => {
-        // Filtra os alunos com base no termo de busca
-        const filtered = alunos.filter(aluno =>
-            aluno.nome_aluno.toLowerCase().includes(searchTerm.toLowerCase())
+        const filtro = alunos.filter(aluno =>
+            aluno.nome_aluno.toLowerCase().includes(achar.toLowerCase())
         );
-        setFilteredAlunos(filtered);
-    }, [searchTerm, alunos]);
+        setFiltrarAluno(filtro);
+    }, [achar, alunos]);
 
-    async function colocarAluno(){
-        const id_aluno = document.getElementById("alunosT").value;
-        console.log(id_aluno);
-        console.log(idturma);
-        const responseAlunosTurma = axios.post("/api/aluno_has_turma",{
-            id_aluno: id_aluno,
-            id_turma: idturma
-        })
+    async function colocarAluno() {
+        if (!alunoSelecionado) {
+            alert("Selecione um aluno para adicionar!");
+            return;
+        }
 
-        setResponseAlunoTurma(responseAlunosTurma);
+        try {
+            await axios.post("/api/aluno_has_turma", {
+                id_aluno: alunoSelecionado,
+                id_turma: idturma
+            });
+            alert("Aluno adicionado com sucesso!");
+            window.location.reload();
+        }catch(error){
+            console.error("Erro ao adicionar aluno:", error);
+        }
     }
+
 
     // async function tirarAluno(){
     //     const id_aluno = document.getElementById("alunosT").value;
@@ -51,41 +58,51 @@ export default function Adicionar_Aluno(isAdm) {
     //     setResponseAlunoTurma(responseAlunosTurma);
     // }
 
-    if (responseAlunosTurma) {
-        alert("Sucesso!!!");
-        window.location.reload();
-    }
+    if (isAdm !== "true") return null;
 
-    const handleSelectChange = (alunoId) => {
-        setSelectedAluno(alunoId); // Atualiza o aluno selecionado
-        setSearchTerm(""); // Limpa o campo de pesquisa ao selecionar uma opção
-    };
-    if(isAdm.isAdm === "true"){
-        return (
-            <div>
-                <input
-                    type="text"
-                    placeholder="Pesquisar Aluno"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className={btnStyle.selectInput}
+    return (
+        <div className={btnStyle.containerBotoes}>
+            <div className={btnStyle.divFiltro}>
+                <input type="text" placeholder="Pesquisar Aluno"
+                    value={achar}
+                    onChange={(e) => {
+                        setAchar(e.target.value);
+                        setMostrarLista(true);
+                    }}
+                    onClick={()=>{
+                        if(mostrarLista){
+                            setMostrarLista(false);
+                        }else{
+                            setMostrarLista(true);
+                        }
+                    }}
+                    className={`${btnStyle.selectInput} ${btnStyle.stylePadrao}`}
                 />
-                <select id="alunosT" className={btnStyle.selectInput}>
-                    <option value="" selected disabled>Selecionar</option>
-                    {filteredAlunos.map(aluno => (
-                        <option key={aluno.id_aluno} value={aluno.id_aluno}>
-                            {aluno.nome_aluno}
-                        </option>
-                    ))}
-                </select>
-                <button onClick={colocarAluno} className={btnStyle.btnAdicionaAluno}>
-                    Adicionar Aluno
-                </button>
+                {mostrarLista && (
+                    <ul className={btnStyle.listaAlunos}>
+                        {filtrarAluno.length > 0 ? (
+                            filtrarAluno.map(aluno => (
+                            <li
+                            key={aluno.id_aluno}
+                            onClick={() => {
+                                setAlunoSelecionado(aluno.id_aluno);
+                                setAchar(aluno.nome_aluno);
+                                setMostrarLista(false);
+                            }}
+                            className={btnStyle.listaItem}
+                            >
+                                {aluno.nome_aluno}
+                            </li>
+                        ))
+                        ) : (
+                            <li className={btnStyle.listaItem}>Nenhum aluno encontrado</li>
+                        )}
+                    </ul>
+                )}
             </div>
-        );
-    }else{
-        return(
-            <div></div>
-        );
-    }
+            <button onClick={colocarAluno} className={`${btnStyle.btnAdicionaAluno}  ${btnStyle.stylePadrao}`}>
+                Adicionar Aluno
+            </button>
+        </div>
+    );
 }

@@ -1,32 +1,58 @@
-.selectInput{
-    background-color: #000;
-    color: #FBD034;
+.containerBotoes{
+    display: flex;
+}
+
+.divFiltro{
+    position: relative;
+    width: 100%;
+}
+
+.stylePadrao{
     border: none;
-    border-radius: 0.5rem 0 0 0;
     cursor: pointer;
     height: 2rem;
-    width: 50%;
+    width: 100%;
 }
-.selectInput:hover{
-    background-color: #6e6e6e;
-    color: #FBD034;
-    transition: 0.5s;
+
+.selectInput{
+    background-color: #f5f5f5; 
+    border-radius: 0.5rem 0 0 0;
+}
+input[type="text"] {
+    flex: 1;              /* Faz o input ocupar metade do espaço */
+    padding-left: 1rem;   /* Espaço à esquerda do texto */
+    box-sizing: border-box; /* Faz com que o padding não "aumente" o tamanho do input */
+}
+.selectInput:focus {
+    outline: none; /* Remove a borda padrão do foco */
 }
 
 .btnAdicionaAluno{
-    background-color: #000;
+    background-color: #000;    
     color: #FBD034;
-    border: none;
-    cursor: pointer;
-    height: 2rem;
-    width: 50%;
+    border-radius: 0 0.5rem 0 0;
 }
 .btnAdicionaAluno:hover{
     background-color: #6e6e6e;
-    color: #FBD034;
     transition: 0.5s;
 }
 
-.someComTudo{
-    display: none;
+.listaAlunos{
+    background-color: #000;
+    color: #FBD034;
+    max-height: 15rem;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.listaItem{
+    padding: 0.5rem;
+    cursor: pointer;
+    list-style: none;
+}
+.listaItem:hover{
+    background-color: #6e6e6e;
+    transition: 0.5s;
 }
