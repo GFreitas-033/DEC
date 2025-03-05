@@ -31,25 +31,34 @@ router.use("/adm", admController);
 router.get('/listaralunos/:idturma', async (req, res) => {
     const id_turma = parseInt(req.params.idturma);
     try {
+        // Buscar os relacionamentos entre alunos e turmas
         const responseTurmas_Alunos = await axios.get('http://localhost:5000/api/aluno_has_turma');
         const dadosTurmas_Alunos = responseTurmas_Alunos.data;
+
+        // Filtrar os alunos pertencentes à turma especificada
         const alunosTurma = dadosTurmas_Alunos
             .filter(dado => dado.id_turma === id_turma)
             .map(dado => dado.id_aluno);
 
+        // Buscar os dados das pessoas
         const responsePessoa = await axios.get('http://localhost:5000/api/pessoa');
         const dadosPessoa = responsePessoa.data;
 
-        const nomesAlunos = dadosPessoa
+        // Filtrar as pessoas que são alunos da turma e retornar id e nome
+        const alunosDetalhados = dadosPessoa
             .filter(pessoa => alunosTurma.includes(pessoa.id_pessoa))
-            .map(pessoa => pessoa.nome_pessoa);
+            .map(pessoa => ({
+                id_pessoa: pessoa.id_pessoa,
+                nome_pessoa: pessoa.nome_pessoa
+            }));
 
-        res.json(nomesAlunos);
+        res.json(alunosDetalhados);
 
     } catch (error) {
         return res.status(500).json({ message: "Erro ao buscar dados da turma", error: error.message });
     }
 });
+
 
 // Nova rota para listar todos os alunos
 router.get('/listartodosalunos', async (req, res) => {

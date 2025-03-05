@@ -51,11 +51,11 @@ export default function AlunosCalendario() {
     };
 
     async function tirarAluno(id_aluno) {
-        console.log(id_aluno)
         try {
             const response = await axios.delete(`/api/aluno_has_turma/aluno/${id_aluno}`);
             setResponseAlunoTurma(response);
             setAlunos((prevAlunos) => prevAlunos.filter((aluno) => aluno.id_aluno !== id_aluno));
+            window.location.reload();
         } catch (error) {
             console.error("Erro ao remover aluno:", error);
         }
@@ -73,11 +73,11 @@ export default function AlunosCalendario() {
                     <ul className={Calendario.lista}>
                         {alunos.map((aluno, index) => (
                             <li key={index}>
-                                {aluno}
+                                {aluno.nome_pessoa}
                                 <img 
                                     src={require('../../../imgs/icons/Excluir.png')} 
                                     className={Calendario.iconExcluir}
-                                    onClick={() => tirarAluno(aluno.id_aluno)}
+                                    onClick={() => {tirarAluno(aluno.id_pessoa)}}
                                     alt="Excluir aluno"
                                 />
                             </li>
