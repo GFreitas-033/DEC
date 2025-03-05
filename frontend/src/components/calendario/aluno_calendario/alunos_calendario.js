@@ -10,6 +10,7 @@ import Notifica from "../../sino_notificacao/notificacao"
 export default function AlunosCalendario() {
     const { idturma } = useParams();
     const [alunos, setAlunos] = useState([]);
+    const [responseAlunosTurma, setResponseAlunoTurma] = useState(null);
     const [turma, setTurma] = useState({}); // Estado para armazenar os dados da turma
     const adm = localStorage.getItem('isAdm');
     const navigate = useNavigate()
@@ -49,6 +50,17 @@ export default function AlunosCalendario() {
         }
     };
 
+    async function tirarAluno(id_aluno) {
+        console.log(id_aluno)
+        try {
+            const response = await axios.delete(`/api/aluno_has_turma/aluno/${id_aluno}`);
+            setResponseAlunoTurma(response);
+            setAlunos((prevAlunos) => prevAlunos.filter((aluno) => aluno.id_aluno !== id_aluno));
+        } catch (error) {
+            console.error("Erro ao remover aluno:", error);
+        }
+    }
+
     return (
         <div className={ContainerCss.container}>
             <Barra_lateral />
@@ -60,7 +72,15 @@ export default function AlunosCalendario() {
                     <p className={Calendario.textLH}>Horário: {turma.horario}</p>
                     <ul className={Calendario.lista}>
                         {alunos.map((aluno, index) => (
-                            <li key={index}>{aluno}</li>
+                            <li key={index}>
+                                {aluno}
+                                <img 
+                                    src={require('../../../imgs/icons/Excluir.png')} 
+                                    className={Calendario.iconExcluir}
+                                    onClick={() => tirarAluno(aluno.id_aluno)}
+                                    alt="Excluir aluno"
+                                />
+                            </li>
                         ))}
                     </ul>
                 </div>

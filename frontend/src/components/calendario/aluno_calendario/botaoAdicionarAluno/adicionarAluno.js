@@ -6,7 +6,6 @@ import btnStyle from "./adiciona_Aluno.module.css";
 export default function Adicionar_Aluno({ isAdm }) {
     const [alunos, setAlunos] = useState([]);
     const { idturma } = useParams();
-    const [responseAlunosTurma, setResponseAlunoTurma] = useState(null);
 
     const [filtrarAluno, setFiltrarAluno] = useState([]);
     const [achar, setAchar] = useState("");
@@ -48,15 +47,6 @@ export default function Adicionar_Aluno({ isAdm }) {
             console.error("Erro ao adicionar aluno:", error);
         }
     }
-
-
-    // async function tirarAluno(){
-    //     const id_aluno = document.getElementById("alunosT").value;
-    //     console.log(id_aluno);
-    //     const responseAlunosTurma = axios.delete(`/api/aluno_has_turma/aluno/${id_aluno}`);
-
-    //     setResponseAlunoTurma(responseAlunosTurma);
-    // }
 
     if (isAdm !== "true") return null;
 
