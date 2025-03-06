@@ -1,30 +1,30 @@
-  import React, { useState, useEffect } from "react";
-  import { useParams } from "react-router-dom";
-  import StyleCadastroProf from "../cadastroDoAdm.module.css";
-  import Texto from "../textos_cadastro/texto_cadastro";
-  import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import StyleCadastroProf from "../cadastroDoAdm.module.css";
+import Texto from "../textos_cadastro/texto_cadastro";
+import axios from "axios";
 
-  // Imports dos Inputs para Pessoa
-  import Imagem from "../../inputs_cadastro/imagem_input";
-  import Email from "../../inputs_cadastro/email_input";
-  import Senha from "../../inputs_cadastro/senha_input";
-  import Nome from "../../inputs_cadastro/nome_input";
-  import Cpf from "../../inputs_cadastro/cpf_input";
-  import Rg from "../../inputs_cadastro/rg_input";
-  import Telefone from "../../inputs_cadastro/telefone_input";
-  import DtNasc from "../../inputs_cadastro/dt_nasc_input";
-  import Genero from "../../inputs_cadastro/genero_input";
+// Imports dos Inputs para Pessoa
+// import Imagem from "../../inputs_cadastro/imagem_input";
+import Email from "../../inputs_cadastro/email_input";
+import Senha from "../../inputs_cadastro/senha_input";
+import Nome from "../../inputs_cadastro/nome_input";
+import Cpf from "../../inputs_cadastro/cpf_input";
+import Rg from "../../inputs_cadastro/rg_input";
+import Telefone from "../../inputs_cadastro/telefone_input";
+import DtNasc from "../../inputs_cadastro/dt_nasc_input";
+import Genero from "../../inputs_cadastro/genero_input";
 
-  // Imports do Endereço
-  import Cep from "../../inputs_cadastro/endereco/cep_input";
-  import UF from "../../inputs_cadastro/endereco/uf_input";
-  import Cidade from "../../inputs_cadastro/endereco/cidade_input";
-  import Bairro from "../../inputs_cadastro/endereco/bairro_input";
-  import Rua from "../../inputs_cadastro/endereco/rua_input";
+// Imports do Endereço
+import Cep from "../../inputs_cadastro/endereco/cep_input";
+import UF from "../../inputs_cadastro/endereco/uf_input";
+import Cidade from "../../inputs_cadastro/endereco/cidade_input";
+import Bairro from "../../inputs_cadastro/endereco/bairro_input";
+import Rua from "../../inputs_cadastro/endereco/rua_input";
 
-  import Botao from "../botao_cadastro/submit_cadastro";
+import Botao from "../botao_cadastro/submit_cadastro";
 
-  export default function Content_cadastro_Professor(props) {
+export default function Content_cadastro_Professor(props) {
     let { id_professor } = useParams();
 
     const [email, setEmail] = useState("");
@@ -236,7 +236,7 @@
 
         <form className={StyleCadastroProf.content} autoComplete="off" onSubmit={cliquei}>
           <div className={StyleCadastroProf.contentInputs}>
-            <Imagem/>
+            {/* <Imagem/> */}
             <Email value={email} setValue={setEmail}/>
             {id_professor === undefined && <Senha value={senha} setValue={setSenha}/>}
             <Nome value={nome} setValue={setNome}/>
