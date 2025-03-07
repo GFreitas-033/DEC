@@ -53,45 +53,46 @@ export default function Adm_aluno(){
         <div className={ContainerCss.container}>
             <BarraLateral />
             <div className={EstiloAdmAluno.contentAdm}>
-                <div>
-                    <h1 className={EstiloAdmAluno.titulo}>ALUNOS</h1>
-                </div>
+                <h1 className={EstiloAdmAluno.titulo}>ALUNOS</h1>
                 <div className={EstiloAdmAluno.divBtn}>
                     <p className={EstiloAdmAluno.qtd}>Quantidade de Alunos: {alunos.length}</p>
                 </div>
                 <table className={EstiloAdmAluno.tabela}>
                     <thead>
                         <tr>
-                            <td className={EstiloAdmAluno.ids}>
+                            <td className={EstiloAdmAluno.colunaId}>
                                 <p><b><u>ID</u></b></p>
                             </td>
-                            <td>
+                            <td className={EstiloAdmAluno.colunaNome}>
                                 <p><b><u>Nome</u></b></p>
+                            </td>
+                            <td className={EstiloAdmAluno.colunaAcao}>
+                                <p><b><u>Ação</u></b></p>
                             </td>
                         </tr>
                     </thead>
                     <tbody>
                         {alunos.map(aluno => (
                             <tr key={aluno.id_pessoa}>
-                                <td>
-                                    <div className={EstiloAdmAluno.divIds}>
-                                        <p className={EstiloAdmAluno.Id}>{aluno.id_pessoa}</p>
-                                        <img
-                                            src={require('../../../imgs/icons/Excluir.png')}
-                                            alt="Excluir"
-                                            className={EstiloAdmAluno.icon}
-                                            onClick={() => excluirAluno(aluno.id_pessoa)}
-                                        />
-                                        <img
-                                            src={require('../../../imgs/icons/Editar.png')}
-                                            alt="Editar"
-                                            className={EstiloAdmAluno.icon}
-                                            onClick={() => navigate(`/adm/editar_aluno/${aluno.id_pessoa}`)}
-                                        />
-                                    </div>
+                                <td className={EstiloAdmAluno.colunaId}>
+                                    {aluno.id_pessoa}
                                 </td>
-                                <td className={EstiloAdmAluno.colunaNome}>
+                                <td>
                                     {aluno.nome_pessoa}
+                                </td>
+                                <td className={EstiloAdmAluno.colunaAcao}>
+                                    <img
+                                        src={require('../../../imgs/icons/Editar.png')}
+                                        alt="Editar"
+                                        className={EstiloAdmAluno.icon}
+                                        onClick={() => navigate(`/adm/editar_aluno/${aluno.id_pessoa}`)}
+                                    />
+                                    <img
+                                        src={require('../../../imgs/icons/Excluir.png')}
+                                        alt="Excluir"
+                                        className={EstiloAdmAluno.icon}
+                                        onClick={() => excluirAluno(aluno.id_pessoa)}
+                                    />
                                 </td>
                             </tr>
                         ))}

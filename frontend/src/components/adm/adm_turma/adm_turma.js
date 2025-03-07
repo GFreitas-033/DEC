@@ -54,9 +54,7 @@ export default function Adm_turma(){
         <div className={ContainerCss.container}>
             <BarraLateral />
             <div className={EstiloAdmTurma.contentAdm}>
-                <div>
-                    <h1 className={EstiloAdmTurma.titulo}>Turmas</h1>
-                </div>
+                <h1 className={EstiloAdmTurma.titulo}>Turmas</h1>
                 <div className={EstiloAdmTurma.divBtn}>
                     <Botao url={'/cadastro/turma'} texto={"Nova Turma +"}/>
                     <p className={EstiloAdmTurma.qtd}>Quantidade de Turmas: {turmas.length}</p>
@@ -64,36 +62,39 @@ export default function Adm_turma(){
                 <table className={EstiloAdmTurma.tabela}>
                     <thead>
                         <tr>
-                            <td className={EstiloAdmTurma.ids}>
+                            <td className={EstiloAdmTurma.colunaId}>
                                 <p><b><u>ID</u></b></p>
                             </td>
-                            <td>
+                            <td className={EstiloAdmTurma.colunaNome}>
                                 <p><b><u>Nome</u></b></p>
+                            </td>
+                            <td className={EstiloAdmTurma.colunaAcao}>
+                                <p><b><u>Ação</u></b></p>
                             </td>
                         </tr>
                     </thead>
                     <tbody>
                         {turmas.map(turma => (
                             <tr key={turma.id_turma}>
-                                <td>
-                                    <div className={EstiloAdmTurma.divIds}>
-                                        <p className={EstiloAdmTurma.Id}>{turma.id_turma}</p>
-                                        <img 
-                                            src={require('../../../imgs/icons/Excluir.png')}
-                                            alt="Excluir" 
-                                            className={EstiloAdmTurma.icon} 
-                                            onClick={() => excluirTurma(turma.id_turma)}
-                                        />
-                                        <img 
-                                            src={require('../../../imgs/icons/Editar.png')}
-                                            alt="Editar" 
-                                            className={EstiloAdmTurma.icon} 
-                                            onClick={() => navigate(`/adm/editar_turma/${turma.id_turma}`)}
-                                        />
-                                    </div>
+                                <td className={EstiloAdmTurma.colunaId}>
+                                    {turma.id_turma}
                                 </td>
-                                <td className={EstiloAdmTurma.colunaNome}>
+                                <td>
                                     {turma.nome_turma}
+                                </td>
+                                <td className={EstiloAdmTurma.colunaAcao}>
+                                    <img 
+                                        src={require('../../../imgs/icons/Editar.png')}
+                                        alt="Editar" 
+                                        className={EstiloAdmTurma.icon} 
+                                        onClick={() => navigate(`/adm/editar_turma/${turma.id_turma}`)}
+                                    />
+                                    <img 
+                                        src={require('../../../imgs/icons/Excluir.png')}
+                                        alt="Excluir" 
+                                        className={EstiloAdmTurma.icon} 
+                                        onClick={() => excluirTurma(turma.id_turma)}
+                                    />
                                 </td>
                             </tr>
                         ))}

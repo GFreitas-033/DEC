@@ -3,7 +3,7 @@ import React from "react"
 import {BrowserRouter as Routers, Routes, Route, Link} from "react-router-dom"
 
 // Import das Telas
-import Login from "./components/login/form_login/form"
+import Login from "./components/login/form"
 import PaganteTrue from "./components/cadastro/paganteTrue"
 import PaganteFalse from "./components/cadastro/paganteFalse"
 import AlunoEscola from "./components/cadastro/Escola"

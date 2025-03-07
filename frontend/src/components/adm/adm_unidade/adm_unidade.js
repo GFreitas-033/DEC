@@ -54,9 +54,7 @@ export default function Adm_unidade(){
         <div className={ContainerCss.container}>
             <BarraLateral />
             <div className={EstiloAdmUnidade.contentAdm}>
-                <div>
-                    <h1 className={EstiloAdmUnidade.titulo}>Unidade</h1>
-                </div>
+                <h1 className={EstiloAdmUnidade.titulo}>Unidade</h1>
                 <div className={EstiloAdmUnidade.divBtn}>
                     <Botao url={'/cadastro/unidade'} texto={"Nova Unidade +"}/>
                     <p className={EstiloAdmUnidade.qtd}>Quantidade de Unidades: {unidades.length}</p>
@@ -64,36 +62,39 @@ export default function Adm_unidade(){
                 <table className={EstiloAdmUnidade.tabela}>
                     <thead>
                         <tr>
-                            <td className={EstiloAdmUnidade.ids}>
+                            <td className={EstiloAdmUnidade.colunaId}>
                                 <p><b><u>ID</u></b></p>
                             </td>
-                            <td>
+                            <td className={EstiloAdmUnidade.colunaNome}>
                                 <p><b><u>Nome</u></b></p>
+                            </td>
+                            <td className={EstiloAdmUnidade.colunaAcao}>
+                                <p><b><u>Ação</u></b></p>
                             </td>
                         </tr>
                     </thead>
                     <tbody>
                         {unidades.map(unidade => (
                             <tr key={unidade.id_unidade}>
-                                <td>
-                                    <div className={EstiloAdmUnidade.divIds}>
-                                        <p className={EstiloAdmUnidade.Id}>{unidade.id_unidade}</p>
-                                        <img 
-                                            src={require('../../../imgs/icons/Excluir.png')} 
-                                            alt="Excluir"
-                                            className={EstiloAdmUnidade.icon} 
-                                            onClick={() => excluirUnidade(unidade.id_unidade)}
-                                        />
-                                        <img 
-                                            src={require('../../../imgs/icons/Editar.png')}
-                                            alt="Editar" 
-                                            className={EstiloAdmUnidade.icon} 
-                                            onClick={() => navigate(`/adm/editar_unidade/${unidade.id_unidade}`)}
-                                        />
-                                    </div>
+                                <td className={EstiloAdmUnidade.colunaId}>
+                                    {unidade.id_unidade}
                                 </td>
-                                <td className={EstiloAdmUnidade.colunaNome}>
+                                <td>
                                     {unidade.nome_unidade}
+                                </td>
+                                <td className={EstiloAdmUnidade.colunaAcao}>
+                                    <img 
+                                        src={require('../../../imgs/icons/Editar.png')}
+                                        alt="Editar" 
+                                        className={EstiloAdmUnidade.icon} 
+                                        onClick={() => navigate(`/adm/editar_unidade/${unidade.id_unidade}`)}
+                                    />
+                                    <img 
+                                        src={require('../../../imgs/icons/Excluir.png')} 
+                                        alt="Excluir"
+                                        className={EstiloAdmUnidade.icon} 
+                                        onClick={() => excluirUnidade(unidade.id_unidade)}
+                                    />
                                 </td>
                             </tr>
                         ))}

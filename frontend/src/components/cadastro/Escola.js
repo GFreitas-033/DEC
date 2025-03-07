@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { useNavigate, useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Styles from "./form.module.css";
+import EstiloBack from "../background/background.module.css";
 import axios from "axios";
 
 // Import dos Input
@@ -372,8 +373,15 @@ export default function Form() {
 
   return (
     <div>
-      <div className={Styles.backgroundContainer}>
-        <img src={require('../../imgs/backgroundDesktop/backTanger.png')} alt="Background" className={Styles.responsiveImg} draggable="false" />
+      <div className={EstiloBack.backgroundContainer}>
+        <img src={require('../../imgs/backgroundDesktop/backTanger.png')} 
+          alt="Background" className={EstiloBack.responsiveImg} draggable="false" 
+           id={EstiloBack.backDesk}
+        />
+        <img src={require('../../imgs/backgroundMobile/backTangerMob.png')} 
+          alt="Background" className={EstiloBack.responsiveImg} draggable="false" 
+           id={EstiloBack.backMob}
+        />
       </div>
       <div className={Styles.container}>
         <form id="formcadastroaluno" className={Styles.form} autoComplete="off">
@@ -615,7 +623,7 @@ const Passo6 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
           Anterior
         </button>
         <button type="button" onClick={() => {
-          if(selectedTurmas != ''){
+          if(selectedTurmas !== ''){
             cadastrar();
           }else{
             alert('Preencha os campos obrigatórios!');
