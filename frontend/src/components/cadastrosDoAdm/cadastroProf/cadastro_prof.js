@@ -1,14 +1,51 @@
-import React, { useEffect } from "react";
-import ContainerCss from "../../containers.module.css"
-import BarraLateral from "../../barra_lateral/icons_barra_lateral"
-import ContentCadastroProfessor from "./content_cadastro_prof"
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import Notifica from "../../sino_notificacao/notificacao"
 
-export default function Cadastro_prof(props){
+import ContainerCss from "../../containers.module.css";
+import StyleCadastroProf from "../cadastroDoAdm.module.css";
+
+import BarraLateral from "../../barra_lateral/icons_barra_lateral";
+import Notifica from "../../sino_notificacao/notificacao";
+
+// Imports dos Inputs para Pessoa
+// import Imagem from "../../inputs_cadastro/imagem_input";
+import Email from "../../inputs_cadastro/email_input";
+import Senha from "../../inputs_cadastro/senha_input";
+import Nome from "../../inputs_cadastro/nome_input";
+import Cpf from "../../inputs_cadastro/cpf_input";
+import Rg from "../../inputs_cadastro/rg_input";
+import Telefone from "../../inputs_cadastro/telefone_input";
+import DtNasc from "../../inputs_cadastro/dt_nasc_input";
+import Genero from "../../inputs_cadastro/genero_input";
+
+// Imports do Endereço
+import Cep from "../../inputs_cadastro/endereco/cep_input";
+import UF from "../../inputs_cadastro/endereco/uf_input";
+import Cidade from "../../inputs_cadastro/endereco/cidade_input";
+import Bairro from "../../inputs_cadastro/endereco/bairro_input";
+import Rua from "../../inputs_cadastro/endereco/rua_input";
+
+export default function Cadastro_prof({ texto, btn }){
     const navigate = useNavigate();
+    let { id_professor } = useParams();
 
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [nome, setNome] = useState("");
+    const [dtNasc, setDtnasc] = useState("");
+    const [genero, setGenero] = useState("");
+    const [cep, setCep] = useState("");
+    const [logradouro, setLogradouro] = useState("");
+    const [bairro, setBairro] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [uf, setUf] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [rg, setRg] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [id_endereco, setEndereco] = useState(null);
+    
+    const [responsePessoa, setResponsePessoa] = useState(null);
 
     useEffect(() => {
         logado();
@@ -26,10 +63,213 @@ export default function Cadastro_prof(props){
         }
     };
 
+    useEffect(() => {
+        if (id_professor !== undefined) {
+            id_professor = parseInt(id_professor);
+            preencherDados();
+        }
+    }, [id_professor]);
+  
+    function formatarData(dateString) {
+        const date = new Date(dateString);
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+  
+    const formatCPF = (cpf) => {
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    };
+    
+    const formatRG = (rg) => {
+        return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{1})/, '$1.$2.$3-$4');
+    };
+    
+    const formatTelefone = (telefone) => {
+        telefone = telefone.replace(/\D/g, ''); // Remove non-digits
+        if (telefone.length === 11) {
+            return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }else if (telefone.length === 10) {
+            return telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        }
+        return telefone;
+    };
+  
+    function padraoBR(isoDate) {
+        const date = new Date(isoDate);
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Meses começam em 0
+        const year = date.getUTCFullYear();
+        return `${day}/${month}/${year}`;
+    }
+  
+    const preencherDados = async () => {
+        try {
+            let responsePessoa = await axios.get('/api/pessoa');
+            responsePessoa = responsePessoa.data;
+            responsePessoa = responsePessoa.find(item => item.id_pessoa === id_professor);
+            setEndereco(responsePessoa.id_endereco);
+            setEmail(responsePessoa.email_pessoa);
+            setNome(responsePessoa.nome_pessoa);
+            setCpf(formatCPF(responsePessoa.cpf_pessoa));
+            setRg(formatRG(responsePessoa.rg_pessoa));
+            setTelefone(formatTelefone(responsePessoa.telefone_pessoa));
+            setDtnasc(padraoBR(responsePessoa.dt_nasc_pessoa));
+            setGenero(responsePessoa.genero);
+            let responseEndereco = await axios.get('/api/endereco');
+            responseEndereco = responseEndereco.data;
+            responseEndereco = responseEndereco.find(item => item.id_endereco === responsePessoa.id_endereco);
+            setCep(responseEndereco.cep);
+            setUf(responseEndereco.estado);
+            setCidade(responseEndereco.cidade);
+            setBairro(responseEndereco.bairro);
+            setLogradouro(responseEndereco.rua);
+        }catch (error) {
+        console.log(error);
+        }
+    };
+  
+    const handleBuscarCep = (cep) => {
+        if (cep.length < 9) {
+            setLogradouro("");
+            setBairro("");
+            setCidade("");
+            setUf("");
+            return;
+        }
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then((response) => response.json())
+        .then((dados) => {
+            setLogradouro(dados.logradouro);
+            setBairro(dados.bairro);
+            setCidade(dados.localidade);
+            setUf(dados.uf);
+            document.getElementById('cpf').value = cpf;
+            document.getElementById('rg').value = rg;
+            document.getElementById('telefone').value = telefone;
+        })
+        .catch((error) => {
+            console.error('Erro ao buscar CEP:', error);
+        });
+    };
+  
+    function tratamentoString(inputString) {
+        return inputString.replace(/[.\-()\s]/g, '');
+    }
+  
+    const convertDate = (date) => {
+        const [day, month, year] = date.split('/');
+        return `${year}-${month}-${day}`;
+    };
+  
+    const cliquei = async (event) =>{
+        event.preventDefault();
+        // const caminho_foto = document.getElementById('imagem').value;
+        if (id_professor !== undefined) {
+            try {
+                console.log(id_endereco);
+                let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
+                    cep: cep,
+                    estado: uf,
+                    cidade: cidade,
+                    bairro: bairro,
+                    rua: logradouro,
+                    numero: null
+                });
+                console.log(id_endereco);
+                let responsePessoa = await axios.put(`/api/pessoa/${id_professor}`, {
+                    nome_pessoa: nome,
+                    dt_nasc_pessoa: convertDate(dtNasc),
+                    cpf_pessoa: tratamentoString(cpf),
+                    rg_pessoa: tratamentoString(rg),
+                    email_pessoa: email,
+                    telefone_pessoa: tratamentoString(telefone),
+                    genero: genero,
+                    id_endereco: id_endereco
+                });
+            const responseProfessor = await axios.put(`/api/professor/${id_professor}`, {
+                id_pessoa: responsePessoa.id,
+                caminho_foto: null
+            });
+            setResponsePessoa(responseProfessor);
+        }catch (error) {
+            console.log("Erro ao editar professor: ", error);
+        }
+        }else{
+            const senha = document.getElementById('senha').value;
+            try {
+                let responseEndereco = await axios.post('/api/endereco/', {
+                    cep: cep,
+                    estado: uf,
+                    cidade: cidade,
+                    bairro: bairro,
+                    rua: logradouro,
+                    numero: null
+                });
+                responseEndereco = responseEndereco.data;
+                let responsePessoa = await axios.post('/api/pessoa/', {
+                    nome_pessoa: nome,
+                    dt_nasc_pessoa: convertDate(dtNasc),
+                    cpf_pessoa: tratamentoString(cpf),
+                    rg_pessoa: tratamentoString(rg),
+                    email_pessoa: email,
+                    senha_pessoa: senha,
+                    telefone_pessoa: tratamentoString(telefone),
+                    genero: genero,
+                    id_endereco: responseEndereco.id,
+                    adm: null
+                });
+                responsePessoa = responsePessoa.data;
+                const responseProfessor = await axios.post('/api/professor/', {
+                    id_pessoa: responsePessoa.id,
+                    caminho_foto: null
+                });
+                setResponsePessoa(responseProfessor.data);
+            }catch (error) {
+                console.log("Erro ao criar professor: ", error);
+            }
+        }
+    }
+  
+    // Recarrega a página quando responsePessoa estiver disponível
+    if (responsePessoa) {
+      alert("Sucesso!!!");
+      window.location.reload();
+    }
+
     return(
         <div className={ContainerCss.container}>
             <BarraLateral />
-            <ContentCadastroProfessor texto={props.texto} botao={props.botao}/>
+            <div className={StyleCadastroProf.content}>
+                <div className={StyleCadastroProf.textcenter}>
+                    <h1>{texto}</h1>
+                </div>
+                <form className={StyleCadastroProf.form} autoComplete="off" onSubmit={cliquei}>
+                    <div className={StyleCadastroProf.contentInputs}>
+                        {/* <Imagem/> */}
+                        <Email value={email} setValue={setEmail}/>
+                        {id_professor === undefined && <Senha value={senha} setValue={setSenha}/>}
+                        <Nome value={nome} setValue={setNome}/>
+                        <Cpf value={cpf} setValue={setCpf} />
+                        <Rg value={rg} setValue={setRg} />
+                        <Telefone value={telefone} setValue={setTelefone} />
+                        <DtNasc value={dtNasc} setValue={setDtnasc}/>
+                        <Genero value={genero} setValue={setGenero}/>
+
+                        <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
+                        <UF u={uf}/>
+                        <Cidade c={cidade}/>
+                        <Bairro b={bairro}/>
+                        <Rua r={logradouro}/>
+                    </div>
+                    <div className={StyleCadastroProf.divBtn}>
+                        <button className={StyleCadastroProf.btn}>
+                            <h1>{btn}</h1>
+                        </button>
+                    </div>
+                </form>
+            </div>
             <Notifica />
         </div>
     )

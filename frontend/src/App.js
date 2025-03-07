@@ -67,19 +67,28 @@ export default function App(){
       <Routes>
         <Route path="/" element={<Login />}></Route>
 
-        <Route path="/cadastro/aluno/Pagante" element={<PaganteTrue />}></Route>
-        <Route path="/cadastro/aluno/NaoPagante" element={<PaganteFalse />}></Route>
-        <Route path="/cadastro/aluno/Escola" element={<AlunoEscola />}></Route>
+        <Route path="/home" element={<Home/>}></Route>
 
+        <Route path="/cadastro/aluno/Pagante" element={<PaganteTrue />}></Route>
         <Route path="/editar/aluno/Pagante" element={<PaganteTrue />}></Route>
+
+        <Route path="/cadastro/aluno/NaoPagante" element={<PaganteFalse />}></Route>
         <Route path="/editar/aluno/NaoPagante" element={<PaganteFalse />}></Route>
+
+        <Route path="/cadastro/aluno/Escola" element={<AlunoEscola />}></Route>
         <Route path="/editar/aluno/Escola" element={<AlunoEscola />}></Route>
         
-        <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} botao={"Cadastrar"}/>}></Route>
-        <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} botao={"Cadastrar"}  url={"/cadastro/unidade/responsavel"}/>}></Route>
-        <Route path="/cadastro/turma" element={<CadastroTurma texto={"Cadastro de Turmas"} botao={"Cadastrar"}/>}></Route>
-
-        <Route path="/home" element={<Home/>}></Route>
+        <Route path="adm/adm_prof" element={<AdmProf />}></Route>
+        <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} btn={"Cadastrar"}/>}></Route>
+        <Route path="adm/editar_prof/:id_professor" element={<CadastroProf texto={"Editar Professor"} btn={"Editar"}/>}></Route>
+        
+        <Route path="adm/adm_unidade" element={<AdmUni />}></Route>
+        <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} btn={"Cadastrar"}/>}></Route>
+        <Route path="adm/editar_unidade/:id_unidade" element={<CadastroUnidade texto={"Editar Unidade"} btn={"Editar"}/>}></Route>
+        
+        <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>
+        <Route path="/cadastro/turma" element={<CadastroTurma texto={"Cadastro de Turmas"} btn={"Cadastrar"}/>}></Route>
+        <Route path="adm/editar_turma/:id_turma" element={<CadastroTurma texto={"Editar Turma"} btn={"Editar"}/>}></Route>
 
         <Route path="/aulas" element={<Calendario />}></Route>
         <Route path="aulas/alunos_aulas/:idturma" element={<Alunos />}></Route>
@@ -87,15 +96,6 @@ export default function App(){
         <Route path="/adm" element={<Adm />}></Route>
         
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
-
-        <Route path="adm/adm_prof" element={<AdmProf />}></Route>
-        <Route path="adm/editar_prof/:id_professor" element={<CadastroProf texto={"Editar Professor"} botao={"Editar"}/>}></Route>
-
-        <Route path="adm/adm_unidade" element={<AdmUni />}></Route>
-        <Route path="adm/editar_unidade/:id_unidade" element={<CadastroUnidade texto={"Editar Unidade"} botao={"Editar"} url={"/adm/editar_unidade/responsavel"}/>}></Route>
-
-        <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>
-        <Route path="adm/editar_turma/:id_turma" element={<CadastroTurma texto={"Editar Turma"} botao={"Editar"}/>}></Route>
       </Routes>
     </Routers>
   )
