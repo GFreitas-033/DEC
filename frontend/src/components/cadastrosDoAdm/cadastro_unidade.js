@@ -2,26 +2,26 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-import ContainerCss from "../../containers.module.css";
-import StyleCadastroUnidade from "../cadastroDoAdm.module.css";
+import ContainerCss from "../containers.module.css";
+import StyleCadastroUnidade from "./cadastroDoAdm.module.css";
 
-import BarraLateral from "../../barra_lateral/icons_barra_lateral";
-import Notifica from "../../sino_notificacao/notificacao";
+import BarraLateral from "../barra_lateral/icons_barra_lateral";
+import Notifica from "../sino_notificacao/notificacao";
 
 // Imports dos Inputs para Pessoa
-import Nome from "../../inputs_cadastro/nome_input";
-import Cnpj from "../../inputs_cadastro/inputsUnidade/cnpj_input";
-import Telefone from "../../inputs_cadastro/telefone_input";
-import Email from "../../inputs_cadastro/email_input";
-import MaisContatos from "../../inputs_cadastro/inputsUnidade/mais_contatos_input";
-import TipoUnidade from "../../inputs_cadastro/inputsUnidade/tipoUnidade_input";
+import Nome from "../inputs_cadastro/nome_input";
+import Cnpj from "../inputs_cadastro/inputsUnidade/cnpj_input";
+import Telefone from "../inputs_cadastro/telefone_input";
+import Email from "../inputs_cadastro/email_input";
+import MaisContatos from "../inputs_cadastro/inputsUnidade/mais_contatos_input";
+import TipoUnidade from "../inputs_cadastro/inputsUnidade/tipoUnidade_input";
 // Imports do Endereço
-import Cep from "../../inputs_cadastro/endereco/cep_input";
-import UF from "../../inputs_cadastro/endereco/uf_input";
-import Cidade from "../../inputs_cadastro/endereco/cidade_input";
-import Bairro from "../../inputs_cadastro/endereco/bairro_input";
-import Rua from "../../inputs_cadastro/endereco/rua_input";
-import Numero from "../../inputs_cadastro/endereco/numero_input";
+import Cep from "../inputs_cadastro/endereco/cep_input";
+import UF from "../inputs_cadastro/endereco/uf_input";
+import Cidade from "../inputs_cadastro/endereco/cidade_input";
+import Bairro from "../inputs_cadastro/endereco/bairro_input";
+import Rua from "../inputs_cadastro/endereco/rua_input";
+import Numero from "../inputs_cadastro/endereco/numero_input";
 
 export default function Cadastro_unidade({ texto, btn }){
     const navigate = useNavigate();

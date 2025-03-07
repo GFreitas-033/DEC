@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import ContainerCss from "../../containers.module.css";
-import EstiloAdmTurma from "../admAPUT.module.css";
+import EstiloAdmTurma from "./admAPUT.module.css";
 
 import Botao from "../botao_adm/botao_adm";
 import BarraLateral from "../../barra_lateral/icons_barra_lateral";
@@ -87,7 +87,7 @@ export default function Adm_turma(){
                                         src={require('../../../imgs/icons/Editar.png')}
                                         alt="Editar" 
                                         className={EstiloAdmTurma.icon} 
-                                        onClick={() => navigate(`/adm/editar_turma/${turma.id_turma}`)}
+                                        onClick={() => navigate(`/editar_turma/${turma.id_turma}`)}
                                     />
                                     <img 
                                         src={require('../../../imgs/icons/Excluir.png')}

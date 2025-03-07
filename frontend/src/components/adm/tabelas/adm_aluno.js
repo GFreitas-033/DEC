@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import ContainerCss from "../../containers.module.css";
-import EstiloAdmAluno from "../admAPUT.module.css";
+import EstiloAdmAluno from "./admAPUT.module.css";
 
 import BarraLateral from "../../barra_lateral/icons_barra_lateral"
 import Notifica from "../../sino_notificacao/notificacao"
@@ -85,7 +85,7 @@ export default function Adm_aluno(){
                                         src={require('../../../imgs/icons/Editar.png')}
                                         alt="Editar"
                                         className={EstiloAdmAluno.icon}
-                                        onClick={() => navigate(`/adm/editar_aluno/${aluno.id_pessoa}`)}
+                                        onClick={() => navigate(`/editar_aluno/${aluno.id_pessoa}`)}
                                     />
                                     <img
                                         src={require('../../../imgs/icons/Excluir.png')}

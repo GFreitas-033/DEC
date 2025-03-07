@@ -5,7 +5,7 @@ export default function Horario_input(){
     return(
         <div className={HorarioStyle.esquerda}>
             <label className={HorarioStyle.label}><b>Horario</b></label><br />
-            <input type="time" id="Horario" required className={HorarioStyle.input}/><br />
+            <input type="time" id="Horario" required className={HorarioStyle.inputSelect}/><br />
         </div>
     )
 }

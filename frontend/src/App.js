@@ -8,9 +8,9 @@ import PaganteTrue from "./components/cadastro/paganteTrue"
 import PaganteFalse from "./components/cadastro/paganteFalse"
 import AlunoEscola from "./components/cadastro/Escola"
 
-import CadastroProf from "./components/cadastrosDoAdm/cadastroProf/cadastro_prof"
-import CadastroUnidade from "./components/cadastrosDoAdm/cadastroUnidade/cadastro_unidade"
-import CadastroTurma from "./components/cadastrosDoAdm/cadastroTurma/cadastro_turma"
+import CadastroProf from "./components/cadastrosDoAdm/cadastro_prof"
+import CadastroUnidade from "./components/cadastrosDoAdm/cadastro_unidade"
+import CadastroTurma from "./components/cadastrosDoAdm/cadastro_turma"
 
 import Home from "./components/home/home"
 
@@ -19,10 +19,10 @@ import Alunos from "./components/calendario/aluno_calendario/alunos_calendario"
 
 import Adm from "./components/adm/adm"
 
-import AdmAluno from "./components/adm/adm_aluno/adm_aluno"
-import AdmProf from "./components/adm/adm_professor/adm_professor"
-import AdmUni from "./components/adm/adm_unidade/adm_unidade"
-import AdmTurma from "./components/adm/adm_turma/adm_turma"
+import AdmAluno from "./components/adm/tabelas/adm_aluno"
+import AdmProf from "./components/adm/tabelas/adm_professor"
+import AdmUni from "./components/adm/tabelas/adm_unidade"
+import AdmTurma from "./components/adm/tabelas/adm_turma"
 
 export default function App(){
 
@@ -80,15 +80,15 @@ export default function App(){
         
         <Route path="adm/adm_prof" element={<AdmProf />}></Route>
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} btn={"Cadastrar"}/>}></Route>
-        <Route path="adm/editar_prof/:id_professor" element={<CadastroProf texto={"Editar Professor"} btn={"Editar"}/>}></Route>
+        <Route path="/editar_prof/:id_professor" element={<CadastroProf texto={"Editar Professor"} btn={"Editar"}/>}></Route>
         
         <Route path="adm/adm_unidade" element={<AdmUni />}></Route>
         <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} btn={"Cadastrar"}/>}></Route>
-        <Route path="adm/editar_unidade/:id_unidade" element={<CadastroUnidade texto={"Editar Unidade"} btn={"Editar"}/>}></Route>
+        <Route path="/editar_unidade/:id_unidade" element={<CadastroUnidade texto={"Editar Unidade"} btn={"Editar"}/>}></Route>
         
         <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>
         <Route path="/cadastro/turma" element={<CadastroTurma texto={"Cadastro de Turmas"} btn={"Cadastrar"}/>}></Route>
-        <Route path="adm/editar_turma/:id_turma" element={<CadastroTurma texto={"Editar Turma"} btn={"Editar"}/>}></Route>
+        <Route path="/editar_turma/:id_turma" element={<CadastroTurma texto={"Editar Turma"} btn={"Editar"}/>}></Route>
 
         <Route path="/aulas" element={<Calendario />}></Route>
         <Route path="aulas/alunos_aulas/:idturma" element={<Alunos />}></Route>

@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-import ContainerCss from "../../containers.module.css";
-import StyleCadastroTurma from "../cadastroDoAdm.module.css";
+import ContainerCss from "../containers.module.css";
+import StyleCadastroTurma from "./cadastroDoAdm.module.css";
 
-import BarraLateral from "../../barra_lateral/icons_barra_lateral";
-import Notifica from "../../sino_notificacao/notificacao";
+import BarraLateral from "../barra_lateral/icons_barra_lateral";
+import Notifica from "../sino_notificacao/notificacao";
 
 // Imports dos Inputs
-import SelecionarProf from "../../inputs_cadastro/inputsTurma/professor_input";
-import SelecionarUni from "../../inputs_cadastro/inputsTurma/unidade_input";
-import QtdMaxima from "../../inputs_cadastro/inputsTurma/qtdMaxima_input";
-import DiaSemana from "../../inputs_cadastro/inputsTurma/diaSemana_input";
-import Horario from "../../inputs_cadastro/inputsTurma/horario_input";
-import Nome from "../../inputs_cadastro/inputsTurma/nome_input";
+import SelecionarProf from "../inputs_cadastro/inputsTurma/professor_input";
+import SelecionarUni from "../inputs_cadastro/inputsTurma/unidade_input";
+import QtdMaxima from "../inputs_cadastro/inputsTurma/qtdMaxima_input";
+import DiaSemana from "../inputs_cadastro/inputsTurma/diaSemana_input";
+import Horario from "../inputs_cadastro/inputsTurma/horario_input";
+import Nome from "../inputs_cadastro/inputsTurma/nome_input";
 
 export default function Cadastro_turma({ texto, btn }){
     const navigate = useNavigate();

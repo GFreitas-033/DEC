@@ -4,8 +4,10 @@ import DiaSemanaStyle from "../input.module.css"
 export default function Dia_Semana_input(){
     return(
         <div className={DiaSemanaStyle.esquerda}> 
-            <label className={DiaSemanaStyle.label} style={{marginRight: "0.5rem"}}><b>Dia da Semana</b></label><br />
-            <select id="diaSemana" className={DiaSemanaStyle.input}>
+            <label className={DiaSemanaStyle.label} style={{marginRight: "0.5rem"}}>
+                <b>Dia da Semana</b>
+            </label><br />
+            <select id="diaSemana" className={DiaSemanaStyle.inputsSelect}>
                 <option value="" selected disabled>Selecionar</option>
                 <option value="segunda">Segunda</option>
                 <option value="terça">Terça</option>

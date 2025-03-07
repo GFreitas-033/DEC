@@ -4,6 +4,7 @@ import axios from "axios";
 
 import EstiloHome from "./home.module.css";
 import ContainerCss from "../containers.module.css";
+
 import BarraLateral from "../barra_lateral/icons_barra_lateral";
 import Notifica from "../sino_notificacao/notificacao";
 
