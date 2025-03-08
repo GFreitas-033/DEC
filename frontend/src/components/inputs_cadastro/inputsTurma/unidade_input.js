@@ -24,11 +24,16 @@ export default function Unidade_input() {
 
   return (
     <div className={UnidadeStyle.esquerda}>
-      <label className={UnidadeStyle.label}><b>Unidade</b></label><br />
-      <select id="SelecaoUnidade" className={UnidadeStyle.inputsSelect}>
+      <label className={UnidadeStyle.label}>
+        <b>Unidade</b>
+      </label><br />
+      <select id="SelecaoUnidade" className={`${UnidadeStyle.inputPU}
+        ${UnidadeStyle.inputPersonalizado}`}>
         <option value="" selected disabled>Selecionar</option>
         {unidades.map(unidade => (
-          <option key={unidade.id} value={unidade.id}>{unidade.nome}</option>
+          <option key={unidade.id} value={unidade.id}>
+            {unidade.nome}
+          </option>
         ))}
       </select><br />
     </div>

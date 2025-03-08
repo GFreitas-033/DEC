@@ -27,6 +27,11 @@ input::placeholder{
     .contentImagem{
         width: 100%;
     }
+
+    /* Estilo de Cadastro de Turma */
+    .inputPersonalizado{
+        margin-bottom: 1.6rem;
+    }
 }
 
 @media screen and (min-width:  720px) {
@@ -37,12 +42,25 @@ input::placeholder{
     .contentImagem{
         width: 90%;
     }
+
+    .inputPersonalizado{
+        margin-bottom: 0;
+    }
 }
 
-/* Estilo de Cadastro de Turma */
-.inputsSelect{
-    max-width: 70%;
-    min-width: 70%;
+/* Estilo Personalizado */
+.inputPersonalizado{
+    padding: 0.5rem 0;
+    border: 0.1rem solid #000;
+}
+/* Tamanho padrao 13.5rem */
+.input13{
+    width: 13.5rem;
+}
+/* Turma */
+.inputPU{
+    max-width: 13.5rem;
+    min-width: none;
 }
 
 /* Estilo da Imagem em Cadastro Professor */

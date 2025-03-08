@@ -10,7 +10,8 @@ export default function DestroCanhoto_input({ value, setValue }){
     return(
         <div className={DestroCanhoto.esquerda}>
             <label className={DestroCanhoto.label}><b>Mão Dominante</b></label><br />
-            <select id="maodominante" className={DestroCanhoto.input} value={value} onChange={salvar}>
+            <select id="maodominante" className={`${DestroCanhoto.input} ${DestroCanhoto.input13}`}  
+            value={value} onChange={salvar}>
                 <option value="" selected disabled>Selecionar</option>
                 <option value="d">Direita</option>
                 <option value="c">Esquerda</option>

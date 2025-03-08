@@ -10,7 +10,8 @@ export default function genero_input({ value, setValue }) {
     return (
         <div className={Genero.esquerda}>
             <label className={Genero.label}><b>Gênero</b></label><br />
-            <select id="genero" className={Genero.input} value={value} onChange={salvar}>
+            <select id="genero" className={`${Genero.input13} 
+                ${Genero.inputPersonalizado}`} value={value} onChange={salvar}>
                 <option value="" disabled>Selecionar</option>
                 <option value="m">Masculino</option>
                 <option value="f">Feminino</option>
