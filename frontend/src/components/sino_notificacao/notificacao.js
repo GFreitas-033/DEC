@@ -20,7 +20,7 @@ export default function Notificacao() {
   return (
     <div className={Sino_Style.containerSino} onClick={NotificationClick}>
 
-      <img src={Sino} className={Sino_Style.sinoImg} />
+      <img src={Sino} className={Sino_Style.sinoImg} alt="S"/>
       <span className={Sino_Style.qtnNotificacao}>{mensagem.length}</span>
 
       <div className={`${Sino_Style.caixa} ${mostrar ? Sino_Style.mostrar : ''}`}>
