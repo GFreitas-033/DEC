@@ -5,6 +5,7 @@ import axios from "axios";
 import ContainerCss from "../containers.module.css";
 import StyleCadastroUnidade from "./cadastroDoAdm.module.css";
 
+import Background_Sistema from "../background/backSistema/backSistema";
 import BarraLateral from "../barra_lateral/icons_barra_lateral";
 import Notifica from "../sino_notificacao/notificacao";
 
@@ -199,35 +200,38 @@ export default function Cadastro_unidade({ texto, btn }){
     }
 
     return(
-        <div className={ContainerCss.container}>
-            <BarraLateral />
-            <div className={StyleCadastroUnidade.content}>
-                <div className={StyleCadastroUnidade.textcenter}>
-                    <h1>{texto}</h1>
+        <div>
+            <Background_Sistema />
+            <div className={ContainerCss.container}>
+                <BarraLateral />
+                <div className={StyleCadastroUnidade.content}>
+                    <div className={StyleCadastroUnidade.textcenter}>
+                        <h1>{texto}</h1>
+                    </div>
+                    <form className={StyleCadastroUnidade.form} autoComplete="off" onSubmit={cliquei}>
+                        <div className={StyleCadastroUnidade.contentInputs}>
+                            <Nome value={nome} setValue={setNome}/>
+                            <Cnpj value={cnpj} setValue={setCnpj} />
+                            <Telefone value={telefone} setValue={setTelefone} />
+                            <Email value={email} setValue={setEmail}/>
+                            <MaisContatos value={maisContatos} setValue={setMaisContatos}/>
+                            <TipoUnidade value={tipoUnidade} setValue={setTipoUnidade} />
+                            <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
+                            <UF u={uf} />
+                            <Cidade c={cidade} />
+                            <Bairro b={bairro} />
+                            <Rua r={logradouro} />
+                            <Numero value={numero} setValue={setNumero} />
+                        </div>
+                        <div className={StyleCadastroUnidade.divBtn}>
+                            <button className={StyleCadastroUnidade.btn}>
+                                <h1>{btn}</h1>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <form className={StyleCadastroUnidade.form} autoComplete="off" onSubmit={cliquei}>
-                    <div className={StyleCadastroUnidade.contentInputs}>
-                        <Nome value={nome} setValue={setNome}/>
-                        <Cnpj value={cnpj} setValue={setCnpj} />
-                        <Telefone value={telefone} setValue={setTelefone} />
-                        <Email value={email} setValue={setEmail}/>
-                        <MaisContatos value={maisContatos} setValue={setMaisContatos}/>
-                        <TipoUnidade value={tipoUnidade} setValue={setTipoUnidade} />
-                        <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
-                        <UF u={uf} />
-                        <Cidade c={cidade} />
-                        <Bairro b={bairro} />
-                        <Rua r={logradouro} />
-                        <Numero value={numero} setValue={setNumero} />
-                    </div>
-                    <div className={StyleCadastroUnidade.divBtn}>
-                        <button className={StyleCadastroUnidade.btn}>
-                            <h1>{btn}</h1>
-                        </button>
-                    </div>
-                </form>
+                <Notifica />
             </div>
-            <Notifica />
         </div>
     )
 }

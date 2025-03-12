@@ -5,6 +5,7 @@ import axios from "axios";
 import ContainerCss from "../containers.module.css";
 import StyleCadastroTurma from "./cadastroDoAdm.module.css";
 
+import Background_Sistema from "../background/backSistema/backSistema";
 import BarraLateral from "../barra_lateral/icons_barra_lateral";
 import Notifica from "../sino_notificacao/notificacao";
 
@@ -116,29 +117,32 @@ export default function Cadastro_turma({ texto, btn }){
     }, [responseTurma]);
 
     return(
-        <div className={ContainerCss.container}>
-            <BarraLateral />
-            <div className={StyleCadastroTurma.content}>
-                <div className={StyleCadastroTurma.textcenter}>
-                    <h1>{texto}</h1>
+        <div>
+            <Background_Sistema />
+            <div className={ContainerCss.container}>
+                <BarraLateral />
+                <div className={StyleCadastroTurma.content}>
+                    <div className={StyleCadastroTurma.textcenter}>
+                        <h1>{texto}</h1>
+                    </div>
+                    <form className={StyleCadastroTurma.form} autoComplete="off" onSubmit={handleSubmit}>
+                        <div className={StyleCadastroTurma.contentInputs}>
+                            <Nome value={nome} setValue={setNome}/>
+                            <SelecionarProf/>
+                            <SelecionarUni/>
+                            <QtdMaxima/>
+                            <DiaSemana/>
+                            <Horario/>
+                        </div>
+                        <div className={StyleCadastroTurma.divBtn}>
+                            <button className={StyleCadastroTurma.btn}>
+                                <h1>{btn}</h1>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <form className={StyleCadastroTurma.form} autoComplete="off" onSubmit={handleSubmit}>
-                    <div className={StyleCadastroTurma.contentInputs}>
-                        <Nome value={nome} setValue={setNome}/>
-                        <SelecionarProf/>
-                        <SelecionarUni/>
-                        <QtdMaxima/>
-                        <DiaSemana/>
-                        <Horario/>
-                    </div>
-                    <div className={StyleCadastroTurma.divBtn}>
-                        <button className={StyleCadastroTurma.btn}>
-                            <h1>{btn}</h1>
-                        </button>
-                    </div>
-                </form>
+                <Notifica />
             </div>
-            <Notifica />
         </div>
     )
 }

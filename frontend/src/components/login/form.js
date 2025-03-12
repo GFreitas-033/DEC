@@ -4,7 +4,7 @@ import axios from "axios";
 import Styles from "./form.module.css";
 
 // Import dos Componentes
-import Background from "../background/background";
+import Background from "../background/backCadastro/backCadastro";
 
 export default function Form(){
   const navigate = useNavigate();

@@ -4,6 +4,8 @@ import axios from "axios";
 
 import ContainerCss from "../containers.module.css";
 import EstiloCalendario from "./calendario.module.css";
+
+import Background_Sistema from "../background/backSistema/backSistema";
 import Filtro from "./filtroDiaSemana/filtro";
 import BarraLateral from "../barra_lateral/icons_barra_lateral";
 import Notifica from "../sino_notificacao/notificacao";
@@ -81,6 +83,8 @@ export default function Calendario(){
     const groupedData = groupByDiaSemana(filteredData);
 
     return(
+      <div>
+        <Background_Sistema />
         <div className={ContainerCss.container}>
             <BarraLateral />
             <div className={EstiloCalendario.margin_content}>
@@ -110,5 +114,6 @@ export default function Calendario(){
             </div>
             <Notifica />
         </div>
+      </div>
     )
 }

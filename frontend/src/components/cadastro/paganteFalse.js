@@ -5,7 +5,7 @@ import Styles from "./form.module.css";
 import axios from "axios";
 
 // Import Back
-import Background from "../background/background";
+import Background from "../background/backCadastro/backCadastro";
 
 // Import dos Input
 import Nome from "../inputs_cadastro/nome_input";

@@ -5,6 +5,7 @@ import axios from "axios";
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmAluno from "./admAPUT.module.css";
 
+import Background_Sistema from "../../background/backSistema/backSistema";
 import BarraLateral from "../../barra_lateral/icons_barra_lateral"
 import Notifica from "../../sino_notificacao/notificacao"
 
@@ -50,56 +51,59 @@ export default function Adm_aluno(){
     };
 
     return(
-        <div className={ContainerCss.container}>
-            <BarraLateral />
-            <div className={EstiloAdmAluno.contentAdm}>
-                <h1 className={EstiloAdmAluno.titulo}>ALUNOS</h1>
-                <div className={EstiloAdmAluno.divBtn}>
-                    <p className={EstiloAdmAluno.qtd}>Quantidade de Alunos: {alunos.length}</p>
-                </div>
-                <table className={EstiloAdmAluno.tabela}>
-                    <thead>
-                        <tr>
-                            <td className={EstiloAdmAluno.colunaId}>
-                                <p><b><u>ID</u></b></p>
-                            </td>
-                            <td className={EstiloAdmAluno.colunaNome}>
-                                <p><b><u>Nome</u></b></p>
-                            </td>
-                            <td className={EstiloAdmAluno.colunaAcao}>
-                                <p><b><u>Ação</u></b></p>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {alunos.map(aluno => (
-                            <tr key={aluno.id_pessoa}>
+        <div>
+            <Background_Sistema />
+            <div className={ContainerCss.container}>
+                <BarraLateral />
+                <div className={EstiloAdmAluno.contentAdm}>
+                    <h1 className={EstiloAdmAluno.titulo}>ALUNOS</h1>
+                    <div className={EstiloAdmAluno.divBtn}>
+                        <p className={EstiloAdmAluno.qtd}>Quantidade de Alunos: {alunos.length}</p>
+                    </div>
+                    <table className={EstiloAdmAluno.tabela}>
+                        <thead>
+                            <tr>
                                 <td className={EstiloAdmAluno.colunaId}>
-                                    {aluno.id_pessoa}
+                                    <p><b><u>ID</u></b></p>
                                 </td>
-                                <td>
-                                    {aluno.nome_pessoa}
+                                <td className={EstiloAdmAluno.colunaNome}>
+                                    <p><b><u>Nome</u></b></p>
                                 </td>
                                 <td className={EstiloAdmAluno.colunaAcao}>
-                                    <img
-                                        src={require('../../../imgs/icons/Editar.png')}
-                                        alt="Editar"
-                                        className={EstiloAdmAluno.icon}
-                                        onClick={() => navigate(`/editar_aluno/${aluno.id_pessoa}`)}
-                                    />
-                                    <img
-                                        src={require('../../../imgs/icons/Excluir.png')}
-                                        alt="Excluir"
-                                        className={EstiloAdmAluno.icon}
-                                        onClick={() => excluirAluno(aluno.id_pessoa)}
-                                    />
+                                    <p><b><u>Ação</u></b></p>
                                 </td>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {alunos.map(aluno => (
+                                <tr key={aluno.id_pessoa}>
+                                    <td className={EstiloAdmAluno.colunaId}>
+                                        {aluno.id_pessoa}
+                                    </td>
+                                    <td>
+                                        {aluno.nome_pessoa}
+                                    </td>
+                                    <td className={EstiloAdmAluno.colunaAcao}>
+                                        <img
+                                            src={require('../../../imgs/icons/Editar.png')}
+                                            alt="Editar"
+                                            className={EstiloAdmAluno.icon}
+                                            onClick={() => navigate(`/editar_aluno/${aluno.id_pessoa}`)}
+                                        />
+                                        <img
+                                            src={require('../../../imgs/icons/Excluir.png')}
+                                            alt="Excluir"
+                                            className={EstiloAdmAluno.icon}
+                                            onClick={() => excluirAluno(aluno.id_pessoa)}
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <Notifica />
             </div>
-            <Notifica />
         </div>
     )
 }

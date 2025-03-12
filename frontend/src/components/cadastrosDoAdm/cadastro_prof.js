@@ -5,6 +5,7 @@ import axios from "axios";
 import ContainerCss from "../containers.module.css";
 import StyleCadastroProf from "./cadastroDoAdm.module.css";
 
+import Background_Sistema from "../background/backSistema/backSistema";
 import BarraLateral from "../barra_lateral/icons_barra_lateral";
 import Notifica from "../sino_notificacao/notificacao";
 
@@ -239,38 +240,40 @@ export default function Cadastro_prof({ texto, btn }){
     }
 
     return(
-        <div className={ContainerCss.container}>
-            <BarraLateral />
-            <div className={StyleCadastroProf.content}>
-                <div className={StyleCadastroProf.textcenter}>
-                    <h1>{texto}</h1>
+        <div>
+            <Background_Sistema />
+            <div className={ContainerCss.container}>
+                <BarraLateral />
+                <div className={StyleCadastroProf.content}>
+                    <div className={StyleCadastroProf.textcenter}>
+                        <h1>{texto}</h1>
+                    </div>
+                    <form className={StyleCadastroProf.form} autoComplete="off" onSubmit={cliquei}>
+                        <div className={StyleCadastroProf.contentInputs}>
+                            {/* <Imagem/> */}
+                            <Email value={email} setValue={setEmail}/>
+                            {id_professor === undefined && <Senha value={senha} setValue={setSenha}/>}
+                            <Nome value={nome} setValue={setNome}/>
+                            <Cpf value={cpf} setValue={setCpf} />
+                            <Rg value={rg} setValue={setRg} />
+                            <Telefone value={telefone} setValue={setTelefone} />
+                            <DtNasc value={dtNasc} setValue={setDtnasc}/>
+                            <Genero value={genero} setValue={setGenero}/>
+                            <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
+                            <UF u={uf}/>
+                            <Cidade c={cidade}/>
+                            <Bairro b={bairro}/>
+                            <Rua r={logradouro}/>
+                        </div>
+                        <div className={StyleCadastroProf.divBtn}>
+                            <button className={StyleCadastroProf.btn}>
+                                <h1>{btn}</h1>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <form className={StyleCadastroProf.form} autoComplete="off" onSubmit={cliquei}>
-                    <div className={StyleCadastroProf.contentInputs}>
-                        {/* <Imagem/> */}
-                        <Email value={email} setValue={setEmail}/>
-                        {id_professor === undefined && <Senha value={senha} setValue={setSenha}/>}
-                        <Nome value={nome} setValue={setNome}/>
-                        <Cpf value={cpf} setValue={setCpf} />
-                        <Rg value={rg} setValue={setRg} />
-                        <Telefone value={telefone} setValue={setTelefone} />
-                        <DtNasc value={dtNasc} setValue={setDtnasc}/>
-                        <Genero value={genero} setValue={setGenero}/>
-
-                        <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
-                        <UF u={uf}/>
-                        <Cidade c={cidade}/>
-                        <Bairro b={bairro}/>
-                        <Rua r={logradouro}/>
-                    </div>
-                    <div className={StyleCadastroProf.divBtn}>
-                        <button className={StyleCadastroProf.btn}>
-                            <h1>{btn}</h1>
-                        </button>
-                    </div>
-                </form>
+                <Notifica />
             </div>
-            <Notifica />
         </div>
     )
 }

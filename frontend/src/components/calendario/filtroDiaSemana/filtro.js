@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import filtroStyle from "./filtro.module.css";
 
 export default function Filtro({ onFilterChange }) {

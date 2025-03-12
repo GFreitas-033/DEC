@@ -5,6 +5,7 @@ import axios from "axios";
 import EstiloHome from "./home.module.css";
 import ContainerCss from "../containers.module.css";
 
+import Background_Sistema from "../background/backSistema/backSistema";
 import BarraLateral from "../barra_lateral/icons_barra_lateral";
 import Notifica from "../sino_notificacao/notificacao";
 
@@ -50,18 +51,22 @@ export default function Home(){
     }, []);
 
     return(
-        <div className={ContainerCss.container}>
-            <BarraLateral />
-            <div className={EstiloHome.container_home}>
-                {loading ? (
-                    <h1 className={EstiloHome.helloworld}>{loadingText}</h1>
-                ) : (
-                    <h1 className={EstiloHome.helloworld}>
-                        Bem-Vindo(a)!
-                    <br /> {message}</h1>
-                )}
-            </div>
-            <Notifica />
+        <div>
+            <Background_Sistema />
+            <div className={ContainerCss.container}>
+                <BarraLateral />
+                <div className={EstiloHome.container_home}>
+                    {loading ? (
+                        <h1 className={EstiloHome.helloworld}>{loadingText}</h1>
+                    ) : (
+                        <h1 className={EstiloHome.helloworld}>
+                            Bem-Vindo(a)!
+                        <br /> {message}</h1>
+                    )}
+                </div>
+                <Notifica />
+            </div>            
         </div>
+
     )
 }
