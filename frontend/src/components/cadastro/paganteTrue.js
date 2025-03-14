@@ -25,6 +25,8 @@ import Bairro from "../inputs_cadastro/endereco/bairro_input";
 import Rua from "../inputs_cadastro/endereco/rua_input";
 import Numero from "../inputs_cadastro/endereco/numero_input";
 
+import contratoPdf from "../../pdfs/ContratoEsgrimaLins.pdf";
+
 export default function Form() {
   const [step, setStep] = useState(0);
 
@@ -817,14 +819,12 @@ const Passo11 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, han
     </div>
     <div className={Styles.divContrato}>
       <p className={Styles.contrato}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
+        <a href={contratoPdf} target="_blank" 
+          rel="noopener noreferrer" 
+          className={Styles.linkContrato}
+          >
+          📄Visualizar Contrato(PDF)
+        </a>
         <div className={Styles.contratoContainer}>
           <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>

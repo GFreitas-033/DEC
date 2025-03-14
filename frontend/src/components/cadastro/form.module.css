@@ -336,3 +336,18 @@ input[type="checkbox"] {
     gap: 0.5rem;
     margin-top: 2rem;
 }
+
+.linkContrato {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #EFBF14;
+    text-decoration: none;
+    background-color: #383838;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.linkContrato:hover {
+    transform: translateY(-2px);
+}

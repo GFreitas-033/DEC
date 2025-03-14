@@ -642,15 +642,24 @@ const Passo9 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange }) 
     </div>
     <div className={Styles.divContrato}>
       <p className={Styles.contrato}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus optio provident dolores dolorum, quaerat odio
-        maxime nulla impedit pariatur, repellat dolorem commodi rem! Vero aspernatur, molestiae ex perspiciatis optio magni.
-
+        <b>TERMO DE COMPROMISSO</b><br /><br />
+        DOURADO ESGRIMA CLUB<br /><br />
+        O Dourado Esgrima Club, em parceria com escolas participantes do programa Esgrima Escolar, 
+        oferece a oportunidade para alunos selecionados participarem dos treinamentos nas unidades do clube, 
+        como forma de desenvolvimento esportivo e educacional.<br /><br />
+        Por meio deste termo, o responsável legal do aluno compromete-se a:<br /><br />
+        * Garantir a presença do aluno nos treinamentos regulares conforme cronograma estabelecido pela unidade do
+         Dourado Esgrima Club.<br />
+        * Informar previamente qualquer impossibilidade de comparecimento, justificando as faltas quando necessário.<br />
+        * Zelar pelo compromisso esportivo do aluno, incentivando a disciplina, responsabilidade e respeito às 
+        regras do clube.<br />
+        * Cumprir os regulamentos internos do Dourado Esgrima Club, respeitando os profissionais e 
+        demais participantes.<br />
+        * Providenciar o transporte do aluno para os treinamentos e competições, caso aplicável.<br />
+        * Autorizar o uso de imagem do aluno para divulgação das atividades do projeto em redes sociais e 
+        materiais institucionais do clube.<br /><br />
+        <u>Declaro estar ciente</u> de que o não cumprimento destes compromissos pode resultar na perda da 
+        vaga do aluno no programa de treinamentos do Dourado Esgrima Club.
         <div className={Styles.contratoContainer}>
           <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>

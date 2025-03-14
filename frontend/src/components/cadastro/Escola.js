@@ -23,6 +23,8 @@ import Bairro from "../inputs_cadastro/endereco/bairro_input";
 import Rua from "../inputs_cadastro/endereco/rua_input";
 import Numero from "../inputs_cadastro/endereco/numero_input";
 
+import contratoPdf from "../../pdfs/EsgrimaEscola.pdf";
+
 export default function Form() {
   const [step, setStep] = useState(0);
   // const [responsePessoa, setResponsePessoa] = useState(null);
@@ -63,6 +65,13 @@ export default function Form() {
   const [selectedUnidade, setSelectedUnidade] = useState("");
   const [selectedTurmas, setSelectedTurmas] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
+
+  // State de contrato
+  const [aceitouContrato, setAceitouContrato] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setAceitouContrato(event.target.checked);
+  };
 
   // Função para verificar se os campos foram preenchidos
   const areAllFieldsFilled = (fields) => {
@@ -367,8 +376,11 @@ export default function Form() {
 
     <Passo5 nextStep={nextStep} prevStep={prevStep} handleChange={handleChange} selectedDay={selectedDay} areAllFieldsFilled={areAllFieldsFilled}/>,
     
-    <Passo6 extStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurmas={selectedTurmas} setSelectedTurmas={setSelectedTurmas} 
-    areAllFieldsFilled={areAllFieldsFilled} handleChangeTurmas={handleChangeTurmas} cadastrar={cadastrar} />,
+    <Passo6 nextStep={nextStep} prevStep={prevStep} turmas={turmas} selectedTurmas={selectedTurmas} setSelectedTurmas={setSelectedTurmas} 
+    areAllFieldsFilled={areAllFieldsFilled} handleChangeTurmas={handleChangeTurmas} />,
+
+    <Passo7 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} 
+    handleCheckboxChange={handleCheckboxChange} />,
   ];
 
   return (
@@ -593,7 +605,7 @@ const Passo5 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFil
     </div>
 );
 
-const Passo6 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas, areAllFieldsFilled, handleChangeTurmas, cadastrar }) => (
+const Passo6 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas, areAllFieldsFilled, handleChangeTurmas }) => (
   <div className={Styles.centro}>
       <div className={Styles.textcenter}>
         <h1>Escolha a Sua Turma</h1>
@@ -623,15 +635,53 @@ const Passo6 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
           Anterior
         </button>
         <button type="button" onClick={() => {
-          if(selectedTurmas !== ''){
-            cadastrar();
-          }else{
-            alert('Preencha os campos obrigatórios!');
-          }
-        }} className={Styles.button}>
-          Finalizar Cadastro
+            if(selectedTurmas !== ''){
+              nextStep();
+            }else{
+              alert('Preencha os campos obrigatórios!');
+            }
+          }} className={Styles.button}>
+          Próximo
           <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
         </button>
       </div>
     </div>
+);
+
+const Passo7 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange }) => (
+  <div className={Styles.centro}>
+    <div className={Styles.textcenter}>
+      <h1>Contrato</h1>
+    </div>
+    <div className={Styles.divContrato}>
+      <p className={Styles.contrato}>
+        <a href={contratoPdf} target="_blank" 
+          rel="noopener noreferrer" 
+          className={Styles.linkContrato}
+          >
+          📄Visualizar Contrato(PDF)
+        </a>
+        <div className={Styles.contratoContainer}>
+          <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
+          <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
+        </div>
+      </p>
+    </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" className={Styles.button} onClick={() => {
+        if (aceitouContrato === true) {
+          cadastrar();
+        } else {
+          alert('Leia e aceite o contrato para finalizar o cadastro');
+        }
+      }}>
+        Finalizar Cadastro
+        <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
+    </div>
+  </div>
 );
