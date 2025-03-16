@@ -25,10 +25,14 @@ import Bairro from "../inputs_cadastro/endereco/bairro_input";
 import Rua from "../inputs_cadastro/endereco/rua_input";
 import Numero from "../inputs_cadastro/endereco/numero_input";
 
-import contratoPdf from "../../pdfs/ContratoEsgrimaLins.pdf";
+//import contratoPdf from "../../pdfs/ContratoEsgrimaLins.pdf";
 
 export default function Form() {
   const [step, setStep] = useState(0);
+  const baseURL = window.location.origin;
+  
+  // Const contratoPdf
+  const [contratoPdf, setContratoPdf] = useState("");
 
   // States do Aluno
   const [nome, setNome] = useState("");
@@ -221,6 +225,14 @@ export default function Form() {
       });
   };
 
+  function mudarPDF() {
+       if(contratoPdf == 'dec'){
+          setContratoPdf(`${baseURL}/pdfs/ContratoEsgrimaLins.pdf`)
+       }else{
+          setContratoPdf(`${baseURL}/pdfs/EsgrimaEscola.pdf`)
+       }
+  }
+
   // Cadastro do aluno
   async function cadastrar() {
 
@@ -397,7 +409,7 @@ export default function Form() {
       pesquisarUnidades={pesquisarUnidades} />,
 
     <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}
-      areAllFieldsFilled={areAllFieldsFilled} />,
+      areAllFieldsFilled={areAllFieldsFilled} setContratoPdf={setContratoPdf}/>,
 
     <Passo8 nextStep={nextStep} prevStep={prevStep} handleChange={handleChange} selectedDay={selectedDay} areAllFieldsFilled={areAllFieldsFilled}/>,
 
@@ -405,10 +417,10 @@ export default function Form() {
       areAllFieldsFilled={areAllFieldsFilled} handleChangeTurmas={handleChangeTurmas}/>,
 
     <Passo10 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento} 
-      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} />,
+      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} mudarPDF={mudarPDF}/>,
 
     <Passo11 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato} 
-      handleCheckboxChange={handleCheckboxChange} />,
+      handleCheckboxChange={handleCheckboxChange} contratoPdf={contratoPdf}/>,
   ];
 
   return (
@@ -631,7 +643,7 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
   </div>
 );
 
-const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled }) => (
+const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled, setContratoPdf }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Unidade</h1>
@@ -643,12 +655,18 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
           name="escolha_unidade"
           className={Styles.select}
           value={selectedUnidade}
-          onChange={(e) => setSelectedUnidade(e.target.value)}
+          onChange={(e) => {
+            const selectedId = parseInt(e.target.value);
+            const selectedOption = unidades.find(unidade => unidade.id_unidade === selectedId);
+            
+            setSelectedUnidade(selectedId);
+            setContratoPdf(selectedOption ? selectedOption.tipo : "");
+          }}
         >
           <option value="" disabled>Selecionar Unidade</option>
           {unidades.map(unidade => (
             <option key={unidade.id_unidade} value={unidade.id_unidade}>
-              {unidade.nome_unidade}
+            {unidade.nome_unidade}
             </option>
           ))}
         </select>
@@ -660,7 +678,7 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
         Anterior
       </button>
       <button type="button" onClick={() => {
-        if (areAllFieldsFilled([selectedUnidade]) === true) {
+        if (selectedUnidade != "") {
           nextStep()
         } else {
           alert('Preencha os campos obrigatórios!');
@@ -756,7 +774,7 @@ const Passo9 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
     </div>
 );
 
-const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento }) => (
+const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento, mudarPDF }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Informações sobre<br/> Pagamento</h1>
@@ -801,6 +819,7 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
       <button type="button" onClick={() => {
         if (plano !== '' && d_Vencimento !== '') {
           nextStep()
+          mudarPDF()
         } else {
           alert('Preencha os campos obrigatórios!');
         }
@@ -812,7 +831,7 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
   </div>
 );
 
-const Passo11 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange }) => (
+const Passo11 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, handleCheckboxChange, contratoPdf }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>
