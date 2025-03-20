@@ -14,7 +14,7 @@ frontend/coverage
 # production
 frontend/build
 
-idea
+.idea
 
 # misc
 .DS_Store
