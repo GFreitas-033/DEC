@@ -70,13 +70,13 @@ export default function App(){
         <Route path="/home" element={<Home/>}></Route>
 
         <Route path="/cadastro/aluno/Pagante" element={<PaganteTrue />}></Route>
-        <Route path="/editar/aluno/Pagante" element={<PaganteTrue />}></Route>
+        <Route path="/editar/aluno/Pagante/:id_aluno" element={<PaganteTrue />}></Route>
 
         <Route path="/cadastro/aluno/NaoPagante" element={<PaganteFalse />}></Route>
-        <Route path="/editar/aluno/NaoPagante" element={<PaganteFalse />}></Route>
+        <Route path="/editar/aluno/NaoPagante/:id_aluno" element={<PaganteFalse />}></Route>
 
         <Route path="/cadastro/aluno/Escola" element={<AlunoEscola />}></Route>
-        <Route path="/editar/aluno/Escola" element={<AlunoEscola />}></Route>
+        <Route path="/editar/aluno/Escola/:id_aluno" element={<AlunoEscola />}></Route>
         
         <Route path="adm/adm_prof" element={<AdmProf />}></Route>
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} btn={"Cadastrar"}/>}></Route>

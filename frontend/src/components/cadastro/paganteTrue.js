@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Styles from "./form.module.css";
 import axios from "axios";
@@ -30,7 +30,7 @@ import Numero from "../inputs_cadastro/endereco/numero_input";
 export default function Form() {
   const [step, setStep] = useState(0);
   const baseURL = window.location.origin;
-  
+  const {id_aluno} = useParams();
   // Const contratoPdf
   const [contratoPdf, setContratoPdf] = useState("");
 
@@ -96,6 +96,16 @@ export default function Form() {
   const handleCheckboxChange = (event) => {
     setAceitouContrato(event.target.checked);
   };
+
+  useEffect(() => {
+    if(id_aluno){
+      preencherDados();
+    }
+  }, []);
+
+  async function preencherDados(){
+    
+  }
 
   // Função para verificar se os campos foram preenchidos
   const areAllFieldsFilled = (fields) => {
