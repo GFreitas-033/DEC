@@ -1,0 +1,53 @@
+services:
+
+  backend:
+    image: kushirot/dec:backend
+    container_name: backend-dec  # Simplified container name
+    restart: always
+    depends_on:
+      banco:
+        condition: service_healthy  # Web waits for DB to be healthy before starting
+    expose:
+      - "5000"  # Map internal port 3000 to host port 3001
+    networks:
+      - dec  # Updated network name for consistency
+
+  banco:
+    image: mysql:latest  # MySQL image with the latest tag
+    restart: always
+    container_name: banco-dec  # Simplified container name
+    environment:
+      MYSQL_DATABASE: dourado  # Changed to generic DB name for tutorial purposes
+      MYSQL_ROOT_PASSWORD: root  # Generic password
+    volumes:
+      - banco:/var/lib/mysql  # Volume for persistent DB storage
+    ports:
+      - "3307:3306"
+    networks:
+      - dec  # Updated network name for consistency
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3  # Healthcheck to ensure the DB is ready
+
+  frontend:
+    image: kushirot/dec:frontend
+    container_name: frontend-dec
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - dec
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+
+volumes:
+  banco:  # Persistent volume for MySQL data
+
+networks:
+  dec:  # Updated network name to make it tutorial-friendly
+    driver: bridge
