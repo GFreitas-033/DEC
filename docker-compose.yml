@@ -3,7 +3,7 @@ services:
   backend:
     image: kushirot/dec:backend
     container_name: backend-dec  # Simplified container name
-    restart: always
+    #restart: always
     depends_on:
       banco:
         condition: service_healthy  # Web waits for DB to be healthy before starting
@@ -14,7 +14,7 @@ services:
 
   banco:
     image: mysql:latest  # MySQL image with the latest tag
-    restart: always
+    #restart: always
     container_name: banco-dec  # Simplified container name
     environment:
       MYSQL_DATABASE: dourado  # Changed to generic DB name for tutorial purposes
@@ -34,7 +34,7 @@ services:
   frontend:
     image: kushirot/dec:frontend
     container_name: frontend-dec
-    restart: always
+    #restart: always
     ports:
       - "80:80"
     depends_on:
