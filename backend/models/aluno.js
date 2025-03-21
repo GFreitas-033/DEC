@@ -39,9 +39,23 @@ async function deleteAluno(id_pessoa) {
     }
 }
 
+async function allDataAluno(id_aluno) {
+    try{
+        const query = `
+            SELECT * from vw_aluno_responsavel WHERE id_aluno = ?
+        `;
+
+        const [rows] = await db.execute(query, [id_aluno]);
+        return rows;
+    }catch{
+        throw new Error('Erro inteno do servidor');
+    }
+}
+
 module.exports = {
     readAluno,
     createAluno,
     updateAluno,
-    deleteAluno
+    deleteAluno,
+    allDataAluno
 };

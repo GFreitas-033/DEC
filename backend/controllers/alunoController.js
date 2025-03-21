@@ -28,4 +28,10 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     res.status(200).send('Registro excluído com sucesso!');
 }));
 
+router.get('/allData/:id', asyncHandler(async (req, res) =>{
+    const id_aluno = parseInt(req.params.id);
+    const data = await alunoModel.allDataAluno(id_aluno);
+    res.json(data);
+}))
+
 module.exports = router;
