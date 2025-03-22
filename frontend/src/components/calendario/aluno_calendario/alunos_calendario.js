@@ -8,7 +8,7 @@ import ContainerCss from "../../containers.module.css";
 import Background_Sistema from "../../background/backSistema/backSistema";
 import Barra_lateral from "../../barra_lateral/icons_barra_lateral";
 import BotaoAdionarAlunos from "./botaoAdicionarAluno/adicionarAluno";
-import Notifica from "../../sino_notificacao/notificacao"
+import Notifica from "../../sino_notificacao/notificacao";
 
 export default function AlunosCalendario() {
     const { idturma } = useParams();
@@ -72,6 +72,10 @@ export default function AlunosCalendario() {
                 <div className={Calendario.ajuste}>
                     <div className={Calendario.container_alunoscalendario}>
                         <BotaoAdionarAlunos isAdm={adm}/>
+                        <button className={Calendario.btnChamada} 
+                            onClick={()=>{navigate('/aulas/chamada')}}>
+                            Chamada
+                        </button>
                         <h1 className={Calendario.textTurma}>{turma.nome_turma}</h1>
                         <p className={Calendario.textLH}>Local: {turma.endereco_completo}</p>
                         <p className={Calendario.textLH}>Horário: {turma.horario}</p>

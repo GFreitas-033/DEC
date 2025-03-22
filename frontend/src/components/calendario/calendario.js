@@ -100,7 +100,7 @@ export default function Calendario(){
                       <u>{formatDiaSemana(dia)}</u>
                     </h1>
                     {groupedData[dia].map((item, subIndex) => (
-                      <Link to={`alunos_aulas/${item.id_turma}`} key={subIndex}>
+                      <Link to={`turma/${item.id_turma}`} key={subIndex}>
                         <div className={EstiloCalendario.container_calendario}>
                           <h1 className={EstiloCalendario.textTurma}>{item.nome_turma}</h1>
                           <p className={EstiloCalendario.textLH}>Local: {item.endereco_completo}</p>

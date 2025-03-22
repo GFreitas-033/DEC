@@ -312,7 +312,7 @@ export default function Form() {
   };
 
   function mudarPDF() {
-    if (contratoPdf == 'dec') {
+    if (contratoPdf === 'dec') {
       setContratoPdf(`${baseURL}/pdfs/ContratoEsgrimaLins.pdf`)
     } else {
       setContratoPdf(`${baseURL}/pdfs/EsgrimaEscola.pdf`)
@@ -787,7 +787,7 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
         Anterior
       </button>
       <button type="button" onClick={() => {
-        if (selectedUnidade != "") {
+        if (selectedUnidade !== "") {
           nextStep()
         } else {
           alert('Preencha os campos obrigatórios!');

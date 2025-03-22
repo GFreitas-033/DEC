@@ -64,5 +64,20 @@
 li{
     display: flex;
     align-items: center;
-    border: #ccc solid 1px;
+    border: #ccc solid 0.1rem;
+}
+
+/* Butão Ir pra Chamada */
+.btnChamada{
+    border: 0.2rem #000 solid;
+    border-radius: 1rem;
+    background-color: #d40000;
+    color: #fff;
+    padding: 1rem;
+    margin: 0.5rem 0 0 1rem;
+    cursor: pointer;
+}
+.btnChamada:hover{
+    background-color: #b91818;
+    transition: 0.5s;
 }

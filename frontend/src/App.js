@@ -16,6 +16,7 @@ import Home from "./components/home/home"
 
 import Calendario from "./components/calendario/calendario"
 import Alunos from "./components/calendario/aluno_calendario/alunos_calendario"
+import Chamada from "./components/calendario/chamada/chamada"
 
 import Adm from "./components/adm/adm"
 
@@ -47,7 +48,8 @@ export default function App(){
         <Link to="/home"></Link>
 
         <Link to="/aulas"></Link>
-        <Link to="aulas/alunos_aulas"></Link>
+        <Link to="aulas/turma"></Link>
+        <Link to="aulas/chamada"></Link>
 
         <Link to="/adm"></Link>
   
@@ -91,7 +93,8 @@ export default function App(){
         <Route path="/editar_turma/:id_turma" element={<CadastroTurma texto={"Editar Turma"} btn={"Editar"}/>}></Route>
 
         <Route path="/aulas" element={<Calendario />}></Route>
-        <Route path="aulas/alunos_aulas/:idturma" element={<Alunos />}></Route>
+        <Route path="aulas/turma/:idturma" element={<Alunos />}></Route>
+        <Route path="aulas/chamada" element={<Chamada />}></Route>
 
         <Route path="/adm" element={<Adm />}></Route>
         
