@@ -99,6 +99,17 @@
     flex-direction: column;
 }
 
+.status{
+    color: #fff;
+    margin: 0 0 1rem 0;
+}
+.vermelho{
+    color: #f00;
+}
+.azul{
+    color: #00ff0d;
+}
+
 .inputData {
     padding: 0.5rem;
     border: 0.1rem solid #FBD034;

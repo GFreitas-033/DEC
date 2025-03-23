@@ -9,6 +9,7 @@ import Background_Sistema from "../../background/backSistema/backSistema";
 import Barra_lateral from "../../barra_lateral/icons_barra_lateral";
 import BotaoAdionarAlunos from "./botaoAdicionarAluno/adicionarAluno";
 import Notifica from "../../sino_notificacao/notificacao";
+import BtnVoltar from "../../btnVoltar/btnVoltar"
 
 export default function AlunosCalendario() {
     const { idturma } = useParams();
@@ -95,6 +96,7 @@ export default function AlunosCalendario() {
                     </div>
                 </div>
                 <Notifica />
+                <BtnVoltar />
             </div>
         </div>
     );

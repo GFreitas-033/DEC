@@ -8,6 +8,7 @@ import StyleCadastroProf from "./cadastroDoAdm.module.css";
 import Background_Sistema from "../background/backSistema/backSistema";
 import BarraLateral from "../barra_lateral/icons_barra_lateral";
 import Notifica from "../sino_notificacao/notificacao";
+import BtnVoltar from "../btnVoltar/btnVoltar";
 
 // Imports dos Inputs para Pessoa
 // import Imagem from "../../inputs_cadastro/imagem_input";
@@ -273,6 +274,7 @@ export default function Cadastro_prof({ texto, btn }){
                     </form>
                 </div>
                 <Notifica />
+                <BtnVoltar />
             </div>
         </div>
     )

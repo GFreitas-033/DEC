@@ -7,8 +7,9 @@ import EstiloAdmUnidade from "./admAPUT.module.css";
 
 import Background_Sistema from "../../background/backSistema/backSistema";
 import Botao from "../botao_adm/botao_adm";
-import BarraLateral from "../../barra_lateral/icons_barra_lateral"
-import Notifica from "../../sino_notificacao/notificacao"
+import BarraLateral from "../../barra_lateral/icons_barra_lateral";
+import Notifica from "../../sino_notificacao/notificacao";
+import BtnVoltar from "../../btnVoltar/btnVoltar";
 
 export default function Adm_unidade(){
     const navigate = useNavigate();
@@ -105,6 +106,7 @@ export default function Adm_unidade(){
                     </table>
                 </div>
                 <Notifica />
+                <BtnVoltar />
             </div>
         </div>
     )

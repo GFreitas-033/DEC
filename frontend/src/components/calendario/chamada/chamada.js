@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 
 import EstiloChamada from "./chamada.module.css"
@@ -8,8 +8,11 @@ import ContainerCss from "../../containers.module.css";
 import Background_Sistema from "../../background/backSistema/backSistema";
 import Barra_lateral from "../../barra_lateral/icons_barra_lateral";
 import Notifica from "../../sino_notificacao/notificacao";
+import BtnVoltar from "../../btnVoltar/btnVoltar";
 
 export default function Chamada() {
+    // Função teste, pode apagar se quiser
+    const [trocar, setTrocar] = useState(true)
     return(
         <div>
             <Background_Sistema />
@@ -31,7 +34,7 @@ export default function Chamada() {
                             <tbody>
                                 <tr>
                                     <td className={EstiloChamada.colunaPresenca}>
-                                        <input type="checkbox" checked />
+                                        <input type="checkbox" />
                                     </td>
                                     <td>
                                         Samuel Ferreira
@@ -39,7 +42,7 @@ export default function Chamada() {
                                 </tr>
                                 <tr>
                                     <td className={EstiloChamada.colunaPresenca}>
-                                        <input type="checkbox" checked />
+                                        <input type="checkbox" />
                                     </td>
                                     <td>
                                         André Silva
@@ -47,7 +50,7 @@ export default function Chamada() {
                                 </tr>
                                 <tr>
                                     <td className={EstiloChamada.colunaPresenca}>
-                                        <input type="checkbox" checked />
+                                        <input type="checkbox" />
                                     </td>
                                     <td>
                                         ARTHUR VENEZUELA MARTINS FERREIRA DE MORAES
@@ -55,7 +58,7 @@ export default function Chamada() {
                                 </tr>
                                 <tr>
                                     <td className={EstiloChamada.colunaPresenca}>
-                                        <input type="checkbox" checked />
+                                        <input type="checkbox" />
                                     </td>
                                     <td>
                                         DARTAGNAN EDUARDO MARTINS MENEZES FONN
@@ -64,6 +67,12 @@ export default function Chamada() {
                             </tbody>
                         </table>
                         <div className={EstiloChamada.divObservacao}>
+                            <p className={EstiloChamada.status}>
+                                Status: 
+                                <span className={trocar? EstiloChamada.azul : EstiloChamada.vermelho}>
+                                    {trocar?" Finalizada" : " A ser Feita"}
+                                </span>
+                            </p>
                             <input type="date" className={EstiloChamada.inputData} />
                             <label className={EstiloChamada.labelObservacao}>Observações</label>
                             <textarea type="text" className={EstiloChamada.inputObservacao} 
@@ -78,6 +87,7 @@ export default function Chamada() {
                     </div>
                 </div>
                 <Notifica />
+                <BtnVoltar />
             </div>
         </div>
     )
