@@ -69,15 +69,15 @@ li{
 
 /* Butão Ir pra Chamada */
 .btnChamada{
-    border: 0.2rem #000 solid;
+    border: 0.1rem #FBD034 solid;
     border-radius: 1rem;
-    background-color: #d40000;
+    background-color: #1e1e1e;
     color: #fff;
     padding: 1rem;
     margin: 0.5rem 0 0 1rem;
     cursor: pointer;
 }
 .btnChamada:hover{
-    background-color: #b91818;
+    background-color: #000;
     transition: 0.5s;
 }

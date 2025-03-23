@@ -19,10 +19,87 @@
         border: 0.1rem #FBD034 solid;
         border-radius: 0.5rem;
         background-color: #2b2b2b;
+        display: flex;
+        align-items: flex-start; /* Alinha no topo */
     }
 }
 
 .ajuste{
     display: flex;
     justify-content: center;
+}
+
+/* Estilo da Tabela */
+.tabela{
+    margin: 1rem;
+    width: 60%;
+    border-collapse: collapse;
+}
+
+.colunaPresenca{
+    text-align: center;
+    width: 15%;
+}
+
+.colunaNome{
+    width: 85%;
+}
+
+/* Estilo da parte da Observação */
+.divObservacao{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 1rem;
+}
+
+.inputData {
+    padding: 0.5rem;
+    border: 0.1rem solid #FBD034;
+    border-radius: 0.5rem;
+    background-color: #1e1e1e;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+}
+.inputData::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.labelObservacao{
+    font-size: 1.2rem;
+    margin: 1rem 0;
+}
+
+.inputObservacao{
+    min-height: 20rem;
+    padding: 0.5rem;
+    border: 0.1rem solid #FBD034;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    color: white;
+    line-height: 1.5;
+    outline: none;
+}
+
+.divbtnEnviar{
+    display: flex;
+    justify-content: center;
+}
+
+.btnEnviarChamada{
+    border: 0.1rem #FBD034 solid;
+    border-radius: 2rem;
+    background-color: #1e1e1e;
+    color: #fff;
+    width: 80%;
+    height: 2.5rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+.btnEnviarChamada:hover{
+    background-color: #000;
+    transition: 0.5s;
 }

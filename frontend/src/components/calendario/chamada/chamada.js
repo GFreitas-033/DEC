@@ -20,7 +20,7 @@ export default function Chamada() {
                         <table className={EstiloChamada.tabela}>
                             <thead>
                                 <tr>
-                                    <td className={EstiloChamada.colunaId}>
+                                    <td className={EstiloChamada.colunaPresenca}>
                                         <p><b><u>Presença</u></b></p>
                                     </td>
                                     <td className={EstiloChamada.colunaNome}>
@@ -30,15 +30,35 @@ export default function Chamada() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className={EstiloChamada.colunaId}>
+                                    <td className={EstiloChamada.colunaPresenca}>
                                         <input type="checkbox" checked />
                                     </td>
                                     <td>
-                                        Fulano
+                                        Samuel Ferreira
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={EstiloChamada.colunaPresenca}>
+                                        <input type="checkbox" checked />
+                                    </td>
+                                    <td>
+                                        André Silva
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div className={EstiloChamada.divObservacao}>
+                            <input type="date" className={EstiloChamada.inputData} />
+                            <label className={EstiloChamada.labelObservacao}>Observações</label>
+                            <textarea type="text" className={EstiloChamada.inputObservacao} 
+                            placeholder="Digite sua observação aqui..."></textarea>
+                            <div className={EstiloChamada.divbtnEnviar}>
+                                <button className={EstiloChamada.btnEnviarChamada}
+                                onClick={()=>{alert("Enviou a Chamada")}}>
+                                    Enviar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <Notifica />
