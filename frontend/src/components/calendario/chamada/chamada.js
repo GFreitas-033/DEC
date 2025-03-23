@@ -45,6 +45,22 @@ export default function Chamada() {
                                         André Silva
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td className={EstiloChamada.colunaPresenca}>
+                                        <input type="checkbox" checked />
+                                    </td>
+                                    <td>
+                                        ARTHUR VENEZUELA MARTINS FERREIRA DE MORAES
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className={EstiloChamada.colunaPresenca}>
+                                        <input type="checkbox" checked />
+                                    </td>
+                                    <td>
+                                        DARTAGNAN EDUARDO MARTINS MENEZES FONN
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div className={EstiloChamada.divObservacao}>

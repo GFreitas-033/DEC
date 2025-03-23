@@ -11,6 +11,10 @@
     .lista{
         margin: 0.4rem;
     }
+
+    .btnChamada{
+        margin: 0 0 0 0.5rem;
+    }
 }
 
 @media screen and (min-width: 720px){
@@ -27,6 +31,10 @@
 
     .lista{
         margin: 1rem;
+    }
+
+    .btnChamada{
+        margin: 0.5rem 0 0 1rem;
     }
 }
 
@@ -74,7 +82,6 @@ li{
     background-color: #1e1e1e;
     color: #fff;
     padding: 1rem;
-    margin: 0.5rem 0 0 1rem;
     cursor: pointer;
 }
 .btnChamada:hover{

@@ -1,27 +1,76 @@
 @media screen and (min-width: 320px){
     .container_chamada{
         width: 100%;
-        margin-top: 5rem;
-
         border: 0;
         border-radius: 0;
-        background-color: #2b2b2b;
+        flex-direction: column;
+    }
+
+    .tabela{
+        min-width: 90%;
+        max-width: 90%;
+    }
+
+    .divObservacao{
+        width: 100%;
+        margin: 1rem 0 0 0;
+    }
+
+    .inputData{
+        width: 90%;
+        margin-left: 0.5rem;
+    }
+
+    .labelObservacao{
+        margin: 1rem 0 0.5rem 0.5rem;
+    }
+
+    .inputObservacao{
+        width: 90%;
+        min-height: 10rem;
+        margin-left: 0.5rem;
     }
 }
 
 @media screen and (min-width: 720px){
     .container_chamada{
         width: 50%;
-        min-height: 70vh;
-        height: auto;
-        margin-top: 5rem;
-
         border: 0.1rem #FBD034 solid;
         border-radius: 0.5rem;
-        background-color: #2b2b2b;
-        display: flex;
+        flex-direction: row;
         align-items: flex-start; /* Alinha no topo */
     }
+
+    .tabela{
+       min-width: 70%;
+       max-width: 70%;
+    }
+    
+    .divObservacao{
+        width: 30%;
+        margin: 0.8rem 1rem 1rem 0;
+    }
+
+    .inputData{
+        margin-left: 0;
+    }
+
+    .labelObservacao{
+        margin: 1rem 0;
+    }
+
+    .inputObservacao{
+        margin-left: 0;
+        min-height: 20rem;
+    }
+}
+
+.container_chamada{
+    display: flex;
+    min-height: 70vh;
+    height: auto;
+    margin-top: 5rem;
+    background-color: #2b2b2b;
 }
 
 .ajuste{
@@ -32,7 +81,6 @@
 /* Estilo da Tabela */
 .tabela{
     margin: 1rem;
-    width: 60%;
     border-collapse: collapse;
 }
 
@@ -49,8 +97,6 @@
 .divObservacao{
     display: flex;
     flex-direction: column;
-    width: 30%;
-    margin: 1rem;
 }
 
 .inputData {
@@ -70,14 +116,12 @@
 
 .labelObservacao{
     font-size: 1.2rem;
-    margin: 1rem 0;
 }
 
 .inputObservacao{
-    min-height: 20rem;
     padding: 0.5rem;
     border: 0.1rem solid #FBD034;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     background-color: #1e1e1e;
     color: white;
     line-height: 1.5;
@@ -97,6 +141,7 @@
     width: 80%;
     height: 2.5rem;
     margin-top: 1rem;
+    margin-bottom: 3rem;
     cursor: pointer;
 }
 .btnEnviarChamada:hover{
