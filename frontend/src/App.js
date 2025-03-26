@@ -42,7 +42,6 @@ export default function App(){
 
         <Link to="/cadastro/professor"></Link>
         <Link to="/cadastro/unidade"></Link>
-        <Link to="/cadastro/unidade/responsavel"></Link>
         <Link to="/cadastro/turma"></Link>
 
         <Link to="/home"></Link>
@@ -60,11 +59,9 @@ export default function App(){
 
         <Link to="adm/adm_unidade"></Link>
         <Link to="adm/editar_unidade"></Link>
-        <Link to="adm/editar_res-unidade"></Link>
 
         <Link to="adm/adm_turmas"></Link>
         <Link to="adm/editar_turma"></Link>
-        
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />}></Route>
