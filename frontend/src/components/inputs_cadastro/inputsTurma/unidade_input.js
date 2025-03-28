@@ -1,41 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import UnidadeStyle from "../input.module.css";
-import axios from "axios";
 
-export default function Unidade_input() {
-  const [unidades, setUnidades] = useState([]);
-
-  useEffect(() => {
-    const fetchUnidades = async () => {
-      try {
-        const response = await axios.get('/api/unidade/');
-        const unidadesData = response.data.map(unidade => ({
-          id: unidade.id_unidade,
-          nome: unidade.nome_unidade
-        }));
-        setUnidades(unidadesData);
-      } catch (error) {
-        console.error('Erro ao buscar unidades:', error);
-      }
-    };
-
-    fetchUnidades();
-  }, []);
+export default function Unidade_input({ value, setValue, unidades }) {
+  function salvar(e) {
+    let valor = e.target.value;
+    setValue(valor);
+  }
 
   return (
     <div className={UnidadeStyle.esquerda}>
       <label className={UnidadeStyle.label}>
         <b>Unidade</b>
-      </label><br />
-      <select id="SelecaoUnidade" className={`${UnidadeStyle.inputPU}
-        ${UnidadeStyle.inputPersonalizado}`}>
-        <option value="" selected disabled>Selecionar</option>
-        {unidades.map(unidade => (
+      </label>
+      <br />
+      <select
+        id="SelecaoUnidade"
+        className={`${UnidadeStyle.inputPU} ${UnidadeStyle.inputPersonalizado}`}
+        value={value}
+        onChange={salvar}
+      >
+        <option value="" disabled>
+          Selecionar
+        </option>
+        {unidades.map((unidade) => (
           <option key={unidade.id} value={unidade.id}>
             {unidade.nome}
           </option>
         ))}
-      </select><br />
+      </select>
+      <br />
     </div>
   );
 }
