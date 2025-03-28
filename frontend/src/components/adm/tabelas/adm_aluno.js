@@ -89,7 +89,7 @@ export default function Adm_aluno(){
                                             src={require('../../../imgs/icons/Editar.png')}
                                             alt="Editar"
                                             className={EstiloAdmAluno.icon}
-                                            onClick={() => navigate(`/editar/aluno/Pagante/${aluno.id_pessoa}`)}
+                                            onClick={() => navigate(`/editar/aluno/${aluno.id_pessoa}`)}
                                         />
                                         <img
                                             src={require('../../../imgs/icons/Excluir.png')}

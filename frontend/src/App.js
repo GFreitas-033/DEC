@@ -1,6 +1,6 @@
 // Import do React
 import React from "react"
-import {BrowserRouter as Routers, Routes, Route, Link} from "react-router-dom"
+import {BrowserRouter as Routers, Routes, Route} from "react-router-dom"
 
 // Import das Telas
 import Login from "./components/login/form"
@@ -29,53 +29,18 @@ export default function App(){
 
   return(
     <Routers>
-      {/* Links */}
-        <Link to="/"></Link>
-
-        <Link to="/cadastro/aluno/Pagante"></Link>
-        <Link to="/cadastro/aluno/NaoPagante"></Link>
-        <Link to="/cadastro/aluno/Escola"></Link>
-
-        <Link to="/editar/aluno/Pagante"></Link>
-        <Link to="/editar/aluno/NaoPagante"></Link>
-        <Link to="/editar/aluno/Escola"></Link>
-
-        <Link to="/cadastro/professor"></Link>
-        <Link to="/cadastro/unidade"></Link>
-        <Link to="/cadastro/turma"></Link>
-
-        <Link to="/home"></Link>
-
-        <Link to="/aulas"></Link>
-        <Link to="aulas/turma"></Link>
-        <Link to="aulas/chamada"></Link>
-
-        <Link to="/adm"></Link>
-  
-        <Link to="adm/adm_aluno"></Link>
-
-        <Link to="adm/adm_prof"></Link>
-        <Link to="adm/editar_prof"></Link>
-
-        <Link to="adm/adm_unidade"></Link>
-        <Link to="adm/editar_unidade"></Link>
-
-        <Link to="adm/adm_turmas"></Link>
-        <Link to="adm/editar_turma"></Link>
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />}></Route>
 
         <Route path="/home" element={<Home/>}></Route>
 
-        <Route path="/cadastro/aluno/Pagante" element={<PaganteTrue />}></Route>
-        <Route path="/editar/aluno/Pagante/:id_aluno" element={<PaganteTrue />}></Route>
+        <Route path="/matricula" element={<PaganteTrue />}></Route>
+        <Route path="/editar/aluno/:id_aluno" element={<PaganteTrue />}></Route>
 
         <Route path="/cadastro/aluno/NaoPagante" element={<PaganteFalse />}></Route>
-        <Route path="/editar/aluno/NaoPagante/:id_aluno" element={<PaganteFalse />}></Route>
 
         <Route path="/cadastro/aluno/Escola" element={<AlunoEscola />}></Route>
-        <Route path="/editar/aluno/Escola/:id_aluno" element={<AlunoEscola />}></Route>
         
         <Route path="adm/adm_prof" element={<AdmProf />}></Route>
         <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} btn={"Cadastrar"}/>}></Route>
