@@ -179,8 +179,8 @@ export default function Cadastro_unidade({ texto, btn }){
       
                 let responseUnidade = await axios.post('/api/unidade', {
                     nome_unidade: nome, 
-                    cnpj_unidade: cnpj, 
-                    telefone_unidade: telefone, 
+                    cnpj_unidade: tratamentoString(cnpj), 
+                    telefone_unidade: tratamentoString(telefone), 
                     email_unidade: email, 
                     mais_contatos: maisContatos, 
                     id_endereco: responseEndereco_Unidade.id,
