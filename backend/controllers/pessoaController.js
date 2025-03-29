@@ -23,11 +23,22 @@ router.post('/', asyncHandler(async (req, res) => {
         adm
     } = req.body;
     
-    if(senha_pessoa == null){
-        senha_pessoa = 'douradoesgrima'
+    if (!senha_pessoa) {
+        senha_pessoa = 'douradoesgrima';
     }
 
-    novaPessoa = await pessoaModel.createPessoa(
+    // Verifica se o CPF já existe
+    const pessoaExistente = await pessoaModel.getPessoaByCpf(cpf_pessoa);
+    
+    if (pessoaExistente) {
+        return res.status(200).json({
+            id: pessoaExistente.id_pessoa,
+            adm: pessoaExistente.adm
+        });
+    }
+
+    // Caso o CPF não exista, cria a nova pessoa
+    const novaPessoa = await pessoaModel.createPessoa(
         nome_pessoa,
         dt_nasc_pessoa,
         cpf_pessoa,
@@ -44,7 +55,6 @@ router.post('/', asyncHandler(async (req, res) => {
         id: novaPessoa.id_pessoa,
         adm: novaPessoa.adm
     });
-
 }));
 
 router.put('/:id', asyncHandler(async (req, res) => {

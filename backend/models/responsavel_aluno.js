@@ -37,9 +37,20 @@ async function deleteResponsavelAluno(id_pessoa) {
     }
 }
 
+async function getResponsavelByPessoaId(id_pessoa) {
+    try {
+        const [result] = await db.query('SELECT id_pessoa FROM responsavel_aluno WHERE id_pessoa = ?', [id_pessoa]);
+        return result.length > 0 ? result[0] : null;
+    } catch (err) {
+        console.error('Erro ao buscar responsável:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
 module.exports = {
     readResponsavelAluno,
     createResponsavelAluno,
     updateResponsavelAluno,
-    deleteResponsavelAluno
+    deleteResponsavelAluno,
+    getResponsavelByPessoaId
 };

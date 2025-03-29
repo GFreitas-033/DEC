@@ -11,6 +11,14 @@ router.get('/', asyncHandler(async (req, res) => {
 
 router.post('/', asyncHandler(async (req, res) => {
     const { id_pessoa } = req.body;
+    
+    // Verifica se o responsável já existe
+    const responsavelExistente = await responsavel_alunoModel.getResponsavelByPessoaId(id_pessoa);
+    
+    if (responsavelExistente) {
+        return res.status(200).send('Responsável já cadastrado com sucesso!');
+    }
+
     await responsavel_alunoModel.createResponsavelAluno(id_pessoa);
     res.status(201).send('Registro criado com sucesso!');
 }));

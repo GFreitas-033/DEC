@@ -45,9 +45,21 @@ async function deletePessoa(id_pessoa) {
     }
 }
 
+async function getPessoaByCpf(cpf_pessoa) {
+    try {
+        const [result] = await db.query('SELECT id_pessoa, adm FROM pessoa WHERE cpf_pessoa = ?', [cpf_pessoa]);
+        return result.length > 0 ? result[0] : null;
+    } catch (err) {
+        console.error('Erro ao buscar CPF:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+
 module.exports = {
     readPessoa,
     createPessoa,
     updatePessoa,
-    deletePessoa
+    deletePessoa,
+    getPessoaByCpf
 };
