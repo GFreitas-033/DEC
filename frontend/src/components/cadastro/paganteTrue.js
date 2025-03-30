@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import Styles from "./form.module.css";
 import axios from "axios";
+import Swal from "sweetalert2"
 
 // Import Back
 import Background from "../background/backCadastro/backCadastro";
@@ -47,6 +48,16 @@ function formatRG(rg) {
 function formatTelefone(telefone) {
   if (!telefone) return "";
   return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+}
+
+function faltaCampo(){
+  Swal.fire({
+    title: 'Alerta!',
+    text: 'Preencha os campo obrigatórios.',
+    icon: 'warning',
+    confirmButtonText: 'OK',
+    confirmButtonColor: '#fbd034'
+  })
 }
 
 export default function Form() {
@@ -461,10 +472,17 @@ export default function Form() {
 
 
     if (responseAlunoHasTurma) {
-      alert('Cadastro concluído!');
-      window.location.reload();
+      Swal.fire({
+        title: 'Sucesso!',
+        text: 'O aluno foi cadastrado com sucesso.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#fbd034'
+      }).then(() =>{
+        window.location.reload();
+      })
     }
-
+    
   }
 
   const steps = [
@@ -561,7 +579,7 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
             nextStep(); // Continua normalmente se menor de idade
           };
         } else {
-          alert('Preencha os campos obrigatórios!')
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -595,7 +613,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
         } else if (areAllFieldsFilled([nomeResp1, emailResp1, cpfResp1, generoResp1, rgResp1, telefoneResp1]) === true) {
           nextStep();
         } else {
-          alert('Preencha os campos obrigatórios!')
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -742,7 +760,7 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
           pesquisarUnidades();
           nextStep();
         } else {
-          alert('Preencha os campos obrigatórios!');
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -790,7 +808,7 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
         if (selectedUnidade !== "") {
           nextStep()
         } else {
-          alert('Preencha os campos obrigatórios!');
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -829,7 +847,7 @@ const Passo8 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFil
         if (areAllFieldsFilled([selectedDay]) === true) {
           nextStep();
         } else {
-          alert('Preencha os campos obrigatórios!');
+          faltaCampo();
         }
 
       }} className={Styles.button}>
@@ -873,7 +891,7 @@ const Passo9 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
         if (selectedTurmas !== '') {
           nextStep();
         } else {
-          alert('Preencha os campos obrigatórios!');
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -944,7 +962,7 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
               mudarPDF();
             }
           } else {
-            alert('Preencha os campos obrigatórios!');
+            faltaCampo();
           }
         }}
         className={Styles.button}
@@ -989,7 +1007,13 @@ const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, c
         if (aceitouContrato === true) {
           cadastrar();
         } else {
-          alert('Leia e aceite o contrato para finalizar o cadastro');
+          Swal.fire({
+            title: 'Alerta!',
+            text: 'Leia e aceite o contrato para finalizar o cadastro.',
+            icon: 'warning',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#fbd034'
+          });
         }
       }}>
         Finalizar Cadastro
