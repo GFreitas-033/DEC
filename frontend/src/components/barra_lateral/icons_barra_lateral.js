@@ -1,9 +1,9 @@
 // Import necessarios
 import React, { useEffect, useState } from "react";
-import Icons from "./icons.module.css";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import Icons from "./icons.module.css";
 
 export default function Barra_lateral() {
     const [isAdm, setIsAdm] = useState(false);
@@ -48,6 +48,24 @@ export default function Barra_lateral() {
             console.log(`Erro: ${error}`);
         }
     };
+    const sairAnimacao = () =>{
+        Swal.fire({
+            title: "Quer Realmente Sair?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, Quero Sair!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Você Saiu!",
+                    icon: "success"
+                });
+                sair();
+            }
+        });
+    }
 
     return (
         <div className={Icons.barra_lateral}>
@@ -66,8 +84,8 @@ export default function Barra_lateral() {
                     <p className={Icons.text}>Adm</p>
                 </Link>
             )}
-            <Link to="/">
-                <img src={require('../../imgs/icons/logout.png')} className={Icons.imgs} alt="Logout Icon" onClick={sair} />
+            <Link>
+                <img src={require('../../imgs/icons/logout.png')} className={Icons.imgs} alt="Logout Icon" onClick={sairAnimacao} />
                 <p className={Icons.text}>Sair</p>
             </Link>
         </div>
