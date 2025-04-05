@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 import Calendario from "./alunoCalendario.module.css";
 import ContainerCss from "../../containers.module.css";
@@ -18,6 +19,56 @@ export default function AlunosCalendario() {
     const [turma, setTurma] = useState({}); // Estado para armazenar os dados da turma
     const adm = localStorage.getItem('isAdm');
     const navigate = useNavigate()
+
+    const alertRemoverAluno = (id_aluno) =>{
+        Swal.fire({
+            title: "Quer Realmente Remover esse(a) Aluno(a) dessa Turma?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, Remover Aluno!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Aluno Removido com Sucesso!",
+                    icon: "success"
+                });
+                tirarAluno(id_aluno);
+            }
+        });
+    }
+    const alertTrocarTurma = async () => {
+        const { value: novaTurma } = await Swal.fire({
+            title: "Trocar o aluno de turma",
+            text: "Selecione a nova turma para o aluno:",
+            input: "select",
+            inputOptions: {
+                "manha": "Turma da Manhã",
+                "tarde": "Turma da Tarde",
+                "noite": "Turma da Noite"
+            },
+            inputPlaceholder: "Selecione uma turma",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Confirmar",
+            inputValidator: (value) => {
+                return new Promise((resolve) => {
+                    if (value) {
+                        resolve(); // tudo certo
+                    } else {
+                        resolve("Você precisa selecionar uma turma.");
+                    }
+                });
+            }
+        });
+      
+        if (novaTurma) {
+            // Aqui você pode fazer o que quiser com a nova turma selecionada
+            Swal.fire(`Aluno transferido para a ${novaTurma}`);
+        }
+    };
+    
 
     useEffect(() => {
         logado();
@@ -84,12 +135,20 @@ export default function AlunosCalendario() {
                             {alunos.map((aluno, index) => (
                                 <li key={index}>
                                     {aluno.nome_pessoa}
-                                    <img 
-                                        src={require('../../../imgs/icons/Excluir.png')} 
-                                        className={Calendario.iconExcluir}
-                                        onClick={() => {tirarAluno(aluno.id_pessoa)}}
-                                        alt="Excluir aluno"
-                                    />
+                                    <div className={Calendario.divAcoes}>
+                                        <img 
+                                            src={require('../../../imgs/icons/switch.png')} 
+                                            className={Calendario.iconExcluir}
+                                            onClick={()=>{alertTrocarTurma(aluno.id_pessoa)}}
+                                            alt="Trocar de Turma"
+                                        />
+                                        <img 
+                                            src={require('../../../imgs/icons/Excluir.png')} 
+                                            className={Calendario.iconExcluir}
+                                            onClick={()=>{alertRemoverAluno(aluno.id_pessoa)}}
+                                            alt="Excluir aluno"
+                                        />
+                                    </div>
                                 </li>
                             ))}
                         </ul>

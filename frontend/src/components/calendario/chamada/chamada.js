@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 import EstiloChamada from "./chamada.module.css"
 import ContainerCss from "../../containers.module.css";
@@ -13,6 +14,25 @@ import BtnVoltar from "../../btnVoltar/btnVoltar";
 export default function Chamada() {
     // Função teste, pode apagar se quiser
     const [trocar, setTrocar] = useState(true)
+
+    const enviarChamada = () => {
+        Swal.fire({
+            title: "Deseja Confirmar o Envio da Chamada?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirmar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Chamada Registrada com Sucesso!",
+                    icon: "success"
+                });
+            }
+        });
+    }
+
     return(
         <div>
             <Background_Sistema />
@@ -79,7 +99,7 @@ export default function Chamada() {
                             placeholder="Digite sua observação aqui..."></textarea>
                             <div className={EstiloChamada.divbtnEnviar}>
                                 <button className={EstiloChamada.btnEnviarChamada}
-                                onClick={()=>{alert("Enviou a Chamada")}}>
+                                onClick={enviarChamada}>
                                     Enviar
                                 </button>
                             </div>

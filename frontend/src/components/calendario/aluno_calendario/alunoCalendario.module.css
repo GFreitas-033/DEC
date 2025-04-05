@@ -58,12 +58,17 @@
     color: #ccc;
 }
 
+.divAcoes{
+    display: flex;
+    align-items: center;
+    margin-left: 3rem;
+}
 .iconExcluir{
     cursor: pointer;
     width: 1.5rem;
     height: 1.5rem;
-    margin-left: 2rem;
     border: none;
+    margin: 0rem 0.2rem;
 }
 .iconExcluir:hover{
     background-color: #FBD034;

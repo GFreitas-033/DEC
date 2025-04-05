@@ -3,10 +3,31 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2';
+
 import Icons from "./icons.module.css";
 
 export default function Barra_lateral() {
     const [isAdm, setIsAdm] = useState(false);
+
+    const alertSair = () =>{
+        Swal.fire({
+            title: "Quer Realmente Sair?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, Quero Sair!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Você Saiu!",
+                    icon: "success"
+                });
+                sair();
+            }
+        });
+    }
+
 
     const bloquearImg = () => {
         let icones = document.getElementsByTagName('img');
@@ -48,24 +69,6 @@ export default function Barra_lateral() {
             console.log(`Erro: ${error}`);
         }
     };
-    const sairAnimacao = () =>{
-        Swal.fire({
-            title: "Quer Realmente Sair?",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, Quero Sair!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Você Saiu!",
-                    icon: "success"
-                });
-                sair();
-            }
-        });
-    }
 
     return (
         <div className={Icons.barra_lateral}>
@@ -85,7 +88,7 @@ export default function Barra_lateral() {
                 </Link>
             )}
             <Link>
-                <img src={require('../../imgs/icons/logout.png')} className={Icons.imgs} alt="Logout Icon" onClick={sairAnimacao} />
+                <img src={require('../../imgs/icons/logout.png')} className={Icons.imgs} alt="Logout Icon" onClick={alertSair} />
                 <p className={Icons.text}>Sair</p>
             </Link>
         </div>

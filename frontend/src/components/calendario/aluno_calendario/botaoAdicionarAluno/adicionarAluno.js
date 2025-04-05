@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
+
 import btnStyle from "./adiciona_Aluno.module.css";
 
 export default function Adicionar_Aluno({ isAdm }) {
@@ -11,6 +13,19 @@ export default function Adicionar_Aluno({ isAdm }) {
     const [achar, setAchar] = useState("");
     const [alunoSelecionado, setAlunoSelecionado] = useState(null);
     const [mostrarLista, setMostrarLista] = useState(false);
+
+    const alertSucesso = () => {
+        Swal.fire({
+            title: "Aluno Adicionado com Sucesso!",
+            icon: "success"
+        });
+    }
+    const alertErro = () => {
+        Swal.fire({
+            title: "Adicione um Aluno!",
+            icon: "error"
+        });
+    }
 
     useEffect(() => {
         axios.get("/listartodosalunos")
@@ -32,7 +47,7 @@ export default function Adicionar_Aluno({ isAdm }) {
 
     async function colocarAluno() {
         if (!alunoSelecionado) {
-            alert("Selecione um aluno para adicionar!");
+            alertErro();
             return;
         }
 
@@ -41,7 +56,7 @@ export default function Adicionar_Aluno({ isAdm }) {
                 id_aluno: alunoSelecionado,
                 id_turma: idturma
             });
-            alert("Aluno adicionado com sucesso!");
+            alertSucesso();
             window.location.reload();
         }catch(error){
             console.error("Erro ao adicionar aluno:", error);
