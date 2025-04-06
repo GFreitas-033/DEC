@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmTurma from "./admAPUT.module.css";
@@ -14,6 +15,25 @@ import BtnVoltar from "../../btnVoltar/btnVoltar";
 export default function Adm_turma(){
     const navigate = useNavigate();
     const [turmas, setTurmas] = useState([]);
+
+    const alertRemoverTurma = (id_turma) =>{
+        Swal.fire({
+            title: "Quer Realmente Excluir essa Turma?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, Excluir Turma!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Turma Excluida com Sucesso!",
+                    icon: "success"
+                });
+                excluirTurma(id_turma);
+            }
+        });
+    }
 
     useEffect(() => {
         logado();
@@ -97,7 +117,7 @@ export default function Adm_turma(){
                                             src={require('../../../imgs/icons/Excluir.png')}
                                             alt="Excluir" 
                                             className={EstiloAdmTurma.icon} 
-                                            onClick={() => excluirTurma(turma.id_turma)}
+                                            onClick={() => alertRemoverTurma(turma.id_turma)}
                                         />
                                     </td>
                                 </tr>

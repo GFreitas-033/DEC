@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmProf from "./admAPUT.module.css";
@@ -14,6 +15,25 @@ import BtnVoltar from "../../btnVoltar/btnVoltar";
 export default function Adm_prof(){
     const navigate = useNavigate();
     const [professores, setProfessores] = useState([]);
+
+    const alertRemoverProfessor = (id_professor) =>{
+        Swal.fire({
+            title: "Quer Realmente Excluir esse(a) Professor(a)?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, Excluir Professor!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Professor Excluido com Sucesso!",
+                    icon: "success"
+                });
+                excluirProfessor(id_professor);
+            }
+        });
+    }
 
     useEffect(() => {
         logado();
@@ -97,7 +117,7 @@ export default function Adm_prof(){
                                             src={require('../../../imgs/icons/Excluir.png')}
                                             alt="Excluir" 
                                             className={EstiloAdmProf.icon} 
-                                            onClick={() => excluirProfessor(professor.id_pessoa)}
+                                            onClick={() => alertRemoverProfessor(professor.id_pessoa)}
                                         />
                                     </td>
                                 </tr>

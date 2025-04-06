@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmAluno from "./admAPUT.module.css";
@@ -13,6 +14,25 @@ import BtnVoltar from "../../btnVoltar/btnVoltar";
 export default function Adm_aluno(){
     const navigate = useNavigate();
     const [alunos, setAlunos] = useState([]);
+
+    const alertRemoverAluno = (id_aluno) =>{
+        Swal.fire({
+            title: "Quer Realmente Excluir esse(a) Aluno(a)?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, Excluir Aluno!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Aluno Excluido com Sucesso!",
+                    icon: "success"
+                });
+                excluirAluno(id_aluno);
+            }
+        });
+    }
 
     useEffect(() => {
         logado();
@@ -95,7 +115,7 @@ export default function Adm_aluno(){
                                             src={require('../../../imgs/icons/Excluir.png')}
                                             alt="Excluir"
                                             className={EstiloAdmAluno.icon}
-                                            onClick={() => excluirAluno(aluno.id_pessoa)}
+                                            onClick={() => alertRemoverAluno(aluno.id_pessoa)}
                                         />
                                     </td>
                                 </tr>

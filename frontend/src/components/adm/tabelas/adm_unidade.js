@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmUnidade from "./admAPUT.module.css";
@@ -14,6 +15,25 @@ import BtnVoltar from "../../btnVoltar/btnVoltar";
 export default function Adm_unidade(){
     const navigate = useNavigate();
     const [unidades, setUnidades] = useState([]);
+
+    const alertRemoverUnidade = (id_unidade) =>{
+        Swal.fire({
+            title: "Quer Realmente Excluir essa Unidade?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, Excluir Unidade!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Unidade Excluida com Sucesso!",
+                    icon: "success"
+                });
+                excluirUnidade(id_unidade);
+            }
+        });
+    }
 
     useEffect(() => {
         logado();
@@ -97,7 +117,7 @@ export default function Adm_unidade(){
                                             src={require('../../../imgs/icons/Excluir.png')} 
                                             alt="Excluir"
                                             className={EstiloAdmUnidade.icon} 
-                                            onClick={() => excluirUnidade(unidade.id_unidade)}
+                                            onClick={() => alertRemoverUnidade(unidade.id_unidade)}
                                         />
                                     </td>
                                 </tr>
