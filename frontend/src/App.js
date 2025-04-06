@@ -54,7 +54,7 @@ export default function App(){
 
         <Route path="/aulas" element={<Calendario />}></Route>
         <Route path="aulas/turma/:idturma" element={<Alunos />}></Route>
-        <Route path="aulas/chamada" element={<Chamada />}></Route>
+        <Route path="aulas/chamada/:idturma" element={<Chamada />}></Route>
 
         <Route path="/adm" element={<Adm />}></Route>
         

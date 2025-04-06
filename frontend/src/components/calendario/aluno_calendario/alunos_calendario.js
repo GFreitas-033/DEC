@@ -125,7 +125,7 @@ export default function AlunosCalendario() {
                     <div className={Calendario.container_alunoscalendario}>
                         <BotaoAdionarAlunos isAdm={adm}/>
                         <button className={Calendario.btnChamada} 
-                            onClick={()=>{navigate('/aulas/chamada')}}>
+                            onClick={()=>{navigate(`/aulas/chamada/${idturma}`)}}>
                             Chamada
                         </button>
                         <h1 className={Calendario.textTurma}>{turma.nome_turma}</h1>
