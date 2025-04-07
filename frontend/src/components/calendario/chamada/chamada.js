@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
-import EstiloChamada from "./chamada.module.css"
+import EstiloChamada from "./chamada.module.css";
 import ContainerCss from "../../containers.module.css";
 
 import Background_Sistema from "../../background/backSistema/backSistema";
@@ -12,10 +12,43 @@ import Notifica from "../../sino_notificacao/notificacao";
 import BtnVoltar from "../../btnVoltar/btnVoltar";
 
 export default function Chamada() {
-    // Função teste, pode apagar se quiser
-    const [trocar, setTrocar] = useState(true)
+    const { idturma } = useParams();
+    const [data, setData] = useState(() => new Date().toISOString().split("T")[0]);
+    const [chamada, setChamada] = useState([]);
+    const [statusC, setStatusC] = useState(0);
+    const [observacao, setObservacao] = useState("");
 
-    const enviarChamada = () => {
+    useEffect(() => {
+        fetchChamada();
+    }, [data]);
+
+    const fetchChamada = async () => {
+        try {
+            setObservacao("");
+            const res = await axios.post("/api/chamada/buscar", {
+                id_turma: idturma,
+                data_c: data,
+            });
+
+            const responseData = res.data;
+            const statusFromAPI = responseData.find(c => c.status_c !== null)?.status_c || 0;
+
+            setChamada(responseData);
+            setObservacao(responseData[0].observacao);
+            setStatusC(statusFromAPI);
+        } catch (error) {
+            console.error("Erro ao buscar chamada:", error);
+            Swal.fire("Erro", "Não foi possível buscar a chamada.", "error");
+        }
+    };
+
+    const enviarChamada = async () => {
+        const id_chamada = chamada[0]?.id_chamada;
+        const alunos = chamada.filter(a => a.nome_pessoa !== null).map(a => ({
+            id_aluno: a.id_aluno,
+            presenca: a.presenca || 0
+        }));
+
         Swal.fire({
             title: "Deseja Confirmar o Envio da Chamada?",
             icon: "question",
@@ -23,17 +56,30 @@ export default function Chamada() {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirmar"
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Chamada Registrada com Sucesso!",
-                    icon: "success"
-                });
+                try {
+                    await axios.post("/api/chamada/enviar", {
+                        id_chamada,
+                        status_c: 1,
+                        alunos,
+                        observacao
+                    });
+                    await fetchChamada();
+                    Swal.fire("Chamada Registrada com Sucesso!", "", "success");
+                } catch (err) {
+                    console.error("Erro ao enviar chamada:", err);
+                    Swal.fire("Erro", "Não foi possível enviar a chamada.", "error");
+                }
             }
         });
-    }
+    };
 
-    return(
+    const handleChangeData = (e) => {
+        setData(e.target.value);
+    };
+
+    return (
         <div>
             <Background_Sistema />
             <div className={ContainerCss.container}>
@@ -43,66 +89,68 @@ export default function Chamada() {
                         <table className={EstiloChamada.tabela}>
                             <thead>
                                 <tr>
-                                    <td className={EstiloChamada.colunaPresenca}>
-                                        <p><b><u>Presença</u></b></p>
-                                    </td>
-                                    <td className={EstiloChamada.colunaNome}>
-                                        <p><b><u>Nome</u></b></p>
-                                    </td>
+                                    <td className={EstiloChamada.colunaPresenca}><p><b><u>Presença</u></b></p></td>
+                                    <td className={EstiloChamada.colunaNome}><p><b><u>Nome</u></b></p></td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td className={EstiloChamada.colunaPresenca}>
-                                        <input type="checkbox" />
-                                    </td>
-                                    <td>
-                                        Samuel Ferreira
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className={EstiloChamada.colunaPresenca}>
-                                        <input type="checkbox" />
-                                    </td>
-                                    <td>
-                                        André Silva
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className={EstiloChamada.colunaPresenca}>
-                                        <input type="checkbox" />
-                                    </td>
-                                    <td>
-                                        ARTHUR VENEZUELA MARTINS FERREIRA DE MORAES
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className={EstiloChamada.colunaPresenca}>
-                                        <input type="checkbox" />
-                                    </td>
-                                    <td>
-                                        DARTAGNAN EDUARDO MARTINS MENEZES FONN
-                                    </td>
-                                </tr>
+                                {chamada.filter(c => c.nome_pessoa !== null).map((aluno, index) => (
+                                    <tr key={index}>
+                                        <td className={EstiloChamada.colunaPresenca}>
+                                            <input
+                                                type="checkbox"
+                                                checked={aluno.presenca === 1}
+                                                disabled={statusC === 1}
+                                                onChange={() => {
+                                                    if (statusC !== 1) {
+                                                        setChamada(prev =>
+                                                            prev.map(item =>
+                                                                item.id_aluno === aluno.id_aluno
+                                                                    ? { ...item, presenca: item.presenca === 1 ? 0 : 1 }
+                                                                    : item
+                                                            )
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </td>
+                                        <td>{aluno.nome_pessoa}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                         <div className={EstiloChamada.divObservacao}>
                             <p className={EstiloChamada.status}>
-                                Status: 
-                                <span className={trocar? EstiloChamada.azul : EstiloChamada.vermelho}>
-                                    {trocar?" Finalizada" : " A ser Feita"}
+                                Status:
+                                <span className={statusC === 1 ? EstiloChamada.azul : EstiloChamada.vermelho}>
+                                    {statusC === 1 ? " Finalizada" : " A ser Feita"}
                                 </span>
                             </p>
-                            <input type="date" className={EstiloChamada.inputData} />
+                            <input
+                                type="date"
+                                className={EstiloChamada.inputData}
+                                value={data}
+                                onChange={handleChangeData}
+                            />
                             <label className={EstiloChamada.labelObservacao}>Observações</label>
-                            <textarea type="text" className={EstiloChamada.inputObservacao} 
-                            placeholder="Digite sua observação aqui..."></textarea>
-                            <div className={EstiloChamada.divbtnEnviar}>
-                                <button className={EstiloChamada.btnEnviarChamada}
-                                onClick={enviarChamada}>
-                                    Enviar
-                                </button>
-                            </div>
+                            <textarea
+                                type="text"
+                                className={EstiloChamada.inputObservacao}
+                                placeholder="Digite sua observação aqui..."
+                                value={observacao}
+                                onChange={(e) => setObservacao(e.target.value)}
+                                disabled={statusC === 1}
+                            />
+                            {statusC !== 1 && (
+                                <div className={EstiloChamada.divbtnEnviar}>
+                                    <button
+                                        className={EstiloChamada.btnEnviarChamada}
+                                        onClick={enviarChamada}
+                                    >
+                                        Enviar
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -110,5 +158,5 @@ export default function Chamada() {
                 <BtnVoltar />
             </div>
         </div>
-    )
+    );
 }

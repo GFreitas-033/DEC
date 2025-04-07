@@ -44,5 +44,15 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5000/api/aluno/allData/2
+GET http://localhost:5000/api/pessoa
 Content-Type: application/json
+
+### Chamada
+
+POST http://localhost:5000/api/chamada/buscar HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_turma":1,
+    "data_c":"2025-04-07"
+}

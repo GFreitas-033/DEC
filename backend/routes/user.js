@@ -14,6 +14,7 @@ const professorController = require("../controllers/professorController.js");
 const loginController = require("../controllers/loginController.js");
 const calendarioController = require("../controllers/calendarioController.js");
 const admController = require("../controllers/admController.js");
+const chamadaController = require("../controllers/chamadaController.js");
 
 router.use("/api/aluno", alunoController);
 router.use("/api/endereco", enderecoController);
@@ -24,6 +25,7 @@ router.use("/api/unidade", unidadeController);
 router.use("/api/aluno_has_turma", aluno_has_turmaController);
 router.use("/api/responsavel_aluno", responsavel_alunoController);
 router.use("/api/responsavel_unidade", responsavel_unidadeController);
+router.use("/api/chamada",chamadaController);
 router.use("/", loginController);
 router.use("/", calendarioController);
 router.use("/adm", admController);
