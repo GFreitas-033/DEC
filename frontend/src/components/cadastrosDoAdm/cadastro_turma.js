@@ -24,13 +24,16 @@ export default function Cadastro_turma({ texto, btn }){
     const [nome, setNome] = useState("");
     const [unidade, setUnidade] = useState("");
     const [unidades, setUnidades] = useState([]);
+    const [professor, setProfessor] = useState("");
+    const [professores, setProfessores] = useState([]);
     
     const [responseTurma, setResponseTurma] = useState(null);
 
     useEffect(() => {
         logado();
         fetchUnidades();
-    });
+        fetchProfessores();
+    },[]);
 
     const logado = async () => {
         try {
@@ -67,6 +70,20 @@ export default function Cadastro_turma({ texto, btn }){
         }
       };
 
+      const fetchProfessores = async () => {
+        try {
+          const response = await axios.get("/api/professor/");
+          const nomes = response.data.map((prof) => ({
+            id: prof.id_pessoa,
+            nome: prof.nome_pessoa,
+          }));
+    
+          setProfessores(nomes);
+        } catch (error) {
+          console.error("Erro ao buscar professores:", error);
+        }
+      };
+
     useEffect(() => {
         if (id_turma !== undefined) {
           id_turma = parseInt(id_turma);
@@ -78,7 +95,7 @@ export default function Cadastro_turma({ texto, btn }){
         let responseTurma = await axios.get('/api/turma');
         responseTurma = responseTurma.data;
         responseTurma = responseTurma.find(item => item.id_turma === id_turma);
-        document.getElementById('SelecaoProfessor').value = responseTurma.id_professor;
+        setProfessor(responseTurma.id_professor);
         setUnidade(responseTurma.id_unidade);
         document.getElementById('Maximo').value = responseTurma.qtd_maxima;
         document.getElementById('diaSemana').value = responseTurma.dia_semana;
@@ -87,7 +104,6 @@ export default function Cadastro_turma({ texto, btn }){
     }
 
     async function cliquei() {
-        const professor = document.getElementById('SelecaoProfessor').value;
         const qtdmaxima = document.getElementById('Maximo').value;
         const diasemana = document.getElementById('diaSemana').value;
         const horario = document.getElementById('Horario').value;
@@ -144,7 +160,7 @@ export default function Cadastro_turma({ texto, btn }){
                     <form className={StyleCadastroTurma.form} autoComplete="off" onSubmit={handleSubmit}>
                         <div className={StyleCadastroTurma.contentInputs}>
                             <Nome value={nome} setValue={setNome}/>
-                            <SelecionarProf/>
+                            <SelecionarProf value={professor} setValue={setProfessor} professores={professores}/>
                             <SelecionarUni value={unidade} setValue={setUnidade} unidades={unidades} />
                             <QtdMaxima/>
                             <DiaSemana/>

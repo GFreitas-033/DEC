@@ -2,7 +2,7 @@ const db = require('../database/db');
 
 async function readProfessor() {
     try {
-        const results = await db.query('SELECT * FROM professor');
+        const results = await db.query('SELECT pessoa.nome_pessoa, professor.id_pessoa FROM professor JOIN pessoa ON professor.id_pessoa = pessoa.id_pessoa');
         return results[0];
     } catch (err) {
         console.error('Erro ao obter dados:', err);
