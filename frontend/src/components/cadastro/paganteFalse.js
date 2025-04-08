@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
-import Styles from "./form.module.css";
 import axios from "axios";
+import Swal from 'sweetalert2';
+
+import Styles from "./form.module.css";
 
 // Import Back
 import Background from "../background/backCadastro/backCadastro";
@@ -24,6 +25,25 @@ import Cidade from "../inputs_cadastro/endereco/cidade_input";
 import Bairro from "../inputs_cadastro/endereco/bairro_input";
 import Rua from "../inputs_cadastro/endereco/rua_input";
 import Numero from "../inputs_cadastro/endereco/numero_input";
+
+function faltaCampo(){
+  Swal.fire({
+    title: 'Alerta!',
+    text: 'Preencha os campo obrigatórios.',
+    icon: 'warning',
+    confirmButtonText: 'OK',
+    confirmButtonColor: '#fbd034'
+  })
+}
+function alertContrato(){
+  Swal.fire({
+    title: 'Alerta!',
+    text: 'Leia e aceite o contrato para finalizar o cadastro.',
+    icon: 'warning',
+    confirmButtonText: 'OK',
+    confirmButtonColor: '#fbd034'
+  });
+}
 
 export default function Form() {
   const [step, setStep] = useState(0);
@@ -378,7 +398,7 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
       <h1>Dados do Aluno</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Nome value={nome} setValue={setNome} />
+      <Nome value={nome} setValue={setNome}  texto={"Aluno"} />
       <Email value={email} setValue={setEmail} />
 
       <CPF value={cpf} setValue={setCpf} />
@@ -400,7 +420,7 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
             nextStep(); // Continua normalmente se menor de idade
           };
         } else {
-          alert('Preencha os campos obrigatórios!')
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -416,7 +436,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
       <h1>Dados do Responsável 1</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Nome value={nomeResp1} setValue={setNomeResp1} />
+      <Nome value={nomeResp1} setValue={setNomeResp1} texto={"Responsável"} />
       <Email value={emailResp1} setValue={setEmailResp1} />
       <CPF value={cpfResp1} setValue={setCpfResp1} />
       <Genero value={generoResp1} setValue={setGeneroResp1} />
@@ -432,7 +452,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
         if (areAllFieldsFilled([nomeResp1, emailResp1, cpfResp1, generoResp1, rgResp1, telefoneResp1]) === true) {
           nextStep()
         } else {
-          alert('Preencha os campos obrigatórios!')
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -448,7 +468,7 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
       <h1>Dados do Responsável 2</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Nome value={nomeResp2} setValue={setNomeResp2} />
+      <Nome value={nomeResp2} setValue={setNomeResp2} texto={"Responsável"} />
       <Email value={emailResp2} setValue={setEmailResp2} />
       <CPF value={cpfResp2} setValue={setCpfResp2} />
       <Genero value={generoResp2} setValue={setGeneroResp2} />
@@ -500,7 +520,7 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
           pesquisarUnidades();
           nextStep()
         } else {
-          alert('Preencha os campos obrigatórios!');
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -542,7 +562,7 @@ const Passo6 = ({ nextStep, prevStep, selectedUnidade, setSelectedUnidade, unida
         if (areAllFieldsFilled([selectedUnidade]) === true) {
           nextStep()
         } else {
-          alert('Preencha os campos obrigatórios!');
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -581,7 +601,7 @@ const Passo7 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFil
             if(areAllFieldsFilled([selectedDay]) === true){
               nextStep();
             }else{
-              alert('Preencha os campos obrigatórios!');
+              faltaCampo();
             }
           
           }} className={Styles.button}>
@@ -625,7 +645,7 @@ const Passo8 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
           if(selectedTurmas !== ''){
             nextStep();
           }else{
-            alert('Preencha os campos obrigatórios!');
+            faltaCampo();
           }
         }} className={Styles.button}>
           Próximo
@@ -675,7 +695,7 @@ const Passo9 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange }) 
         if (aceitouContrato === true) {
           cadastrar();
         } else {
-          alert('Leia e aceite o contrato para finalizar o cadastro');
+          alertContrato();
         }
       }}>
         Finalizar Cadastro

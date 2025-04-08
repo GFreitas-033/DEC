@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+import axios from "axios";
+import Swal from 'sweetalert2';
+
 import Styles from "./form.module.css";
 import EstiloBack from "../background/background.module.css";
-import axios from "axios";
 
 // Import dos Input
 import Nome from "../inputs_cadastro/nome_input";
@@ -25,11 +26,27 @@ import Numero from "../inputs_cadastro/endereco/numero_input";
 
 import contratoPdf from "../../pdfs/EsgrimaEscola.pdf";
 
+function faltaCampo(){
+  Swal.fire({
+    title: 'Alerta!',
+    text: 'Preencha os campo obrigatórios.',
+    icon: 'warning',
+    confirmButtonText: 'OK',
+    confirmButtonColor: '#fbd034'
+  })
+}
+function alertContrato(){
+  Swal.fire({
+    title: 'Alerta!',
+    text: 'Leia e aceite o contrato para finalizar o cadastro.',
+    icon: 'warning',
+    confirmButtonText: 'OK',
+    confirmButtonColor: '#fbd034'
+  });
+}
+
 export default function Form() {
   const [step, setStep] = useState(0);
-  // const [responsePessoa, setResponsePessoa] = useState(null);
-  // let { id_aluno } = useParams();
-  // const navigate = useNavigate();
 
   // States do Aluno
   const [nome, setNome] = useState("");
@@ -106,15 +123,6 @@ export default function Form() {
     });
   };
 
-
-  // useEffect(() => {
-  //   if (id_aluno !== undefined) {
-  //     logado();
-  //     id_aluno = parseInt(id_aluno);
-  //     preencherDados();
-  //   }
-  // }, [id_aluno]);
-
   const handleChange = (event) => {
     setSelectedDay(event.target.value);
   };
@@ -181,43 +189,6 @@ export default function Form() {
     return idadeCalculada;
   };
 
-  // const formatCPF = (cpf) => {
-  //     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-  // };
-
-  // const formatRG = (rg) => {
-  //     return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-  // };
-
-  // function padraoBR(isoDate) {
-  //   const date = new Date(isoDate);
-  //   const day = String(date.getUTCDate()).padStart(2, '0');
-  //   const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Meses começam em 0
-  //   const year = date.getUTCFullYear();
-  //   return `${day}/${month}/${year}`;
-  // }
-
-  // const formatTelefone = (telefone) => {
-  //   telefone = telefone.replace(/\D/g, ''); // Remove non-digits
-  //   if (telefone.length === 11) {
-  //     return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-  //   } else if (telefone.length === 10) {
-  //     return telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-  //   }
-  //   return telefone;
-  // };
-
-  // const formatDate = (nascimento) => {
-  //   nascimento = nascimento.replace(/\D/g, '');
-  //   nascimento = nascimento.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3');
-  //   return nascimento;
-  // }
-
-  // const convertDate = (date) => {
-  //   const [day, month, year] = date.split('/');
-  //   return `${year}-${month}-${day}`;
-  // };
-
   const handleBuscarCep = (cep) => {
     if (cep.length < 9) {
       setLogradouro("");
@@ -238,29 +209,6 @@ export default function Form() {
         console.error('Erro ao buscar CEP:', error);
       });
   };
-
-  // const logado = async () => {
-  //   try {
-  //     let response = await axios.post('/login');
-  //     if (response.data.adm !== 1) {
-  //       navigate('/home');
-  //     }
-  //   } catch (error) {
-  //     navigate('/');
-  //   }
-  // };
-
-  // function tratamentoString(inputString) {
-  //   return inputString.replace(/[.\-()\s]/g, '');
-  // }
-
-  // Obter a data atual
-  // const dataAtual = new Date();
-  // const adicionarZero = (numero) => (numero < 10 ? `0${numero}` : numero);
-  // const ano = dataAtual.getFullYear();
-  // const mes = adicionarZero(dataAtual.getMonth() + 1);
-  // const dia = adicionarZero(dataAtual.getDate());
-  // const dataFormatadaMySQL = `${ano}-${mes}-${dia}`;
 
   async function cadastrar() {
 
@@ -319,8 +267,6 @@ export default function Form() {
         id_pessoa: idResp1
       });
     }
-
-
 
     responsePessoa = await axios.post('/api/pessoa', {
       nome_pessoa: nome,
@@ -419,7 +365,7 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
       <h1>Dados do Aluno</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Nome value={nome} setValue={setNome} />
+      <Nome value={nome} setValue={setNome} texto={"Aluno"} />
       <Email value={email} setValue={setEmail} />
 
       <CPF value={cpf} setValue={setCpf} />
@@ -434,14 +380,15 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
       <button type="button" onClick={() => {
         let camposPreenchidos = areAllFieldsFilled([nome, email, cpf, genero, rg, telefone, nascimento, mao_dominante])
         if (camposPreenchidos === true) {
-          let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
+          let idade = 0;
+          idade = calcularIdade(nascimento); // Garante que a idade seja calculada
           if (idade >= 18) {
-            setStep(2); // Se maior de idade, pula para o passo 4
+            setStep(2); // Se maior de idade, pula para o passo 3
           } else {
             nextStep(); // Continua normalmente se menor de idade
           };
         } else {
-          alert('Preencha os campos obrigatórios!')
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -457,7 +404,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
       <h1>Dados do Responsável</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Nome value={nomeResp1} setValue={setNomeResp1} />
+      <Nome value={nomeResp1} setValue={setNomeResp1} texto={"Responsável"} />
       <Email value={emailResp1} setValue={setEmailResp1} />
       <CPF value={cpfResp1} setValue={setCpfResp1} />
       <Genero value={generoResp1} setValue={setGeneroResp1} />
@@ -473,7 +420,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
         if (areAllFieldsFilled([nomeResp1, emailResp1, cpfResp1, generoResp1, rgResp1, telefoneResp1]) === true) {
           nextStep()
         } else {
-          alert('Preencha os campos obrigatórios!')
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -512,7 +459,7 @@ const Passo3 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handle
         if (areAllFieldsFilled([cep, uf, cidade, bairro, logradouro, numero]) === true) {
           nextStep()
         } else {
-          alert('Preencha os campos obrigatórios!');
+          faltaCampo();
         }
         pesquisarUnidades();
       }} className={Styles.button}>
@@ -555,7 +502,7 @@ const Passo4 = ({ nextStep, prevStep, selectedUnidade, setSelectedUnidade, unida
         if (areAllFieldsFilled([selectedUnidade]) === true) {
           nextStep()
         } else {
-          alert('Preencha os campos obrigatórios!');
+          faltaCampo();
         }
       }} className={Styles.button}>
         Próximo
@@ -594,7 +541,7 @@ const Passo5 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFil
             if(areAllFieldsFilled([selectedDay]) === true){
               nextStep();
             }else{
-              alert('Preencha os campos obrigatórios!');
+              faltaCampo();
             }
           
           }} className={Styles.button}>
@@ -638,7 +585,7 @@ const Passo6 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
             if(selectedTurmas !== ''){
               nextStep();
             }else{
-              alert('Preencha os campos obrigatórios!');
+              faltaCampo();
             }
           }} className={Styles.button}>
           Próximo
@@ -676,7 +623,7 @@ const Passo7 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, hand
         if (aceitouContrato === true) {
           cadastrar();
         } else {
-          alert('Leia e aceite o contrato para finalizar o cadastro');
+          alertContrato();
         }
       }}>
         Finalizar Cadastro

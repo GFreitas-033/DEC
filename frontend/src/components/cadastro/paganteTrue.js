@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
-import Styles from "./form.module.css";
 import axios from "axios";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
+
+import Styles from "./form.module.css";
 
 // Import Back
 import Background from "../background/backCadastro/backCadastro";
@@ -58,6 +59,15 @@ function faltaCampo(){
     confirmButtonText: 'OK',
     confirmButtonColor: '#fbd034'
   })
+}
+function alertContrato(){
+  Swal.fire({
+    title: 'Alerta!',
+    text: 'Leia e aceite o contrato para finalizar o cadastro.',
+    icon: 'warning',
+    confirmButtonText: 'OK',
+    confirmButtonColor: '#fbd034'
+  });
 }
 
 export default function Form() {
@@ -125,7 +135,7 @@ export default function Form() {
 
   // State de contrato
   const [aceitouContrato, setAceitouContrato] = useState(false);
-
+  
   const handleCheckboxChange = (event) => {
     setAceitouContrato(event.target.checked);
   };
@@ -554,7 +564,7 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
       <h1>Dados do Aluno</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Nome value={nome} setValue={setNome} />
+      <Nome value={nome} setValue={setNome} texto={"Aluno"} />
       <Email value={email} setValue={setEmail} />
       <CPF value={cpf} setValue={setCpf} />
       <Genero value={genero} setValue={setGenero} />
@@ -595,7 +605,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
       <h1>Dados do Responsável 1</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Nome value={nomeResp1} setValue={setNomeResp1} />
+      <Nome value={nomeResp1} setValue={setNomeResp1} texto={"Responsável"} />
       <Email value={emailResp1} setValue={setEmailResp1} />
       <CPF value={cpfResp1} setValue={setCpfResp1} />
       <Genero value={generoResp1} setValue={setGeneroResp1} />
@@ -629,7 +639,7 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
       <h1>Dados do Responsável 2</h1>
     </div>
     <div className={Styles.container_inputs}>
-      <Nome value={nomeResp2} setValue={setNomeResp2} />
+      <Nome value={nomeResp2} setValue={setNomeResp2} texto={"Responsável"} />
       <Email value={emailResp2} setValue={setEmailResp2} />
       <CPF value={cpfResp2} setValue={setCpfResp2} />
       <Genero value={generoResp2} setValue={setGeneroResp2} />
@@ -849,7 +859,6 @@ const Passo8 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFil
         } else {
           faltaCampo();
         }
-
       }} className={Styles.button}>
         Próximo
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
@@ -1007,13 +1016,7 @@ const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, c
         if (aceitouContrato === true) {
           cadastrar();
         } else {
-          Swal.fire({
-            title: 'Alerta!',
-            text: 'Leia e aceite o contrato para finalizar o cadastro.',
-            icon: 'warning',
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#fbd034'
-          });
+          alertContrato();
         }
       }}>
         Finalizar Cadastro
