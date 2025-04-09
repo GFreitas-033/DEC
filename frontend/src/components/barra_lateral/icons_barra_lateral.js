@@ -14,20 +14,16 @@ export default function Barra_lateral() {
             title: "Quer Realmente Sair?",
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, Quero Sair!"
+            confirmButtonColor: "#fbd034",
+            confirmButtonText: "Sim, Quero Sair!",
+            background: "#2b2b2b"
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Você Saiu!",
-                    icon: "success"
-                });
                 sair();
             }
         });
     }
-
 
     const bloquearImg = () => {
         let icones = document.getElementsByTagName('img');

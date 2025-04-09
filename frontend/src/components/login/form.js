@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate} from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
+
 import Styles from "./form.module.css";
 
 // Import dos Componentes
@@ -8,6 +10,24 @@ import Background from "../background/backCadastro/backCadastro";
 
 export default function Form(){
   const navigate = useNavigate();
+
+  const alertSenha = ()=>{
+    Swal.fire({
+      title: 'A senha está Incorreta!',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#fbd034'
+    })
+  }
+  const alertUsuario = ()=>{
+    Swal.fire({
+      title: 'O usuário está Incorreto!',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#fbd034'
+    });
+  }
+  
     
   useEffect(() =>{
       logado();
@@ -26,10 +46,13 @@ export default function Form(){
           
       } catch (error) {
           console.log(error);
-          if (error.response) {
-              alert(error.response.data.message);
-          } else {
-              console.log('Erro ao realizar login.');
+        
+          if(error.response.data.message===1){
+            alertUsuario();
+          }else if(error.response.data.message===2){
+            alertSenha();
+          }else {
+            console.log('Erro ao realizar login.');
           }
       }
   }

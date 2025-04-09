@@ -39,13 +39,13 @@ router.post("/login", async (req, res) => {
             });
 
             if (!pessoa) {
-                return res.status(404).json({ message: "Usuário inválido" });
+                return res.status(404).json({ message: 1 });
             }
 
             const verificaSenha = await bcrypt.compare(senha, pessoa.senha_pessoa);
 
             if (!verificaSenha) {
-                return res.status(404).json({ message: "Senha incorreta" });
+                return res.status(404).json({ message: 2 });
             }
 
             req.session.id_pessoa = pessoa.id_pessoa;
