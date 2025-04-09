@@ -1,18 +1,18 @@
-import React,{useState, useEffect} from "react"
+import React from "react"
 import Bairro from "../input.module.css"
 
-export default function Bairro_input({b}){
-    const [bairro, setBairro] = useState(b)
+export default function Bairro_input({value, setValue}){
 
-    useEffect(() => {
-        setBairro(b)
-    }, [b])
+    function salvar(e) {
+        let valor = e.target.value;
+        setValue(valor);
+    }
 
     return(
         <div className={Bairro.esquerda}>
             <label className={Bairro.label}><b>Bairro</b></label><br />
             <input type="text" id="bairro" required className={Bairro.input}
-            onChange={(e)=>setBairro(e.target.value)} value={bairro} autoComplete="off"/><br />
+            onChange={salvar} value={value} onC autoComplete="off"/><br />
         </div>
     )
 }

@@ -312,23 +312,20 @@ export default function Form() {
   };
 
   const handleBuscarCep = (cep) => {
-    if (cep.length < 9) {
-      setLogradouro("");
-      setBairro("");
-      setCidade("");
-      setUf("");
-      return;
-    }
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((response) => response.json())
       .then((dados) => {
-        setLogradouro(dados.logradouro);
-        setBairro(dados.bairro);
-        setCidade(dados.localidade);
-        setUf(dados.uf);
+        if (!dados.erro) {
+          if (dados.logradouro) setLogradouro(dados.logradouro);
+          if (dados.bairro) setBairro(dados.bairro);
+          if (dados.localidade) setCidade(dados.localidade);
+          if (dados.uf) setUf(dados.uf);
+        } else {
+          console.warn("CEP inválido.");
+        }
       })
       .catch((error) => {
-        console.error('Erro ao buscar CEP:', error);
+        console.error("Erro ao buscar CEP:", error);
       });
   };
 
@@ -517,13 +514,13 @@ export default function Form() {
       cpfFin={cpfFin} setCpfFin={setCpfFin} generoFin={generoFin} setGeneroFin={setGeneroFin} rgFin={rgFin} setRgFin={setRgFin}
       telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} areAllFieldsFilled={areAllFieldsFilled} setStep={setStep} id_aluno={id_aluno}/>,
 
-    <Passo6 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
-      bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
-      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} son={son} areAllFieldsFilled={areAllFieldsFilled}
+    <Passo6 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} setLogradouro={setLogradouro}
+      bairro={bairro} setBairro={setBairro} cidade={cidade} setCidade={setCidade} uf={uf} setUf={setUf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
+      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} son={son}
       pesquisarUnidades={pesquisarUnidades} id_aluno={id_aluno}/>,
 
     <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}
-      areAllFieldsFilled={areAllFieldsFilled} setContratoPdf={setContratoPdf} />,
+      areAllFieldsFilled={areAllFieldsFilled} setContratoPdf={setContratoPdf}/>,
 
     <Passo8 nextStep={nextStep} prevStep={prevStep} handleChange={handleChange} selectedDay={selectedDay} areAllFieldsFilled={areAllFieldsFilled} />,
 
@@ -728,17 +725,17 @@ const Passo5 = ({ nextStep, prevStep, nomeFin, setNomeFin, emailFin, setEmailFin
   </div>
 );
 
-const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades, id_aluno }) => (
+const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro,setLogradouro, bairro, setBairro, cidade, setCidade, uf,setUf, numero, setNumero, pesquisarUnidades, id_aluno }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
     </div>
     <div className={Styles.container_inputs}>
       <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
-      <UF u={uf} />
-      <Cidade c={cidade} />
-      <Bairro b={bairro} />
-      <Rua r={logradouro} />
+      <UF value={uf} setValue={setUf} />
+      <Cidade value={cidade} setValue={setCidade} />
+      <Bairro value={bairro} setValue={setBairro} />
+      <Rua value={logradouro} setValue={setLogradouro} />
       <Numero value={numero} setValue={setNumero} />
     </div>
     <div className={Styles.divBotao}>
@@ -766,7 +763,7 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
       <button type="button" onClick={() => {
         if (id_aluno){
           setStep(9);
-        } else if (areAllFieldsFilled([cep, uf, cidade, bairro, logradouro, numero]) === true) {
+        } else if (cep != "" && uf != "" && cidade != "" && bairro != "" && logradouro != "" && numero != "") {
           pesquisarUnidades();
           nextStep();
         } else {

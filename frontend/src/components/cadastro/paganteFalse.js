@@ -205,23 +205,20 @@ export default function Form() {
   };
 
   const handleBuscarCep = (cep) => {
-    if (cep.length < 9) {
-      setLogradouro("");
-      setBairro("");
-      setCidade("");
-      setUf("");
-      return;
-    }
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((response) => response.json())
       .then((dados) => {
-        setLogradouro(dados.logradouro);
-        setBairro(dados.bairro);
-        setCidade(dados.localidade);
-        setUf(dados.uf);
+        if (!dados.erro) {
+          if (dados.logradouro) setLogradouro(dados.logradouro);
+          if (dados.bairro) setBairro(dados.bairro);
+          if (dados.localidade) setCidade(dados.localidade);
+          if (dados.uf) setUf(dados.uf);
+        } else {
+          console.warn("CEP inválido.");
+        }
       })
       .catch((error) => {
-        console.error('Erro ao buscar CEP:', error);
+        console.error("Erro ao buscar CEP:", error);
       });
   };
 
@@ -357,9 +354,9 @@ export default function Form() {
       cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
       telefoneResp2={telefoneResp2} setTelefoneResp2={setTelefoneResp2} setStep={setStep} />,
 
-    <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
-      bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
-      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} pesquisarUnidades={pesquisarUnidades} />,
+    <Passo5 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} setLogradouro={setLogradouro}
+      bairro={bairro} setBairro={setBairro} cidade={cidade} setCidade={setCidade} uf={uf} setUf={setUf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
+      nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} pesquisarUnidades={pesquisarUnidades} />,
 
     <Passo6 nextStep={nextStep} prevStep={prevStep} unidades={unidades} setSelectedUnidade={setSelectedUnidade} selectedUnidade={selectedUnidade} areAllFieldsFilled={areAllFieldsFilled} />,
 
@@ -490,17 +487,17 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
   </div>
 );
 
-const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
+const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro,setLogradouro, bairro, setBairro, cidade, setCidade, uf, setUf, numero, setNumero, pesquisarUnidades }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
     </div>
     <div className={Styles.container_inputs}>
       <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
-      <UF u={uf} />
-      <Cidade c={cidade} />
-      <Bairro b={bairro} />
-      <Rua r={logradouro} />
+      <UF value={uf} setValue={setUf}/>
+      <Cidade value={cidade} setValue={setCidade}/>
+      <Bairro value={bairro} setValue={setBairro}/>
+      <Rua value={logradouro} setValue={setLogradouro}/>
       <Numero value={numero} setValue={setNumero} />
     </div>
     <div className={Styles.divBotao}>
@@ -516,7 +513,7 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
         Anterior
       </button>
       <button type="button" onClick={() => {
-        if (areAllFieldsFilled([cep, uf, cidade, bairro, logradouro, numero]) === true) {
+        if (cep != "" && uf != "" && cidade != "" && bairro != "" && logradouro != "" && numero != "") {
           pesquisarUnidades();
           nextStep()
         } else {

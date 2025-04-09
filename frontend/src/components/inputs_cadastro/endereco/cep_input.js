@@ -2,22 +2,20 @@ import React, { useEffect } from "react";
 import Cep from "../input.module.css";
 
 export default function Cep_input({ onBuscarCep, value, setValue }) {
-    
-    useEffect(() => {
-        if (value.length === 9) {
-            onBuscarCep(value);
-        }
-    }, [value, onBuscarCep]);
 
     const buscarCep = (event) => {
+
         let c = event.target.value;
         c = c.replace(/\D/g, "");
         c = c.replace(/^(\d{5})(\d)/, "$1-$2");
-
+        
         if (c.length > 9) {
             c = c.substring(0, 9);
         }
-        setValue(c);
+        if(c.length === 9){
+            onBuscarCep(c);
+        }
+        setValue(c);        
     };
 
     return (
