@@ -16,7 +16,7 @@ export default function Form(){
       title: 'A senha está Incorreta!',
       icon: 'error',
       confirmButtonText: 'OK',
-      confirmButtonColor: '#fbd034'
+      confirmButtonColor: '#fbd034',
     })
   }
   const alertUsuario = ()=>{

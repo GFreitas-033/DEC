@@ -14,10 +14,12 @@ export default function Barra_lateral() {
             title: "Quer Realmente Sair?",
             icon: "question",
             showCancelButton: true,
+            confirmButtonText: "Sim, Quero Sair!",
             cancelButtonColor: "#d33",
             confirmButtonColor: "#fbd034",
-            confirmButtonText: "Sim, Quero Sair!",
-            background: "#2b2b2b"
+            iconColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         }).then((result) => {
             if (result.isConfirmed) {
                 sair();
