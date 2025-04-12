@@ -25,16 +25,25 @@ export default function AlunosCalendario() {
             title: "Quer Realmente Remover esse(a) Aluno(a) dessa Turma?",
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, Remover Aluno!"
+            confirmButtonText: "Sim, Remover Aluno!",
+            confirmButtonColor: "#fbd034",
+            iconColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
                     title: "Aluno Removido com Sucesso!",
-                    icon: "success"
+                    icon: "success",
+                    confirmButtonColor: "#fbd034",
+                    background: "#2b2b2b",
+                    theme: "dark"
                 });
                 tirarAluno(id_aluno);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500); // 2000 milissegundos = 2 segundos
             }
         });
     }
@@ -60,28 +69,50 @@ export default function AlunosCalendario() {
                         resolve("Você precisa selecionar uma turma.");
                     }
                 });
-            }
+            },
+            confirmButtonColor: "#fbd034",
+            cancelButtonColor: "#d33",
+            background: "#2b2b2b",
+            theme: "dark"
         });
       
         if (novaTurma) {
             // Aqui você pode fazer o que quiser com a nova turma selecionada
-            Swal.fire(`Aluno transferido para a ${novaTurma}`);
+            Swal.fire({
+                title: `Aluno transferido para a ${novaTurma}`,
+                confirmButtonColor: "#fbd034",
+                cancelButtonColor: "#d33",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         }
     };
     
 
+    // useEffect(() => {
+    //     logado();
+    //     const fetchAlunos = async () => {
+    //         try {
+    //             const response = await axios.get(`/listaralunos/${idturma}`);
+    //             setAlunos(response.data);
+    //         } catch (error) {
+    //             console.error("Erro ao buscar alunos:", error);
+    //         }
+    //     };
+
+    //     fetchAlunos();
+    // }, [idturma]);
+    const buscarAlunos = async () => {
+        try {
+            const response = await axios.get(`/listaralunos/${idturma}`);
+            setAlunos(response.data);
+        } catch (error) {
+            console.error("Erro ao buscar alunos:", error);
+        }
+    };
     useEffect(() => {
         logado();
-        const fetchAlunos = async () => {
-            try {
-                const response = await axios.get(`/listaralunos/${idturma}`);
-                setAlunos(response.data);
-            } catch (error) {
-                console.error("Erro ao buscar alunos:", error);
-            }
-        };
-
-        fetchAlunos();
+        buscarAlunos();
     }, [idturma]);
 
     useEffect(() => {
@@ -110,7 +141,6 @@ export default function AlunosCalendario() {
             const response = await axios.delete(`/api/aluno_has_turma/aluno/${id_aluno}`);
             setResponseAlunoTurma(response);
             setAlunos((prevAlunos) => prevAlunos.filter((aluno) => aluno.id_aluno !== id_aluno));
-            window.location.reload();
         } catch (error) {
             console.error("Erro ao remover aluno:", error);
         }
@@ -123,7 +153,7 @@ export default function AlunosCalendario() {
                 <Barra_lateral />
                 <div className={Calendario.ajuste}>
                     <div className={Calendario.container_alunoscalendario}>
-                        <BotaoAdionarAlunos isAdm={adm}/>
+                        <BotaoAdionarAlunos isAdm={adm} onAlunoAdicionado={buscarAlunos} />
                         <button className={Calendario.btnChamada} 
                             onClick={()=>{navigate(`/aulas/chamada/${idturma}`)}}>
                             Chamada

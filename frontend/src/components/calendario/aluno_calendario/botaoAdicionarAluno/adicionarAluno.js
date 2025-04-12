@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 import btnStyle from "./adiciona_Aluno.module.css";
 
-export default function Adicionar_Aluno({ isAdm }) {
+export default function Adicionar_Aluno({ isAdm, onAlunoAdicionado }) {
     const [alunos, setAlunos] = useState([]);
     const { idturma } = useParams();
 
@@ -17,13 +17,19 @@ export default function Adicionar_Aluno({ isAdm }) {
     const alertSucesso = () => {
         Swal.fire({
             title: "Aluno Adicionado com Sucesso!",
-            icon: "success"
+            icon: "success",
+            confirmButtonColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         });
     }
     const alertErro = () => {
         Swal.fire({
             title: "Adicione um Aluno!",
-            icon: "error"
+            icon: "error",
+            confirmButtonColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         });
     }
 
@@ -57,7 +63,7 @@ export default function Adicionar_Aluno({ isAdm }) {
                 id_turma: idturma
             });
             alertSucesso();
-            window.location.reload();
+            onAlunoAdicionado();
         }catch(error){
             console.error("Erro ao adicionar aluno:", error);
         }

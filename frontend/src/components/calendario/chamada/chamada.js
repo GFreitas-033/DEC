@@ -38,7 +38,13 @@ export default function Chamada() {
             setStatusC(statusFromAPI);
         } catch (error) {
             console.error("Erro ao buscar chamada:", error);
-            Swal.fire("Erro", "Não foi possível buscar a chamada.", "error");
+            Swal.fire({
+                title: "Não foi possível buscar a chamada.",
+                icon: "error",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         }
     };
 
@@ -53,9 +59,12 @@ export default function Chamada() {
             title: "Deseja Confirmar o Envio da Chamada?",
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Confirmar"
+            confirmButtonText: "Confirmar",
+            confirmButtonColor: "#fbd034",
+            iconColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
@@ -66,10 +75,22 @@ export default function Chamada() {
                         observacao
                     });
                     await fetchChamada();
-                    Swal.fire("Chamada Registrada com Sucesso!", "", "success");
+                    Swal.fire({
+                        title: "Chamada Registrada com Sucesso!",
+                        icon: "success",
+                        confirmButtonColor: "#fbd034",
+                        background: "#2b2b2b",
+                        theme: "dark"
+                    });
                 } catch (err) {
                     console.error("Erro ao enviar chamada:", err);
-                    Swal.fire("Erro", "Não foi possível enviar a chamada.", "error");
+                    Swal.fire({
+                        title: "Não foi possível enviar a chamada.",
+                        icon: "error",
+                        confirmButtonColor: "#fbd034",
+                        background: "#2b2b2b",
+                        theme: "dark"
+                    });
                 }
             }
         });
