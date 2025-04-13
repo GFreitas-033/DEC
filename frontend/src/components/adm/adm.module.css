@@ -1,14 +1,12 @@
 @media screen and (min-width: 320px){
     .display_grid{
-        grid-template-columns: auto;
-        margin-top: 5rem;
+        margin-top: 7rem;
     }
 }
 
 @media screen and (min-width: 720px){
     .display_grid{
-        grid-template-columns: repeat(2, 1fr);
-        margin-top: 1rem;
+        margin-top: 0;
     }
 }
 
@@ -16,27 +14,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 100%;
-    min-height: 100vh;
+    width: 100vw;
     height: auto;
 }
 .display_grid{
-    display: grid;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 70%;
+    gap: 3rem;
 }
 
 /* Estilo dos Cards */
 img{
-    width: 10rem;
-    height: 10rem;
+    width: 8rem;
 }
 
 .cards_adm{
     background-color: #999999;
     font-size: 0.5rem;
     text-align: center;
-    margin: 2rem;
     padding: 1.5rem;
     border-radius: 0.5rem;
-    border: #FBD034 solid 0.1rem;
+    border: #FBD034 solid 0.2rem;
     cursor: pointer;
 }

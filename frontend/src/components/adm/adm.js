@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -50,6 +50,10 @@ export default function Adm() {
                         <div className={EstiloAdm.cards_adm} onClick={()=>navigate('/adm/adm_turmas')}>
                             <img src={require('../../imgs/icons/icon6.png')} alt="Turmas Img"/>
                             <h1>Turmas</h1>
+                        </div>
+                        <div className={EstiloAdm.cards_adm} onClick={()=>alert("Belo Click Mano 🤓☝️")}>
+                            <img src={require('../../imgs/icons/mais.png')} alt="Cadastro Img"/>
+                            <h1>Cadastros</h1>
                         </div>
                     </div>
                 </div>
