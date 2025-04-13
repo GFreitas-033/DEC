@@ -39,3 +39,41 @@ img{
     border: #FBD034 solid 0.2rem;
     cursor: pointer;
 }
+
+/* Estilo do Conteiner dos Cadastros */
+/* Fundo escurecido quando o modal aparece */
+.fundoEscuro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 50;
+}
+
+/* Conteúdo do modal centralizado */
+.divCadastros {
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2b2b2b;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 2rem black;
+}
+
+.titulo{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.imgFechar{
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 1.2rem;
+    cursor: pointer;
+}
