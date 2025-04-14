@@ -20,15 +20,14 @@ export default function Adm_turma(){
             title: "Quer Realmente Excluir essa Turma?",
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, Excluir Turma!"
+            confirmButtonText: "Sim, Excluir Turma!",
+            confirmButtonColor: "#fbd034",
+            iconColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Turma Excluida com Sucesso!",
-                    icon: "success"
-                });
                 excluirTurma(id_turma);
             }
         });
@@ -66,8 +65,22 @@ export default function Adm_turma(){
         try {
             await axios.get(`/admbackend/excluirturma/${id_turma}`);
             setTurmas(prevTurmas => prevTurmas.filter(turma => turma.id_turma !== id_turma));
+            Swal.fire({
+                title: "Turma Excluida com Sucesso!",
+                icon: "success",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         } catch (error) {
             console.error('Erro ao excluir turma:', error);
+            Swal.fire({
+                title: "Erro ao Excluir Turma!",
+                icon: "error",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         }
     };
 

@@ -20,15 +20,14 @@ export default function Adm_prof(){
             title: "Quer Realmente Excluir esse(a) Professor(a)?",
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, Excluir Professor!"
+            confirmButtonText: "Sim, Excluir Professor(a)!",
+            confirmButtonColor: "#fbd034",
+            iconColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Professor Excluido com Sucesso!",
-                    icon: "success"
-                });
                 excluirProfessor(id_professor);
             }
         });
@@ -66,8 +65,22 @@ export default function Adm_prof(){
         try {
             await axios.get(`/admbackend/excluirprofessor/${id_professor}`);
             setProfessores(prevProfessores => prevProfessores.filter(professor => professor.id_pessoa !== id_professor));
+            Swal.fire({
+                title: "Professor(a) Excluido com Sucesso!",
+                icon: "success",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         } catch (error) {
             console.error('Erro ao excluir professor:', error);
+            Swal.fire({
+                title: "Erro ao Excluir Professor(a)!",
+                icon: "error",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         }
     };
 

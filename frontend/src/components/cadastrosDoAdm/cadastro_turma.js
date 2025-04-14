@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 import ContainerCss from "../containers.module.css";
 import StyleCadastroTurma from "./cadastroDoAdm.module.css";
@@ -31,6 +32,25 @@ export default function Cadastro_turma({ texto, btn }){
     const [diasemana, setDiaSemana] = useState("");
     
     const [responseTurma, setResponseTurma] = useState(null);
+
+    const alertErroCadastro = () => {
+        Swal.fire({
+        title: "Não foi possível Cadastrar a Turma.",
+        icon: "error",
+        confirmButtonColor: "#fbd034",
+        background: "#2b2b2b",
+        theme: "dark"
+        })
+    };
+    const alertSucessoCadastro = () => {
+        Swal.fire({
+            title: "Turma Cadastrada com Sucesso.",
+            icon: "success",
+            confirmButtonColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
+        })
+    };
 
     useEffect(() => {
         logado();
@@ -135,6 +155,7 @@ export default function Cadastro_turma({ texto, btn }){
                 setResponseTurma(responseTurma);
             } catch (error) {
                 console.log("Erro ao criar turma: ", error);
+                alertErroCadastro();
             }
         }
         
@@ -142,7 +163,7 @@ export default function Cadastro_turma({ texto, btn }){
 
     useEffect(() => {
         if (responseTurma) {
-            alert("Sucesso!!!");
+            alertSucessoCadastro();
             preencherDados();
         }
     }, [responseTurma]);

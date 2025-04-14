@@ -20,15 +20,14 @@ export default function Adm_unidade(){
             title: "Quer Realmente Excluir essa Unidade?",
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, Excluir Unidade!"
+            confirmButtonText: "Sim, Excluir Unidade!",
+            confirmButtonColor: "#fbd034",
+            iconColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Unidade Excluida com Sucesso!",
-                    icon: "success"
-                });
                 excluirUnidade(id_unidade);
             }
         });
@@ -66,8 +65,22 @@ export default function Adm_unidade(){
         try {
             const responseUnidade = await axios.get(`/admbackend/excluirunidade/${id_unidade}`);
             setUnidades(prevUnidades => prevUnidades.filter(unidade => unidade.id_unidade !== id_unidade));
+            Swal.fire({
+                title: "Unidade Excluida com Sucesso!",
+                icon: "success",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         } catch (error) {
             console.error('Erro ao excluir unidade:', error);
+            Swal.fire({
+                title: "Erro ao Excluir Unidade!",
+                icon: "error",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         }
     };
 

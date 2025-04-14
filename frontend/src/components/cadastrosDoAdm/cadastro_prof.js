@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 import ContainerCss from "../containers.module.css";
 import StyleCadastroProf from "./cadastroDoAdm.module.css";
@@ -48,6 +49,25 @@ export default function Cadastro_prof({ texto, btn }){
     const [id_endereco, setEndereco] = useState(null);
     
     const [responsePessoa, setResponsePessoa] = useState(null);
+
+    const alertErroCadastro = () => {
+        Swal.fire({
+        title: "Não foi possível Cadastrar o Professor(a).",
+        icon: "error",
+        confirmButtonColor: "#fbd034",
+        background: "#2b2b2b",
+        theme: "dark"
+        })
+    };
+    const alertSucessoCadastro = () => {
+        Swal.fire({
+            title: "Professor(a) Cadastrado(a) com Sucesso.",
+            icon: "success",
+            confirmButtonColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
+        })
+    };
 
     useEffect(() => {
         logado();
@@ -128,7 +148,7 @@ export default function Cadastro_prof({ texto, btn }){
             setBairro(responseEndereco.bairro);
             setLogradouro(responseEndereco.rua);
         }catch (error) {
-        console.log(error);
+            console.log(error);
         }
     };
   
@@ -224,13 +244,14 @@ export default function Cadastro_prof({ texto, btn }){
                 setResponsePessoa(responseProfessor.data);
             }catch (error) {
                 console.log("Erro ao criar professor: ", error);
+                alertErroCadastro();
             }
         }
     }
   
     // Recarrega a página quando responsePessoa estiver disponível
     if (responsePessoa) {
-      alert("Sucesso!!!");
+      alertSucessoCadastro();
       preencherDados();
     }
 

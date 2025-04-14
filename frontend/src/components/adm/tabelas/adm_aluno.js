@@ -20,15 +20,14 @@ export default function Adm_aluno(){
             title: "Quer Realmente Excluir esse(a) Aluno(a)?",
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, Excluir Aluno!"
+            confirmButtonText: "Sim, Excluir Aluno!",
+            confirmButtonColor: "#fbd034",
+            iconColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Aluno Excluido com Sucesso!",
-                    icon: "success"
-                });
                 excluirAluno(id_aluno);
             }
         });
@@ -66,8 +65,22 @@ export default function Adm_aluno(){
         try {
             const exclusao = await axios.get(`/admbackend/excluiraluno/${id_aluno}`);
             setAlunos(prevAlunos => prevAlunos.filter(aluno => aluno.id_pessoa !== id_aluno));
+            Swal.fire({
+                title: "Aluno(a) Excluido(a) com Sucesso!",
+                icon: "success",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         } catch (error) {
             console.error('Erro ao excluir aluno:', error);
+            Swal.fire({
+                title: "Erro ao Excluir Aluno(a)!",
+                icon: "success",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
         }
     };
 
