@@ -16,7 +16,7 @@ import SelecionarUni from "../inputs_cadastro/inputsTurma/unidade_input";
 import QtdMaxima from "../inputs_cadastro/inputsTurma/qtdMaxima_input";
 import DiaSemana from "../inputs_cadastro/inputsTurma/diaSemana_input";
 import Horario from "../inputs_cadastro/inputsTurma/horario_input";
-import Nome from "../inputs_cadastro/inputsTurma/nome_input";
+import Nome from "../inputs_cadastro/nome_input";
 
 export default function Cadastro_turma({ texto, btn }){
     const navigate = useNavigate();
@@ -26,6 +26,9 @@ export default function Cadastro_turma({ texto, btn }){
     const [unidades, setUnidades] = useState([]);
     const [professor, setProfessor] = useState("");
     const [professores, setProfessores] = useState([]);
+    const [horario, setHorario] = useState("");
+    const [qtdmaxima, setQtdMaxima] = useState("");
+    const [diasemana, setDiaSemana] = useState("");
     
     const [responseTurma, setResponseTurma] = useState(null);
 
@@ -97,17 +100,13 @@ export default function Cadastro_turma({ texto, btn }){
         responseTurma = responseTurma.find(item => item.id_turma === id_turma);
         setProfessor(responseTurma.id_professor);
         setUnidade(responseTurma.id_unidade);
-        document.getElementById('Maximo').value = responseTurma.qtd_maxima;
-        document.getElementById('diaSemana').value = responseTurma.dia_semana;
-        document.getElementById('Horario').value = responseTurma.horario;
-        document.getElementById('nome').value = responseTurma.nome_turma;
+        setQtdMaxima(responseTurma.qtd_maxima);
+        setDiaSemana(responseTurma.dia_semana);
+        setHorario(responseTurma.horario);
+        setNome(responseTurma.nome_turma);
     }
 
-    async function cliquei() {
-        const qtdmaxima = document.getElementById('Maximo').value;
-        const diasemana = document.getElementById('diaSemana').value;
-        const horario = document.getElementById('Horario').value;
-        const nome_turma = document.getElementById('nome').value;
+    async function cliquei() {;
         if (id_turma !== undefined) {
             try {
                 let responseTurma = await axios.put(`/api/turma/${id_turma}`, {
@@ -116,7 +115,7 @@ export default function Cadastro_turma({ texto, btn }){
                     dia_semana: diasemana,
                     horario: horario,
                     id_unidade: unidade,
-                    nome_turma: nome_turma
+                    nome_turma: nome
                 });
                 setResponseTurma(responseTurma);
             } catch (error) {
@@ -130,7 +129,7 @@ export default function Cadastro_turma({ texto, btn }){
                     dia_semana: diasemana,
                     horario: horario,
                     id_unidade: unidade,
-                    nome_turma: nome_turma
+                    nome_turma: nome
                 });
                 responseTurma = responseTurma.data;
                 setResponseTurma(responseTurma);
@@ -144,7 +143,7 @@ export default function Cadastro_turma({ texto, btn }){
     useEffect(() => {
         if (responseTurma) {
             alert("Sucesso!!!");
-            window.location.reload();
+            preencherDados();
         }
     }, [responseTurma]);
 
@@ -162,9 +161,9 @@ export default function Cadastro_turma({ texto, btn }){
                             <Nome value={nome} setValue={setNome}/>
                             <SelecionarProf value={professor} setValue={setProfessor} professores={professores}/>
                             <SelecionarUni value={unidade} setValue={setUnidade} unidades={unidades} />
-                            <QtdMaxima/>
-                            <DiaSemana/>
-                            <Horario/>
+                            <QtdMaxima value={qtdmaxima} setValue={setQtdMaxima}/>
+                            <DiaSemana value={diasemana} setValue={setDiaSemana}/>
+                            <Horario value={horario} setValue={setHorario}/>
                         </div>
                         <div className={StyleCadastroTurma.divBtn}>
                             <button className={StyleCadastroTurma.btn}>

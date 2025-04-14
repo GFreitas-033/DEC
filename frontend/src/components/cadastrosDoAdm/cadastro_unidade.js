@@ -68,27 +68,22 @@ export default function Cadastro_unidade({ texto, btn }){
     }, [id_unidade]);
     
     const handleBuscarCep = (cep) => {
-        if (cep.length < 9) {
-            setLogradouro("");
-            setBairro("");
-            setCidade("");
-            setUf("");
-            return;
-        }
         fetch(`https://viacep.com.br/ws/${cep}/json/`)
-        .then((response) => response.json())
-        .then((dados) => {
-            setLogradouro(dados.logradouro);
-            setBairro(dados.bairro);
-            setCidade(dados.localidade);
-            setUf(dados.uf);
-            setCnpj(cnpj);
-            setTelefone(telefone);
-        })
-        .catch((error) => {
-            console.error('Erro ao buscar CEP:', error);
-        });
-    };
+          .then((response) => response.json())
+          .then((dados) => {
+            if (!dados.erro) {
+              if (dados.logradouro) setLogradouro(dados.logradouro);
+              if (dados.bairro) setBairro(dados.bairro);
+              if (dados.localidade) setCidade(dados.localidade);
+              if (dados.uf) setUf(dados.uf);
+            } else {
+              console.warn("CEP inválido.");
+            }
+          })
+          .catch((error) => {
+            console.error("Erro ao buscar CEP:", error);
+          });
+      };
     
     function formatCNPJ(cnpj) {
       cnpj = cnpj.replace(/\D/g, '');
@@ -197,7 +192,7 @@ export default function Cadastro_unidade({ texto, btn }){
     
     if (responseUnidade) {
         alert("Sucesso!!!");
-        window.location.reload();
+        preencherDados();
     }
 
     return(
@@ -218,10 +213,10 @@ export default function Cadastro_unidade({ texto, btn }){
                             <MaisContatos value={maisContatos} setValue={setMaisContatos}/>
                             <TipoUnidade value={tipoUnidade} setValue={setTipoUnidade} />
                             <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
-                            <UF u={uf} />
-                            <Cidade c={cidade} />
-                            <Bairro b={bairro} />
-                            <Rua r={logradouro} />
+                            <UF value={uf}  setValue={setUf}/>
+                            <Cidade value={cidade} setValue={setCidade}/>
+                            <Bairro value={bairro} setValue={setBairro}/>
+                            <Rua value={logradouro} setValue={setLogradouro}/>
                             <Numero value={numero} setValue={setNumero} />
                         </div>
                         <div className={StyleCadastroUnidade.divBtn}>

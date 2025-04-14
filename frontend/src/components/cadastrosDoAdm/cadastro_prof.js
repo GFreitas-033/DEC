@@ -132,29 +132,23 @@ export default function Cadastro_prof({ texto, btn }){
         }
     };
   
-    const handleBuscarCep = (cep) => {
-        if (cep.length < 9) {
-            setLogradouro("");
-            setBairro("");
-            setCidade("");
-            setUf("");
-            return;
+  const handleBuscarCep = (cep) => {
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((response) => response.json())
+      .then((dados) => {
+        if (!dados.erro) {
+          if (dados.logradouro) setLogradouro(dados.logradouro);
+          if (dados.bairro) setBairro(dados.bairro);
+          if (dados.localidade) setCidade(dados.localidade);
+          if (dados.uf) setUf(dados.uf);
+        } else {
+          console.warn("CEP inválido.");
         }
-        fetch(`https://viacep.com.br/ws/${cep}/json/`)
-        .then((response) => response.json())
-        .then((dados) => {
-            setLogradouro(dados.logradouro);
-            setBairro(dados.bairro);
-            setCidade(dados.localidade);
-            setUf(dados.uf);
-            document.getElementById('cpf').value = cpf;
-            document.getElementById('rg').value = rg;
-            document.getElementById('telefone').value = telefone;
-        })
-        .catch((error) => {
-            console.error('Erro ao buscar CEP:', error);
-        });
-    };
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar CEP:", error);
+      });
+  };
   
     function tratamentoString(inputString) {
         return inputString.replace(/[.\-()\s]/g, '');
@@ -237,7 +231,7 @@ export default function Cadastro_prof({ texto, btn }){
     // Recarrega a página quando responsePessoa estiver disponível
     if (responsePessoa) {
       alert("Sucesso!!!");
-      window.location.reload();
+      preencherDados();
     }
 
     return(
@@ -261,10 +255,10 @@ export default function Cadastro_prof({ texto, btn }){
                             <DtNasc value={dtNasc} setValue={setDtnasc}/>
                             <Genero value={genero} setValue={setGenero}/>
                             <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
-                            <UF u={uf}/>
-                            <Cidade c={cidade}/>
-                            <Bairro b={bairro}/>
-                            <Rua r={logradouro}/>
+                            <UF value={uf} setValue={setUf}/>
+                            <Cidade value={cidade} setValue={setCidade}/>
+                            <Bairro value={bairro} setValue={setBairro}/>
+                            <Rua value={logradouro} setValue={setLogradouro}/>
                         </div>
                         <div className={StyleCadastroProf.divBtn}>
                             <button className={StyleCadastroProf.btn}>
