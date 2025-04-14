@@ -6,11 +6,6 @@
     max-width: 100vw;
 }
 
-.divBtn{
-    display: flex;
-    justify-content: space-between;
-}
-
 .tabela{
     min-height: 70vh;
     height: auto;
@@ -22,16 +17,6 @@
     .titulo{
         margin-top: 5rem;
         margin-bottom: 1rem;
-    }
-
-    .divBtn{
-        width: 95%;
-    }
-
-    .qtd{
-        margin-left: 0.2rem;
-        margin-right: 0.8rem;
-        font-size: 0.8rem;
     }
 
     .tabela{
@@ -46,14 +31,6 @@
         border-radius: 0.5rem;
         margin-right: 2rem;
         margin-top: 0.5rem;
-    }
-
-    .divBtn{
-        width: 50%;
-    }
-
-    .qtd{
-        font-size: 1rem;
     }
 
     .tabela{

@@ -7,7 +7,6 @@ import ContainerCss from "../../containers.module.css";
 import EstiloAdmUnidade from "./admAPUT.module.css";
 
 import Background_Sistema from "../../background/backSistema/backSistema";
-import Botao from "../botao_adm/botao_adm";
 import BarraLateral from "../../barra_lateral/icons_barra_lateral";
 import Notifica from "../../sino_notificacao/notificacao";
 import BtnVoltar from "../../btnVoltar/btnVoltar";
@@ -79,10 +78,6 @@ export default function Adm_unidade(){
                 <BarraLateral />
                 <div className={EstiloAdmUnidade.contentAdm}>
                     <h1 className={EstiloAdmUnidade.titulo}>Unidade</h1>
-                    <div className={EstiloAdmUnidade.divBtn}>
-                        <Botao url={'/cadastro/unidade'} texto={"Nova Unidade +"}/>
-                        <p className={EstiloAdmUnidade.qtd}>Quantidade de Unidades: {unidades.length}</p>
-                    </div>
                     <table className={EstiloAdmUnidade.tabela}>
                         <thead>
                             <tr>

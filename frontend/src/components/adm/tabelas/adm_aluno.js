@@ -78,9 +78,6 @@ export default function Adm_aluno(){
                 <BarraLateral />
                 <div className={EstiloAdmAluno.contentAdm}>
                     <h1 className={EstiloAdmAluno.titulo}>ALUNOS</h1>
-                    <div className={EstiloAdmAluno.divBtn}>
-                        <p className={EstiloAdmAluno.qtd}>Quantidade de Alunos: {alunos.length}</p>
-                    </div>
                     <table className={EstiloAdmAluno.tabela}>
                         <thead>
                             <tr>

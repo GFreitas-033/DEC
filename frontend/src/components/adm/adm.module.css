@@ -1,12 +1,42 @@
 @media screen and (min-width: 320px){
-    .display_grid{
+    .divCards{
         margin-top: 7rem;
+    }
+
+    .divCadastros{
+        width: 90%;
+        height: 70%;
+    }
+    
+    .titulo{
+        margin-bottom: 1rem;
+        margin-top: 0.3rem;
+    }
+    
+    .divNavegacao{
+        grid-template-columns: auto;
+        margin: 1rem 1rem 0 1rem;
     }
 }
 
 @media screen and (min-width: 720px){
-    .display_grid{
+    .divCards{
         margin-top: 0;
+    }
+
+    .divCadastros{
+        width: 40%;
+        height: 40%;
+    }
+    
+    .titulo{
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .divNavegacao{
+        grid-template-columns: auto auto auto;
+        margin: 5rem 1rem 0 1rem;
     }
 }
 
@@ -17,17 +47,14 @@
     width: 100vw;
     height: auto;
 }
-.display_grid{
+
+/* Estilo dos Cards */
+.divCards{
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     width: 70%;
     gap: 3rem;
-}
-
-/* Estilo dos Cards */
-img{
-    width: 8rem;
 }
 
 .cards_adm{
@@ -40,34 +67,52 @@ img{
     cursor: pointer;
 }
 
+img{
+    width: 8rem;
+}
+
 /* Estilo do Conteiner dos Cadastros */
-/* Fundo escurecido quando o modal aparece */
 .fundoEscuro {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 50;
 }
 
-/* Conteúdo do modal centralizado */
-.divCadastros {
+.divCadastros{
     position: fixed;
     z-index: 100;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #2b2b2b;
-    padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 0 2rem black;
 }
 
 .titulo{
     text-align: center;
-    margin-bottom: 1rem;
+}
+
+.divNavegacao{
+    display: grid;
+    gap: 1rem;
+}
+
+.btnNavegacao{
+    border: 0.2rem solid #FBD034;
+    border-radius: 1rem;
+    padding: 0.6rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.btnNavegacao:hover{
+    background-color: #FBD034;
+    color: #fff;
+    transition: 0.3s;
 }
 
 .imgFechar{

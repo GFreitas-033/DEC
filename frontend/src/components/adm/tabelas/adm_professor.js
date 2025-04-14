@@ -7,7 +7,6 @@ import ContainerCss from "../../containers.module.css";
 import EstiloAdmProf from "./admAPUT.module.css";
 
 import Background_Sistema from "../../background/backSistema/backSistema";
-import Botao from "../botao_adm/botao_adm";
 import BarraLateral from "../../barra_lateral/icons_barra_lateral";
 import Notifica from "../../sino_notificacao/notificacao";
 import BtnVoltar from "../../btnVoltar/btnVoltar";
@@ -79,10 +78,6 @@ export default function Adm_prof(){
                 <BarraLateral />
                 <div className={EstiloAdmProf.contentAdm}>
                     <h1 className={EstiloAdmProf.titulo}>Professores</h1>
-                    <div className={EstiloAdmProf.divBtn}>
-                        <Botao url={'/cadastro/professor'} texto={"Novo Professor +"}/>
-                        <p className={EstiloAdmProf.qtd}>Quantidade de Professores: {professores.length}</p>
-                    </div>
                     <table className={EstiloAdmProf.tabela}>
                         <thead>
                             <tr>

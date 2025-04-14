@@ -43,13 +43,31 @@ export default function Adm() {
                         <div className={EstiloAdm.fundoEscuro} onClick={()=>ApareceSome()}></div>
                         <div className={EstiloAdm.divCadastros}>
                             <h1 className={EstiloAdm.titulo}>Cadastros</h1>
-                            <div>
-                                <button onClick={()=>navigate('/matricula')}>Alunos Pagantes</button>
-                                <button onClick={()=>navigate('/cadastro')}>Alunos Não Pagante</button>
-                                <button onClick={()=>navigate('/cadastro/aluno/Escola')}>Alunos de Escolas</button>
-                                <button onClick={()=>navigate('/cadastro/professor')}>Professores</button>
-                                <button onClick={()=>navigate('/cadastro/unidade')}>Unidades</button>
-                                <button onClick={()=>navigate('/cadastro/turma')}>Turmas</button>
+                            <div className={EstiloAdm.divNavegacao}>
+                                <button onClick={()=>navigate('/matricula')} 
+                                    className={EstiloAdm.btnNavegacao}>
+                                    Alunos Pagantes
+                                </button>
+                                <button onClick={()=>navigate('/cadastro')} 
+                                    className={EstiloAdm.btnNavegacao}>
+                                    Alunos Não Pagante
+                                </button>
+                                <button onClick={()=>navigate('/cadastro/aluno/Escola')} 
+                                    className={EstiloAdm.btnNavegacao}>
+                                    Alunos de Escolas
+                                </button>
+                                <button onClick={()=>navigate('/cadastro/professor')} 
+                                    className={EstiloAdm.btnNavegacao}>
+                                    Professores
+                                </button>
+                                <button onClick={()=>navigate('/cadastro/unidade')} 
+                                    className={EstiloAdm.btnNavegacao}>
+                                    Unidades
+                                </button>
+                                <button onClick={()=>navigate('/cadastro/turma')} 
+                                    className={EstiloAdm.btnNavegacao}>
+                                    Turmas
+                                </button>
                             </div>
                             <img src={require('../../imgs/icons/cancelar.png')} 
                             className={EstiloAdm.imgFechar}
@@ -58,7 +76,7 @@ export default function Adm() {
                     </>
                 )}
                 <div className={EstiloAdm.container_adm}>
-                    <div className={EstiloAdm.display_grid}>
+                    <div className={EstiloAdm.divCards}>
                         <div className={EstiloAdm.cards_adm} onClick={()=>navigate('/adm/adm_aluno')}>
                             <img src={require('../../imgs/icons/icon4.png')} alt="Aluno Img"/>
                             <h1>Alunos</h1>

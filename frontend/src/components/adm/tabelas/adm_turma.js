@@ -7,7 +7,6 @@ import ContainerCss from "../../containers.module.css";
 import EstiloAdmTurma from "./admAPUT.module.css";
 
 import Background_Sistema from "../../background/backSistema/backSistema";
-import Botao from "../botao_adm/botao_adm";
 import BarraLateral from "../../barra_lateral/icons_barra_lateral";
 import Notifica from "../../sino_notificacao/notificacao";
 import BtnVoltar from "../../btnVoltar/btnVoltar";
@@ -79,10 +78,6 @@ export default function Adm_turma(){
                 <BarraLateral />
                 <div className={EstiloAdmTurma.contentAdm}>
                     <h1 className={EstiloAdmTurma.titulo}>Turmas</h1>
-                    <div className={EstiloAdmTurma.divBtn}>
-                        <Botao url={'/cadastro/turma'} texto={"Nova Turma +"}/>
-                        <p className={EstiloAdmTurma.qtd}>Quantidade de Turmas: {turmas.length}</p>
-                    </div>
                     <table className={EstiloAdmTurma.tabela}>
                         <thead>
                             <tr>
