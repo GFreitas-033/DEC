@@ -35,7 +35,7 @@ export default function Adm_unidade(){
 
     useEffect(() => {
         logado();
-    });
+    }, []);
 
     const logado = async () => {
         try {

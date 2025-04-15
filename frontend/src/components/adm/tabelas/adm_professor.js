@@ -35,7 +35,7 @@ export default function Adm_prof(){
 
     useEffect(() => {
         logado();
-    });
+    }, []);
 
     const logado = async () => {
         try {
@@ -91,6 +91,12 @@ export default function Adm_prof(){
                 <BarraLateral />
                 <div className={EstiloAdmProf.contentAdm}>
                     <h1 className={EstiloAdmProf.titulo}>Professores</h1>
+                    <div className={`${EstiloAdmProf.divFiltro} ${EstiloAdmProf.divDisponibilidade}`}
+                    onClick={()=>{alert("Você foi mandado para disponibilidade professor")}}>
+                        <img src={require('../../../imgs/icons/disponibilidade.png')} 
+                        className={EstiloAdmProf.imgDisponibilidade}/>
+                        <h1 className={EstiloAdmProf.textoFiltro}>Disponibilidade dos(as) Professores(as)</h1>
+                    </div>
                     <table className={EstiloAdmProf.tabela}>
                         <thead>
                             <tr>

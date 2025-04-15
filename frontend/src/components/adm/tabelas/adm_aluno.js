@@ -41,7 +41,7 @@ export default function Adm_aluno(){
     useEffect(() => {
         logado();
         fetchUnidades();
-    });
+    }, []);
 
     const logado = async () => {
         try {
@@ -135,7 +135,7 @@ export default function Adm_aluno(){
                                                     <option value="" disabled>Selecionar Unidade</option>
                                                     {unidades.map((unidade) => (
                                                         <option key={unidade.id} value={unidade.id}>
-                                                          {unidade.nome}
+                                                            {unidade.nome}
                                                         </option>
                                                     ))}
                                                 </select>
@@ -155,7 +155,8 @@ export default function Adm_aluno(){
                                             <>
                                                 <br />
                                                 <input type="text"
-                                                className={`${EstiloAdmAluno.inputGeral}`} />
+                                                className={`${EstiloAdmAluno.inputGeral}
+                                                ${EstiloAdmAluno.inputTexto}`} />
                                             </>
                                         )}
                                     </div>
@@ -172,7 +173,8 @@ export default function Adm_aluno(){
                                             <>
                                                 <br />
                                                 <input type="text"
-                                                className={`${EstiloAdmAluno.inputGeral}`} />
+                                                className={`${EstiloAdmAluno.inputGeral}
+                                                ${EstiloAdmAluno.inputTexto}`} />
                                             </>
                                         )}
                                     </div>

@@ -42,7 +42,7 @@ export default function Adm_turma(){
         logado();
         fetchUnidades();
         fetchProfessores();
-    });
+    }, []);
 
     const logado = async () => {
         try {
@@ -150,7 +150,7 @@ export default function Adm_turma(){
                                                     <option value="" disabled>Selecionar Professor(a)</option>
                                                     {professores.map((professor) => (
                                                         <option key={professor.id} value={professor.id}>
-                                                          {professor.nome}
+                                                            {professor.nome}
                                                         </option>
                                                     ))}
                                                 </select>
@@ -174,14 +174,14 @@ export default function Adm_turma(){
                                                     <option value="" disabled>Selecionar Unidade</option>
                                                     {unidades.map((unidade) => (
                                                         <option key={unidade.id} value={unidade.id}>
-                                                          {unidade.nome}
+                                                            {unidade.nome}
                                                         </option>
                                                     ))}
                                                 </select>
                                             </>
                                         )}
                                     </div>
-                                    <img src={require('../../../imgs/icons/cancelar.png')} 
+                                    <img src={require('../../../imgs/icons/cancelar.png')}
                                     className={EstiloAdmTurma.imgFechar}
                                     onClick={()=>setMostrar(!mostrar)}/>
                                 </div>
