@@ -63,7 +63,7 @@ input::placeholder{
     min-width: none;
 }
 
-/* Estilo da Imagem em Cadastro Professor */
+/* Estilo do Input de Imagem */
 .contentImagem{
     display: flex;
     justify-content: center;

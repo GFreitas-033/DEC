@@ -122,8 +122,17 @@ td{
     border-radius: 1rem;
     box-shadow: 0 0 2rem black;
     width: 19rem;
-    height: 10rem;
+    height: 13rem;
     padding: 2rem 0 0 1rem;
+}
+
+.inputGeral{
+    padding: 0.3rem 0;
+    border: 0.1rem solid #000;
+}
+.inputSelect{
+    max-width: 16rem;
+    min-width: 16rem;
 }
 
 .imgFechar{

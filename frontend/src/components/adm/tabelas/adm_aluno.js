@@ -14,7 +14,11 @@ import BtnVoltar from "../../btnVoltar/btnVoltar";
 export default function Adm_aluno(){
     const navigate = useNavigate();
     const [alunos, setAlunos] = useState([]);
+    const [unidades, setUnidades] = useState([]);
     const [mostrar, setMostrar] = useState(false);
+    const [checado1, setCheacado1] = useState(false);
+    const [checado2, setCheacado2] = useState(false);
+    const [checado3, setCheacado3] = useState(false);
 
     const alertRemoverAluno = (id_aluno) =>{
         Swal.fire({
@@ -36,6 +40,7 @@ export default function Adm_aluno(){
 
     useEffect(() => {
         logado();
+        fetchUnidades();
     });
 
     const logado = async () => {
@@ -47,6 +52,19 @@ export default function Adm_aluno(){
             }
         } catch (error) {
             navigate('/');
+        }
+    };
+
+    const fetchUnidades = async () => {
+        try {
+          const response = await axios.get("/api/unidade/");
+          const unidadesData = response.data.map((unidade) => ({
+            id: unidade.id_unidade,
+            nome: unidade.nome_unidade,
+          }));
+          setUnidades(unidadesData);
+        } catch (error) {
+          console.error("Erro ao buscar unidades:", error);
         }
     };
 
@@ -103,26 +121,60 @@ export default function Adm_aluno(){
                                     <div>
                                         <input
                                             type="checkbox"
+                                            checked={checado1}
+                                            onChange={()=>{setCheacado1(!checado1)}}
                                         />
                                         <label>
                                             Unidade
                                         </label>
+                                        {checado1 && (
+                                            <>
+                                                <br />
+                                                <select className={`${EstiloAdmAluno.inputSelect} 
+                                                    ${EstiloAdmAluno.inputGeral}`}>
+                                                    <option value="" disabled>Selecionar Unidade</option>
+                                                    {unidades.map((unidade) => (
+                                                        <option key={unidade.id} value={unidade.id}>
+                                                          {unidade.nome}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </>
+                                        )}
                                     </div>
                                     <div>
                                         <input
                                             type="checkbox"
+                                            checked={checado2}
+                                            onChange={()=>{setCheacado2(!checado2)}}
                                         />
                                         <label>
                                             Cidade
                                         </label>
+                                        {checado2 && (
+                                            <>
+                                                <br />
+                                                <input type="text"
+                                                className={`${EstiloAdmAluno.inputGeral}`} />
+                                            </>
+                                        )}
                                     </div>
                                     <div>
                                         <input
                                             type="checkbox"
+                                            checked={checado3}
+                                            onChange={()=>{setCheacado3(!checado3)}}
                                         />
                                         <label>
                                             Data de Nascimento
                                         </label>
+                                        {checado3 && (
+                                            <>
+                                                <br />
+                                                <input type="text"
+                                                className={`${EstiloAdmAluno.inputGeral}`} />
+                                            </>
+                                        )}
                                     </div>
                                     <img src={require('../../../imgs/icons/cancelar.png')} 
                                     className={EstiloAdmAluno.imgFechar}

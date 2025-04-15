@@ -14,9 +14,11 @@ import BtnVoltar from "../../btnVoltar/btnVoltar";
 export default function Adm_turma(){
     const navigate = useNavigate();
     const [turmas, setTurmas] = useState([]);
+    const [unidades, setUnidades] = useState([]);
     const [professores, setProfessores] = useState([]);
     const [mostrar, setMostrar] = useState(false);
-    const [checado, setCheacado] = useState(false);
+    const [checado1, setCheacado1] = useState(false);
+    const [checado2, setCheacado2] = useState(false);
 
     const alertRemoverTurma = (id_turma) =>{
         Swal.fire({
@@ -38,6 +40,7 @@ export default function Adm_turma(){
 
     useEffect(() => {
         logado();
+        fetchUnidades();
         fetchProfessores();
     });
 
@@ -50,6 +53,19 @@ export default function Adm_turma(){
             }
         } catch (error) {
             navigate('/');
+        }
+    };
+
+    const fetchUnidades = async () => {
+        try {
+          const response = await axios.get("/api/unidade/");
+          const unidadesData = response.data.map((unidade) => ({
+            id: unidade.id_unidade,
+            nome: unidade.nome_unidade,
+          }));
+          setUnidades(unidadesData);
+        } catch (error) {
+          console.error("Erro ao buscar unidades:", error);
         }
     };
 
@@ -120,16 +136,18 @@ export default function Adm_turma(){
                                     <div>
                                         <input
                                             type="checkbox"
-                                            onChange={()=>{setCheacado(!checado)}}
+                                            checked={checado1}
+                                            onChange={()=>{setCheacado1(!checado1)}}
                                         />
                                         <label>
                                             Professor
                                         </label>
-                                        {checado && (
+                                        {checado1 && (
                                             <>
                                                 <br />
-                                                <select>
-                                                    <option value="" disabled>Selecionar Unidade</option>
+                                                <select className={`${EstiloAdmTurma.inputSelect} 
+                                                    ${EstiloAdmTurma.inputGeral}`}>
+                                                    <option value="" disabled>Selecionar Professor(a)</option>
                                                     {professores.map((professor) => (
                                                         <option key={professor.id} value={professor.id}>
                                                           {professor.nome}
@@ -142,10 +160,26 @@ export default function Adm_turma(){
                                     <div>
                                         <input
                                             type="checkbox"
+                                            checked={checado2}
+                                            onChange={()=>{setCheacado2(!checado2)}}
                                         />
                                         <label>
                                             Unidade
                                         </label>
+                                        {checado2 && (
+                                            <>
+                                                <br />
+                                                <select className={`${EstiloAdmTurma.inputSelect} 
+                                                    ${EstiloAdmTurma.inputGeral}`}>
+                                                    <option value="" disabled>Selecionar Unidade</option>
+                                                    {unidades.map((unidade) => (
+                                                        <option key={unidade.id} value={unidade.id}>
+                                                          {unidade.nome}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </>
+                                        )}
                                     </div>
                                     <img src={require('../../../imgs/icons/cancelar.png')} 
                                     className={EstiloAdmTurma.imgFechar}
