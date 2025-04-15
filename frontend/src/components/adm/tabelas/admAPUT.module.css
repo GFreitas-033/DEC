@@ -1,18 +1,3 @@
-.contentAdm{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    max-width: 100vw;
-}
-
-.tabela{
-    min-height: 70vh;
-    height: auto;
-    background-color: #838383;
-    border-collapse: collapse;
-}
-
 @media screen and (min-width: 320px){
     .titulo{
         margin-top: 5rem;
@@ -21,6 +6,11 @@
 
     .tabela{
         width: 95%;
+    }
+
+    .divFiltro{
+        width: 95%;
+        justify-content: space-between;
     }
 }
 
@@ -36,6 +26,26 @@
     .tabela{
         width: 50%;
     }
+
+    .divFiltro{
+        width: 50%;
+        justify-content: flex-start;
+    }
+}
+
+.contentAdm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 100vw;
+}
+
+.tabela{
+    min-height: 70vh;
+    height: auto;
+    background-color: #838383;
+    border-collapse: collapse;
 }
 
 td{
@@ -63,10 +73,63 @@ td{
     height: 1.5rem;
     padding: 0.1rem;
     border-radius: 0.3rem;
-
     cursor: pointer;
 }
 .icon:hover{
     background-color: #FBD034;
     transition: 0.5s;
+}
+
+/* Estilo da parte dos Filtros */
+.divFiltro{
+    display: flex;
+    align-items: center;
+}
+.textoFiltro{
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+}
+.btnFiltro{
+    border: none;
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0rem;
+    cursor: pointer;
+}
+.btnFiltro:hover{
+    background-color: #999999;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.fundoEscuro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 50;
+}
+.filtros{
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2b2b2b;
+    border-radius: 1rem;
+    box-shadow: 0 0 2rem black;
+    width: 19rem;
+    height: 10rem;
+    padding: 2rem 0 0 1rem;
+}
+
+.imgFechar{
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 1.2rem;
+    cursor: pointer;
 }

@@ -10,7 +10,7 @@ import BarraLateral from "../barra_lateral/icons_barra_lateral";
 import Notifica from "../sino_notificacao/notificacao";
 
 export default function Adm() {
-    const [mostrar, setMostrar] = useState(false)
+    const [mostrar, setMostrar] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,10 +29,6 @@ export default function Adm() {
         }
     };
 
-    const ApareceSome = () => {
-        setMostrar(!mostrar);
-    };
-
     return (
         <div>
             <Background_Sistema />
@@ -40,7 +36,7 @@ export default function Adm() {
                 <BarraLateral />
                 {mostrar && (
                     <>
-                        <div className={EstiloAdm.fundoEscuro} onClick={()=>ApareceSome()}></div>
+                        <div className={EstiloAdm.fundoEscuro} onClick={()=>{setMostrar(!mostrar)}}></div>
                         <div className={EstiloAdm.divCadastros}>
                             <h1 className={EstiloAdm.titulo}>Cadastros</h1>
                             <div className={EstiloAdm.divNavegacao}>
@@ -71,7 +67,7 @@ export default function Adm() {
                             </div>
                             <img src={require('../../imgs/icons/cancelar.png')} 
                             className={EstiloAdm.imgFechar}
-                            onClick={()=>ApareceSome()}/>
+                            onClick={()=>{setMostrar(!mostrar)}}/>
                         </div>
                     </>
                 )}
@@ -93,7 +89,7 @@ export default function Adm() {
                             <img src={require('../../imgs/icons/icon6.png')} alt="Turmas Img"/>
                             <h1>Turmas</h1>
                         </div>
-                        <div className={EstiloAdm.cards_adm} onClick={()=>ApareceSome()}>
+                        <div className={EstiloAdm.cards_adm} onClick={()=>{setMostrar(!mostrar)}}>
                             <img src={require('../../imgs/icons/mais.png')} alt="Cadastro Img"/>
                             <h1>Cadastros</h1>
                         </div>

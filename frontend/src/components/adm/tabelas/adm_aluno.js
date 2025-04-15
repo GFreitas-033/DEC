@@ -14,6 +14,7 @@ import BtnVoltar from "../../btnVoltar/btnVoltar";
 export default function Adm_aluno(){
     const navigate = useNavigate();
     const [alunos, setAlunos] = useState([]);
+    const [mostrar, setMostrar] = useState(false);
 
     const alertRemoverAluno = (id_aluno) =>{
         Swal.fire({
@@ -91,6 +92,46 @@ export default function Adm_aluno(){
                 <BarraLateral />
                 <div className={EstiloAdmAluno.contentAdm}>
                     <h1 className={EstiloAdmAluno.titulo}>ALUNOS</h1>
+                    {/* Componente Filtro */}
+                    <div className={EstiloAdmAluno.divFiltro}>
+                        <h1 className={EstiloAdmAluno.textoFiltro}>Filtrar por:</h1>
+                        <button className={EstiloAdmAluno.btnFiltro} onClick={()=>{setMostrar(!mostrar)}}>Filtros</button>
+                        {mostrar && (
+                            <>
+                                <div className={EstiloAdmAluno.fundoEscuro} onClick={()=>{setMostrar(!mostrar)}}></div>
+                                <div className={EstiloAdmAluno.filtros}>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                        />
+                                        <label>
+                                            Unidade
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                        />
+                                        <label>
+                                            Cidade
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                        />
+                                        <label>
+                                            Data de Nascimento
+                                        </label>
+                                    </div>
+                                    <img src={require('../../../imgs/icons/cancelar.png')} 
+                                    className={EstiloAdmAluno.imgFechar}
+                                    onClick={()=>{setMostrar(!mostrar)}}/>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                    {/* Inicio da Tabela */}
                     <table className={EstiloAdmAluno.tabela}>
                         <thead>
                             <tr>

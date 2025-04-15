@@ -14,6 +14,9 @@ import BtnVoltar from "../../btnVoltar/btnVoltar";
 export default function Adm_turma(){
     const navigate = useNavigate();
     const [turmas, setTurmas] = useState([]);
+    const [professores, setProfessores] = useState([]);
+    const [mostrar, setMostrar] = useState(false);
+    const [checado, setCheacado] = useState(false);
 
     const alertRemoverTurma = (id_turma) =>{
         Swal.fire({
@@ -35,6 +38,7 @@ export default function Adm_turma(){
 
     useEffect(() => {
         logado();
+        fetchProfessores();
     });
 
     const logado = async () => {
@@ -46,6 +50,20 @@ export default function Adm_turma(){
             }
         } catch (error) {
             navigate('/');
+        }
+    };
+
+    const fetchProfessores = async () => {
+        try {
+          const response = await axios.get("/api/professor/");
+          const nomes = response.data.map((prof) => ({
+            id: prof.id_pessoa,
+            nome: prof.nome_pessoa,
+          }));
+    
+          setProfessores(nomes);
+        } catch (error) {
+          console.error("Erro ao buscar professores:", error);
         }
     };
 
@@ -91,6 +109,52 @@ export default function Adm_turma(){
                 <BarraLateral />
                 <div className={EstiloAdmTurma.contentAdm}>
                     <h1 className={EstiloAdmTurma.titulo}>Turmas</h1>
+                    {/* Componente Filtro */}
+                    <div className={EstiloAdmTurma.divFiltro}>
+                        <h1 className={EstiloAdmTurma.textoFiltro}>Filtrar por:</h1>
+                        <button className={EstiloAdmTurma.btnFiltro} onClick={()=>{setMostrar(!mostrar)}}>Filtros</button>
+                        {mostrar && (
+                            <>
+                                <div className={EstiloAdmTurma.fundoEscuro} onClick={()=>{setMostrar(!mostrar)}}></div>
+                                <div className={EstiloAdmTurma.filtros}>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                            onChange={()=>{setCheacado(!checado)}}
+                                        />
+                                        <label>
+                                            Professor
+                                        </label>
+                                        {checado && (
+                                            <>
+                                                <br />
+                                                <select>
+                                                    <option value="" disabled>Selecionar Unidade</option>
+                                                    {professores.map((professor) => (
+                                                        <option key={professor.id} value={professor.id}>
+                                                          {professor.nome}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                        />
+                                        <label>
+                                            Unidade
+                                        </label>
+                                    </div>
+                                    <img src={require('../../../imgs/icons/cancelar.png')} 
+                                    className={EstiloAdmTurma.imgFechar}
+                                    onClick={()=>setMostrar(!mostrar)}/>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                    {/* Inicio da Tabela */}
                     <table className={EstiloAdmTurma.tabela}>
                         <thead>
                             <tr>
