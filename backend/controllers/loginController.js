@@ -3,6 +3,7 @@ const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const noti_UniModel = require("../models/notificacao_uni.js");
 
 
 // routes/auth.js
@@ -57,7 +58,11 @@ router.post("/login", async (req, res) => {
     }
 });
 
-
+router.get('/minhas_notificacoes/:id', async (req, res) => {
+    const id_pessoa = parseInt(req.params.id);
+    const data = await noti_UniModel.readNotificacao_UniPessoa(id_pessoa);
+    res.json(data);
+})
 
 router.get('/sair', (req, res) => {
     req.session.destroy();
