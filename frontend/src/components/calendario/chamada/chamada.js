@@ -29,13 +29,26 @@ export default function Chamada() {
                 id_turma: idturma,
                 data_c: data,
             });
-
+    
             const responseData = res.data;
+    
+            if (responseData.length === 0) {
+                Swal.fire({
+                    title: "Chamada indisponível.",
+                    icon: "warning",
+                    confirmButtonColor: "#fbd034",
+                    background: "#2b2b2b",
+                    theme: "dark"
+                });
+                return;
+            }
+    
             const statusFromAPI = responseData.find(c => c.status_c !== null)?.status_c || 0;
-
+    
             setChamada(responseData);
             setObservacao(responseData[0].observacao);
             setStatusC(statusFromAPI);
+    
         } catch (error) {
             console.error("Erro ao buscar chamada:", error);
             Swal.fire({
