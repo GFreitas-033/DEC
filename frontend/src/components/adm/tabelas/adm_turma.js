@@ -90,7 +90,7 @@ export default function Adm_turma(){
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('/api/turma');
+                const response = await axios.get('/api/turma/padrao');
                 setTurmas(response.data);
                 setTurmasFiltradas(response.data);
             } catch (error) {

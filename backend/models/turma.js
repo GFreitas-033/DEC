@@ -11,6 +11,16 @@
         }
     }
 
+    async function readTurmaPadrao() {
+        try {
+            const results = await db.query(`SELECT id_turma,id_unidade,id_professor,nome_turma FROM turma`);
+            return results[0];
+        } catch (err) {
+            console.error('Erro ao obter dados:', err);
+            throw new Error('Erro interno do servidor');
+        }
+    }
+
     async function createTurma(qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma) {
         try {
             await db.query('INSERT INTO turma (qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma) VALUES (?, ?, ?, ?, ?, ?)', 
@@ -90,5 +100,6 @@
         createTurma,
         updateTurma,
         deleteTurma,
-        readTurmaFormatada
+        readTurmaFormatada,
+        readTurmaPadrao
     };
