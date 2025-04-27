@@ -1,36 +1,48 @@
-import React, { useState } from "react"
-import Sino from "../../imgs/icons/notificacao.png"
-import Sino_Style from "./notificacao.module.css"
+// src/components/Notificacao/Notificacao.jsx
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Sino from "../../imgs/icons/notificacao.png";
+import Sino_Style from "./notificacao.module.css";
 
 export default function Notificacao() {
   const [mostrar, setMostrar] = useState(false);
-  const [mensagem, setMensagem] = useState([
-    { id: 1, message: 'Notification 1' },
-    { id: 2, message: 'Notification 2' },
-    { id: 3, message: 'Notification 3' },
-    { id: 4, message: 'Notification 4' },
-    { id: 5, message: 'Notification 5' },
-    { id: 6, message: 'Notification 6' },
-  ]);
+  const [mensagens, setMensagens] = useState([]);
+
+  useEffect(() => {
+    async function fetchMensagens() {
+      try {
+        const response = await axios.get("/api/minhas_notificacoes/");
+        setMensagens(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar notificacoes:", error);
+      }
+    }
+    fetchMensagens();
+  }, []);
 
   const NotificationClick = () => {
-    setMostrar(prevMostrar => !prevMostrar);
+    setMostrar(prev => !prev);
   };
 
   return (
     <div className={Sino_Style.containerSino} onClick={NotificationClick}>
-
-      <img src={Sino} className={Sino_Style.sinoImg} alt="S"/>
-      <span className={Sino_Style.qtnNotificacao}>{mensagem.length}</span>
+      <img src={Sino} className={Sino_Style.sinoImg} alt="Sino" />
+      {mensagens.length > 0 && (
+        <span className={Sino_Style.qtnNotificacao}>{mensagens.length}</span>
+      )}
 
       <div className={`${Sino_Style.caixa} ${mostrar ? Sino_Style.mostrar : ''}`}>
-
         <div className={Sino_Style.mensagemConteiner}>
-          {mensagem.map((msg) => (
-            <p key={msg.id}>{msg.message}</p>
-          ))}
+          {mensagens.length > 0 ? (
+            mensagens.map((msg) => (
+              <p key={msg.id_notificacao_uni}>{msg.mensagem}</p>
+            ))
+          ) : (
+            <p>Sem notificacoes.</p>
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -27,7 +27,7 @@
 }
 
 .containerSino {
-    display: none;
+ /* display: none; */
     position: fixed;
     cursor: pointer;
     z-index: 1000;

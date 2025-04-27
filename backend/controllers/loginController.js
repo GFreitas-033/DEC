@@ -58,8 +58,8 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get('/minhas_notificacoes/:id', async (req, res) => {
-    const id_pessoa = parseInt(req.params.id);
+router.get('/api/minhas_notificacoes/', async (req, res) => {
+    const id_pessoa = req.session.id_pessoa;
     const data = await noti_UniModel.readNotificacao_UniPessoa(id_pessoa);
     res.json(data);
 })
