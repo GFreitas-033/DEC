@@ -10,6 +10,16 @@ async function readAluno() {
     }
 }
 
+async function readFilterAluno() {
+    try {
+        const results = await db.query('SELECT * FROM my_alunos');
+        return results[0];
+    } catch (err) {
+        console.error('Erro ao obter dados:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
 async function createAluno(id_pessoa, destro_canhoto, id_responsavel, dt_inicio, tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2) {
     try {
         await db.query('INSERT INTO aluno (id_pessoa, destro_canhoto, id_responsavel,dt_inicio, tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2) VALUES (?,?, ?, ?, ?, ?, ?, ?)', 
@@ -57,5 +67,6 @@ module.exports = {
     createAluno,
     updateAluno,
     deleteAluno,
-    allDataAluno
+    allDataAluno,
+    readFilterAluno
 };

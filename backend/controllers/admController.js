@@ -2,19 +2,11 @@
 const express = require("express");
 const axios = require("axios");
 const router = express.Router();
+const alunoModel = require("../models/aluno");
 
 router.get('/aluno', async (req, res) => {
     try {
-        const responseAluno = await axios.get('http://localhost:5000/api/aluno');
-        const dadosAluno = responseAluno.data;
-
-        const responsePessoa = await axios.get('http://localhost:5000/api/pessoa');
-        const dadosPessoa = responsePessoa.data;
-
-        const idsAluno = new Set(dadosAluno.map(aluno => aluno.id_pessoa));
-
-        const pessoasFiltradas = dadosPessoa.filter(pessoa => idsAluno.has(pessoa.id_pessoa));
-
+        pessoasFiltradas = await alunoModel.readFilterAluno();
         res.json(pessoasFiltradas);
     } catch (error) {
         console.error(error);
