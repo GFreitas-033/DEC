@@ -51,7 +51,7 @@ function formatTelefone(telefone) {
   return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
 }
 
-function faltaCampo(){
+function faltaCampo() {
   Swal.fire({
     title: 'Alerta!',
     text: 'Preencha os campo obrigatórios.',
@@ -60,7 +60,7 @@ function faltaCampo(){
     confirmButtonColor: '#fbd034'
   })
 }
-function alertContrato(){
+function alertContrato() {
   Swal.fire({
     title: 'Alerta!',
     text: 'Leia e aceite o contrato para finalizar o cadastro.',
@@ -135,7 +135,7 @@ export default function Form() {
 
   // State de contrato
   const [aceitouContrato, setAceitouContrato] = useState(false);
-  
+
   const handleCheckboxChange = (event) => {
     setAceitouContrato(event.target.checked);
   };
@@ -365,131 +365,134 @@ export default function Form() {
 
     let dataInicio = dataAtualSQL();
 
-    let responseEndereco = await axios.post('/api/endereco', {
-      cep: cep,
-      estado: uf,
-      cidade: cidade,
-      bairro: bairro,
-      rua: logradouro,
-      numero: numero,
-    });
-    responseEndereco = responseEndereco.data;
+    if (!id_aluno) {
+      let responseEndereco = await axios.post('/api/endereco', {
+        cep: cep,
+        estado: uf,
+        cidade: cidade,
+        bairro: bairro,
+        rua: logradouro,
+        numero: numero,
+      });
+      responseEndereco = responseEndereco.data;
 
-    let idResp1;
-    let idResp2;
-    let idFin;
-    let responsePessoa;
+      let idResp1;
+      let idResp2;
+      let idFin;
+      let responsePessoa;
 
-    if (nomeFin !== '' && cpfFin !== '' && rgFin !== '' && emailFin !== '' && telefoneFin !== '' && generoFin !== '') {
+      if (nomeFin !== '' && cpfFin !== '' && rgFin !== '' && emailFin !== '' && telefoneFin !== '' && generoFin !== '') {
+        responsePessoa = await axios.post('/api/pessoa', {
+          nome_pessoa: nomeFin,
+          dt_nasc_pessoa: '1999-01-01',
+          cpf_pessoa: unformatCPF(cpfFin),
+          rg_pessoa: unformatRG(rgFin),
+          email_pessoa: emailFin,
+          telefone_pessoa: unformatTelefone(telefoneFin),
+          genero: generoFin,
+          id_endereco: responseEndereco.id,
+        });
+        responsePessoa = responsePessoa.data;
+        idFin = responsePessoa.id;
+        let responseRespAluno = await axios.post('/api/responsavel_aluno', {
+          id_pessoa: idFin
+        });
+      }
+
+      if (nomeResp1 !== '' && cpfResp1 !== '' && rgResp1 !== '' && emailResp1 !== '' && telefoneResp1 !== '' && generoResp1 !== '') {
+        responsePessoa = await axios.post('/api/pessoa', {
+          nome_pessoa: nomeResp1,
+          dt_nasc_pessoa: '1999-01-01',
+          cpf_pessoa: unformatCPF(cpfResp1),
+          rg_pessoa: unformatRG(rgResp1),
+          email_pessoa: emailResp1,
+          telefone_pessoa: unformatTelefone(telefoneResp1),
+          genero: generoResp1,
+          id_endereco: responseEndereco.id,
+        });
+        responsePessoa = responsePessoa.data;
+        idResp1 = responsePessoa.id;
+        let responseRespAluno = await axios.post('/api/responsavel_aluno', {
+          id_pessoa: idResp1
+        });
+      }
+
+      if (nomeResp2 !== '' && cpfResp2 !== '' && rgResp2 !== '' && emailResp2 !== '' && telefoneResp2 !== '' && generoResp2 !== '') {
+        responsePessoa = await axios.post('/api/pessoa', {
+          nome_pessoa: nomeResp2,
+          dt_nasc_pessoa: '1999-01-01',
+          cpf_pessoa: unformatCPF(cpfResp2),
+          rg_pessoa: unformatRG(rgResp2),
+          email_pessoa: emailResp2,
+          telefone_pessoa: unformatTelefone(telefoneResp2),
+          genero: generoResp2,
+          id_endereco: responseEndereco.id,
+        });
+        responsePessoa = responsePessoa.data;
+        idResp2 = responsePessoa.id;
+        let responseRespAluno = await axios.post('/api/responsavel_aluno', {
+          id_pessoa: idResp2
+        });
+      }
+
       responsePessoa = await axios.post('/api/pessoa', {
-        nome_pessoa: nomeFin,
-        dt_nasc_pessoa: '1999-01-01',
-        cpf_pessoa: unformatCPF(cpfFin),
-        rg_pessoa: unformatRG(rgFin),
-        email_pessoa: emailFin,
-        telefone_pessoa: unformatTelefone(telefoneFin),
-        genero: generoFin,
+        nome_pessoa: nome,
+        dt_nasc_pessoa: converterParaSQL(nascimento),
+        cpf_pessoa: unformatCPF(cpf),
+        rg_pessoa: unformatRG(rg),
+        email_pessoa: email,
+        telefone_pessoa: unformatTelefone(telefone),
+        genero: genero,
         id_endereco: responseEndereco.id,
-      });
-      responsePessoa = responsePessoa.data;
-      idFin = responsePessoa.id;
-      let responseRespAluno = await axios.post('/api/responsavel_aluno', {
-        id_pessoa: idFin
-      });
-    }
-
-    if (nomeResp1 !== '' && cpfResp1 !== '' && rgResp1 !== '' && emailResp1 !== '' && telefoneResp1 !== '' && generoResp1 !== '') {
-      responsePessoa = await axios.post('/api/pessoa', {
-        nome_pessoa: nomeResp1,
-        dt_nasc_pessoa: '1999-01-01',
-        cpf_pessoa: unformatCPF(cpfResp1),
-        rg_pessoa: unformatRG(rgResp1),
-        email_pessoa: emailResp1,
-        telefone_pessoa: unformatTelefone(telefoneResp1),
-        genero: generoResp1,
-        id_endereco: responseEndereco.id,
-      });
-      responsePessoa = responsePessoa.data;
-      idResp1 = responsePessoa.id;
-      let responseRespAluno = await axios.post('/api/responsavel_aluno', {
-        id_pessoa: idResp1
-      });
-    }
-
-
-    if (nomeResp2 !== '' && cpfResp2 !== '' && rgResp2 !== '' && emailResp2 !== '' && telefoneResp2 !== '' && generoResp2 !== '') {
-      responsePessoa = await axios.post('/api/pessoa', {
-        nome_pessoa: nomeResp2,
-        dt_nasc_pessoa: '1999-01-01',
-        cpf_pessoa: unformatCPF(cpfResp2),
-        rg_pessoa: unformatRG(rgResp2),
-        email_pessoa: emailResp2,
-        telefone_pessoa: unformatTelefone(telefoneResp2),
-        genero: generoResp2,
-        id_endereco: responseEndereco.id,
-      });
-      responsePessoa = responsePessoa.data;
-      idResp2 = responsePessoa.id;
-      let responseRespAluno = await axios.post('/api/responsavel_aluno', {
-        id_pessoa: idResp2
-      });
-    }
-
-    responsePessoa = await axios.post('/api/pessoa', {
-      nome_pessoa: nome,
-      dt_nasc_pessoa: converterParaSQL(nascimento),
-      cpf_pessoa: unformatCPF(cpf),
-      rg_pessoa: unformatRG(rg),
-      email_pessoa: email,
-      telefone_pessoa: unformatTelefone(telefone),
-      genero: genero,
-      id_endereco: responseEndereco.id,
-    })
-    responsePessoa = responsePessoa.data;
-    if (cpfResp1 === '') {
-      let responseAluno = await axios.post('/api/aluno', {
-        id_pessoa: responsePessoa.id,
-        destro_canhoto: mao_dominante,
-        id_responsavel: idFin,
-        dt_inicio: dataInicio,
-        tipo_plano: plano,
-        dia_pagamento: d_Vencimento,
-        tipo_aluno: 'pagante',
       })
+      responsePessoa = responsePessoa.data;
+      if (cpfResp1 === '') {
+        let responseAluno = await axios.post('/api/aluno', {
+          id_pessoa: responsePessoa.id,
+          destro_canhoto: mao_dominante,
+          id_responsavel: idFin,
+          dt_inicio: dataInicio,
+          tipo_plano: plano,
+          dia_pagamento: d_Vencimento,
+          tipo_aluno: 'pagante',
+        })
+      } else {
+        let responseAluno = await axios.post('/api/aluno', {
+          id_pessoa: responsePessoa.id,
+          destro_canhoto: mao_dominante,
+          id_responsavel: idResp1,
+          dt_inicio: dataInicio,
+          tipo_plano: plano,
+          dia_pagamento: d_Vencimento,
+          tipo_aluno: 'pagante',
+          id_responsavel2: idResp2,
+        })
+
+
+      }
+
+      let responseAlunoHasTurma;
+      for (let i = 0; i < selectedDay; i++) {
+        responseAlunoHasTurma = await axios.post('/api/aluno_has_turma', {
+          id_aluno: responsePessoa.id,
+          id_turma: parseInt(selectedTurmas[i])
+        });
+      }
+
+      if (responseAlunoHasTurma) {
+        Swal.fire({
+          title: 'Sucesso!',
+          text: 'O aluno foi cadastrado com sucesso.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#fbd034'
+        }).then(() => {
+          window.location.reload();
+        })
+      }
     } else {
-      let responseAluno = await axios.post('/api/aluno', {
-        id_pessoa: responsePessoa.id,
-        destro_canhoto: mao_dominante,
-        id_responsavel: idResp1,
-        dt_inicio: dataInicio,
-        tipo_plano: plano,
-        dia_pagamento: d_Vencimento,
-        tipo_aluno: 'pagante',
-        id_responsavel2: idResp2,
-      })
-    }
 
-    let responseAlunoHasTurma;
-    for (let i = 0; i < selectedDay; i++) {
-      responseAlunoHasTurma = await axios.post('/api/aluno_has_turma', {
-        id_aluno: responsePessoa.id,
-        id_turma: parseInt(selectedTurmas[i])
-      });
     }
-
-
-    if (responseAlunoHasTurma) {
-      Swal.fire({
-        title: 'Sucesso!',
-        text: 'O aluno foi cadastrado com sucesso.',
-        icon: 'success',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#fbd034'
-      }).then(() =>{
-        window.location.reload();
-      })
-    }
-    
   }
 
   const steps = [
@@ -497,12 +500,12 @@ export default function Form() {
       cpf={cpf} setCpf={setCpf} genero={genero} setGenero={setGenero} rg={rg} setRg={setRg}
       telefone={telefone} setTelefone={setTelefone} nascimento={nascimento} setNascimento={setNascimento}
       mao_dominante={mao_dominante} setMao_Dominante={setMao_Dominante} calcularIdade={calcularIdade} setStep={setStep}
-      areAllFieldsFilled={areAllFieldsFilled} id_aluno={id_aluno}/>,
+      areAllFieldsFilled={areAllFieldsFilled} id_aluno={id_aluno} />,
 
     <Passo2 nextStep={nextStep} prevStep={prevStep} nomeResp1={nomeResp1} setNomeResp1={setNomeResp1} emailResp1={emailResp1}
       setEmailResp1={setEmailResp1} cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1}
       rgResp1={rgResp1} setRgResp1={setRgResp1} telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1}
-      areAllFieldsFilled={areAllFieldsFilled} id_aluno={id_aluno}/>,
+      areAllFieldsFilled={areAllFieldsFilled} id_aluno={id_aluno} />,
 
     <Passo3 prevStep={prevStep} nomeResp2={nomeResp2} setNomeResp2={setNomeResp2} emailResp2={emailResp2} setEmailResp2={setEmailResp2}
       cpfResp2={cpfResp2} setCpfResp2={setCpfResp2} generoResp2={generoResp2} setGeneroResp2={setGeneroResp2} rgResp2={rgResp2} setRgResp2={setRgResp2}
@@ -512,15 +515,15 @@ export default function Form() {
 
     <Passo5 nextStep={nextStep} prevStep={prevStep} nomeFin={nomeFin} setNomeFin={setNomeFin} emailFin={emailFin} setEmailFin={setEmailFin}
       cpfFin={cpfFin} setCpfFin={setCpfFin} generoFin={generoFin} setGeneroFin={setGeneroFin} rgFin={rgFin} setRgFin={setRgFin}
-      telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} areAllFieldsFilled={areAllFieldsFilled} setStep={setStep} id_aluno={id_aluno}/>,
+      telefoneFin={telefoneFin} setTelefoneFin={setTelefoneFin} areAllFieldsFilled={areAllFieldsFilled} setStep={setStep} id_aluno={id_aluno} />,
 
     <Passo6 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} setLogradouro={setLogradouro}
       bairro={bairro} setBairro={setBairro} cidade={cidade} setCidade={setCidade} uf={uf} setUf={setUf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
       nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} son={son}
-      pesquisarUnidades={pesquisarUnidades} id_aluno={id_aluno}/>,
+      pesquisarUnidades={pesquisarUnidades} id_aluno={id_aluno} />,
 
     <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}
-      areAllFieldsFilled={areAllFieldsFilled} setContratoPdf={setContratoPdf}/>,
+      areAllFieldsFilled={areAllFieldsFilled} setContratoPdf={setContratoPdf} />,
 
     <Passo8 nextStep={nextStep} prevStep={prevStep} handleChange={handleChange} selectedDay={selectedDay} areAllFieldsFilled={areAllFieldsFilled} />,
 
@@ -528,7 +531,7 @@ export default function Form() {
       areAllFieldsFilled={areAllFieldsFilled} handleChangeTurmas={handleChangeTurmas} />,
 
     <Passo10 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento}
-      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} mudarPDF={mudarPDF} id_aluno={id_aluno} setStep={setStep}/>,
+      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} mudarPDF={mudarPDF} id_aluno={id_aluno} setStep={setStep} />,
 
     <Passo11 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato}
       handleCheckboxChange={handleCheckboxChange} contratoPdf={contratoPdf} />,
@@ -630,7 +633,7 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
   </div>
 );
 
-const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2}) => (
+const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2 }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Dados do Responsável 2</h1>
@@ -658,7 +661,7 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
   </div>
 );
 
-const Passo4 = ({ nextStep, prevStep, setStep, son, setSon}) => (
+const Passo4 = ({ nextStep, prevStep, setStep, son, setSon }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Responsável Financeiro</h1>
@@ -693,7 +696,7 @@ const Passo4 = ({ nextStep, prevStep, setStep, son, setSon}) => (
   </div>
 );
 
-const Passo5 = ({ nextStep, prevStep, nomeFin, setNomeFin, emailFin, setEmailFin, cpfFin, setCpfFin, generoFin, setGeneroFin, rgFin, setRgFin, telefoneFin, setTelefoneFin, setStep, id_aluno}) => (
+const Passo5 = ({ nextStep, prevStep, nomeFin, setNomeFin, emailFin, setEmailFin, cpfFin, setCpfFin, generoFin, setGeneroFin, rgFin, setRgFin, telefoneFin, setTelefoneFin, setStep, id_aluno }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Responsável Financeiro</h1>
@@ -707,10 +710,10 @@ const Passo5 = ({ nextStep, prevStep, nomeFin, setNomeFin, emailFin, setEmailFin
       <Telefone value={telefoneFin} setValue={setTelefoneFin} />
     </div>
     <div className={Styles.divBotao}>
-      <button type="button" onClick={() =>{
-        if(id_aluno){
+      <button type="button" onClick={() => {
+        if (id_aluno) {
           setStep(0);
-        }else{
+        } else {
           prevStep();
         }
       }} className={Styles.button}>
@@ -725,7 +728,7 @@ const Passo5 = ({ nextStep, prevStep, nomeFin, setNomeFin, emailFin, setEmailFin
   </div>
 );
 
-const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro,setLogradouro, bairro, setBairro, cidade, setCidade, uf,setUf, numero, setNumero, pesquisarUnidades, id_aluno }) => (
+const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, setLogradouro, bairro, setBairro, cidade, setCidade, uf, setUf, numero, setNumero, pesquisarUnidades, id_aluno }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
@@ -741,13 +744,13 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
     <div className={Styles.divBotao}>
       <button type="button" onClick={() => {
         let idade = calcularIdade(nascimento); // Garante que a idade seja calculada
-        if(id_aluno){
-          if(idade > 18){
+        if (id_aluno) {
+          if (idade > 18) {
             prevStep();
-          }else{
+          } else {
             setStep(2);
           }
-        }else if (idade < 18) {
+        } else if (idade < 18) {
           setStep(2); // Se menor de idade, pula para o passo 3
         } else {
           if (son === 'sim') {
@@ -761,7 +764,7 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
         Anterior
       </button>
       <button type="button" onClick={() => {
-        if (id_aluno){
+        if (id_aluno) {
           setStep(9);
         } else if (cep != "" && uf != "" && cidade != "" && bairro != "" && logradouro != "" && numero != "") {
           pesquisarUnidades();
@@ -777,7 +780,7 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
   </div>
 );
 
-const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled, setContratoPdf}) => (
+const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled, setContratoPdf }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Unidade</h1>
@@ -825,7 +828,7 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
   </div>
 );
 
-const Passo8 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFilled}) => (
+const Passo8 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFilled }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Quantos dias por semana<br />Você vai Treinar?</h1>
@@ -864,7 +867,7 @@ const Passo8 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFil
   </div>
 );
 
-const Passo9 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas, areAllFieldsFilled, handleChangeTurmas}) => (
+const Passo9 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas, areAllFieldsFilled, handleChangeTurmas }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Escolha a Sua Turma</h1>
@@ -945,10 +948,10 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
       </div>
     </div>
     <div className={Styles.divBotao}>
-      <button type="button" onClick={() =>{
-        if(id_aluno){
+      <button type="button" onClick={() => {
+        if (id_aluno) {
           setStep(5);
-        }else{
+        } else {
           prevStep();
         }
       }} className={Styles.button}>
@@ -985,7 +988,7 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
   </div>
 );
 
-const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, contratoPdf}) => (
+const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, contratoPdf }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Contrato</h1>
