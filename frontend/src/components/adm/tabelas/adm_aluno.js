@@ -19,9 +19,10 @@ export default function Adm_aluno(){
     const [unidades, setUnidades] = useState([]);
 
     const [mostrar, setMostrar] = useState(false);
-    const [checado1, setCheacado1] = useState(false);
-    const [checado2, setCheacado2] = useState(false);
-    const [checado3, setCheacado3] = useState(false);
+    const [checado1, setChecado1] = useState(false);
+    const [checado2, setChecado2] = useState(false);
+    const [checado3, setChecado3] = useState(false);
+    const [checado4, setChecado4] = useState(false);
 
     const [filtroUnidade, setFiltroUnidade] = useState("");
     const [filtroCidade, setFiltroCidade] = useState("");
@@ -145,7 +146,7 @@ export default function Adm_aluno(){
                                 <div className={EstiloAdmAluno.fundoEscuro} onClick={()=>{setMostrar(!mostrar)}}></div>
                                 <div className={EstiloAdmAluno.filtros}>
                                     <div>
-                                        <input type="checkbox" checked={checado1} onChange={handleCheckboxChange(setCheacado1, setFiltroUnidade)} />
+                                        <input type="checkbox" checked={checado1} onChange={handleCheckboxChange(setChecado1, setFiltroUnidade)} />
                                         <label>Unidade</label>
                                         {checado1 && (
                                             <>
@@ -160,7 +161,7 @@ export default function Adm_aluno(){
                                         )}
                                     </div>
                                     <div>
-                                        <input type="checkbox" checked={checado2} onChange={handleCheckboxChange(setCheacado2, setFiltroCidade)} />
+                                        <input type="checkbox" checked={checado2} onChange={handleCheckboxChange(setChecado2, setFiltroCidade)} />
                                         <label>Cidade</label>
                                         {checado2 && (
                                             <>
@@ -170,12 +171,27 @@ export default function Adm_aluno(){
                                         )}
                                     </div>
                                     <div>
-                                        <input type="checkbox" checked={checado3} onChange={handleCheckboxChange(setCheacado3, setFiltroNascimento)} />
+                                        <input type="checkbox" checked={checado3} onChange={handleCheckboxChange(setChecado3, setFiltroNascimento)} />
                                         <label>Ano de Nascimento</label>
                                         {checado3 && (
                                             <>
                                                 <br />
                                                 <input type="text" placeholder="Ano de Nascimento" className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} onChange={(e)=>setFiltroNascimento(e.target.value)} />
+                                            </>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" checked={checado4} onChange={handleCheckboxChange(setChecado4, setFiltroNascimento)} />
+                                        <label>Tipo de Aluno</label>
+                                        {checado4 && (
+                                            <>
+                                                <br />
+                                                <select className={`${EstiloAdmAluno.inputSelect} ${EstiloAdmAluno.inputGeral}`}>
+                                                    <option value="">Selecionar</option>
+                                                    <option>Pagante</option>
+                                                    <option>Não Pagante</option>
+                                                    <option>Escola</option>
+                                                </select>
                                             </>
                                         )}
                                     </div>

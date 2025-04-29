@@ -1,5 +1,3 @@
-// src/components/Notificacao/Notificacao.jsx
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Sino from "../../imgs/icons/notificacao.png";
@@ -21,22 +19,23 @@ export default function Notificacao() {
     fetchMensagens();
   }, []);
 
-  const NotificationClick = () => {
-    setMostrar(prev => !prev);
-  };
-
   return (
-    <div className={Sino_Style.containerSino} onClick={NotificationClick}>
+    <div className={Sino_Style.containerSino} onClick={()=>{setMostrar(!mostrar)}}>
       <img src={Sino} className={Sino_Style.sinoImg} alt="Sino" />
       {mensagens.length > 0 && (
         <span className={Sino_Style.qtnNotificacao}>{mensagens.length}</span>
       )}
-
       <div className={`${Sino_Style.caixa} ${mostrar ? Sino_Style.mostrar : ''}`}>
         <div className={Sino_Style.mensagemConteiner}>
           {mensagens.length > 0 ? (
             mensagens.map((msg) => (
-              <p key={msg.id_notificacao_uni}>{msg.mensagem}</p>
+              <React.Fragment key={msg.id_notificacao_uni}>
+                <p>
+                  {msg.message}
+                  <img src={require('../../imgs/icons/Excluir.png')} className={Sino_Style.btnExcluir} alt="Excluir"/>
+                </p>
+                <hr />
+              </React.Fragment>
             ))
           ) : (
             <p>Sem notificacoes.</p>
