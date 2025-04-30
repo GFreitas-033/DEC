@@ -20,28 +20,32 @@ export default function Notificacao() {
   }, []);
 
   return (
-    <div className={Sino_Style.containerSino} onClick={()=>{setMostrar(!mostrar)}}>
-      <img src={Sino} className={Sino_Style.sinoImg} alt="Sino" />
+    <div className={Sino_Style.containerSino}>
+      <img src={Sino} className={Sino_Style.sinoImg} alt="Sino" 
+      onClick={()=>{setMostrar(!mostrar)}}/>
       {mensagens.length > 0 && (
         <span className={Sino_Style.qtnNotificacao}>{mensagens.length}</span>
       )}
-      <div className={`${Sino_Style.caixa} ${mostrar ? Sino_Style.mostrar : ''}`}>
-        <div className={Sino_Style.mensagemConteiner}>
-          {mensagens.length > 0 ? (
-            mensagens.map((msg) => (
-              <React.Fragment key={msg.id_notificacao_uni}>
-                <p>
-                  {msg.message}
-                  <img src={require('../../imgs/icons/Excluir.png')} className={Sino_Style.btnExcluir} alt="Excluir"/>
-                </p>
-                <hr />
-              </React.Fragment>
-            ))
-          ) : (
-            <p>Sem notificacoes.</p>
-          )}
+      {mostrar && (
+        <div className={Sino_Style.caixa}>
+          <div className={Sino_Style.mensagemConteiner}>
+            {mensagens.length > 0 ? (
+              mensagens.map((msg) => (
+                <React.Fragment key={msg.id_notificacao_uni}>
+                  <p>
+                    {msg.message}
+                    <img src={require('../../imgs/icons/Excluir.png')} className={Sino_Style.btnExcluir} alt="Excluir"/>
+                  </p>
+                  <hr />
+                </React.Fragment>
+              ))
+            ) : (
+              <p>Sem notificacoes.</p>
+            )}
+          </div>
         </div>
-      </div>
+      )}
+
     </div>
   );
 }
