@@ -33,7 +33,7 @@ export default function Notificacao() {
               mensagens.map((msg) => (
                 <React.Fragment key={msg.id_notificacao_uni}>
                   <p>
-                    {msg.message}
+                    {msg.mensagem}
                     <img src={require('../../imgs/icons/Excluir.png')} className={Sino_Style.btnExcluir} alt="Excluir"/>
                   </p>
                   <hr />
