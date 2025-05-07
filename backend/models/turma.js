@@ -2,7 +2,7 @@
 
     async function readTurma() {
         try {
-            const results = await db.query(`SELECT * FROM turma ORDER BY CASE WHEN dia_semana = 'domingo' THEN 1 WHEN dia_semana = 'segunda' THEN 2 WHEN dia_semana = 'terça' THEN 3 WHEN dia_semana = 'quarta' THEN 4 WHEN dia_semana = 'quinta' THEN 5 WHEN dia_semana = 'sexta' THEN 6 WHEN dia_semana = 'sábado' THEN 7 END`
+            const results = await db.query(`SELECT * FROM turma WHERE ativado=1 ORDER BY CASE WHEN dia_semana = 'domingo' THEN 1 WHEN dia_semana = 'segunda' THEN 2 WHEN dia_semana = 'terça' THEN 3 WHEN dia_semana = 'quarta' THEN 4 WHEN dia_semana = 'quinta' THEN 5 WHEN dia_semana = 'sexta' THEN 6 WHEN dia_semana = 'sábado' THEN 7 END`
             );
             return results[0];
         } catch (err) {
@@ -13,7 +13,7 @@
 
     async function readTurmaPadrao() {
         try {
-            const results = await db.query(`SELECT id_turma,id_unidade,id_professor,nome_turma FROM turma`);
+            const results = await db.query(`SELECT id_turma,id_unidade,id_professor,nome_turma FROM turma WHERE ativado=1`);
             return results[0];
         } catch (err) {
             console.error('Erro ao obter dados:', err);
@@ -43,7 +43,7 @@
 
     async function deleteTurma(id_turma) {
         try {
-            await db.query('DELETE FROM turma WHERE id_turma = ?', [id_turma]);
+            await db.query('UPDATE turma SET ativado = 0 WHERE id_turma = ?', [id_turma]);
         } catch (err) {
             console.error('Erro ao excluir registro:', err);
             throw new Error('Erro interno do servidor');
