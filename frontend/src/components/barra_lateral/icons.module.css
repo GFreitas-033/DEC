@@ -63,3 +63,7 @@ a{
     text-decoration: none;
     color: #000;
 }
+
+.ativo {
+    background-color: #d8ae15; /* ou branco se quiser o fundo claro */
+}

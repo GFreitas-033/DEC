@@ -1,12 +1,14 @@
 // Import necessarios
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2';
 
 import Icons from "./icons.module.css";
 
 export default function Barra_lateral() {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [isAdm, setIsAdm] = useState(false);
 
     const alertSair = () =>{
@@ -56,8 +58,6 @@ export default function Barra_lateral() {
         bloquearImg();
     }, []);
 
-    const navigate = useNavigate();
-
     const sair = async () => {
         try {
             await axios.get('/sair');
@@ -71,16 +71,16 @@ export default function Barra_lateral() {
     return (
         <div className={Icons.barra_lateral}>
             <img src={require('../../imgs/logo2.png')} className={Icons.imgs_logo} alt="Logo" />
-            <Link to="/home">
+            <Link to="/home" className={location.pathname === "/home" ? Icons.ativo : ""}>
                 <img src={require('../../imgs/icons/icon2.png')} className={Icons.imgs} alt="Home Icon" />
                 <p className={Icons.text}>Home</p>
             </Link>
-            <Link to="/aulas">
+            <Link to="/aulas" className={location.pathname === "/aulas" ? Icons.ativo : ""}>
                 <img src={require('../../imgs/icons/icon3.png')} className={Icons.imgs} alt="Calendar Icon" />
                 <p className={Icons.text}>Aulas</p>
             </Link>
             {isAdm && (
-                <Link to="/adm">
+                <Link to="/adm" className={location.pathname === "/adm" ? Icons.ativo : ""}>
                     <img src={require('../../imgs/icons/icon1.png')} className={Icons.imgs} alt="Admin Icon" />
                     <p className={Icons.text}>Adm</p>
                 </Link>
