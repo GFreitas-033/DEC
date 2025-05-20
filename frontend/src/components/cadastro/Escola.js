@@ -7,22 +7,22 @@ import Styles from "./form.module.css";
 import EstiloBack from "../background/background.module.css";
 
 // Import dos Input
-import Nome from "../inputs_cadastro/nome_input";
-import Email from "../inputs_cadastro/email_input";
-import CPF from "../inputs_cadastro/cpf_input";
-import Genero from "../inputs_cadastro/genero_input";
-import RG from "../inputs_cadastro/rg_input";
-import Telefone from "../inputs_cadastro/telefone_input";
-import DtNasc from "../inputs_cadastro/dt_nasc_input";
-import DC from "../inputs_cadastro/destro_canhoto_input";
+import Nome from "../inputs-cadastro/Nome";
+import Email from "../inputs-cadastro/Email";
+import CPF from "../inputs-cadastro/Cpf";
+import Genero from "../inputs-cadastro/Genero";
+import RG from "../inputs-cadastro/Rg";
+import Telefone from "../inputs-cadastro/Telefone";
+import DtNasc from "../inputs-cadastro/DtNasc";
+import DC from "../inputs-cadastro/DestroCanhoto";
 
 // Import dos Input de Endereço
-import Cep from "../inputs_cadastro/endereco/cep_input";
-import UF from "../inputs_cadastro/endereco/uf_input";
-import Cidade from "../inputs_cadastro/endereco/cidade_input";
-import Bairro from "../inputs_cadastro/endereco/bairro_input";
-import Rua from "../inputs_cadastro/endereco/rua_input";
-import Numero from "../inputs_cadastro/endereco/numero_input";
+import Cep from "../inputs-cadastro/endereco/Cep";
+import UF from "../inputs-cadastro/endereco/Uf";
+import Cidade from "../inputs-cadastro/endereco/Cidade";
+import Bairro from "../inputs-cadastro/endereco/Bairro";
+import Rua from "../inputs-cadastro/endereco/Rua";
+import Numero from "../inputs-cadastro/endereco/Numero";
 
 import contratoPdf from "../../pdfs/EsgrimaEscola.pdf";
 

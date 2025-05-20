@@ -5,11 +5,11 @@ import axios from "axios";
 import ContainerCss from "../containers.module.css";
 import EstiloAdm from "./adm.module.css";
 
-import Background_Sistema from "../background/backSistema/backSistema";
-import BarraLateral from "../barra_lateral/icons_barra_lateral";
-import Notifica from "../sino_notificacao/notificacao";
+import Background_Sistema from "../background/BackSistema";
+import BarraLateral from "../barra-lateral/BarraLateral";
+import Notifica from "../sino-notificacao/Notificacao";
 
-export default function Adm() {
+export default function AdmGeral() {
     const [mostrar, setMostrar] = useState(false);
     const navigate = useNavigate();
 
@@ -88,6 +88,10 @@ export default function Adm() {
                         <div className={EstiloAdm.cards_adm} onClick={()=>navigate('/adm/adm_turmas')}>
                             <img src={require('../../imgs/icons/icon6.png')} alt="Turmas Img"/>
                             <h1>Turmas</h1>
+                        </div>
+                        <div className={EstiloAdm.cards_adm} onClick={()=>navigate('/adm/dashboard')}>
+                            <img src={require('../../imgs/icons/painel.png')} alt="Dashboard Img"/>
+                            <h1>Dashboard</h1>
                         </div>
                         <div className={EstiloAdm.cards_adm} onClick={()=>{setMostrar(!mostrar)}}>
                             <img src={require('../../imgs/icons/mais.png')} alt="Cadastro Img"/>

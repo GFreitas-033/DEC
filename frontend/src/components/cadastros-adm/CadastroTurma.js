@@ -6,18 +6,18 @@ import Swal from "sweetalert2";
 import ContainerCss from "../containers.module.css";
 import StyleCadastroTurma from "./cadastroDoAdm.module.css";
 
-import Background_Sistema from "../background/backSistema/backSistema";
-import BarraLateral from "../barra_lateral/icons_barra_lateral";
-import Notifica from "../sino_notificacao/notificacao";
-import BtnVoltar from "../btnVoltar/btnVoltar";
+import Background_Sistema from "../background/BackSistema";
+import BarraLateral from "../barra-lateral/BarraLateral";
+import Notifica from "../sino-notificacao/Notificacao";
+import BtnVoltar from "../btn-voltar/BotaoVoltar";
 
 // Imports dos Inputs
-import SelecionarProf from "../inputs_cadastro/inputsTurma/professor_input";
-import SelecionarUni from "../inputs_cadastro/inputsTurma/unidade_input";
-import QtdMaxima from "../inputs_cadastro/inputsTurma/qtdMaxima_input";
-import DiaSemana from "../inputs_cadastro/inputsTurma/diaSemana_input";
-import Horario from "../inputs_cadastro/inputsTurma/horario_input";
-import Nome from "../inputs_cadastro/nome_input";
+import SelecionarProf from "../inputs-cadastro/inputs-turma/Professor";
+import SelecionarUni from "../inputs-cadastro/inputs-turma/Unidade";
+import QtdMaxima from "../inputs-cadastro/inputs-turma/QtdMaxima";
+import DiaSemana from "../inputs-cadastro/inputs-turma/DiaSemana";
+import Horario from "../inputs-cadastro/inputs-turma/Horario";
+import Nome from "../inputs-cadastro/Nome";
 
 export default function Cadastro_turma({ texto, btn }){
     const navigate = useNavigate();

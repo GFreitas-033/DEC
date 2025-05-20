@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import filtroStyle from "./filtro.module.css";
 
-export default function Filtro({ onFilterChange }) {
+export default function FiltroDiaSemana({ onFilterChange }) {
   const [diasSelecionados, setDiasSelecionados] = useState([]);
   const [mostrar, setMostrar] = useState(false);
 

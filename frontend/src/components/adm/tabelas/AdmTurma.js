@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmTurma from "./admAPUT.module.css";
 
-import Background_Sistema from "../../background/backSistema/backSistema";
-import BarraLateral from "../../barra_lateral/icons_barra_lateral";
-import Notifica from "../../sino_notificacao/notificacao";
-import BtnVoltar from "../../btnVoltar/btnVoltar";
+import Background_Sistema from "../../background/BackSistema";
+import BarraLateral from "../../barra-lateral/BarraLateral";
+import Notifica from "../../sino-notificacao/Notificacao";
+import BtnVoltar from "../../btn-voltar/BotaoVoltar";
 
 export default function Adm_turma(){
     const navigate = useNavigate();

@@ -5,10 +5,9 @@ import Swal from 'sweetalert2';
 
 import Styles from "./form.module.css";
 
-// Import dos Componentes
-import Background from "../background/backCadastro/backCadastro";
+import Background from "../background/BackCadastro";
 
-export default function Form(){
+export default function Form_Login(){
   const navigate = useNavigate();
 
   const alertSenha = ()=>{

@@ -5,10 +5,11 @@ import axios from "axios";
 import ContainerCss from "../containers.module.css";
 import EstiloCalendario from "./calendario.module.css";
 
-import Background_Sistema from "../background/backSistema/backSistema";
-import Filtro from "./filtroDiaSemana/filtro";
-import BarraLateral from "../barra_lateral/icons_barra_lateral";
-import Notifica from "../sino_notificacao/notificacao";
+import Background_Sistema from "../background/BackSistema";
+import BarraLateral from "../barra-lateral/BarraLateral";
+import Notifica from "../sino-notificacao/Notificacao";
+
+import Filtro from "./filtro-dia-semana/Filtro";
 
 export default function Calendario(){
     const navigate = useNavigate();

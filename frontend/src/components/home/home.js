@@ -5,9 +5,9 @@ import axios from "axios";
 import EstiloHome from "./home.module.css";
 import ContainerCss from "../containers.module.css";
 
-import Background_Sistema from "../background/backSistema/backSistema";
-import BarraLateral from "../barra_lateral/icons_barra_lateral";
-import Notifica from "../sino_notificacao/notificacao";
+import Background_Sistema from "../background/BackSistema";
+import BarraLateral from "../barra-lateral/BarraLateral";
+import Notifica from "../sino-notificacao/Notificacao";
 
 export default function Home(){
     const [message, setMessage] = useState("");

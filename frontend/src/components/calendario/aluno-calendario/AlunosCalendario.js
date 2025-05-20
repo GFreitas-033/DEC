@@ -6,11 +6,12 @@ import Swal from 'sweetalert2';
 import Calendario from "./alunoCalendario.module.css";
 import ContainerCss from "../../containers.module.css";
 
-import Background_Sistema from "../../background/backSistema/backSistema";
-import Barra_lateral from "../../barra_lateral/icons_barra_lateral";
-import BotaoAdionarAlunos from "./botaoAdicionarAluno/adicionarAluno";
-import Notifica from "../../sino_notificacao/notificacao";
-import BtnVoltar from "../../btnVoltar/btnVoltar"
+import Background_Sistema from "../../background/BackSistema";
+import Barra_lateral from "../../barra-lateral/BarraLateral";
+import Notifica from "../../sino-notificacao/Notificacao";
+import BtnVoltar from "../../btn-voltar/BotaoVoltar"
+
+import BotaoAdionarAlunos from "./adicionar-aluno/AdicionarAluno";
 
 export default function AlunosCalendario() {
     const { idturma } = useParams();

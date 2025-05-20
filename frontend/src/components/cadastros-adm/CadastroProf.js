@@ -6,28 +6,28 @@ import Swal from "sweetalert2";
 import ContainerCss from "../containers.module.css";
 import StyleCadastroProf from "./cadastroDoAdm.module.css";
 
-import Background_Sistema from "../background/backSistema/backSistema";
-import BarraLateral from "../barra_lateral/icons_barra_lateral";
-import Notifica from "../sino_notificacao/notificacao";
-import BtnVoltar from "../btnVoltar/btnVoltar";
+import Background_Sistema from "../background/BackSistema";
+import BarraLateral from "../barra-lateral/BarraLateral";
+import Notifica from "../sino-notificacao/Notificacao";
+import BtnVoltar from "../btn-voltar/BotaoVoltar";
 
 // Imports dos Inputs para Pessoa
-// import Imagem from "../../inputs_cadastro/imagem_input";
-import Email from "../inputs_cadastro/email_input";
-import Senha from "../inputs_cadastro/senha_input";
-import Nome from "../inputs_cadastro/nome_input";
-import Cpf from "../inputs_cadastro/cpf_input";
-import Rg from "../inputs_cadastro/rg_input";
-import Telefone from "../inputs_cadastro/telefone_input";
-import DtNasc from "../inputs_cadastro/dt_nasc_input";
-import Genero from "../inputs_cadastro/genero_input";
+// import Imagem from "../../inputs_cadastro/Imagem";
+import Email from "../inputs-cadastro/Email";
+import Senha from "../inputs-cadastro/Senha";
+import Nome from "../inputs-cadastro/Nome";
+import Cpf from "../inputs-cadastro/Cpf";
+import Rg from "../inputs-cadastro/Rg";
+import Telefone from "../inputs-cadastro/Telefone";
+import DtNasc from "../inputs-cadastro/DtNasc";
+import Genero from "../inputs-cadastro/Genero";
 
 // Imports do Endereço
-import Cep from "../inputs_cadastro/endereco/cep_input";
-import UF from "../inputs_cadastro/endereco/uf_input";
-import Cidade from "../inputs_cadastro/endereco/cidade_input";
-import Bairro from "../inputs_cadastro/endereco/bairro_input";
-import Rua from "../inputs_cadastro/endereco/rua_input";
+import Cep from "../inputs-cadastro/endereco/Cep";
+import UF from "../inputs-cadastro/endereco/Uf";
+import Cidade from "../inputs-cadastro/endereco/Cidade";
+import Bairro from "../inputs-cadastro/endereco/Bairro";
+import Rua from "../inputs-cadastro/endereco/Rua";
 
 export default function Cadastro_prof({ texto, btn }){
     const navigate = useNavigate();

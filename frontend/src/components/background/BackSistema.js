@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
-import EstiloBack from "../background.module.css";
+import EstiloBack from "./background.module.css";
 
-export default function Background_Cadastro(){
+export default function Background_Sistema(){
     useEffect(() => {
         const imgDesk = new Image();
         const imgMob = new Image();
 
-        imgDesk.src = require("../../../imgs/backgroundDesktop/backNormal.png");
-        imgMob.src = require("../../../imgs/backgroundMobile/backNormalMob.png");
+        imgDesk.src = require("../../imgs/backgroundDesktop/backSistemaDesk.png");
+        imgMob.src = require("../../imgs/backgroundMobile/backSistemaMob.png");
     }, []);
 
     return(
         <div className={EstiloBack.backgroundContainer}>
             <img
-                src={require("../../../imgs/backgroundDesktop/backNormal.png")}
+                src={require("../../imgs/backgroundDesktop/backSistemaDesk.png")}
                 alt="Background Desktop"
                 className={EstiloBack.responsiveImg}
                 id={EstiloBack.backDesk}
@@ -21,7 +21,7 @@ export default function Background_Cadastro(){
                 loading="eager"
             />
             <img
-                src={require("../../../imgs/backgroundMobile/backNormalMob.png")}
+                src={require("../../imgs/backgroundMobile/backSistemaMob.png")}
                 alt="Background Mobile"
                 className={EstiloBack.responsiveImg}
                 id={EstiloBack.backMob}

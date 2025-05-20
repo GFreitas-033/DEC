@@ -6,12 +6,12 @@ import Swal from "sweetalert2";
 import EstiloChamada from "./chamada.module.css";
 import ContainerCss from "../../containers.module.css";
 
-import Background_Sistema from "../../background/backSistema/backSistema";
-import Barra_lateral from "../../barra_lateral/icons_barra_lateral";
-import Notifica from "../../sino_notificacao/notificacao";
-import BtnVoltar from "../../btnVoltar/btnVoltar";
+import Background_Sistema from "../../background/BackSistema";
+import Barra_lateral from "../../barra-lateral/BarraLateral";
+import Notifica from "../../sino-notificacao/Notificacao";
+import BtnVoltar from "../../btn-voltar/BotaoVoltar";
 
-export default function Chamada() {
+export default function ChamadaTela() {
     const { idturma } = useParams();
     const [data, setData] = useState(() => new Date().toISOString().split("T")[0]);
     const [chamada, setChamada] = useState([]);
