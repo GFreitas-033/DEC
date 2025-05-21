@@ -1,0 +1,21 @@
+.ajusteTela{
+    margin-left: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerDash{
+    width: 80vw;
+    height: 90vh;
+    background-color: #fff;
+    border-radius: 4rem;
+
+}
+
+.hrContainer{
+    width: 80vw;
+    height: 0.5rem;
+    border: none;
+    background-color: #000;
+}
