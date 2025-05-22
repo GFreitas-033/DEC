@@ -8,7 +8,7 @@ export default function Geral(){
             <h1 className={EstiloGeral.title}>Total de Alunos</h1>
             <div className={EstiloGeral.part1}>
                 <span className={EstiloGeral.spanAluno}>5000</span>
-                <img src={require('../../../imgs/icons/group.png')} 
+                <img src={require('../../../imgs/iconsDashboard/group.png')} 
                 className={EstiloGeral.iconGroup} draggable="false" 
                 alt="Imagem Grupo"/>
             </div>

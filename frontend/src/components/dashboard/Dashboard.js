@@ -10,6 +10,7 @@ import BtnVoltar from "../btn-voltar/BotaoVoltar";
 
 // Import dos Blocos do Dashboard
 import Geral from "./geral/AnaliseGeral"
+import Graficos from "./graficos/Graficos"
 
 export default function Dashboard(){
     return(
@@ -21,22 +22,7 @@ export default function Dashboard(){
                     <div className={EstiloDashboard.containerDash}>
                         {/* <hr /> */}
                         <Geral />
-                        <div className={EstiloDashboard.containerGraficos}>
-
-                        </div>
-                        <div className={EstiloDashboard.containerAnoNasc}>
-
-                        </div>
-                        <hr className={EstiloDashboard.hrContainer}/>
-                        <div className={EstiloDashboard.containerCidadeUnidade}>
-
-                        </div>
-                        <div className={EstiloDashboard.containerComparativo}>
-
-                        </div>
-                        <div className={EstiloDashboard.containerAlunosCidade}>
-
-                        </div>
+                        <Graficos />
                     </div>
                 </div>
                 <Notifica />

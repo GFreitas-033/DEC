@@ -90,7 +90,7 @@ export default function AdmGeral() {
                             <h1>Turmas</h1>
                         </div>
                         <div className={EstiloAdm.cards_adm} onClick={()=>navigate('/adm/dashboard')}>
-                            <img src={require('../../imgs/icons/painel.png')} alt="Dashboard Img"/>
+                            <img src={require('../../imgs/iconsDashboard/painel.png')} alt="Dashboard Img"/>
                             <h1>Dashboard</h1>
                         </div>
                         <div className={EstiloAdm.cards_adm} onClick={()=>{setMostrar(!mostrar)}}>
