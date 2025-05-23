@@ -11,6 +11,7 @@ import BtnVoltar from "../btn-voltar/BotaoVoltar";
 // Import dos Blocos do Dashboard
 import Geral from "./geral/AnaliseGeral"
 import Graficos from "./graficos/Graficos"
+import AnoNasc from "./ano-nasc/AnoNascimento"
 
 export default function Dashboard(){
     return(
@@ -23,6 +24,7 @@ export default function Dashboard(){
                         {/* <hr /> */}
                         <Geral />
                         <Graficos />
+                        <AnoNasc />
                     </div>
                 </div>
                 <Notifica />
