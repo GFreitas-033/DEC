@@ -12,6 +12,7 @@ import BtnVoltar from "../btn-voltar/BotaoVoltar";
 import Geral from "./geral/AnaliseGeral"
 import Graficos from "./graficos/Graficos"
 import AnoNasc from "./ano-nasc/AnoNascimento"
+import CidadeUnidade from "./cidade-unidade/CidadeUnidade"
 
 export default function Dashboard(){
     return(
@@ -21,10 +22,11 @@ export default function Dashboard(){
                 <BarraLateral />
                 <div className={EstiloDashboard.ajusteTela}>
                     <div className={EstiloDashboard.containerDash}>
-                        {/* <hr /> */}
                         <Geral />
                         <Graficos />
                         <AnoNasc />
+                        <hr className={EstiloDashboard.hrContainer}/>
+                        <CidadeUnidade />
                     </div>
                 </div>
                 <Notifica />

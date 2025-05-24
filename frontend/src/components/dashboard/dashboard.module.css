@@ -7,10 +7,12 @@
 
 .containerDash{
     width: 80vw;
-    height: 90vh;
+    height: 96vh;
     background-color: #fff;
     border-radius: 4rem;
     display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .hrContainer{
@@ -18,4 +20,5 @@
     height: 0.5rem;
     border: none;
     background-color: #000;
+    margin: 1rem 0 1rem 0;
 }
