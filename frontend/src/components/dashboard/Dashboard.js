@@ -13,6 +13,7 @@ import Geral from "./geral/AnaliseGeral"
 import Graficos from "./graficos/Graficos"
 import AnoNasc from "./ano-nasc/AnoNascimento"
 import CidadeUnidade from "./cidade-unidade/CidadeUnidade"
+import Comparativo from "./comparativo/Comparativo"
 
 export default function Dashboard(){
     return(
@@ -27,6 +28,7 @@ export default function Dashboard(){
                         <AnoNasc />
                         <hr className={EstiloDashboard.hrContainer}/>
                         <CidadeUnidade />
+                        <Comparativo />
                     </div>
                 </div>
                 <Notifica />

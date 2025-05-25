@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import EstiloCidaUni from "./cidadeUnidade.module.css";
 
-export default function Cidade_Unidade(){
+export default function CidadeUnidade(){
     const [mostrar, setMostrar] = useState(false);
     const [cidadeSelecionada, setCidadeSelecionada] = useState("");
 
