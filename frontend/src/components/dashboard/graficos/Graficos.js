@@ -27,7 +27,7 @@ export default function BlocoGraficos() {
             {/* Grafico 1 */}
             <div className={EstiloGraficos.divGrafico}>
                 <h1 className={EstiloGraficos.titulo}>% ENTRE MENINOS E MENINAS</h1>
-                <ResponsiveContainer>
+                <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie data={dataGenero} dataKey="value"
                           outerRadius={120}
