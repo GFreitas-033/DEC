@@ -1,3 +1,10 @@
+@media screen and (min-width: 0px){
+    .containerDash{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1741px){
 .ajusteTela{
     margin-left: 5rem;
     display: flex;
@@ -17,8 +24,8 @@
 
 .hrContainer{
     width: 80vw;
-    height: 0.5rem;
+    height: 0.8%;
     border: none;
     background-color: #000;
-    margin: 1rem 0 1rem 0;
+}
 }
