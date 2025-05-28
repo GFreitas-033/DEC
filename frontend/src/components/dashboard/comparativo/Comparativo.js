@@ -44,7 +44,7 @@ export default function ComparativoPeriodo(){
                 <p>{formatarData(data1)}{data1 ? `: ${alunosData1} alunos` : ""}</p>
                 <p>{formatarData(data2)}{data2 ? `: ${alunosData2} alunos` : ""}</p>
             </div>
-            <div>
+            <div className={EstiloComparativo.divComparacao}>
                 <p>📈 Variação: {data1 && data2 ? `+${variacao} alunos` : 0}</p>
                 <p>📊 Crescimento de: {data1 && data2 ? `+${crescimento}%` : 0}</p>
             </div>

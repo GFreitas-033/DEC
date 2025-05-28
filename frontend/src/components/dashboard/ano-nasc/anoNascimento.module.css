@@ -1,3 +1,24 @@
+@media screen and (min-width: 1366px){
+    .titulo{
+        font-size: 1rem;
+    }
+
+    .definicao, .resultado{
+        font-size: 0.8rem;
+        padding: 0.4rem;
+    }
+}
+@media screen and (min-width: 1750px){
+    .titulo{
+        font-size: 1.5rem;
+    }
+
+    .definicao, .resultado{
+        font-size: 1.5rem;
+        padding: 0.5rem;
+    }
+}
+
 .containerAnoNasc{
     color: #000;
     width: 22%;
@@ -11,7 +32,6 @@
 
 .titulo{
     text-align: center;
-    font-size: 1.5rem;
     margin: 0.9rem;
 }
 
@@ -32,7 +52,6 @@
     text-align: center;
     width: 50%;
     cursor: default;
-    padding: 0.5rem;
     border: #000 solid 0.1rem;
 }
 

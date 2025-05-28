@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 
 import EstiloGraficos from "./graficos.module.css";
 
 export default function BlocoGraficos() {
+    const [tela, setTela] = useState(() => {
+        const largura = window.innerWidth;
+        if (largura <= 1750) return 79;
+        if (largura >= 1750) return 120;
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+            const largura = window.innerWidth;
+            if (largura <= 1366) {
+                setTela(79);
+            } else if (largura <= 1750) {
+                setTela(120);
+            } else {
+                setTela(150);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const dataGenero = [
         { name: "Meninos", value: 2500 },
         { name: "Meninas", value: 2500 },
@@ -30,7 +52,7 @@ export default function BlocoGraficos() {
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie data={dataGenero} dataKey="value"
-                          outerRadius={120}
+                          outerRadius={tela}
                           startAngle={90}
                           endAngle={450}
                         >
@@ -61,10 +83,10 @@ export default function BlocoGraficos() {
             {/* Grafico 2 */}
             <div className={EstiloGraficos.divGrafico}>
                 <h1 className={EstiloGraficos.titulo}>DESTRO X CANHOTO</h1>
-                <ResponsiveContainer>
+                <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie data={dataDestroCanhoto} dataKey="value"
-                          outerRadius={120}
+                          outerRadius={tela}
                           startAngle={90}
                           endAngle={450}
                         >

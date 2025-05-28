@@ -1,3 +1,42 @@
+@media  screen and (min-width: 1366px){
+    .title{
+        font-size: 1.5rem;
+    }
+
+    .spanAluno{
+        font-size: 2rem;
+    }
+
+    .iconGroup{
+        width: 3rem;
+    }
+
+    .definicao, .resultado{
+        font-size: 1rem;
+        padding: 0.2rem;
+        margin-top: 1rem;
+    }
+}
+@media  screen and (min-width: 1750px){
+    .title{
+        font-size: 2rem;
+    }
+
+    .spanAluno{
+        font-size: 2.5rem;
+    }
+
+    .iconGroup{
+        width: 4rem;
+    }
+
+    .definicao, .resultado{
+        font-size: 1.3rem;
+        padding: 0.5rem;
+        margin-top: 1.2rem;
+    }
+}
+
 .containerGeral{
     color: #000;
     width: 22%;
@@ -17,12 +56,6 @@
     text-align: center;
     margin-top: 0.5rem;
 }
-.spanAluno{
-    font-size: 2.5rem;
-}
-.iconGroup{
-    width: 20%;
-}
 
 /* Estilo da Separação */
 .hrGeral{
@@ -38,12 +71,10 @@
 }
 
 .definicao, .resultado{
-    font-size: 1.3rem;
     text-align: center;
     width: 50%;
     cursor: default;
-    padding: 0.5rem;
-    margin-top: 1.2rem;
+
 }
 
 .definicao{

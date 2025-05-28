@@ -29,7 +29,7 @@ export default function Alunos_Cidade(){
                 <BarChart
                     layout="vertical"
                     data={dataOrdenada}
-                    margin={{ top: 20, right: 80, left: 20, bottom: 0 }}
+                    margin={{ top: 20, right: 50, left: 0, bottom: 0 }}
                 >
                     <XAxis type="number" hide />
                     <YAxis dataKey="cidade" type="category" width={100} />

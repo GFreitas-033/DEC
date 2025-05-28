@@ -1,3 +1,30 @@
+@media screen and (min-width: 1366px){
+    .titulo{
+        font-size: 1.5rem;
+    }
+
+    .textosCidadeUni{
+        padding: 0.4rem 0 0.4rem 1rem;
+    }
+
+    .divNenhuma{
+        height: 12rem;
+    }
+}
+@media screen and (min-width: 1750px){
+    .titulo{
+        font-size: 2rem;
+    }
+  
+    .textosCidadeUni{
+        padding: 0.8rem 0 0.8rem 1rem;
+    }
+
+    .divNenhuma{
+        height: 18rem;
+    }
+}
+
 .containerCidadeUnidade{
     color: #000;
     width: 27%;
@@ -22,18 +49,14 @@
     text-align: center;
     margin-top: 0.5rem;
 }
-.textosCidadeUni{
-    padding: 0.8rem 0 0.8rem 1rem;
-}
 
 .divNenhuma{
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 18rem;
 }
 
 .ativo{
-    background-color: #FBD034; /* ou branco se quiser o fundo claro */
+    background-color: #FBD034;
 }
