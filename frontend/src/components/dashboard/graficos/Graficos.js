@@ -4,21 +4,15 @@ import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import EstiloGraficos from "./graficos.module.css";
 
 export default function BlocoGraficos() {
-    const [tela, setTela] = useState(() => {
-        const largura = window.innerWidth;
-        if (largura <= 1750) return 79;
-        if (largura >= 1750) return 120;
-    });
+    const [tela, setTela] = useState();
 
     useEffect(() => {
         const handleResize = () => {
             const largura = window.innerWidth;
             if (largura <= 1366) {
-                setTela(79);
+                setTela(80);
             } else if (largura <= 1750) {
-                setTela(120);
-            } else {
-                setTela(150);
+                setTela(100);
             }
         };
 
@@ -48,8 +42,8 @@ export default function BlocoGraficos() {
         <div className={EstiloGraficos.containerGraficos}>
             {/* Grafico 1 */}
             <div className={EstiloGraficos.divGrafico}>
-                <h1 className={EstiloGraficos.titulo}>% ENTRE MENINOS E MENINAS</h1>
-                <ResponsiveContainer width="100%" height="100%">
+                <h1 className={EstiloGraficos.titulo}>Meninos X Meninas</h1>
+                <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
                         <Pie data={dataGenero} dataKey="value"
                           outerRadius={tela}
@@ -61,13 +55,10 @@ export default function BlocoGraficos() {
                             ))}
                         </Pie>
                     </PieChart>
-                </ResponsiveContainer>
-                {/* Conteúdo central */}
-                <div className={EstiloGraficos.centroGrafico}>                    
-                    <img src={require('../../../imgs/iconsDashboard/boygirl.png')} 
-                    alt="Icon de Garato e Garota" className={EstiloGraficos.iconsGrafico} />                  
-                    {/* Legenda */}
-                    <div className={EstiloGraficos.legenda}>
+                </ResponsiveContainer>    
+                {/* Legenda */}
+                <div className={EstiloGraficos.legenda}>
+                    <div className={EstiloGraficos.ajusteLegenda}>
                         {dataGenero.map((entry, index) => (
                             <div className={EstiloGraficos.itemLegenda}>
                                 <div
@@ -78,12 +69,14 @@ export default function BlocoGraficos() {
                             </div>
                         ))}
                     </div>
+                    <img src={require('../../../imgs/iconsDashboard/boygirl.png')} 
+                     alt="Icon de Garato e Garota" className={EstiloGraficos.iconsGrafico} />
                 </div>
             </div>
             {/* Grafico 2 */}
             <div className={EstiloGraficos.divGrafico}>
-                <h1 className={EstiloGraficos.titulo}>DESTRO X CANHOTO</h1>
-                <ResponsiveContainer width="100%" height="100%">
+                <h1 className={EstiloGraficos.titulo}>Destro X Canhoto</h1>
+                <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
                         <Pie data={dataDestroCanhoto} dataKey="value"
                           outerRadius={tela}
@@ -96,12 +89,9 @@ export default function BlocoGraficos() {
                         </Pie>
                     </PieChart>
                 </ResponsiveContainer>
-                {/* Conteúdo central */}
-                <div className={EstiloGraficos.centroGrafico}>
-                    <img src={require('../../../imgs/iconsDashboard/perfil.png')} 
-                    alt="Icon de Perfil" className={EstiloGraficos.iconsGrafico} />
-                    {/* Legenda */}
-                    <div className={EstiloGraficos.legenda}>
+                {/* Legenda */}
+                <div className={EstiloGraficos.legenda}>
+                    <div className={EstiloGraficos.ajusteLegenda}>
                         {dataDestroCanhoto.map((entry, index) => (
                             <div className={EstiloGraficos.itemLegenda}>
                                 <div
@@ -112,6 +102,8 @@ export default function BlocoGraficos() {
                             </div>
                         ))}
                     </div>
+                    <img src={require('../../../imgs/iconsDashboard/perfil.png')} 
+                     alt="Icon de Perfil" className={EstiloGraficos.iconsGrafico} />
                 </div>
             </div>
         </div>

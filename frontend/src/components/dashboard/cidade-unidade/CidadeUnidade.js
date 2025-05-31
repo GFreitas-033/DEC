@@ -5,8 +5,10 @@ import EstiloCidaUni from "./cidadeUnidade.module.css";
 export default function CidadeUnidade(){
     const [mostrar, setMostrar] = useState(false);
     const [cidadeSelecionada, setCidadeSelecionada] = useState("");
+    const [unidadeSelecionada, setUnidadeSelecionada] = useState("");
 
     const cidades = ["Todas as Cidades", "Lins", "Bauru", "Rio Preto", "Promissão", "Guaiçara", "Cafelândia"];
+    const unidades = ["Lins", "Bauru", "Rio Preto", "Promissão", "Guaiçara", "Cafelândia"];
 
     const handleSelecionarCidade = (cidade) => {
         if (cidadeSelecionada === cidade) {
@@ -17,6 +19,16 @@ export default function CidadeUnidade(){
             // Se clicar em outra, marca
             setCidadeSelecionada(cidade);
             setMostrar(true);
+        }
+    };
+
+    const handleSelecionarUnidade = (unidade) => {
+        if (unidadeSelecionada === unidade) {
+            // Se clicar na mesma, desmarca
+            setUnidadeSelecionada("");
+        } else {
+            // Se clicar em outra, marca
+            setUnidadeSelecionada(unidade);
         }
     };
 
@@ -39,10 +51,12 @@ export default function CidadeUnidade(){
                 <h1 className={EstiloCidaUni.titulo}>Unidades</h1>
                 {mostrar ? ( 
                     <>
-                        {cidades.map((cidade, index) => (
-                            <p key={index} className={EstiloCidaUni.textosCidadeUni}
-                            style={{cursor: 'default'}}>
-                                {cidade}
+                        {unidades.map((unidade, index) => (
+                            <p key={index} className={`${EstiloCidaUni.textosCidadeUni}
+                            ${unidadeSelecionada === unidade ? EstiloCidaUni.ativo : ""}`}
+                            onClick={() => handleSelecionarUnidade(unidade)}
+                            style={{cursor: 'pointer'}}>
+                                {unidade}
                             </p>
                         ))}
 

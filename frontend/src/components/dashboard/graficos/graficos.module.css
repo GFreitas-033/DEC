@@ -1,105 +1,70 @@
 @media screen and (min-width: 1366px){
     .containerGraficos{
-        width: 40%;
+        width: 30rem;
+        height: 20rem;
     }
 
     .titulo{
-        font-size: 0.8rem;
-    }
-
-    .divGrafico{
-        height: 60%;
-    }
-
-    .centroGrafico{
-        width: 60%;
-        height: 82%;
-        top: 87%;
-        left: 50%;
+        font-size: 1.3rem;
     }
 
     .legenda{
-        font-size: 0.8rem;
-    }
-
-    .caixaCor{
-        width: 0.8rem;
-        height: 0.8rem;
+        margin-top: -2rem;
     }
 }
 @media screen and (min-width: 1750px){
     .containerGraficos{
-        width: 38%;
+        width: 40rem;
+        height: 25rem;
     }
 
     .titulo{
-        font-size: 100%;
-    }
-
-    .divGrafico{
-        height: 70%;
-    }
-
-    .centroGrafico{
-        width: 68%;
-        height: 72%;   
-        top: 78.5%;
-        left: 50%;
-    }
-
-    .legenda{
-        font-size: 100%;
+        font-size: 1.5rem;
     }
     
-    .caixaCor{
-        width: 1rem;
-        height: 1rem;
+    .legenda{
+        margin-top: 0rem;
     }
 }
 .containerGraficos {
     color: #000;
-    height: 43%;
     border-radius: 1.5rem;
     background-color: #d9d9d9;
-    margin-top: 2%;
+    margin-top: 1.5rem;
     user-select: none;
     display: flex;
     justify-content: center;
+    border: #000 solid 0.15rem;
 }
 
 .titulo{
     text-align: center;
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin-top: 1rem;
 }
 
 .divGrafico{
-    width: 100%;
-    position: relative;
+    width: 50%;
     pointer-events: none;
-}
-
-.centroGrafico{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff; /* branco no centro */
-    border-radius: 100%;
-    position: absolute;
-    transform: translate(-50%, -50%);
 }
 
 /* Estilo dos Icons */
 .iconsGrafico{
-    width: 40%;
+    width: 3rem;
 }
 
 /* Estilo da Legenda */
 .legenda{
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
     gap: 0.5rem;
+    font-size: 1rem;
+}
+
+.ajusteLegenda{
+    display: flex;
+    flex-direction: column;
 }
 
 .itemLegenda{
@@ -109,5 +74,7 @@
 }
 
 .caixaCor{
+    width: 1rem;
+    height: 1rem;
     border-radius: 100%;
 }
