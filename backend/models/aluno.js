@@ -2,7 +2,7 @@ const db = require('../database/db');
 
 async function readAluno() {
     try {
-        const results = await db.query('SELECT * FROM aluno');
+        const results = await db.query('SELECT * FROM aluno WHERE ativado=1');
         return results[0];
     } catch (err) {
         console.error('Erro ao obter dados:', err);
@@ -42,7 +42,7 @@ async function updateAluno(id_pessoa, destro_canhoto, id_responsavel,tipo_plano,
 
 async function deleteAluno(id_pessoa) {
     try {
-        await db.query('DELETE FROM aluno WHERE id_pessoa = ?', [id_pessoa]);
+        await db.query('UPDATE aluno SET ativado = 0 WHERE id_pessoa = ?', [id_pessoa]);
     } catch (err) {
         console.error('Erro ao excluir registro:', err);
         throw new Error('Erro interno do servidor');
