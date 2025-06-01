@@ -64,6 +64,18 @@ router.get('/api/minhas_notificacoes/', async (req, res) => {
     res.json(data);
 })
 
+router.post('/api/excluir_notificacao/', async (req, res) => {
+    try{
+        const {id_notificacao} = req.body;
+        await noti_UniModel.deleteNotificacao_Uni(id_notificacao);
+        res.status(200).json({
+            message: 'Notificação apagada com sucesso!',
+        });
+    }catch(error){
+        res.status(500).send('Erro ao obter dados: '+error);
+    }
+})
+
 router.get('/sair', (req, res) => {
     req.session.destroy();
     res.json({ message: "Sessão encerrada com sucesso" });

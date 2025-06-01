@@ -8,21 +8,33 @@ export default function Notificacao() {
   const [mensagens, setMensagens] = useState([]);
 
   useEffect(() => {
-    async function fetchMensagens() {
-      try {
-        const response = await axios.get("/api/minhas_notificacoes/");
-        setMensagens(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar notificacoes:", error);
-      }
-    }
     fetchMensagens();
   }, []);
 
+  async function fetchMensagens() {
+    try {
+      const response = await axios.get("/api/minhas_notificacoes/");
+      setMensagens(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar notificacoes:", error);
+    }
+  }
+
+  async function excluirNotificacao(id_notificacao) {
+    try {
+      await axios.post("/api/excluir_notificacao", {
+        id_notificacao: id_notificacao
+      });
+      fetchMensagens();
+    } catch (error) {
+      console.error("Erro ao excluir notificacao:", error);
+    }
+  }
+
   return (
     <div className={Sino_Style.containerSino}>
-      <img src={Sino} className={Sino_Style.sinoImg} alt="Sino" 
-      onClick={()=>{setMostrar(!mostrar)}}/>
+      <img src={Sino} className={Sino_Style.sinoImg} alt="Sino"
+        onClick={() => { setMostrar(!mostrar) }} />
       {mensagens.length > 0 && (
         <span className={Sino_Style.qtnNotificacao}>{mensagens.length}</span>
       )}
@@ -34,13 +46,13 @@ export default function Notificacao() {
                 <React.Fragment key={msg.id_notificacao_uni}>
                   <p>
                     {msg.mensagem}
-                    <img src={require('../../imgs/icons/Excluir.png')} className={Sino_Style.btnExcluir} alt="Excluir"/>
+                    <img src={require('../../imgs/icons/Excluir.png')} className={Sino_Style.btnExcluir} alt="Excluir" onClick={() => excluirNotificacao(msg.id_notificacao_uni)}/>
                   </p>
                   <hr />
                 </React.Fragment>
               ))
             ) : (
-              <p>Sem notificacoes.</p>
+              <p>Sem notificações.</p>
             )}
           </div>
         </div>
