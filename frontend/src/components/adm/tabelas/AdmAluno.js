@@ -12,7 +12,7 @@ import BarraLateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar";
 
-export default function Adm_aluno(){
+export default function Adm_aluno() {
     const navigate = useNavigate();
     const [alunos, setAlunos] = useState([]);
     const [alunosFiltrados, setAlunosFiltrados] = useState([]);
@@ -27,8 +27,9 @@ export default function Adm_aluno(){
     const [filtroUnidade, setFiltroUnidade] = useState("");
     const [filtroCidade, setFiltroCidade] = useState("");
     const [filtroNascimento, setFiltroNascimento] = useState("");
+    const [filtroTipoAluno, setFiltroTipoAluno] = useState("");
 
-    const alertRemoverAluno = (id_aluno) =>{
+    const alertRemoverAluno = (id_aluno) => {
         Swal.fire({
             title: "Quer Realmente Excluir esse(a) Aluno(a)?",
             icon: "question",
@@ -54,7 +55,7 @@ export default function Adm_aluno(){
     const logado = async () => {
         try {
             let response = await axios.post('/login');
-            if(response.data.adm !== 1){
+            if (response.data.adm !== 1) {
                 navigate('/home');
             }
         } catch (error) {
@@ -64,14 +65,14 @@ export default function Adm_aluno(){
 
     const fetchUnidades = async () => {
         try {
-          const response = await axios.get("/api/unidade/");
-          const unidadesData = response.data.map((unidade) => ({
-            id: unidade.id_unidade,
-            nome: unidade.nome_unidade,
-          }));
-          setUnidades(unidadesData);
+            const response = await axios.get("/api/unidade/");
+            const unidadesData = response.data.map((unidade) => ({
+                id: unidade.id_unidade,
+                nome: unidade.nome_unidade,
+            }));
+            setUnidades(unidadesData);
         } catch (error) {
-          console.error("Erro ao buscar unidades:", error);
+            console.error("Erro ao buscar unidades:", error);
         }
     };
 
@@ -90,17 +91,20 @@ export default function Adm_aluno(){
 
     useEffect(() => {
         let filtrados = alunos;
-        if(filtroUnidade) {
+        if (filtroUnidade) {
             filtrados = filtrados.filter(aluno => aluno.id_unidade === parseInt(filtroUnidade));
         }
-        if(filtroCidade) {
+        if (filtroCidade) {
             filtrados = filtrados.filter(aluno => aluno["lower(e.cidade)"].toLowerCase().includes(filtroCidade.toLowerCase()));
         }
-        if(filtroNascimento) {
-            filtrados = filtrados.filter(aluno => aluno.dt_nasc_pessoa.substring(0,4) === filtroNascimento);
+        if (filtroNascimento) {
+            filtrados = filtrados.filter(aluno => aluno.dt_nasc_pessoa.substring(0, 4) === filtroNascimento);
+        }
+        if (filtroTipoAluno) {
+            filtrados = filtrados.filter(aluno => aluno.tipo_aluno === filtroTipoAluno);
         }
         setAlunosFiltrados(filtrados);
-    }, [filtroUnidade, filtroCidade, filtroNascimento, alunos]);
+    }, [filtroUnidade, filtroCidade, filtroNascimento, filtroTipoAluno, alunos]);
 
     const excluirAluno = async (id_aluno) => {
         try {
@@ -131,7 +135,7 @@ export default function Adm_aluno(){
         if (!checked) filtroSetter("");
     };
 
-    return(
+    return (
         <div>
             <Background_Sistema />
             <div className={ContainerCss.container}>
@@ -140,10 +144,10 @@ export default function Adm_aluno(){
                     <h1 className={EstiloAdmAluno.titulo}>ALUNOS</h1>
                     <div className={EstiloAdmAluno.divFiltro}>
                         <h1 className={EstiloAdmAluno.textoFiltro}>Filtrar por:</h1>
-                        <button className={EstiloAdmAluno.btnFiltro} onClick={()=>{setMostrar(!mostrar)}}>Filtros</button>
+                        <button className={EstiloAdmAluno.btnFiltro} onClick={() => { setMostrar(!mostrar) }}>Filtros</button>
                         {mostrar && (
                             <>
-                                <div className={EstiloAdmAluno.fundoEscuro} onClick={()=>{setMostrar(!mostrar)}}></div>
+                                <div className={EstiloAdmAluno.fundoEscuro} onClick={() => { setMostrar(!mostrar) }}></div>
                                 <div className={EstiloAdmAluno.filtros}>
                                     <div>
                                         <input type="checkbox" checked={checado1} onChange={handleCheckboxChange(setChecado1, setFiltroUnidade)} />
@@ -151,7 +155,7 @@ export default function Adm_aluno(){
                                         {checado1 && (
                                             <>
                                                 <br />
-                                                <select className={`${EstiloAdmAluno.inputSelect} ${EstiloAdmAluno.inputGeral}`} onChange={(e)=>setFiltroUnidade(e.target.value)}>
+                                                <select className={`${EstiloAdmAluno.inputSelect} ${EstiloAdmAluno.inputGeral}`} onChange={(e) => setFiltroUnidade(e.target.value)}>
                                                     <option value="">Selecionar Unidade</option>
                                                     {unidades.map((unidade) => (
                                                         <option key={unidade.id} value={unidade.id}>{unidade.nome}</option>
@@ -166,7 +170,7 @@ export default function Adm_aluno(){
                                         {checado2 && (
                                             <>
                                                 <br />
-                                                <input type="text" className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} onChange={(e)=>setFiltroCidade(e.target.value)} />
+                                                <input type="text" className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} onChange={(e) => setFiltroCidade(e.target.value)} />
                                             </>
                                         )}
                                     </div>
@@ -176,26 +180,34 @@ export default function Adm_aluno(){
                                         {checado3 && (
                                             <>
                                                 <br />
-                                                <input type="text" placeholder="Ano de Nascimento" className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} onChange={(e)=>setFiltroNascimento(e.target.value)} />
+                                                <input type="text" placeholder="Ano de Nascimento" className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} onChange={(e) => setFiltroNascimento(e.target.value)} />
                                             </>
                                         )}
                                     </div>
                                     <div>
-                                        <input type="checkbox" checked={checado4} onChange={handleCheckboxChange(setChecado4, setFiltroNascimento)} />
+                                        <input
+                                            type="checkbox"
+                                            checked={checado4}
+                                            onChange={handleCheckboxChange(setChecado4, setFiltroTipoAluno)}
+                                        />
                                         <label>Tipo de Aluno</label>
                                         {checado4 && (
                                             <>
                                                 <br />
-                                                <select className={`${EstiloAdmAluno.inputSelect} ${EstiloAdmAluno.inputGeral}`}>
+                                                <select
+                                                    className={`${EstiloAdmAluno.inputSelect} ${EstiloAdmAluno.inputGeral}`}
+                                                    value={filtroTipoAluno}
+                                                    onChange={(e) => setFiltroTipoAluno(e.target.value)}
+                                                >
                                                     <option value="">Selecionar</option>
-                                                    <option>Pagante</option>
-                                                    <option>Não Pagante</option>
-                                                    <option>Escola</option>
+                                                    <option value="pagante">Pagante</option>
+                                                    <option value="naoPagante">Não Pagante</option>
+                                                    <option value="escola">Escola</option>
                                                 </select>
                                             </>
                                         )}
                                     </div>
-                                    <img src={require('../../../imgs/icons/cancelar.png')} className={EstiloAdmAluno.imgFechar} onClick={()=>{setMostrar(!mostrar)}} />
+                                    <img src={require('../../../imgs/icons/cancelar.png')} className={EstiloAdmAluno.imgFechar} onClick={() => { setMostrar(!mostrar) }} />
                                 </div>
                             </>
                         )}
