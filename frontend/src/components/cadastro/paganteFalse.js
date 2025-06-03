@@ -658,7 +658,7 @@ const Passo9 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange }) 
       <h1>Contrato</h1>
     </div>
     <div className={Styles.divContrato}>
-      <p className={Styles.contrato}>
+      <div className={Styles.contrato}>
         <b>TERMO DE COMPROMISSO</b><br /><br />
         DOURADO ESGRIMA CLUB<br /><br />
         O Dourado Esgrima Club, em parceria com escolas participantes do programa Esgrima Escolar, 
@@ -681,7 +681,7 @@ const Passo9 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange }) 
           <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>
-      </p>
+      </div>
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>

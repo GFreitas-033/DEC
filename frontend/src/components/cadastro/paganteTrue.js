@@ -994,7 +994,7 @@ const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, c
       <h1>Contrato</h1>
     </div>
     <div className={Styles.divContrato}>
-      <p className={Styles.contrato}>
+      <div className={Styles.contrato}>
         <a href={contratoPdf} target="_blank"
           rel="noopener noreferrer"
           className={Styles.linkContrato}
@@ -1005,7 +1005,7 @@ const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, c
           <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>
-      </p>
+      </div>
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>

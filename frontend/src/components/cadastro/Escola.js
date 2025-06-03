@@ -314,8 +314,8 @@ export default function Form() {
       cpfResp1={cpfResp1} setCpfResp1={setCpfResp1} generoResp1={generoResp1} setGeneroResp1={setGeneroResp1} rgResp1={rgResp1} setRgResp1={setRgResp1}
       telefoneResp1={telefoneResp1} setTelefoneResp1={setTelefoneResp1} areAllFieldsFilled={areAllFieldsFilled} />,
 
-    <Passo3 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro}
-      bairro={bairro} cidade={cidade} uf={uf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
+    <Passo3 nextStep={nextStep} prevStep={prevStep} cep={cep} setCep={setCep} logradouro={logradouro} setLogradouro={setLogradouro}
+      bairro={bairro} setBairro={setBairro} cidade={cidade} setCidade={setCidade} uf={uf} setUf={setUf} numero={numero} setNumero={setNumero} handleBuscarCep={handleBuscarCep}
       nascimento={nascimento} calcularIdade={calcularIdade} setStep={setStep} areAllFieldsFilled={areAllFieldsFilled} pesquisarUnidades={pesquisarUnidades} />,
 
     <Passo4 nextStep={nextStep} prevStep={prevStep} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade} unidades={unidades} areAllFieldsFilled={areAllFieldsFilled} />,
@@ -430,17 +430,17 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
   </div>
 );
 
-const Passo3 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handleBuscarCep, cep, setCep, logradouro, bairro, cidade, uf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
+const Passo3 = ({ nextStep, prevStep, calcularIdade, setStep, nascimento, handleBuscarCep, cep, setCep, logradouro, setLogradouro, bairro, setBairro, cidade, setCidade, uf, setUf, numero, setNumero, areAllFieldsFilled, pesquisarUnidades }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Endereço</h1>
     </div>
     <div className={Styles.container_inputs}>
       <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
-      <UF u={uf} />
-      <Cidade c={cidade} />
-      <Bairro b={bairro} />
-      <Rua r={logradouro} />
+      <UF value={uf} setValue={setUf} />
+      <Cidade value={cidade} setValue={setCidade} />
+      <Bairro value={bairro} setValue={setBairro} />
+      <Rua value={logradouro} setValue={setLogradouro} />
       <Numero value={numero} setValue={setNumero} />
     </div>
     <div className={Styles.divBotao}>
@@ -601,7 +601,7 @@ const Passo7 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, hand
       <h1>Contrato</h1>
     </div>
     <div className={Styles.divContrato}>
-      <p className={Styles.contrato}>
+      <div className={Styles.contrato}>
         <a href={contratoPdf} target="_blank" 
           rel="noopener noreferrer" 
           className={Styles.linkContrato}
@@ -612,7 +612,7 @@ const Passo7 = ({ prevStep, cadastrar, areAllFieldsFilled, aceitouContrato, hand
           <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
           <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
         </div>
-      </p>
+      </div>
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>

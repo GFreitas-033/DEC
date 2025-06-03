@@ -52,33 +52,55 @@
     font-size: 1.2rem;
 }
 
-.lista{
-    line-height: 1.8rem;
-    font-size: 1.2rem;
-    color: #ccc;
+/* Estilo da lista de Alunos */
+.lista {
+    list-style: none;
+    line-height: 1rem;
+    font-size: 1rem;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
-.divAcoes{
+li {
     display: flex;
     align-items: center;
-    margin-left: 3rem;
+    justify-content: space-between;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.5rem;
+    padding: 0.3rem 1rem;
+    background-color: #1e1e1e;
+    transition: background-color 0.3s ease;
 }
-.iconExcluir{
+li:hover {
+    background-color: #2b2b2b;
+}
+
+.nomesAlunos {
+    font-size: 1rem;
+    color: #fff;
+}
+
+.divAcoes {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+.icon {
     cursor: pointer;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: none;
-    margin: 0rem 0.2rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 0.3rem;
+    padding: 0.2rem;
+    transition: background-color 0.3s ease;
 }
-.iconExcluir:hover{
+.icon:hover {
     background-color: #FBD034;
 }
 
-li{
-    display: flex;
-    align-items: center;
-    border: #ccc solid 0.1rem;
-}
 
 /* Butão Ir pra Chamada */
 .btnChamada{

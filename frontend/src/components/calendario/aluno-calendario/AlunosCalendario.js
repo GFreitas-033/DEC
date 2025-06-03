@@ -89,20 +89,6 @@ export default function AlunosCalendario() {
         }
     };
     
-
-    // useEffect(() => {
-    //     logado();
-    //     const fetchAlunos = async () => {
-    //         try {
-    //             const response = await axios.get(`/listaralunos/${idturma}`);
-    //             setAlunos(response.data);
-    //         } catch (error) {
-    //             console.error("Erro ao buscar alunos:", error);
-    //         }
-    //     };
-
-    //     fetchAlunos();
-    // }, [idturma]);
     const buscarAlunos = async () => {
         try {
             const response = await axios.get(`/listaralunos/${idturma}`);
@@ -162,20 +148,21 @@ export default function AlunosCalendario() {
                         <h1 className={Calendario.textTurma}>{turma.nome_turma}</h1>
                         <p className={Calendario.textLH}>Local: {turma.endereco_completo}</p>
                         <p className={Calendario.textLH}>Horário: {turma.horario}</p>
+
                         <ul className={Calendario.lista}>
                             {alunos.map((aluno, index) => (
                                 <li key={index}>
-                                    {aluno.nome_pessoa}
+                                    <p className={Calendario.nomesAlunos}>{aluno.nome_pessoa}</p>
                                     <div className={Calendario.divAcoes}>
-                                        <img 
+                                        <img
                                             src={require('../../../imgs/icons/switch.png')} 
-                                            className={Calendario.iconExcluir}
+                                            className={Calendario.icon}
                                             onClick={()=>{alertTrocarTurma(aluno.id_pessoa)}}
                                             alt="Trocar de Turma"
                                         />
-                                        <img 
+                                        <img
                                             src={require('../../../imgs/icons/Excluir.png')} 
-                                            className={Calendario.iconExcluir}
+                                            className={Calendario.icon}
                                             onClick={()=>{alertRemoverAluno(aluno.id_pessoa)}}
                                             alt="Excluir aluno"
                                         />
