@@ -18,6 +18,11 @@
         font-size: 0.8rem;
     }
 
+    .select{
+        min-width: 20rem;
+        max-width: 20rem;
+    }
+
     /* Estilo Botão */
     button{
         margin-bottom: 1rem;
@@ -73,6 +78,11 @@
 
     .textcenter{
         font-size: 0.9rem;
+    }
+
+    .select{
+        min-width: 30rem;
+        max-width: 30rem;
     }
 
     /* Estilo Radio */
@@ -259,11 +269,6 @@
     border: 0.2rem solid transparent;
 
     padding: 1rem;
-    min-width: 30rem;
-    max-width: 30rem;
-    
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 .select:focus {

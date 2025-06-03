@@ -766,7 +766,7 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
       <button type="button" onClick={() => {
         if (id_aluno) {
           setStep(9);
-        } else if (cep != "" && uf != "" && cidade != "" && bairro != "" && logradouro != "" && numero != "") {
+        } else if (cep !== "" && uf !== "" && cidade !== "" && bairro !== "" && logradouro !== "" && numero !== "") {
           pesquisarUnidades();
           nextStep();
         } else {

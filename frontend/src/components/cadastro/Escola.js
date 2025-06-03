@@ -332,11 +332,11 @@ export default function Form() {
   return (
     <div>
       <div className={EstiloBack.backgroundContainer}>
-        <img src={require('../../imgs/backgroundDesktop/backTanger.png')} 
+        <img src="/backgroundDesktop/backTanger.png" 
           alt="Background" className={EstiloBack.responsiveImg} draggable="false" 
            id={EstiloBack.backDesk}
         />
-        <img src={require('../../imgs/backgroundMobile/backTangerMob.png')} 
+        <img src="/backgroundMobile/backTangerMob.png" 
           alt="Background" className={EstiloBack.responsiveImg} draggable="false" 
            id={EstiloBack.backMob}
         />
