@@ -1,3 +1,17 @@
+@media  screen and (min-width: 1366px){
+    .containerDash{
+        width: 69rem;
+        height: 47rem;
+    }
+}
+/* 80vw 96vh */
+@media  screen and (min-width: 1750px){
+    .containerDash{
+        width: 95rem;
+        height: 57rem;
+    }
+}
+
 .ajusteTela{
     margin-left: 5rem;
     display: flex;
@@ -6,8 +20,7 @@
 }
 
 .containerDash{
-    width: 80vw;
-    height: 96vh;
+
     background-color: #fff;
     border-radius: 4rem;
     display: flex;
@@ -16,7 +29,7 @@
 }
 
 .hrContainer{
-    width: 80vw;
+    width: 100%;
     height: 0.8%;
     border: none;
     background-color: #000;

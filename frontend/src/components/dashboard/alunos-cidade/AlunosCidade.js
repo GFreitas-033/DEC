@@ -33,7 +33,21 @@ export default function Alunos_Cidade(){
                 >
                     <XAxis type="number" hide />
                     <YAxis dataKey="cidade" type="category" width={100} />
-                    <Tooltip />
+                    <Tooltip   
+                        contentStyle={{
+                            backgroundColor: '#fff',
+                            border: '0.1rem solid #000',
+                            color: '#000',
+                            borderRadius: '0.5rem'
+                        }}
+                        labelStyle={{
+                            fontWeight: 'bold'
+                        }}
+                        itemStyle={{
+                            color: '#000',
+                            backgroundColor: '#fff'
+                        }}
+                    />
                     <Bar dataKey="alunos" barSize={20}>
                         {dataOrdenada.map((_, index) => (
                             <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />

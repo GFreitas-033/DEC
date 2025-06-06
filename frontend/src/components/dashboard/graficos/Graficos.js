@@ -26,8 +26,8 @@ export default function BlocoGraficos() {
     ];
 
     const dataDestroCanhoto = [
-        { name: "Meninos", value: 2500 },
-        { name: "Meninas", value: 2500 },
+        { name: "Destro", value: 2500 },
+        { name: "Canhoto", value: 2500 },
     ];
     const coresG1 = ["#4867FF", "#FF4AE7"];
     const coresG2 = ["#42FF42", "#FF4545"];
@@ -60,11 +60,11 @@ export default function BlocoGraficos() {
                 <div className={EstiloGraficos.legenda}>
                     <div className={EstiloGraficos.ajusteLegenda}>
                         {dataGenero.map((entry, index) => (
-                            <div className={EstiloGraficos.itemLegenda}>
-                                <div
-                                    className={EstiloGraficos.caixaCor}
-                                    style={{ backgroundColor: coresG1[index % coresG1.length] }}
-                                ></div>
+                            <div key={`legenda-${entry.name}-${index}`}
+                                className={EstiloGraficos.itemLegenda}>
+                                <div className={EstiloGraficos.caixaCor}
+                                style={{ backgroundColor: coresG1[index % coresG1.length] }}
+                            ></div>
                                 <span>{entry.name} {calcularPorcentagem(entry.value, total)}</span>
                             </div>
                         ))}
@@ -93,12 +93,11 @@ export default function BlocoGraficos() {
                 <div className={EstiloGraficos.legenda}>
                     <div className={EstiloGraficos.ajusteLegenda}>
                         {dataDestroCanhoto.map((entry, index) => (
-                            <div className={EstiloGraficos.itemLegenda}>
-                                <div
-                                    className={EstiloGraficos.caixaCor}
-                                    style={{ backgroundColor: coresG2[index % coresG2.length] }}
-                                ></div>
-                                <span>{entry.name} {entry.value}</span>
+                            <div key={`legenda-destro-${entry.name}-${index}`}
+                            className={EstiloGraficos.itemLegenda}>
+                                <div className={EstiloGraficos.caixaCor}
+                                style={{ backgroundColor: coresG2[index % coresG2.length] }}></div>
+                                    <span>{entry.name} {entry.value}</span>
                             </div>
                         ))}
                     </div>
