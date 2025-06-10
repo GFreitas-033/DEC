@@ -30,10 +30,10 @@ async function createAluno(id_pessoa, destro_canhoto, id_responsavel, dt_inicio,
     }
 }
 
-async function updateAluno(id_pessoa, destro_canhoto, id_responsavel,tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2) {
+async function updateAluno(id_pessoa, destro_canhoto, id_responsavel, tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2) {
     try {
-        await db.query('UPDATE aluno SET destro_canhoto = ?, id_responsavel = ?, tipo_plano = ?, dia_pagamento = ?, tipo_aluno = ?, id_responsavel2 = ? WHERE id_pessoa = ?', 
-                      [destro_canhoto, id_responsavel, id_pessoa, tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2]);
+        await db.query('UPDATE aluno SET destro_canhoto = ?, id_responsavel = ?, tipo_plano = ?, dia_pagamento = ?, tipo_aluno = ?, id_responsavel2 = ? WHERE id_pessoa = ?',
+            [destro_canhoto, id_responsavel, tipo_plano, dia_pagamento, tipo_aluno, id_responsavel2, id_pessoa]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');
@@ -50,15 +50,15 @@ async function deleteAluno(id_pessoa) {
 }
 
 async function allDataAluno(id_aluno) {
-    try{
+    try {
         const query = `
             SELECT * from vw_aluno_responsavel WHERE id_aluno = ?
         `;
-
         const [rows] = await db.execute(query, [id_aluno]);
         return rows;
-    }catch{
-        throw new Error('Erro inteno do servidor');
+    } catch (error) {
+        console.error('Erro ao buscar dados completos do aluno:', error);
+        throw new Error('Erro interno do servidor');
     }
 }
 

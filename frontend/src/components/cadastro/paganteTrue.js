@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -74,6 +74,7 @@ export default function Form() {
   const [step, setStep] = useState(0);
   const baseURL = window.location.origin;
   const { id_aluno } = useParams();
+  const navigate = useNavigate();
   // Const contratoPdf
   const [contratoPdf, setContratoPdf] = useState("");
 
@@ -133,6 +134,10 @@ export default function Form() {
   const [selectedTurmas, setSelectedTurmas] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
 
+  const [idEndereco, setIdEndereco] = useState(null);
+  const [idResp1, setIdResp1] = useState(null);
+  const [idResp2, setIdResp2] = useState(null);
+
   // State de contrato
   const [aceitouContrato, setAceitouContrato] = useState(false);
 
@@ -141,16 +146,19 @@ export default function Form() {
   };
 
   useEffect(() => {
-    console.log(id_aluno);
     if (id_aluno) {
       preencherDados();
     }
-  }, []);
+  }, [id_aluno]);
 
   async function preencherDados() {
     try {
       const response = await axios.get(`/api/aluno/allData/${id_aluno}`);
       const dados = response.data[0];
+
+      setIdEndereco(dados.id_endereco);
+      setIdResp1(dados.id_responsavel);
+      setIdResp2(dados.id_responsavel2);  
 
       // Aluno
       setNome(dados.nome_aluno || "");
@@ -491,7 +499,77 @@ export default function Form() {
         })
       }
     } else {
+      try {
+        // 1. Atualizar Endereço
+        await axios.put(`/api/endereco/${idEndereco}`, {
+          cep: cep,
+          estado: uf,
+          cidade: cidade,
+          bairro: bairro,
+          rua: logradouro,
+          numero: numero,
+        });
 
+        // 2. Atualizar Pessoa do Aluno
+        await axios.put(`/api/pessoa/${id_aluno}`, {
+          nome_pessoa: nome,
+          dt_nasc_pessoa: converterParaSQL(nascimento),
+          cpf_pessoa: unformatCPF(cpf),
+          rg_pessoa: unformatRG(rg),
+          email_pessoa: email,
+          telefone_pessoa: unformatTelefone(telefone),
+          genero: genero,
+          id_endereco: idEndereco
+        });
+
+        // 3. Atualizar Responsáveis (se existirem)
+        if (idResp1) {
+          await axios.put(`/api/pessoa/${idResp1}`, {
+            nome_pessoa: nomeResp1,
+            cpf_pessoa: unformatCPF(cpfResp1),
+            rg_pessoa: unformatRG(rgResp1),
+            email_pessoa: emailResp1,
+            telefone_pessoa: unformatTelefone(telefoneResp1),
+            genero: generoResp1,
+            id_endereco: idEndereco
+          });
+        }
+        if (idResp2) {
+          await axios.put(`/api/pessoa/${idResp2}`, {
+            nome_pessoa: nomeResp2,
+            cpf_pessoa: unformatCPF(cpfResp2),
+            rg_pessoa: unformatRG(rgResp2),
+            email_pessoa: emailResp2,
+            telefone_pessoa: unformatTelefone(telefoneResp2),
+            genero: generoResp2,
+            id_endereco: idEndereco
+          });
+        }
+
+        // 4. Atualizar dados específicos do Aluno
+        await axios.put(`/api/aluno/${id_aluno}`, {
+          destro_canhoto: mao_dominante,
+          id_responsavel: idResp1,
+          id_responsavel2: idResp2,
+          tipo_plano: plano,
+          dia_pagamento: d_Vencimento,
+          tipo_aluno: 'pagante' // ou o tipo que vier do banco
+        });
+
+        Swal.fire({
+          title: 'Sucesso!',
+          text: 'Os dados do aluno foram atualizados.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#fbd034'
+        }).then(() => {
+          navigate('/adm/adm_aluno'); // Redireciona para a lista de alunos
+        });
+
+      } catch (error) {
+        console.error("Erro ao atualizar aluno:", error);
+        Swal.fire('Erro!', 'Não foi possível atualizar os dados do aluno.', 'error');
+      }
     }
   }
 
@@ -531,7 +609,7 @@ export default function Form() {
       areAllFieldsFilled={areAllFieldsFilled} handleChangeTurmas={handleChangeTurmas} />,
 
     <Passo10 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento}
-      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} mudarPDF={mudarPDF} id_aluno={id_aluno} setStep={setStep} />,
+      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} mudarPDF={mudarPDF} id_aluno={id_aluno} setStep={setStep} cadastrar={cadastrar}/>,
 
     <Passo11 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato}
       handleCheckboxChange={handleCheckboxChange} contratoPdf={contratoPdf} />,
@@ -910,7 +988,7 @@ const Passo9 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
   </div>
 );
 
-const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento, mudarPDF, id_aluno, setStep }) => (
+const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento, mudarPDF, id_aluno, setStep, cadastrar }) => (
   <div className={Styles.centro}>
     <div className={Styles.textcenter}>
       <h1>Informações sobre<br /> Pagamento</h1>
@@ -959,31 +1037,31 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
         Anterior
       </button>
       <button
-        type="button"
-        onClick={() => {
-          if (plano !== '' && d_Vencimento !== '') {
-            if (id_aluno) {
-              // Chama função de salvar quando existe um id_aluno
-              //salvarDados();
-            } else {
-              // Continua para o próximo passo
-              nextStep();
-              mudarPDF();
-            }
-          } else {
-            faltaCampo();
-          }
-        }}
-        className={Styles.button}
-      >
-        {id_aluno ? "Salvar" : "Próximo"}
-        <img
-          src={require('../../imgs/icons/seta-direita.png')}
-          alt="icon"
-          className={Styles.iconNavegar}
-          draggable="false"
-        />
-      </button>
+                type="button"
+                onClick={() => {
+                    if (plano !== '' && d_Vencimento !== '') {
+                        if (id_aluno) {
+                            // Chama a função principal que agora contém a lógica de salvar
+                            cadastrar();
+                        } else {
+                            // Continua para o próximo passo para finalizar o cadastro
+                            nextStep();
+                            mudarPDF();
+                        }
+                    } else {
+                        faltaCampo();
+                    }
+                }}
+                className={Styles.button}
+            >
+                {id_aluno ? "Salvar Alterações" : "Próximo"} 
+                <img
+                    src={require(id_aluno ? '../../imgs/icons/verifica.png' : '../../imgs/icons/seta-direita.png')}
+                    alt="icon"
+                    className={Styles.iconNavegar}
+                    draggable="false"
+                />
+            </button>
     </div>
   </div>
 );
