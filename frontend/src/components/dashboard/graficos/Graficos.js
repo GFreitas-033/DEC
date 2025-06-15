@@ -3,7 +3,7 @@ import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 
 import EstiloGraficos from "./graficos.module.css";
 
-export default function BlocoGraficos() {
+export default function BlocoGraficos({ data }) {
     const [tela, setTela] = useState();
 
     useEffect(() => {
@@ -16,25 +16,23 @@ export default function BlocoGraficos() {
             }
         };
 
+        // Define o tamanho inicial
+        handleResize();
+
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const dataGenero = [
-        { name: "Meninos", value: 2500 },
-        { name: "Meninas", value: 2500 },
-    ];
+    const dataGenero = data.genero.data;
+    const coresG1 = data.genero.cores;
+    const dataDestroCanhoto = data.destroCanhoto.data;
+    const coresG2 = data.destroCanhoto.cores;
 
-    const dataDestroCanhoto = [
-        { name: "Destro", value: 2500 },
-        { name: "Canhoto", value: 2500 },
-    ];
-    const coresG1 = ["#4867FF", "#FF4AE7"];
-    const coresG2 = ["#42FF42", "#FF4545"];
-
-    const total = dataGenero.reduce((acc, cur) => acc + cur.value, 0);
+    const totalGenero = dataGenero.reduce((acc, cur) => acc + cur.value, 0);
+    const totalDestroCanhoto = dataDestroCanhoto.reduce((acc, cur) => acc + cur.value, 0);
 
     const calcularPorcentagem = (valor, total) => {
+        if (total === 0) return '0%';
         return ((valor / total) * 100).toFixed(0) + '%';
     }
 
@@ -46,16 +44,16 @@ export default function BlocoGraficos() {
                 <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
                         <Pie data={dataGenero} dataKey="value"
-                          outerRadius={tela}
-                          startAngle={90}
-                          endAngle={450}
+                            outerRadius={tela}
+                            startAngle={90}
+                            endAngle={450}
                         >
                             {dataGenero.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={coresG1[index % coresG1.length]} />
                             ))}
                         </Pie>
                     </PieChart>
-                </ResponsiveContainer>    
+                </ResponsiveContainer>
                 {/* Legenda */}
                 <div className={EstiloGraficos.legenda}>
                     <div className={EstiloGraficos.ajusteLegenda}>
@@ -63,14 +61,14 @@ export default function BlocoGraficos() {
                             <div key={`legenda-${entry.name}-${index}`}
                                 className={EstiloGraficos.itemLegenda}>
                                 <div className={EstiloGraficos.caixaCor}
-                                style={{ backgroundColor: coresG1[index % coresG1.length] }}
-                            ></div>
-                                <span>{entry.name} {calcularPorcentagem(entry.value, total)}</span>
+                                    style={{ backgroundColor: coresG1[index % coresG1.length] }}
+                                ></div>
+                                <span>{entry.name} {calcularPorcentagem(entry.value, totalGenero)}</span>
                             </div>
                         ))}
                     </div>
-                    <img src={require('../../../imgs/iconsDashboard/boygirl.png')} 
-                     alt="Icon de Garato e Garota" className={EstiloGraficos.iconsGrafico} />
+                    <img src={require('../../../imgs/iconsDashboard/boygirl.png')}
+                        alt="Icon de Garoto e Garota" className={EstiloGraficos.iconsGrafico} />
                 </div>
             </div>
             {/* Grafico 2 */}
@@ -79,9 +77,9 @@ export default function BlocoGraficos() {
                 <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
                         <Pie data={dataDestroCanhoto} dataKey="value"
-                          outerRadius={tela}
-                          startAngle={90}
-                          endAngle={450}
+                            outerRadius={tela}
+                            startAngle={90}
+                            endAngle={450}
                         >
                             {dataDestroCanhoto.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={coresG2[index % coresG2.length]} />
@@ -94,15 +92,15 @@ export default function BlocoGraficos() {
                     <div className={EstiloGraficos.ajusteLegenda}>
                         {dataDestroCanhoto.map((entry, index) => (
                             <div key={`legenda-destro-${entry.name}-${index}`}
-                            className={EstiloGraficos.itemLegenda}>
+                                className={EstiloGraficos.itemLegenda}>
                                 <div className={EstiloGraficos.caixaCor}
-                                style={{ backgroundColor: coresG2[index % coresG2.length] }}></div>
-                                    <span>{entry.name} {entry.value}</span>
+                                    style={{ backgroundColor: coresG2[index % coresG2.length] }}></div>
+                                <span>{entry.name} {calcularPorcentagem(entry.value, totalDestroCanhoto)}</span>
                             </div>
                         ))}
                     </div>
-                    <img src={require('../../../imgs/iconsDashboard/perfil.png')} 
-                     alt="Icon de Perfil" className={EstiloGraficos.iconsGrafico} />
+                    <img src={require('../../../imgs/iconsDashboard/perfil.png')}
+                        alt="Icon de Perfil" className={EstiloGraficos.iconsGrafico} />
                 </div>
             </div>
         </div>

@@ -3,28 +3,20 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LabelL
 
 import EstiloAlunosCidade from "./alunosCidade.module.css";
 
-export default function Alunos_Cidade(){
+export default function Alunos_Cidade({ data }) {
 
-    const data = [
-        { cidade: 'Lins', alunos: 1600 },
-        { cidade: 'Bauru', alunos: 900 },
-        { cidade: 'Rio Preto', alunos: 750 },
-        { cidade: 'Promissão', alunos: 700 },
-        { cidade: 'Guaíçara', alunos: 550 },
-        { cidade: 'Cafelândia', alunos: 500 },
-    ];
+    const dadosDoGrafico = data.data;
+    const cores = data.cores;
 
     // Ordenar do maior para o menor
-    const dataOrdenada = [...data].sort((a, b) => b.alunos - a.alunos);
+    const dataOrdenada = [...dadosDoGrafico].sort((a, b) => b.alunos - a.alunos);
 
-    const cores = ['#FBD034', '#34A0F2', '#F27457', '#8AD1C2', '#A45EE5', '#50C878'];
+    const altura = dataOrdenada.length * 50;
 
-    const altura= data.length * 50;
-
-    return(
+    return (
         <div className={EstiloAlunosCidade.containerAlunosCidade}>
             <h1 className={EstiloAlunosCidade.titulo}>Alunos por Cidade</h1>
-            
+
             <ResponsiveContainer width="100%" height={altura}>
                 <BarChart
                     layout="vertical"
@@ -33,7 +25,7 @@ export default function Alunos_Cidade(){
                 >
                     <XAxis type="number" hide />
                     <YAxis dataKey="cidade" type="category" width={100} />
-                    <Tooltip   
+                    <Tooltip
                         contentStyle={{
                             backgroundColor: '#fff',
                             border: '0.1rem solid #000',

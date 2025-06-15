@@ -2,13 +2,13 @@ import React, { useState } from "react";
 
 import EstiloCidaUni from "./cidadeUnidade.module.css";
 
-export default function CidadeUnidade(){
+export default function CidadeUnidade({ data }) {
     const [mostrar, setMostrar] = useState(false);
     const [cidadeSelecionada, setCidadeSelecionada] = useState("");
     const [unidadeSelecionada, setUnidadeSelecionada] = useState("");
 
-    const cidades = ["Todas as Cidades", "Lins", "Bauru", "Rio Preto", "Promissão", "Guaiçara", "Cafelândia"];
-    const unidades = ["Lins", "Bauru", "Rio Preto", "Promissão", "Guaiçara", "Cafelândia"];
+    const cidades = data.cidades;
+    const unidades = data.unidades;
 
     const handleSelecionarCidade = (cidade) => {
         if (cidadeSelecionada === cidade) {
@@ -32,7 +32,7 @@ export default function CidadeUnidade(){
         }
     };
 
-    return(
+    return (
         <div className={EstiloCidaUni.containerCidadeUnidade}>
             {/* CIDADES */}
             <div className={EstiloCidaUni.divCidadeUni}>
@@ -40,35 +40,27 @@ export default function CidadeUnidade(){
                 {cidades.map((cidade, index) => (
                     <p key={index} className={`${EstiloCidaUni.textosCidadeUni}
                     ${cidadeSelecionada === cidade ? EstiloCidaUni.ativo : ""}`}
-                    onClick={() => handleSelecionarCidade(cidade)}
-                    style={{cursor: 'pointer'}}>
+                        onClick={() => handleSelecionarCidade(cidade)}
+                        style={{ cursor: 'pointer' }}>
                         {cidade}
                     </p>
                 ))}
             </div>
-            <hr className={EstiloCidaUni.hrCidadeUni}/>
+            <hr className={EstiloCidaUni.hrCidadeUni} />
             <div className={EstiloCidaUni.divCidadeUni}>
                 <h1 className={EstiloCidaUni.titulo}>Unidades</h1>
-                {mostrar ? ( 
+                {mostrar ? (
                     <>
                         {unidades.map((unidade, index) => (
                             <p key={index} className={`${EstiloCidaUni.textosCidadeUni}
                             ${unidadeSelecionada === unidade ? EstiloCidaUni.ativo : ""}`}
-                            onClick={() => handleSelecionarUnidade(unidade)}
-                            style={{cursor: 'pointer'}}>
+                                onClick={() => handleSelecionarUnidade(unidade)}
+                                style={{ cursor: 'pointer' }}>
                                 {unidade}
                             </p>
                         ))}
-
-                        {/* Pode Apagar essa parte comentada */}
-                        {/* {cidades.map((cidade, index) => (
-                            <p key={index} className={EstiloCidaUni.textosCidadeUni}>{cidade}</p>
-                        ))}
-                        {cidades.map((cidade, index) => (
-                            <p key={index} className={EstiloCidaUni.textosCidadeUni}>{cidade}</p>
-                        ))} */}
                     </>
-                ):(
+                ) : (
                     <div className={EstiloCidaUni.divNenhuma}>
                         <p>Nenhuma Cidade Selecionada</p>
                     </div>
