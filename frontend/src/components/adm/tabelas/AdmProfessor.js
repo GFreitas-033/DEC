@@ -92,7 +92,7 @@ export default function Adm_prof(){
                 <div className={EstiloAdmProf.contentAdm}>
                     <h1 className={EstiloAdmProf.titulo}>Professores</h1>
                     <div className={`${EstiloAdmProf.divFiltro} ${EstiloAdmProf.divDisponibilidade}`}
-                    onClick={()=>{alert("Você foi mandado para disponibilidade professor")}}>
+                    onClick={()=>{navigate('disponibilidade')}}>
                         <img src={require('../../../imgs/icons/disponibilidade.png')} 
                         className={EstiloAdmProf.imgDisponibilidade}/>
                         <h1 className={EstiloAdmProf.textoFiltro}>Disponibilidade dos(as) Professores(as)</h1>

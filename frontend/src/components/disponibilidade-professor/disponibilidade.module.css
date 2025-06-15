@@ -1,0 +1,30 @@
+.container_Dispo{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.divInput{
+    width: 60%;
+    margin-top: 5rem;
+}
+
+.inputSelect{
+    appearance: none;
+    width: 20rem;
+    height: 3rem;
+    padding-left: 1rem;
+    cursor: pointer;
+}
+.inputSelect:focus{
+    border: none;
+}
+
+.divCalendario{
+    background-color: #fff;
+    width: 60%;
+    height: 40rem;
+    margin-top: 2rem;
+}
