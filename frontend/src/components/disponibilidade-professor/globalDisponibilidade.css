@@ -1,0 +1,25 @@
+.styles-module_time_table_wrapper__TT-cf {
+    font-family: "Inter", sans-serif;
+}
+
+.styles-module_day__aQ2Tt {
+    background-color: #fff;
+    background-image: linear-gradient(rgba(0,0,0,.08) 50%, transparent 50%);
+}
+
+.styles-module_day_title__cc17c {
+    background-color: #2b2b2b; 
+}
+
+.styles-module_hour__TLyj9 {
+    background-color: #2b2b2b; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.styles-module_event__28gBZ {
+    background-color: #FBD034;
+    color: #000;
+    font-size: 0.8rem;
+}

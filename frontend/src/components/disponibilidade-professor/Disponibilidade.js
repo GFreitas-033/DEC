@@ -5,6 +5,7 @@ import Timetable from 'react-timetable-events'
 
 import ContainerCss from "../containers.module.css";
 import EstiloDispo from "./disponibilidade.module.css";
+import "./globalDisponibilidade.css";
 
 import Background_Sistema from "../background/BackSistema";
 import BarraLateral from "../barra-lateral/BarraLateral";
@@ -56,8 +57,22 @@ export default function Disponibilidade_Prof(){
                 startTime: new Date("2018-02-23T11:30:00"),
                 endTime: new Date("2018-02-23T13:30:00"),
             },
+            {
+                id: 2,
+                name: "E.E Dom Walter Bini",
+                type: "custom",
+                startTime: new Date("2018-02-23T19:30:00"),
+                endTime: new Date("2018-02-23T18:30:00"),
+            },
         ],
-        tuesday: [],
+        tuesday: [            
+            {
+                id: 1,
+                name: "E.E Dom Walter Bini",
+                type: "custom",
+                startTime: new Date("2018-02-23T15:30:00"),
+                endTime: new Date("2018-02-23T17:30:00"),
+            },],
         wednesday: [],
         thursday: [],
         friday: [],
