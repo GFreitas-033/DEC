@@ -91,9 +91,9 @@ export default function Cadastro_turma({ texto, btn }){
         } catch (error) {
           console.error("Erro ao buscar unidades:", error);
         }
-      };
+    };
 
-      const fetchProfessores = async () => {
+    const fetchProfessores = async () => {
         try {
           const response = await axios.get("/api/professor/");
           const nomes = response.data.map((prof) => ({
@@ -105,7 +105,7 @@ export default function Cadastro_turma({ texto, btn }){
         } catch (error) {
           console.error("Erro ao buscar professores:", error);
         }
-      };
+    };
 
     useEffect(() => {
         if (id_turma !== undefined) {

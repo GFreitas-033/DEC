@@ -27,4 +27,5 @@
     width: 60%;
     height: 40rem;
     margin-top: 2rem;
+    overflow-x: hidden;
 }

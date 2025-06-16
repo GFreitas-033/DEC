@@ -31,11 +31,11 @@ export default function Adm_aluno() {
 
     const alertRemoverAluno = (id_aluno) => {
         Swal.fire({
-            title: "Quer Realmente Excluir esse(a) Aluno(a)?",
+            title: "Quer Realmente Desativar esse(a) Aluno(a)?",
             icon: "question",
             showCancelButton: true,
             cancelButtonColor: "#d33",
-            confirmButtonText: "Sim, Excluir Aluno!",
+            confirmButtonText: "Sim, Desativar Aluno!",
             confirmButtonColor: "#fbd034",
             iconColor: "#fbd034",
             background: "#2b2b2b",
@@ -111,16 +111,16 @@ export default function Adm_aluno() {
             await axios.get(`/admbackend/excluiraluno/${id_aluno}`);
             setAlunos(prevAlunos => prevAlunos.filter(aluno => aluno.id_pessoa !== id_aluno));
             Swal.fire({
-                title: "Aluno(a) Excluido(a) com Sucesso!",
+                title: "Aluno(a) Desativado(a) com Sucesso!",
                 icon: "success",
                 confirmButtonColor: "#fbd034",
                 background: "#2b2b2b",
                 theme: "dark"
             });
         } catch (error) {
-            console.error('Erro ao excluir aluno:', error);
+            console.error('Erro ao desativar aluno:', error);
             Swal.fire({
-                title: "Erro ao Excluir Aluno(a)!",
+                title: "Erro ao Desativar Aluno(a)!",
                 icon: "error",
                 confirmButtonColor: "#fbd034",
                 background: "#2b2b2b",
