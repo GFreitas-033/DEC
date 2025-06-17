@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Timetable from 'react-timetable-events'
+import Timetable from 'react-timetable-events';
 
 import ContainerCss from "../containers.module.css";
 import EstiloDispo from "./disponibilidade.module.css";
@@ -12,112 +12,158 @@ import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 import BtnVoltar from "../btn-voltar/BotaoVoltar";
 
-export default function Disponibilidade_Prof(){
+// Objeto inicial vazio para o calendário, para podermos reutilizá-lo
+const initialEventsState = {
+    monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [],
+};
+
+export default function Disponibilidade_Prof() {
     const navigate = useNavigate();
-    const [professor, setProfessor] = useState("");
+    const [selectedProfessorId, setSelectedProfessorId] = useState("");
     const [professores, setProfessores] = useState([]);
+    const [events, setEvents] = useState(initialEventsState);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const formatEventsForTimetable = (turmas) => {
+        // Criamos uma nova cópia para garantir a imutabilidade
+        const newSchedule = JSON.parse(JSON.stringify(initialEventsState));
+        
+        const dayMap = {
+            'segunda': 'monday', 'terça': 'tuesday', 'quarta': 'wednesday',
+            'quinta': 'thursday', 'sexta': 'friday', 'sábado': 'saturday'
+        };
+
+        if (!turmas || turmas.length === 0) {
+            return newSchedule;
+        }
+
+        turmas.forEach(turma => {
+            const dayKey = dayMap[turma.dia_semana.toLowerCase()];
+            if (dayKey) {
+                const [hour, minute] = turma.horario.split(':').map(Number);
+                
+                const startTime = new Date();
+                startTime.setHours(hour, minute, 0, 0);
+
+                const endTime = new Date(startTime.getTime());
+                endTime.setHours(startTime.getHours() + 1); // Assumindo duração de 1 hora
+
+                newSchedule[dayKey].push({
+                    id: turma.id_turma,
+                    name: turma.nome_unidade,
+                    type: "custom",
+                    startTime: startTime,
+                    endTime: endTime,
+                });
+            }
+        });
+        return newSchedule;
+    };
 
     useEffect(() => {
-        logado();
-        fetchProfessores();
-    },[]);
-
-    const logado = async () => {
-        try {
-            let response = await axios.post('/login');
-            response = response.data;
-            if(response.adm!==1){
-                navigate('/home');
+        const fetchProfessores = async () => {
+            try {
+                const response = await axios.get("/api/professor/");
+                const nomes = response.data.map((prof) => ({
+                    id: prof.id_pessoa,
+                    nome: prof.nome_pessoa,
+                }));
+                setProfessores(nomes);
+            } catch (error) {
+                console.error("Erro ao buscar professores:", error);
             }
-        } catch (error) {
-            navigate('/');
+        };
+        fetchProfessores();
+    }, []);
+
+    useEffect(() => {
+        const fetchProfessorSchedule = async () => {
+            if (!selectedProfessorId) {
+                setEvents(initialEventsState);
+                return;
+            }
+            setIsLoading(true);
+            try {
+                const response = await axios.get(`/api/professor/${selectedProfessorId}/turmas`);
+                const formattedEvents = formatEventsForTimetable(response.data);
+                setEvents(formattedEvents);
+            } catch (error) {
+                console.error("Erro ao buscar a disponibilidade do professor:", error);
+                setEvents(initialEventsState);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        // Não executa a busca se o ID for nulo, apenas limpa
+        if (selectedProfessorId) {
+            fetchProfessorSchedule();
+        } else {
+            setEvents(initialEventsState);
         }
-    };
+    }, [selectedProfessorId]);
 
-    const fetchProfessores = async () => {
-        try {
-          const response = await axios.get("/api/professor/");
-          const nomes = response.data.map((prof) => ({
-            id: prof.id_pessoa,
-            nome: prof.nome_pessoa,
-          }));
-          setProfessores(nomes);
-        } catch (error) {
-          console.error("Erro ao buscar professores:", error);
-        }
+    // ***** INÍCIO DA ALTERAÇÃO *****
+    // Nova função para lidar com a mudança de professor
+    const handleProfessorChange = (e) => {
+        const newProfessorId = e.target.value;
+        
+        // 1. Limpa o calendário imediatamente para remover os dados antigos
+        setEvents(initialEventsState); 
+        
+        // 2. Define o ID do novo professor, o que irá disparar o useEffect para buscar os novos dados
+        setSelectedProfessorId(newProfessorId);
     };
+    // ***** FIM DA ALTERAÇÃO *****
 
-    // Codigo para fazer a Table
-    const eventos = {
-        monday: [
-            {
-                id: 1,
-                name: "E.E Dom Walter Bini",
-                type: "custom",
-                startTime: new Date("2018-02-23T11:30:00"),
-                endTime: new Date("2018-02-23T13:30:00"),
-            },
-            {
-                id: 2,
-                name: "E.E Dom Walter Bini",
-                type: "custom",
-                startTime: new Date("2018-02-23T19:30:00"),
-                endTime: new Date("2018-02-23T18:30:00"),
-            },
-        ],
-        tuesday: [            
-            {
-                id: 1,
-                name: "E.E Dom Walter Bini",
-                type: "custom",
-                startTime: new Date("2018-02-23T15:30:00"),
-                endTime: new Date("2018-02-23T17:30:00"),
-            },],
-        wednesday: [],
-        thursday: [],
-        friday: [],
-        saturday: [],
-    };
-
-    return(
+    return (
         <div>
             <Background_Sistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloDispo.container_Dispo}>
                     <div className={EstiloDispo.divInput}>
-                        <select id="SelecaoProfessor" className={EstiloDispo.inputSelect}
-                        value={professor} onChange={(e)=>{setProfessor(e.target.value)}}>
+                        <select 
+                            id="SelecaoProfessor" 
+                            className={EstiloDispo.inputSelect}
+                            value={selectedProfessorId} 
+                            // O onChange agora chama a nova função
+                            onChange={handleProfessorChange}
+                        >
                             <option value="" disabled>
-                                Selecionar Professor
+                                Selecione um Professor
                             </option>
                             {professores.map((professor) => (
                                 <option key={professor.id} value={professor.id}>
                                     {professor.nome}
                                 </option>
                             ))}
-                      </select>  
+                        </select>
                     </div>
                     <div className={EstiloDispo.divCalendario}>
-                        <Timetable
-                            events={eventos}
-                            hoursInterval={{ from: 8, to: 22 }}
-                            timeLabel="Horários"
-                            days={[
-                                { day: 'monday', label: 'Segunda' },
-                                { day: 'tuesday', label: 'Terça' },
-                                { day: 'wednesday', label: 'Quarta' },
-                                { day: 'thursday', label: 'Quinta' },
-                                { day: 'friday', label: 'Sexta' },
-                                { day: 'saturday', label: 'Sábado' },
-                            ]}
-                            style={{height: "100%"}}
-                        />
+                        {isLoading ? (
+                            <p style={{ textAlign: 'center', marginTop: '2rem' }}>Carregando disponibilidade...</p>
+                        ) : (
+                            <Timetable
+                                events={events}
+                                hoursInterval={{ from: 8, to: 22 }}
+                                timeLabel="Horários"
+                                days={[
+                                    { day: 'monday', label: 'Segunda' },
+                                    { day: 'tuesday', label: 'Terça' },
+                                    { day: 'wednesday', label: 'Quarta' },
+                                    { day: 'thursday', label: 'Quinta' },
+                                    { day: 'friday', label: 'Sexta' },
+                                    { day: 'saturday', label: 'Sábado' },
+                                ]}
+                                style={{ height: "100%" }}
+                            />
+                        )}
                     </div>
                 </div>
             </div>
             <Notifica />
             <BtnVoltar />
         </div>
-    )
+    );
 }
