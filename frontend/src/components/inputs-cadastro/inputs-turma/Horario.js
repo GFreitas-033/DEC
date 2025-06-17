@@ -1,7 +1,7 @@
 import React from "react"
 import HorarioStyle from "../input.module.css"
 
-export default function Horario_input({value,setValue}){
+export default function Horario_input({value,setValue, texto}){
 
     function salvar(e){
         let valor = e.target.value;
@@ -11,7 +11,7 @@ export default function Horario_input({value,setValue}){
     return(
         <div className={HorarioStyle.esquerda}>
             <label className={HorarioStyle.label}>
-                <b>Horario</b>
+                <b>Horario {texto}</b>
             </label><br />
             <input type="time" id="Horario" required 
                 className={`${HorarioStyle.input13} ${HorarioStyle.inputPersonalizado}`} value={value} onChange={salvar}/><br />

@@ -24,28 +24,21 @@
     font-size: 0.8rem;
 }
 
+
+
 .styles-module_day__aQ2Tt .styles-module_day_title__cc17c {
-  font-size: 0 !important; /* Esconde o texto original */
-  line-height: 0;         /* Remove a altura da linha original */
+  font-size: 0 !important;
+  line-height: 0;
 }
 
-/*
-  Passo 2: Usa um pseudo-elemento ::after para criar um novo texto.
-  Aqui definimos o estilo do novo texto (tamanho, cor, etc.).
-*/
 .styles-module_day__aQ2Tt .styles-module_day_title__cc17c::after {
   content: '';
-  font-size: 13px; /* Tamanho da fonte para "Segunda", "Terça", etc. Ajuste se necessário. */
-  line-height: normal; /* Restaura a altura da linha */
-  text-transform: uppercase; /* Deixa o texto em maiúsculas, como no original */
-  font-weight: 500; /* Peso da fonte. Ajuste se necessário. */
-  color: #888; /* Cor do texto. Ajuste se necessário. */
+  font-size: 13px;
+  line-height: normal;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
-/*
-  Passo 3: Para cada dia da semana (usando as classes .monday, .tuesday...),
-  definimos qual será o texto em português.
-*/
 .styles-module_day__aQ2Tt.monday .styles-module_day_title__cc17c::after {
   content: 'Segunda';
 }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Timetable from 'react-timetable-events';
 
@@ -18,7 +17,6 @@ const initialEventsState = {
 };
 
 export default function Disponibilidade_Prof() {
-    const navigate = useNavigate();
     const [selectedProfessorId, setSelectedProfessorId] = useState("");
     const [professores, setProfessores] = useState([]);
     const [events, setEvents] = useState(initialEventsState);
@@ -148,14 +146,6 @@ export default function Disponibilidade_Prof() {
                                 events={events}
                                 hoursInterval={{ from: 8, to: 22 }}
                                 timeLabel="Horários"
-                                days={[
-                                    { day: 'monday', label: 'Segunda' },
-                                    { day: 'tuesday', label: 'Terça' },
-                                    { day: 'wednesday', label: 'Quarta' },
-                                    { day: 'thursday', label: 'Quinta' },
-                                    { day: 'friday', label: 'Sexta' },
-                                    { day: 'saturday', label: 'Sábado' },
-                                ]}
                                 style={{ height: "100%" }}
                             />
                         )}

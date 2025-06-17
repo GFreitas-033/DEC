@@ -27,7 +27,8 @@ export default function Cadastro_turma({ texto, btn }){
     const [unidades, setUnidades] = useState([]);
     const [professor, setProfessor] = useState("");
     const [professores, setProfessores] = useState([]);
-    const [horario, setHorario] = useState("");
+    const [horarioI, setHorarioI] = useState("");
+    const [horarioF, setHorarioF] = useState("");
     const [qtdmaxima, setQtdMaxima] = useState("");
     const [diasemana, setDiaSemana] = useState("");
     
@@ -122,7 +123,8 @@ export default function Cadastro_turma({ texto, btn }){
         setUnidade(responseTurma.id_unidade);
         setQtdMaxima(responseTurma.qtd_maxima);
         setDiaSemana(responseTurma.dia_semana);
-        setHorario(responseTurma.horario);
+        setHorarioI(responseTurma.horarioI);
+        //setHorarioF(responseTurma.horarioF);
         setNome(responseTurma.nome_turma);
     }
 
@@ -133,7 +135,8 @@ export default function Cadastro_turma({ texto, btn }){
                     qtd_maxima: qtdmaxima,
                     id_professor: professor,
                     dia_semana: diasemana,
-                    horario: horario,
+                    horario: horarioI,
+                    //horario: horarioF,
                     id_unidade: unidade,
                     nome_turma: nome
                 });
@@ -147,7 +150,8 @@ export default function Cadastro_turma({ texto, btn }){
                     qtd_maxima: qtdmaxima,
                     id_professor: professor,
                     dia_semana: diasemana,
-                    horario: horario,
+                    horario: horarioI,
+                    //horario: horarioF,
                     id_unidade: unidade,
                     nome_turma: nome
                 });
@@ -184,7 +188,8 @@ export default function Cadastro_turma({ texto, btn }){
                             <SelecionarUni value={unidade} setValue={setUnidade} unidades={unidades} />
                             <QtdMaxima value={qtdmaxima} setValue={setQtdMaxima}/>
                             <DiaSemana value={diasemana} setValue={setDiaSemana}/>
-                            <Horario value={horario} setValue={setHorario}/>
+                            <Horario value={horarioI} setValue={setHorarioI} texto={"Início"}/>
+                            <Horario value={horarioF} setValue={setHorarioF} texto={"Final"}/>
                         </div>
                         <div className={StyleCadastroTurma.divBtn}>
                             <button className={StyleCadastroTurma.btn}>
