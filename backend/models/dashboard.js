@@ -86,11 +86,11 @@ async function getDashboardData({ cidade, unidade }) {
             },
             graficos: {
                 genero: {
-                    data: [ { name: "Meninos", value: generoResult[0].find(g => g.genero === 'M')?.value || 0 }, { name: "Meninas", value: generoResult[0].find(g => g.genero === 'F')?.value || 0 } ],
+                    data: [ { name: "Meninos", value: generoResult[0].find(g => g.genero === 'm')?.value || 0 }, { name: "Meninas", value: generoResult[0].find(g => g.genero === 'f')?.value || 0 } ],
                     cores: ["#4867FF", "#FF4AE7"]
                 },
                 destroCanhoto: {
-                    data: [ { name: "Destro", value: destroCanhotoResult[0].find(d => d.destro_canhoto === 'D')?.value || 0 }, { name: "Canhoto", value: destroCanhotoResult[0].find(d => d.destro_canhoto === 'C')?.value || 0 } ],
+                    data: [ { name: "Destro", value: destroCanhotoResult[0].find(d => d.destro_canhoto === 'd')?.value || 0 }, { name: "Canhoto", value: destroCanhotoResult[0].find(d => d.destro_canhoto === 'c')?.value || 0 } ],
                     cores: ["#42FF42", "#FF4545"]
                 }
             },
