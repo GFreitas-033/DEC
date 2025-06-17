@@ -17,7 +17,6 @@ async function getDashboardData({ cidade, unidade }) {
         // --- Lógica de Filtro Dinâmico ---
         let whereClauses = ['a.ativado = 1'];
         let params = [];
-
         if (cidade && cidade !== 'Todas as Cidades') {
             whereClauses.push('e.cidade = ?');
             params.push(cidade);
@@ -28,7 +27,7 @@ async function getDashboardData({ cidade, unidade }) {
         }
         const whereString = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : '';
 
-        // --- Query para Análise Geral (considera ativos e inativos) ---
+        // --- Query para Análise Geral ---
         let geralWhereClauses = [];
         let geralParamsForQuery = [];
         if (cidade && cidade !== 'Todas as Cidades') {
@@ -40,16 +39,19 @@ async function getDashboardData({ cidade, unidade }) {
             geralParamsForQuery.push(unidade);
         }
         const geralWhereString = geralWhereClauses.length > 0 ? `WHERE ${geralWhereClauses.join(' AND ')}` : '';
+        
+        // ***** INÍCIO DA CORREÇÃO *****
         const finalGeralQuery = `
             SELECT
                 COUNT(DISTINCT p.id_pessoa) AS totalAlunos,
-                SUM(CASE WHEN a.ativado = 1 THEN 1 ELSE 0 END) AS ativos,
-                SUM(CASE WHEN a.ativado = 0 THEN 1 ELSE 0 END) AS inativos,
-                SUM(CASE WHEN a.tipo_aluno = 'Pagante' AND a.ativado = 1 THEN 1 ELSE 0 END) AS pagantes,
-                SUM(CASE WHEN a.tipo_aluno != 'Pagante' AND a.ativado = 1 THEN 1 ELSE 0 END) AS naoPagantes
+                COUNT(DISTINCT CASE WHEN a.ativado = 1 THEN p.id_pessoa ELSE NULL END) AS ativos,
+                COUNT(DISTINCT CASE WHEN a.ativado = 0 THEN p.id_pessoa ELSE NULL END) AS inativos,
+                COUNT(DISTINCT CASE WHEN a.tipo_aluno = 'Pagante' AND a.ativado = 1 THEN p.id_pessoa ELSE NULL END) AS pagantes,
+                COUNT(DISTINCT CASE WHEN a.tipo_aluno != 'Pagante' AND a.ativado = 1 THEN p.id_pessoa ELSE NULL END) AS naoPagantes
             ${baseQuery}
             ${geralWhereString}
         `;
+        // ***** FIM DA CORREÇÃO *****
 
         // --- Definição de Todas as Queries ---
         const generoQuery = `SELECT p.genero, COUNT(DISTINCT p.id_pessoa) AS value ${baseQuery} ${whereString} GROUP BY p.genero`;
@@ -84,11 +86,11 @@ async function getDashboardData({ cidade, unidade }) {
             },
             graficos: {
                 genero: {
-                    data: [ { name: "Meninos", value: generoResult[0].find(g => g.genero === 'm')?.value || 0 }, { name: "Meninas", value: generoResult[0].find(g => g.genero === 'f')?.value || 0 } ],
+                    data: [ { name: "Meninos", value: generoResult[0].find(g => g.genero === 'M')?.value || 0 }, { name: "Meninas", value: generoResult[0].find(g => g.genero === 'F')?.value || 0 } ],
                     cores: ["#4867FF", "#FF4AE7"]
                 },
                 destroCanhoto: {
-                    data: [ { name: "Destro", value: destroCanhotoResult[0].find(d => d.destro_canhoto === 'd')?.value || 0 }, { name: "Canhoto", value: destroCanhotoResult[0].find(d => d.destro_canhoto === 'c')?.value || 0 } ],
+                    data: [ { name: "Destro", value: destroCanhotoResult[0].find(d => d.destro_canhoto === 'D')?.value || 0 }, { name: "Canhoto", value: destroCanhotoResult[0].find(d => d.destro_canhoto === 'C')?.value || 0 } ],
                     cores: ["#42FF42", "#FF4545"]
                 }
             },
@@ -110,6 +112,7 @@ async function getDashboardData({ cidade, unidade }) {
     }
 }
 
+// A função getComparativoData permanece a mesma...
 async function getComparativoData({ data1, data2, cidade, unidade }) {
     const connection = await db.getConnection();
     try {
