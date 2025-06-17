@@ -39,9 +39,30 @@ async function deleteProfessor(id_pessoa) {
     }
 }
 
+async function findTurmasByProfessorId(id_professor) {
+    try {
+        const [rows] = await db.query(`
+            SELECT
+                t.id_turma,
+                u.nome_unidade,
+                t.dia_semana,
+                t.horario
+            FROM turma t
+            JOIN unidade u ON t.id_unidade = u.id_unidade
+            WHERE t.id_professor = ? AND t.ativado = 1
+            ORDER BY t.horario;
+        `, [id_professor]);
+        return rows;
+    } catch (err) {
+        console.error('Erro ao buscar turmas do professor:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
 module.exports = {
     readProfessor,
     createProfessor,
     updateProfessor,
-    deleteProfessor
+    deleteProfessor,
+    findTurmasByProfessorId
 };

@@ -28,4 +28,13 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     res.status(200).send('Registro excluído com sucesso!');
 }));
 
+router.get('/:id/turmas', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ message: "O ID do professor é obrigatório." });
+    }
+    const turmas = await professorModel.findTurmasByProfessorId(id);
+    res.json(turmas);
+}));
+
 module.exports = router;
