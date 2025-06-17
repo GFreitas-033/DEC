@@ -56,7 +56,7 @@ async function getDashboardData({ cidade, unidade }) {
         // --- Definição de Todas as Queries ---
         const generoQuery = `SELECT p.genero, COUNT(DISTINCT p.id_pessoa) AS value ${baseQuery} ${whereString} GROUP BY p.genero`;
         const destroCanhotoQuery = `SELECT a.destro_canhoto, COUNT(DISTINCT a.id_pessoa) AS value ${baseQuery} ${whereString} GROUP BY a.destro_canhoto`;
-        const anoNascQuery = `SELECT YEAR(p.dt_nasc_pessoa) AS ano, COUNT(DISTINCT p.id_pessoa) AS quantidade ${baseQuery} ${whereString} GROUP BY YEAR(p.dt_nasc_pessoa) ORDER BY ano DESC LIMIT 6`;
+        const anoNascQuery = `SELECT YEAR(p.dt_nasc_pessoa) AS ano, COUNT(DISTINCT p.id_pessoa) AS quantidade ${baseQuery} ${whereString} GROUP BY YEAR(p.dt_nasc_pessoa) ORDER BY ano DESC`;
         const alunosCidadeQuery = `SELECT e.cidade, COUNT(DISTINCT p.id_pessoa) AS alunos FROM aluno a JOIN pessoa p ON a.id_pessoa = p.id_pessoa JOIN endereco e ON p.id_endereco = e.id_endereco WHERE a.ativado = 1 GROUP BY e.cidade ORDER BY alunos DESC`;
         const cidadesListQuery = `SELECT DISTINCT e.cidade FROM endereco e JOIN pessoa p ON e.id_endereco = p.id_endereco JOIN aluno a ON p.id_pessoa = a.id_pessoa WHERE a.ativado = 1 ORDER BY e.cidade;`;
         let unidadesListQuery = `SELECT DISTINCT u.nome_unidade as unidade FROM unidade u JOIN endereco e ON u.id_endereco = e.id_endereco WHERE e.cidade = ? ORDER BY u.nome_unidade;`;
