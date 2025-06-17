@@ -42,7 +42,7 @@ async function getDashboardData({ cidade, unidade }) {
         // --- Definição de Todas as Queries (agora usando o mesmo 'whereString') ---
         const generoQuery = `SELECT p.genero, COUNT(DISTINCT p.id_pessoa) AS value ${baseQuery} ${whereString} GROUP BY p.genero`;
         const destroCanhotoQuery = `SELECT a.destro_canhoto, COUNT(DISTINCT a.id_pessoa) AS value ${baseQuery} ${whereString} GROUP BY a.destro_canhoto`;
-        const anoNascQuery = `SELECT YEAR(p.dt_nasc_pessoa) AS ano, COUNT(DISTINCT p.id_pessoa) AS quantidade ${baseQuery} ${whereString} GROUP BY YEAR(p.dt_nasc_pessoa) ORDER BY ano DESC LIMIT 6`;
+        const anoNascQuery = `SELECT YEAR(p.dt_nasc_pessoa) AS ano, COUNT(DISTINCT p.id_pessoa) AS quantidade ${baseQuery} ${whereString} GROUP BY YEAR(p.dt_nasc_pessoa) ORDER BY ano DESC`;
         
         // CORREÇÃO: Removido 'WHERE a.ativado = 1' para incluir todos os alunos
         const alunosCidadeQuery = `SELECT e.cidade, COUNT(DISTINCT p.id_pessoa) AS alunos FROM aluno a JOIN pessoa p ON a.id_pessoa = p.id_pessoa JOIN endereco e ON p.id_endereco = e.id_endereco GROUP BY e.cidade ORDER BY alunos DESC`;
