@@ -14,8 +14,7 @@ async function getDashboardData({ cidade, unidade }) {
             LEFT JOIN unidade u ON t.id_unidade = u.id_unidade
         `;
 
-        // --- Lógica de Filtro Unificada para TODO o Dashboard ---
-        // CORREÇÃO: Removido o filtro fixo 'a.ativado = 1' daqui.
+        // --- Lógica de Filtro Unificada ---
         let whereClauses = [];
         let params = [];
         if (cidade && cidade !== 'Todas as Cidades') {
@@ -39,29 +38,26 @@ async function getDashboardData({ cidade, unidade }) {
             ${whereString}
         `;
 
-        // --- Definição de Todas as Queries (agora usando o mesmo 'whereString') ---
+        // ***** INÍCIO DA DEPURAÇÃO *****
+        // Adicione estas linhas para ver a query e os parâmetros no seu console do Node.js
+        console.log("--- DEBUG DA QUERY GERAL ---");
+        console.log("SQL EXECUTADO:", finalGeralQuery);
+        console.log("PARÂMETROS:", params);
+        console.log("--------------------------");
+        // ***** FIM DA DEPURAÇÃO *****
+
         const generoQuery = `SELECT p.genero, COUNT(DISTINCT p.id_pessoa) AS value ${baseQuery} ${whereString} GROUP BY p.genero`;
         const destroCanhotoQuery = `SELECT a.destro_canhoto, COUNT(DISTINCT a.id_pessoa) AS value ${baseQuery} ${whereString} GROUP BY a.destro_canhoto`;
-        const anoNascQuery = `SELECT YEAR(p.dt_nasc_pessoa) AS ano, COUNT(DISTINCT p.id_pessoa) AS quantidade ${baseQuery} ${whereString} GROUP BY YEAR(p.dt_nasc_pessoa) ORDER BY ano DESC LIMIT 6`;
-        
-        // CORREÇÃO: Removido 'WHERE a.ativado = 1' para incluir todos os alunos
+        const anoNascQuery = `SELECT YEAR(p.dt_nasc_pessoa) AS ano, COUNT(DISTINCT p.id_pessoa) AS quantidade ${baseQuery} ${whereString} GROUP BY YEAR(p.dt_nasc_pessoa) ORDER BY ano DESC`;
         const alunosCidadeQuery = `SELECT e.cidade, COUNT(DISTINCT p.id_pessoa) AS alunos FROM aluno a JOIN pessoa p ON a.id_pessoa = p.id_pessoa JOIN endereco e ON p.id_endereco = e.id_endereco GROUP BY e.cidade ORDER BY alunos DESC`;
-        // CORREÇÃO: Removido 'WHERE a.ativado = 1' para listar todas as cidades com alunos (ativos ou inativos)
         const cidadesListQuery = `SELECT DISTINCT e.cidade FROM endereco e JOIN pessoa p ON e.id_endereco = p.id_endereco JOIN aluno a ON p.id_pessoa = a.id_pessoa ORDER BY e.cidade;`;
         let unidadesListQuery = `SELECT DISTINCT u.nome_unidade as unidade FROM unidade u JOIN endereco e ON u.id_endereco = e.id_endereco WHERE e.cidade = ? ORDER BY u.nome_unidade;`;
         
-        // --- Execução Paralela das Queries ---
-        // CORREÇÃO: Ajustada a desestruturação para capturar os resultados corretamente
         const [
-            [geralResult], 
-            [generoResult], 
-            [destroCanhotoResult], 
-            [anoNascResult],
-            [alunosCidadeResult], 
-            [cidadesListResult], 
-            [unidadesListResult]
+            [geralResult], [generoResult], [destroCanhotoResult], [anoNascResult],
+            [alunosCidadeResult], [cidadesListResult], [unidadesListResult]
         ] = await Promise.all([
-            connection.query(finalGeralQuery, params),
+            connection.query(finalGeralQuery, params), // Usa os mesmos parâmetros unificados
             connection.query(generoQuery, params),
             connection.query(destroCanhotoQuery, params),
             connection.query(anoNascQuery, params),
@@ -70,7 +66,6 @@ async function getDashboardData({ cidade, unidade }) {
             (cidade && cidade !== 'Todas as Cidades') ? connection.query(unidadesListQuery, [cidade]) : Promise.resolve([[]])
         ]);
 
-        // --- Formatação do Objeto de Resposta ---
         return {
             geral: {
                 totalAlunos: geralResult[0].totalAlunos || 0,
@@ -82,15 +77,15 @@ async function getDashboardData({ cidade, unidade }) {
             graficos: {
                 genero: {
                     data: [
-                        { name: "Meninos", value: generoResult.find(g => g.genero === 'M')?.value || 0 },
-                        { name: "Meninas", value: generoResult.find(g => g.genero === 'F')?.value || 0 }
+                        { name: "Meninos", value: generoResult.find(g => g.genero === 'm')?.value || 0 },
+                        { name: "Meninas", value: generoResult.find(g => g.genero === 'f')?.value || 0 }
                     ],
                     cores: ["#4867FF", "#FF4AE7"]
                 },
                 destroCanhoto: {
                     data: [
-                        { name: "Destro", value: destroCanhotoResult.find(d => d.destro_canhoto === 'D')?.value || 0 },
-                        { name: "Canhoto", value: destroCanhotoResult.find(d => d.destro_canhoto === 'C')?.value || 0 }
+                        { name: "Destro", value: destroCanhotoResult.find(d => d.destro_canhoto === 'd')?.value || 0 },
+                        { name: "Canhoto", value: destroCanhotoResult.find(d => d.destro_canhoto === 'c')?.value || 0 }
                     ],
                     cores: ["#42FF42", "#FF4545"]
                 }
