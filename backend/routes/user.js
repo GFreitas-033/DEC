@@ -15,6 +15,7 @@ const loginController = require("../controllers/loginController.js");
 const calendarioController = require("../controllers/calendarioController.js");
 const admController = require("../controllers/admController.js");
 const chamadaController = require("../controllers/chamadaController.js");
+const dashboardController = require("../controllers/dashboardController.js");
 
 router.use("/api/aluno", alunoController);
 router.use("/api/endereco", enderecoController);
@@ -29,6 +30,9 @@ router.use("/api/chamada",chamadaController);
 router.use("/", loginController);
 router.use("/", calendarioController);
 router.use("/adm", admController);
+
+router.get('/api/dashboard', dashboardController.getDashboardData);
+router.get('/api/dashboard/comparativo', dashboardController.getComparativoData);
 
 router.get('/listaralunos/:idturma', async (req, res) => {
     const id_turma = parseInt(req.params.idturma);

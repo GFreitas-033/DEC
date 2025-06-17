@@ -34,3 +34,35 @@
     border: none;
     background-color: #000;
 }
+
+.containerDash {
+    /* ... (seus estilos existentes para .containerDash) ... */
+    position: relative; /* Essencial para o posicionamento do overlay */
+}
+
+.spinnerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.loadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* Garante que fique por cima de tudo */
+    color: white;
+    font-size: 1.5rem;
+    border-radius: 1rem; /* Para acompanhar o border-radius do container */
+    backdrop-filter: blur(2px); /* Efeito de desfoque (opcional, mas elegante) */
+}

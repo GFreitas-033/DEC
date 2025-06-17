@@ -1,4 +1,6 @@
-import React from "react";
+// Dashboard.js
+import React, { useState, useEffect, useCallback } from "react";
+import axios from "axios";
 
 import ContainerCss from "../containers.module.css";
 import EstiloDashboard from "./dashboard.module.css";
@@ -8,69 +10,74 @@ import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 import BtnVoltar from "../btn-voltar/BotaoVoltar";
 
-// Import dos Blocos do Dashboard
-import Geral from "./geral/AnaliseGeral"
-import Graficos from "./graficos/Graficos"
-import AnoNasc from "./ano-nasc/AnoNascimento"
-import CidadeUnidade from "./cidade-unidade/CidadeUnidade"
-import Comparativo from "./comparativo/Comparativo"
-import AlunosCidade from "./alunos-cidade/AlunosCidade"
+import Geral from "./geral/AnaliseGeral";
+import Graficos from "./graficos/Graficos";
+import AnoNasc from "./ano-nasc/AnoNascimento";
+import CidadeUnidade from "./cidade-unidade/CidadeUnidade";
+import Comparativo from "./comparativo/Comparativo";
+import AlunosCidade from "./alunos-cidade/AlunosCidade";
+
+// Indicador de carregamento inicial (tela cheia)
+const InitialLoadingSpinner = () => (
+    <div className={EstiloDashboard.spinnerContainer}>
+        <p>Carregando dados...</p>
+    </div>
+);
+
+// Indicador de carregamento para filtros (sobreposição)
+const LoadingOverlay = () => (
+    <div className={EstiloDashboard.loadingOverlay}>
+        <p>Atualizando...</p>
+    </div>
+);
+
 
 export default function Dashboard() {
-    // Centralizando todos os dados do dashboard em um único objeto
-    const dashboardData = {
-        geral: {
-            totalAlunos: 5000,
-            ativos: 2500,
-            inativos: 2500,
-            pagantes: 2500,
-            naoPagantes: 2500
-        },
-        graficos: {
-            genero: {
-                data: [
-                    { name: "Meninos", value: 2500 },
-                    { name: "Meninas", value: 2500 },
-                ],
-                cores: ["#4867FF", "#FF4AE7"]
-            },
-            destroCanhoto: {
-                data: [
-                    { name: "Destro", value: 4500 },
-                    { name: "Canhoto", value: 500 },
-                ],
-                cores: ["#42FF42", "#FF4545"]
-            }
-        },
-        anoNascimento: {
-            data: [
-                { ano: "2008", quantidade: 120 },
-                { ano: "2009", quantidade: 95 },
-                { ano: "2010", quantidade: 80 },
-                { ano: "2011", quantidade: 85 },
-                { ano: "2012", quantidade: 40 },
-            ]
-        },
-        cidadeUnidade: {
-            cidades: ["Todas as Cidades", "Lins", "Bauru", "Rio Preto", "Promissão", "Guaiçara", "Cafelândia"],
-            unidades: ["Lins", "Bauru", "Rio Preto", "Promissão", "Guaiçara", "Cafelândia"]
-        },
-        comparativo: {
-            alunosData1: 4350,
-            alunosData2: 5120
-        },
-        alunosPorCidade: {
-            data: [
-                { cidade: 'Lins', alunos: 1600 },
-                { cidade: 'Bauru', alunos: 900 },
-                { cidade: 'Rio Preto', alunos: 750 },
-                { cidade: 'Promissão', alunos: 700 },
-                { cidade: 'Guaíçara', alunos: 550 },
-                { cidade: 'Cafelândia', alunos: 500 },
-            ],
-            cores: ['#FBD034', '#34A0F2', '#F27457', '#8AD1C2', '#A45EE5', '#50C878']
+    const [dashboardData, setDashboardData] = useState(null);
+    const [filters, setFilters] = useState({
+        cidade: "Todas as Cidades",
+        unidade: "",
+    });
+    const [loading, setLoading] = useState(true);
+
+    const fetchDashboardData = useCallback(async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get("/api/dashboard", {
+                params: filters,
+            });
+            setDashboardData(response.data);
+        } catch (error) {
+            console.error("Erro ao buscar dados do dashboard:", error);
+        } finally {
+            setLoading(false);
         }
+    }, [filters]);
+
+    useEffect(() => {
+        fetchDashboardData();
+    }, [fetchDashboardData]);
+
+    const handleFilterChange = (newFilters) => {
+        setFilters(newFilters);
     };
+
+    // Renderiza o spinner de tela cheia apenas no carregamento inicial
+    if (!dashboardData) {
+        return (
+            <div>
+                <Background_Sistema />
+                <div className={ContainerCss.container}>
+                    <BarraLateral />
+                    <div className={EstiloDashboard.ajusteTela}>
+                        <InitialLoadingSpinner />
+                    </div>
+                    <Notifica />
+                    <BtnVoltar />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -78,13 +85,21 @@ export default function Dashboard() {
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloDashboard.ajusteTela}>
+                    {/* O container do dash agora tem position relative para o overlay funcionar */}
                     <div className={EstiloDashboard.containerDash}>
+                        {/* O overlay só aparece durante as atualizações, não no carregamento inicial */}
+                        {loading && <LoadingOverlay />}
+
                         <Geral data={dashboardData.geral} />
                         <Graficos data={dashboardData.graficos} />
                         <AnoNasc data={dashboardData.anoNascimento.data} />
                         <hr className={EstiloDashboard.hrContainer} />
-                        <CidadeUnidade data={dashboardData.cidadeUnidade} />
-                        <Comparativo data={dashboardData.comparativo} />
+                        <CidadeUnidade
+                            data={dashboardData.cidadeUnidade}
+                            filters={filters}
+                            onFilterChange={handleFilterChange}
+                        />
+                        <Comparativo filters={filters} />
                         <AlunosCidade data={dashboardData.alunosPorCidade} />
                     </div>
                 </div>
@@ -92,5 +107,5 @@ export default function Dashboard() {
                 <BtnVoltar />
             </div>
         </div>
-    )
+    );
 }
