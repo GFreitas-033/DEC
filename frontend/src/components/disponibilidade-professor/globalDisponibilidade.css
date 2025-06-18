@@ -62,3 +62,11 @@
 .styles-module_day__aQ2Tt.saturday .styles-module_day_title__cc17c::after {
   content: 'Sábado';
 }
+
+.styles-module_day__aQ2Tt:first-child .styles-module_day_title__cc17c {
+  font-size: 13px !important;  /* Restaura o tamanho da fonte */
+  line-height: normal !important; /* Restaura a altura da linha */
+  color: #fff; /* Garante que o texto seja branco como os outros */
+  text-transform: uppercase;
+  font-weight: 500;
+}
