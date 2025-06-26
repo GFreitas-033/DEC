@@ -123,8 +123,8 @@ export default function Cadastro_turma({ texto, btn }){
         setUnidade(responseTurma.id_unidade);
         setQtdMaxima(responseTurma.qtd_maxima);
         setDiaSemana(responseTurma.dia_semana);
-        setHorarioI(responseTurma.horarioI);
-        //setHorarioF(responseTurma.horarioF);
+        setHorarioI(responseTurma.horario);
+        setHorarioF(responseTurma.horario_final);
         setNome(responseTurma.nome_turma);
     }
 
@@ -136,7 +136,7 @@ export default function Cadastro_turma({ texto, btn }){
                     id_professor: professor,
                     dia_semana: diasemana,
                     horario: horarioI,
-                    //horario: horarioF,
+                    horario_final: horarioF,
                     id_unidade: unidade,
                     nome_turma: nome
                 });
@@ -151,7 +151,7 @@ export default function Cadastro_turma({ texto, btn }){
                     id_professor: professor,
                     dia_semana: diasemana,
                     horario: horarioI,
-                    //horario: horarioF,
+                    horario_final: horarioF,
                     id_unidade: unidade,
                     nome_turma: nome
                 });

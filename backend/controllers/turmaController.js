@@ -20,15 +20,15 @@ router.get('/padrao', asyncHandler(async (req, res) => {
 }));
 
 router.post('/', asyncHandler(async (req, res) => {
-    const { qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma} = req.body;
-    await turmaModel.createTurma(qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma);
+    const { qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma} = req.body;
+    await turmaModel.createTurma(qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma);
     res.status(201).send('Registro criado com sucesso!');
 }));
 
 router.put('/:id', asyncHandler(async (req, res) => {
     const id_turma = parseInt(req.params.id);
-    const { qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma } = req.body;
-    await turmaModel.updateTurma(id_turma, qtd_maxima, id_professor, dia_semana, horario, id_unidade, nome_turma);
+    const { qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma } = req.body;
+    await turmaModel.updateTurma(id_turma, qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma);
     res.status(200).send('Registro atualizado com sucesso!');
 }));
 
