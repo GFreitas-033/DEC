@@ -46,7 +46,8 @@ async function findTurmasByProfessorId(id_professor) {
                 t.id_turma,
                 u.nome_unidade,
                 t.dia_semana,
-                t.horario
+                t.horario,
+                t.horario_final
             FROM turma t
             JOIN unidade u ON t.id_unidade = u.id_unidade
             WHERE t.id_professor = ? AND t.ativado = 1

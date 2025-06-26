@@ -38,21 +38,28 @@ export default function Disponibilidade_Prof() {
         turmas.forEach(turma => {
             const dayKey = dayMap[turma.dia_semana.toLowerCase()];
             if (dayKey) {
-                const [hour, minute] = turma.horario.split(':').map(Number);
+                // ***** INÍCIO DA ALTERAÇÃO *****
                 
+                // Processa o horário de início (horario)
+                const [startHour, startMinute] = turma.horario.split(':').map(Number);
                 const startTime = new Date();
-                startTime.setHours(hour, minute, 0, 0);
+                startTime.setHours(startHour, startMinute, 0, 0);
 
-                const endTime = new Date(startTime.getTime());
-                endTime.setHours(startTime.getHours() + 1); // Assumindo duração de 1 hora
+                // Processa o horário final (horario_final)
+                const [endHour, endMinute] = turma.horario_final.split(':').map(Number);
+                const endTime = new Date();
+                endTime.setHours(endHour, endMinute, 0, 0);
 
+                // Adiciona o evento ao calendário com o startTime e endTime corretos
                 newSchedule[dayKey].push({
                     id: turma.id_turma,
-                    name: turma.nome_unidade,
+                    name: turma.nome_unidade, // ou turma.nome_completo_turma se a API retornar assim
                     type: "custom",
                     startTime: startTime,
-                    endTime: endTime,
+                    endTime: endTime, // Agora utiliza o horário final da API
                 });
+                
+                // ***** FIM DA ALTERAÇÃO *****
             }
         });
         return newSchedule;
@@ -93,26 +100,18 @@ export default function Disponibilidade_Prof() {
             }
         };
 
-        // Não executa a busca se o ID for nulo, apenas limpa
         if (selectedProfessorId) {
             fetchProfessorSchedule();
         } else {
             setEvents(initialEventsState);
         }
     }, [selectedProfessorId]);
-
-    // ***** INÍCIO DA ALTERAÇÃO *****
-    // Nova função para lidar com a mudança de professor
+    
     const handleProfessorChange = (e) => {
         const newProfessorId = e.target.value;
-        
-        // 1. Limpa o calendário imediatamente para remover os dados antigos
         setEvents(initialEventsState); 
-        
-        // 2. Define o ID do novo professor, o que irá disparar o useEffect para buscar os novos dados
         setSelectedProfessorId(newProfessorId);
     };
-    // ***** FIM DA ALTERAÇÃO *****
 
     return (
         <div>
@@ -125,7 +124,6 @@ export default function Disponibilidade_Prof() {
                             id="SelecaoProfessor" 
                             className={EstiloDispo.inputSelect}
                             value={selectedProfessorId} 
-                            // O onChange agora chama a nova função
                             onChange={handleProfessorChange}
                         >
                             <option value="" disabled>
