@@ -48,41 +48,71 @@ export default function AlunosCalendario() {
             }
         });
     }
-    const alertTrocarTurma = async () => {
-        const { value: novaTurma } = await Swal.fire({
-            title: "Trocar o aluno de turma",
-            text: "Selecione a nova turma para o aluno:",
-            input: "select",
-            inputOptions: {
-                "manha": "Turma da Manhã",
-                "tarde": "Turma da Tarde",
-                "noite": "Turma da Noite"
-            },
-            inputPlaceholder: "Selecione uma turma",
-            showCancelButton: true,
-            cancelButtonText: "Cancelar",
-            confirmButtonText: "Confirmar",
-            inputValidator: (value) => {
-                return new Promise((resolve) => {
-                    if (value) {
-                        resolve(); // tudo certo
-                    } else {
-                        resolve("Você precisa selecionar uma turma.");
+    const alertTrocarTurma = async (id_aluno) => {
+        try {
+            const response = await axios.get('/api/turma/formatada');
+            const turmas = response.data;
+    
+            const inputOptions = turmas.reduce((options, turma) => {
+                options[turma.id_turma] = turma.nome_turma;
+                return options;
+            }, {});
+    
+            const { value: novaTurmaId } = await Swal.fire({
+                title: "Trocar o aluno de turma",
+                text: "Selecione a nova turma para o aluno:",
+                input: "select",
+                inputOptions,
+                inputPlaceholder: "Selecione uma turma",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Confirmar",
+                inputValidator: (value) => {
+                    if (!value) {
+                        return "Você precisa selecionar uma turma.";
                     }
-                });
-            },
-            confirmButtonColor: "#fbd034",
-            cancelButtonColor: "#d33",
-            background: "#2b2b2b",
-            theme: "dark"
-        });
-      
-        if (novaTurma) {
-            // Aqui você pode fazer o que quiser com a nova turma selecionada
-            Swal.fire({
-                title: `Aluno transferido para a ${novaTurma}`,
+                },
                 confirmButtonColor: "#fbd034",
                 cancelButtonColor: "#d33",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
+    
+            if (novaTurmaId) {
+                trocarTurma(id_aluno, novaTurmaId);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar turmas:", error);
+            Swal.fire({
+                title: "Erro!",
+                text: "Não foi possível carregar as turmas.",
+                icon: "error",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
+        }
+    };
+    
+    const trocarTurma = async (id_aluno, novaTurmaId) => {
+        try {
+            await axios.put(`/api/aluno_has_turma/${id_aluno}`, { id_turma: novaTurmaId });
+            Swal.fire({
+                title: "Sucesso!",
+                text: "Aluno trocado de turma com sucesso!",
+                icon: "success",
+                confirmButtonColor: "#fbd034",
+                background: "#2b2b2b",
+                theme: "dark"
+            });
+            buscarAlunos(); // Atualiza a lista de alunos na turma atual
+        } catch (error) {
+            console.error("Erro ao trocar aluno de turma:", error);
+            Swal.fire({
+                title: "Erro!",
+                text: "Não foi possível trocar o aluno de turma.",
+                icon: "error",
+                confirmButtonColor: "#fbd034",
                 background: "#2b2b2b",
                 theme: "dark"
             });
