@@ -619,12 +619,11 @@ export default function Form() {
     <div>
       <Background />
       <div className={Styles.container}>
-        <form id="formcadastroaluno" className={Styles.form} autoComplete="off">
+        <form id="formcadastroaluno" autoComplete="off">
           <CSSTransition
             in={true}
             key={step}
             timeout={300}
-            classNames="fade"
             unmountOnExit
           >
             {steps[step]}
@@ -637,19 +636,25 @@ export default function Form() {
 
 
 const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEmail, cpf, setCpf, genero, setGenero, rg, setRg, telefone, setTelefone, nascimento, setNascimento, mao_dominante, setMao_Dominante, areAllFieldsFilled, id_aluno }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Dados do Aluno</h1>
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Dados do Aluno</h1>
+        </div>
+        <div className={Styles.container_inputs}>
+          <Nome value={nome} setValue={setNome} texto={"Aluno"} />
+          <Email value={email} setValue={setEmail} />
+          <CPF value={cpf} setValue={setCpf} />
+          <Genero value={genero} setValue={setGenero} />
+          <RG value={rg} setValue={setRg} />
+          <Telefone value={telefone} setValue={setTelefone} />
+          <DtNasc value={nascimento} setValue={setNascimento} />
+          <DC value={mao_dominante} setValue={setMao_Dominante} />
+        </div>
+      </div>
     </div>
-    <div className={Styles.container_inputs}>
-      <Nome value={nome} setValue={setNome} texto={"Aluno"} />
-      <Email value={email} setValue={setEmail} />
-      <CPF value={cpf} setValue={setCpf} />
-      <Genero value={genero} setValue={setGenero} />
-      <RG value={rg} setValue={setRg} />
-      <Telefone value={telefone} setValue={setTelefone} />
-      <DtNasc value={nascimento} setValue={setNascimento} />
-      <DC value={mao_dominante} setValue={setMao_Dominante} />
+    <div>
       <button type="button" onClick={() => {
         let camposPreenchidos = areAllFieldsFilled([nome, email, cpf, genero, rg, telefone, nascimento, mao_dominante])
         if (id_aluno) {
@@ -674,21 +679,25 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
-  </div>
+  </>
 );
 
 const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEmailResp1, cpfResp1, setCpfResp1, generoResp1, setGeneroResp1, rgResp1, setRgResp1, telefoneResp1, setTelefoneResp1, areAllFieldsFilled, id_aluno }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Dados do Responsável 1</h1>
-    </div>
-    <div className={Styles.container_inputs}>
-      <Nome value={nomeResp1} setValue={setNomeResp1} texto={"Responsável"} />
-      <Email value={emailResp1} setValue={setEmailResp1} />
-      <CPF value={cpfResp1} setValue={setCpfResp1} />
-      <Genero value={generoResp1} setValue={setGeneroResp1} />
-      <RG value={rgResp1} setValue={setRgResp1} />
-      <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Dados do Responsável 1</h1>
+        </div>
+        <div className={Styles.container_inputs}>
+          <Nome value={nomeResp1} setValue={setNomeResp1} texto={"Responsável"} />
+          <Email value={emailResp1} setValue={setEmailResp1} />
+          <CPF value={cpfResp1} setValue={setCpfResp1} />
+          <Genero value={generoResp1} setValue={setGeneroResp1} />
+          <RG value={rgResp1} setValue={setRgResp1} />
+          <Telefone value={telefoneResp1} setValue={setTelefoneResp1} />
+        </div>
+      </div>
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
@@ -708,21 +717,25 @@ const Passo2 = ({ nextStep, prevStep, nomeResp1, setNomeResp1, emailResp1, setEm
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
-  </div>
+  </>
 );
 
 const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEmailResp2, cpfResp2, setCpfResp2, generoResp2, setGeneroResp2, rgResp2, setRgResp2, telefoneResp2, setTelefoneResp2 }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Dados do Responsável 2</h1>
-    </div>
-    <div className={Styles.container_inputs}>
-      <Nome value={nomeResp2} setValue={setNomeResp2} texto={"Responsável"} />
-      <Email value={emailResp2} setValue={setEmailResp2} />
-      <CPF value={cpfResp2} setValue={setCpfResp2} />
-      <Genero value={generoResp2} setValue={setGeneroResp2} />
-      <RG value={rgResp2} setValue={setRgResp2} />
-      <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Dados do Responsável 2</h1>
+        </div>
+        <div className={Styles.container_inputs}>
+          <Nome value={nomeResp2} setValue={setNomeResp2} texto={"Responsável"} />
+          <Email value={emailResp2} setValue={setEmailResp2} />
+          <CPF value={cpfResp2} setValue={setCpfResp2} />
+          <Genero value={generoResp2} setValue={setGeneroResp2} />
+          <RG value={rgResp2} setValue={setRgResp2} />
+          <Telefone value={telefoneResp2} setValue={setTelefoneResp2} />
+        </div>
+      </div>
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
@@ -736,56 +749,64 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
-  </div>
+  </>
 );
 
 const Passo4 = ({ nextStep, prevStep, setStep, son, setSon }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Responsável Financeiro</h1>
-    </div>
-    <div>
-      <label className={Styles.labelTextCenter}>Você será o Responsável Financeiro?</label>
-      <div className={`${Styles.SimOuNao} ${Styles.radioStyle}`}>
-        <input type="radio" id="sim" name="sim" value="sim" checked={son === 'sim'} onChange={(e) =>
-          setSon(e.target.value)} />
-        <label htmlFor="sim" className={Styles.escolha}>Sim</label>
-        <input type="radio" id="nao" name="nao" value="nao" checked={son === 'nao'} onChange={(e) =>
-          setSon(e.target.value)} />
-        <label htmlFor="nao" className={Styles.escolha}>Não</label>
+  <>
+  <div className={Styles.form}>
+    <div className={Styles.centro}>
+      <div className={Styles.textcenter}>
+        <h1>Responsável Financeiro</h1>
+      </div>
+      <div>
+        <label className={Styles.labelTextCenter}>Você será o Responsável Financeiro?</label>
+        <div className={`${Styles.SimOuNao} ${Styles.radioStyle}`}>
+          <input type="radio" id="sim" name="sim" value="sim" checked={son === 'sim'} onChange={(e) =>
+            setSon(e.target.value)} />
+          <label htmlFor="sim" className={Styles.escolha}>Sim</label>
+          <input type="radio" id="nao" name="nao" value="nao" checked={son === 'nao'} onChange={(e) =>
+            setSon(e.target.value)} />
+          <label htmlFor="nao" className={Styles.escolha}>Não</label>
+        </div>
       </div>
     </div>
-    <div className={Styles.divBotao}>
-      <button type="button" onClick={prevStep} className={Styles.button}>
-        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-        Anterior
-      </button>
-      <button type="button" onClick={() => {
-        if (son === 'sim') {
-          setStep(5);
-        } else if (son === 'nao') {
-          nextStep()
-        }
-      }} className={Styles.button}>
-        Próximo
-        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-      </button>
-    </div>
   </div>
+  <div className={Styles.divBotao}>
+    <button type="button" onClick={prevStep} className={Styles.button}>
+      <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      Anterior
+    </button>
+    <button type="button" onClick={() => {
+      if (son === 'sim') {
+        setStep(5);
+      } else if (son === 'nao') {
+        nextStep()
+      }
+    }} className={Styles.button}>
+      Próximo
+      <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+    </button>
+  </div>
+  </>
 );
 
 const Passo5 = ({ nextStep, prevStep, nomeFin, setNomeFin, emailFin, setEmailFin, cpfFin, setCpfFin, generoFin, setGeneroFin, rgFin, setRgFin, telefoneFin, setTelefoneFin, setStep, id_aluno }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Responsável Financeiro</h1>
-    </div>
-    <div className={Styles.container_inputs}>
-      <Nome value={nomeFin} setValue={setNomeFin} />
-      <Email value={emailFin} setValue={setEmailFin} />
-      <CPF value={cpfFin} setValue={setCpfFin} />
-      <Genero value={generoFin} setValue={setGeneroFin} />
-      <RG value={rgFin} setValue={setRgFin} />
-      <Telefone value={telefoneFin} setValue={setTelefoneFin} />
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Responsável Financeiro</h1>
+        </div>
+        <div className={Styles.container_inputs}>
+          <Nome value={nomeFin} setValue={setNomeFin} />
+          <Email value={emailFin} setValue={setEmailFin} />
+          <CPF value={cpfFin} setValue={setCpfFin} />
+          <Genero value={generoFin} setValue={setGeneroFin} />
+          <RG value={rgFin} setValue={setRgFin} />
+          <Telefone value={telefoneFin} setValue={setTelefoneFin} />
+        </div>
+      </div>
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={() => {
@@ -803,21 +824,25 @@ const Passo5 = ({ nextStep, prevStep, nomeFin, setNomeFin, emailFin, setEmailFin
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
-  </div>
+  </>
 );
 
 const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, handleBuscarCep, cep, setCep, logradouro, setLogradouro, bairro, setBairro, cidade, setCidade, uf, setUf, numero, setNumero, pesquisarUnidades, id_aluno }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Endereço</h1>
-    </div>
-    <div className={Styles.container_inputs}>
-      <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
-      <UF value={uf} setValue={setUf} />
-      <Cidade value={cidade} setValue={setCidade} />
-      <Bairro value={bairro} setValue={setBairro} />
-      <Rua value={logradouro} setValue={setLogradouro} />
-      <Numero value={numero} setValue={setNumero} />
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Endereço</h1>
+        </div>
+        <div className={Styles.container_inputs}>
+          <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
+          <UF value={uf} setValue={setUf} />
+          <Cidade value={cidade} setValue={setCidade} />
+          <Bairro value={bairro} setValue={setBairro} />
+          <Rua value={logradouro} setValue={setLogradouro} />
+          <Numero value={numero} setValue={setNumero} />
+        </div>
+      </div>
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={() => {
@@ -855,36 +880,39 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
-  </div>
+  </>
 );
 
 const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled, setContratoPdf }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Escolha a Sua Unidade</h1>
-    </div>
-    <div className={Styles.container_Passo_Escolhas}>
-      <div className={Styles.divSelect}>
-        <select
-          id="escolha_unidade"
-          name="escolha_unidade"
-          className={Styles.select}
-          value={selectedUnidade}
-          onChange={(e) => {
-            const selectedId = parseInt(e.target.value);
-            const selectedOption = unidades.find(unidade => unidade.id_unidade === selectedId);
-
-            setSelectedUnidade(selectedId);
-            setContratoPdf(selectedOption ? selectedOption.tipo : "");
-          }}
-        >
-          <option value="" disabled>Selecionar Unidade</option>
-          {unidades.map(unidade => (
-            <option key={unidade.id_unidade} value={unidade.id_unidade}>
-              {unidade.nome_unidade}
-            </option>
-          ))}
-        </select>
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Escolha a Sua Unidade</h1>
+        </div>
+        <div className={Styles.container_Passo_Escolhas}>
+          <div className={Styles.divSelect}>
+            <select
+              id="escolha_unidade"
+              name="escolha_unidade"
+              className={Styles.select}
+              value={selectedUnidade}
+              onChange={(e) => {
+                const selectedId = parseInt(e.target.value);
+                const selectedOption = unidades.find(unidade => unidade.id_unidade === selectedId);
+                setSelectedUnidade(selectedId);
+                setContratoPdf(selectedOption ? selectedOption.tipo : "");
+              }}
+            >
+              <option value="" disabled>Selecionar Unidade</option>
+              {unidades.map(unidade => (
+                <option key={unidade.id_unidade} value={unidade.id_unidade}>
+                  {unidade.nome_unidade}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
     </div>
     <div className={Styles.divBotao}>
@@ -903,28 +931,32 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
-  </div>
+  </>
 );
 
 const Passo8 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFilled }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Quantos dias por semana<br />Você vai Treinar?</h1>
-    </div>
-    <div className={Styles.divEscolhaDia}>
-      {[1, 2, 3, 4, 5, 6].map((num) => (
-        <div key={num}>
-          <input
-            type="radio"
-            id={num.toString()}
-            name="dia"
-            value={num}
-            checked={selectedDay === num.toString()}
-            onChange={handleChange}
-          />
-          <label htmlFor={num.toString()}>{num} Dia{num > 1 ? "s" : ""}</label>
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Quantos dias por semana<br />Você vai Treinar?</h1>
         </div>
-      ))}
+        <div className={Styles.divEscolhaDia}>
+          {[1, 2, 3, 4, 5, 6].map((num) => (
+            <div key={num}>
+              <input
+                type="radio"
+                id={num.toString()}
+                name="dia"
+                value={num}
+                checked={selectedDay === num.toString()}
+                onChange={handleChange}
+              />
+              <label htmlFor={num.toString()}>{num} Dia{num > 1 ? "s" : ""}</label>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
@@ -942,32 +974,36 @@ const Passo8 = ({ nextStep, prevStep, handleChange, selectedDay, areAllFieldsFil
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
-  </div>
+  </>
 );
 
 const Passo9 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas, areAllFieldsFilled, handleChangeTurmas }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Escolha a Sua Turma</h1>
-    </div>
-    <div className={Styles.divEscolhaTurma}>
-      {turmas.length > 0 ? (
-        turmas.map((turma) => (
-          <div key={turma.id_turma} className={Styles.escolhaTurma}>
-            <input
-              type="checkbox"
-              id={`turma-${turma.id_turma}`}
-              name="escolha_turma"
-              value={turma.id_turma}
-              checked={selectedTurmas.includes(turma.id_turma)}
-              onChange={() => handleChangeTurmas(turma.id_turma)}
-            />
-            <label htmlFor={`turma-${turma.id_turma}`}>{turma.nome_formatado}</label>
-          </div>
-        ))
-      ) : (
-        <p>Nenhuma turma disponível.</p>
-      )}
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Escolha a Sua Turma</h1>
+        </div>
+        <div className={Styles.divEscolhaTurma}>
+          {turmas.length > 0 ? (
+            turmas.map((turma) => (
+              <div key={turma.id_turma} className={Styles.escolhaTurma}>
+                <input
+                  type="checkbox"
+                  id={`turma-${turma.id_turma}`}
+                  name="escolha_turma"
+                  value={turma.id_turma}
+                  checked={selectedTurmas.includes(turma.id_turma)}
+                  onChange={() => handleChangeTurmas(turma.id_turma)}
+                />
+                <label htmlFor={`turma-${turma.id_turma}`}>{turma.nome_formatado}</label>
+              </div>
+            ))
+          ) : (
+            <p>Nenhuma turma disponível.</p>
+          )}
+        </div>
+      </div>
     </div>
     <div className={Styles.divBotao}>
       <button type="button" onClick={prevStep} className={Styles.button}>
@@ -985,43 +1021,47 @@ const Passo9 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
         <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
-  </div>
+  </>
 );
 
 const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento, mudarPDF, id_aluno, setStep, cadastrar }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Informações sobre<br /> Pagamento</h1>
-    </div>
-    <div className={Styles.container_Passo8}>
-      <div className={Styles.divRadio}>
-        <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
-        <div className={`${Styles.opcoes} ${Styles.radioStyle}`}>
-          <input type="radio" id="mensal" name="plano" value="mensal" checked={plano === 'mensal'} onChange={(e) =>
-            setPlano(e.target.value)} />
-          <label htmlFor="mensal" className={Styles.escolha}>Pacote<br />Mensal</label>
-
-          <input type="radio" id="semestral" name="plano" value="semestral" checked={plano === 'semestral'} onChange={(e) =>
-            setPlano(e.target.value)} />
-          <label htmlFor="semestral" className={Styles.escolha}>Pacote<br />6 meses</label>
-
-          <input type="radio" id="anual" name="plano" value="anual" checked={plano === 'anual'} onChange={(e) =>
-            setPlano(e.target.value)} />
-          <label htmlFor="anual" className={Styles.escolha}>Pacote<br />12 meses</label>
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Informações sobre<br /> Pagamento</h1>
         </div>
-      </div>
-      <div className={Styles.divRadio}>
-        <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
-        <div className={`${Styles.opcoes} ${Styles.radioStyle}`}>
-          <input type="radio" id="10" name="data" value="10" checked={d_Vencimento === '10'} onChange={(e) =>
-            setD_Vencimento(e.target.value)} />
-          <label htmlFor="10" className={Styles.escolha}>10</label>
-          <input type="radio" id="20" name="data" value="20" checked={d_Vencimento === '20'} onChange={(e) =>
-            setD_Vencimento(e.target.value)} />
-          <label htmlFor="20" className={Styles.escolha}>20</label>
-          <input type="radio" id="30" name="data" value="30" checked={d_Vencimento === '30'} onChange={(e) =>
-            setD_Vencimento(e.target.value)} />
-          <label htmlFor="30" className={Styles.escolha}>30</label>
+        <div className={Styles.container_Passo8}>
+          <div className={Styles.divRadio}>
+            <label className={Styles.labelTextCenter}>Qual será seu plano escolhido?</label>
+            <div className={`${Styles.opcoes} ${Styles.radioStyle}`}>
+              <input type="radio" id="mensal" name="plano" value="mensal" checked={plano === 'mensal'} onChange={(e) =>
+                setPlano(e.target.value)} />
+                <label htmlFor="mensal" className={Styles.escolha}>Pacote<br />Mensal</label>
+              
+                <input type="radio" id="semestral" name="plano" value="semestral" checked={plano === 'semestral'} onChange={(e) =>
+                setPlano(e.target.value)} />
+                <label htmlFor="semestral" className={Styles.escolha}>Pacote<br />6 meses</label>
+                
+                <input type="radio" id="anual" name="plano" value="anual" checked={plano === 'anual'} onChange={(e) =>
+                setPlano(e.target.value)} />
+              <label htmlFor="anual" className={Styles.escolha}>Pacote<br />12 meses</label>
+            </div>
+          </div>
+          <div className={Styles.divRadio}>
+            <label className={Styles.labelTextCenter}>Qual a melhor data para vencimento?</label>
+            <div className={`${Styles.opcoes} ${Styles.radioStyle}`}>
+              <input type="radio" id="10" name="data" value="10" checked={d_Vencimento === '10'} onChange={(e) =>
+                setD_Vencimento(e.target.value)} />
+              <label htmlFor="10" className={Styles.escolha}>10</label>
+              <input type="radio" id="20" name="data" value="20" checked={d_Vencimento === '20'} onChange={(e) =>
+                setD_Vencimento(e.target.value)} />
+              <label htmlFor="20" className={Styles.escolha}>20</label>
+              <input type="radio" id="30" name="data" value="30" checked={d_Vencimento === '30'} onChange={(e) =>
+                setD_Vencimento(e.target.value)} />
+              <label htmlFor="30" className={Styles.escolha}>30</label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1037,51 +1077,55 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
         Anterior
       </button>
       <button
-                type="button"
-                onClick={() => {
-                    if (plano !== '' && d_Vencimento !== '') {
-                        if (id_aluno) {
-                            // Chama a função principal que agora contém a lógica de salvar
-                            cadastrar();
-                        } else {
-                            // Continua para o próximo passo para finalizar o cadastro
-                            nextStep();
-                            mudarPDF();
-                        }
-                    } else {
-                        faltaCampo();
-                    }
-                }}
-                className={Styles.button}
-            >
-                {id_aluno ? "Salvar Alterações" : "Próximo"} 
-                <img
-                    src={require(id_aluno ? '../../imgs/icons/verifica.png' : '../../imgs/icons/seta-direita.png')}
-                    alt="icon"
-                    className={Styles.iconNavegar}
-                    draggable="false"
-                />
-            </button>
+        type="button"
+        onClick={() => {
+            if (plano !== '' && d_Vencimento !== '') {
+                if (id_aluno) {
+                    // Chama a função principal que agora contém a lógica de salvar
+                    cadastrar();
+                } else {
+                    // Continua para o próximo passo para finalizar o cadastro
+                    nextStep();
+                    mudarPDF();
+                }
+            } else {
+                faltaCampo();
+            }
+        }}
+        className={Styles.button}
+    >
+        {id_aluno ? "Salvar Alterações" : "Próximo"} 
+        <img
+            src={require(id_aluno ? '../../imgs/icons/verifica.png' : '../../imgs/icons/seta-direita.png')}
+            alt="icon"
+            className={Styles.iconNavegar}
+            draggable="false"
+        />
+    </button>
     </div>
-  </div>
+  </>
 );
 
 const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, contratoPdf }) => (
-  <div className={Styles.centro}>
-    <div className={Styles.textcenter}>
-      <h1>Contrato</h1>
-    </div>
-    <div className={Styles.divContrato}>
-      <div className={Styles.contrato}>
-        <a href={contratoPdf} target="_blank"
-          rel="noopener noreferrer"
-          className={Styles.linkContrato}
-        >
-          📄Visualizar Contrato(PDF)
-        </a>
-        <div className={Styles.contratoContainer}>
-          <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
-          <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
+  <>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Contrato</h1>
+        </div>
+        <div className={Styles.divContrato}>
+          <div className={Styles.contrato}>
+            <a href={contratoPdf} target="_blank"
+              rel="noopener noreferrer"
+              className={Styles.linkContrato}
+            >
+              📄Visualizar Contrato(PDF)
+            </a>
+            <div className={Styles.contratoContainer}>
+              <input type="checkbox" id="aceitarContrato" checked={aceitouContrato} onChange={handleCheckboxChange} />
+              <label htmlFor="aceitarContrato">Estou ciente e concordo.</label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1101,5 +1145,5 @@ const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, c
         <img src={require('../../imgs/icons/verifica.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
       </button>
     </div>
-  </div>
+  </>
 );
