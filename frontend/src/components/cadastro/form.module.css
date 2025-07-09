@@ -60,6 +60,11 @@
     .divContrato {
         max-width: 18rem;
     }
+
+    /* Estilo Botão */
+    .divBotao{
+        width: 20rem;
+    }
 }
 
 @media screen and (min-width: 1081px) {
@@ -117,6 +122,11 @@
     /* Estilo do Contrato */
     .divContrato {
         max-width: 30rem;
+    }
+
+    /* Estilo Botão */
+    .divBotao{
+        width: 50rem;
     }
 }
 
@@ -218,7 +228,6 @@
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
-    width: 100%;
     margin-top: 2rem;
 }
 

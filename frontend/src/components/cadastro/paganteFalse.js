@@ -408,7 +408,7 @@ const Passo1 = ({ nextStep, calcularIdade, setStep, nome, setNome, email, setEma
         </div>
       </div>
     </div>
-    <div>
+    <div className={Styles.divBotao}>
       <button type="button" onClick={() => {
         let camposPreenchidos = areAllFieldsFilled([nome, email, cpf, genero, rg, telefone, nascimento, mao_dominante])
         if (camposPreenchidos === true) {
