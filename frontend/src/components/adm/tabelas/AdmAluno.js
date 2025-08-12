@@ -170,7 +170,13 @@ export default function Adm_aluno() {
                                         {checado2 && (
                                             <>
                                                 <br />
-                                                <input type="text" className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} onChange={(e) => setFiltroCidade(e.target.value)} />
+                                                {/* onChange={(e) => setFiltroCidade(e.target.value)} */}
+                                                <select className={`${EstiloAdmAluno.inputSelect} ${EstiloAdmAluno.inputGeral}`} onChange={(e) => setFiltroUnidade(e.target.value)}>
+                                                    <option value="">Selecionar Cidade</option>
+                                                    {unidades.map((unidade) => (
+                                                        <option key={unidade.id} value={unidade.id}>{unidade.nome}</option>
+                                                    ))}
+                                                </select>
                                             </>
                                         )}
                                     </div>
