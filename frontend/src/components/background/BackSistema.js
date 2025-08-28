@@ -5,7 +5,7 @@ export default function Background_Sistema(){
     return(
         <div className={EstiloBack.backgroundContainer}>
             <img
-                src="/backgroundDesktop/backSistemaDesk.png"
+                src="/backgroundDesktop/backSistemaDesk.webp"
                 alt="Background Desktop"
                 className={EstiloBack.responsiveImg}
                 id={EstiloBack.backDesk}
@@ -13,7 +13,7 @@ export default function Background_Sistema(){
                 loading="eager"
             />
             <img
-                src="/backgroundMobile/backSistemaMob.png"
+                src="/backgroundMobile/backSistemaMob.webp"
                 alt="Background Mobile"
                 className={EstiloBack.responsiveImg}
                 id={EstiloBack.backMob}

@@ -5,7 +5,7 @@ export default function Background_Cadastro(){
     return(
         <div className={EstiloBack.backgroundContainer}>
             <img
-                src="/backgroundDesktop/backNormal.png"
+                src="/backgroundDesktop/backNormal.webp"
                 alt="Background Desktop"
                 className={EstiloBack.responsiveImg}
                 id={EstiloBack.backDesk}
@@ -13,7 +13,7 @@ export default function Background_Cadastro(){
                 loading="eager"
             />
             <img
-                src="/backgroundMobile/backNormalMob.png"
+                src="/backgroundMobile/backNormalMob.webp"
                 alt="Background Mobile"
                 className={EstiloBack.responsiveImg}
                 id={EstiloBack.backMob}
