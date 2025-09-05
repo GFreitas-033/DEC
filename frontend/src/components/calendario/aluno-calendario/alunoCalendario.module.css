@@ -93,12 +93,13 @@ li:hover {
     cursor: pointer;
     width: 1.7rem;
     height: 1.7rem;
-    border-radius: 0.3rem;
     padding: 0.2rem;
     transition: background-color 0.3s ease;
+    background-color: #FBD034;
+    border-radius: 0.3rem;
 }
 .icon:hover {
-    background-color: #FBD034;
+    background-color: #d8ae15;
 }
 
 

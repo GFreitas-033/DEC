@@ -23,11 +23,13 @@ export default function Adm_aluno() {
     const [checado2, setChecado2] = useState(false);
     const [checado3, setChecado3] = useState(false);
     const [checado4, setChecado4] = useState(false);
+    const [checado5, setChecado5] = useState(false);
 
     const [filtroUnidade, setFiltroUnidade] = useState("");
     const [filtroCidade, setFiltroCidade] = useState("");
     const [filtroNascimento, setFiltroNascimento] = useState("");
     const [filtroTipoAluno, setFiltroTipoAluno] = useState("");
+    const [nome, setNome] = useState("");
 
     const alertRemoverAluno = (id_aluno) => {
         Swal.fire({
@@ -213,6 +215,16 @@ export default function Adm_aluno() {
                                             </>
                                         )}
                                     </div>
+                                    <div>
+                                        <input type="checkbox" checked={checado5} onChange={handleCheckboxChange(setChecado5, setFiltroCidade)} />
+                                        <label>Nome</label>
+                                        {checado5 && (
+                                            <>
+                                                <br />
+                                                <input type="text" placeholder="Nome do Aluno" className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} onChange={(e) => setFiltroCidade(e.target.value)} />
+                                            </>
+                                        )}
+                                    </div>
                                     <img src={require('../../../imgs/icons/cancelar.png')} className={EstiloAdmAluno.imgFechar} onClick={() => { setMostrar(!mostrar) }} />
                                 </div>
                             </>
@@ -235,6 +247,7 @@ export default function Adm_aluno() {
                                     <td className={EstiloAdmAluno.colunaAcao}>
                                         <img src={require('../../../imgs/icons/Editar.png')} alt="Editar" className={EstiloAdmAluno.icon} onClick={() => navigate(`/editar/aluno/${aluno.id_pessoa}`)} />
                                         <img src={require('../../../imgs/icons/Excluir.png')} alt="Excluir" className={EstiloAdmAluno.icon} onClick={() => alertRemoverAluno(aluno.id_pessoa)} />
+                                        <img src={require('../../../imgs/icons/visao.png')} alt="Visualizar" className={EstiloAdmAluno.icon} onClick={() => alert("Teste")} />
                                     </td>
                                 </tr>
                             ))}
