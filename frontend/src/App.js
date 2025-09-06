@@ -27,6 +27,8 @@ import AdmProf from "./components/adm/tabelas/AdmProfessor"
 import AdmUni from "./components/adm/tabelas/AdmUnidade"
 import AdmTurma from "./components/adm/tabelas/AdmTurma"
 
+import InfoAluno from "./components/info-aluno/InfoAlulo"
+
 import Disponibilidade from "./components/disponibilidade-professor/Disponibilidade"
 
 export default function App(){
@@ -65,6 +67,8 @@ export default function App(){
         <Route path="/adm/dashboard" element={<Dashboard />}></Route>
         
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
+
+        <Route path="/adm/InformaçõesDoAluno" element={<InfoAluno />}></Route>
 
         <Route path="adm/adm_prof/disponibilidade" element={<Disponibilidade />}></Route>
       </Routes>

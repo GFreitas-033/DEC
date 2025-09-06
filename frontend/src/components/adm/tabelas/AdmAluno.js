@@ -29,7 +29,7 @@ export default function Adm_aluno() {
     const [filtroCidade, setFiltroCidade] = useState("");
     const [filtroNascimento, setFiltroNascimento] = useState("");
     const [filtroTipoAluno, setFiltroTipoAluno] = useState("");
-    const [nome, setNome] = useState("");
+    const [filtroAlunoNome, setFiltroAlunoNome] = useState("");
 
     const alertRemoverAluno = (id_aluno) => {
         Swal.fire({
@@ -105,8 +105,11 @@ export default function Adm_aluno() {
         if (filtroTipoAluno) {
             filtrados = filtrados.filter(aluno => aluno.tipo_aluno === filtroTipoAluno);
         }
+        if(filtroAlunoNome) {
+            filtrados = filtrados.filter(aluno => aluno.nome_pessoa.toLowerCase().includes(filtroAlunoNome.toLowerCase()));
+        }
         setAlunosFiltrados(filtrados);
-    }, [filtroUnidade, filtroCidade, filtroNascimento, filtroTipoAluno, alunos]);
+    }, [filtroUnidade, filtroCidade, filtroNascimento, filtroTipoAluno, filtroAlunoNome, alunos]);
 
     const excluirAluno = async (id_aluno) => {
         try {
@@ -216,12 +219,14 @@ export default function Adm_aluno() {
                                         )}
                                     </div>
                                     <div>
-                                        <input type="checkbox" checked={checado5} onChange={handleCheckboxChange(setChecado5, setFiltroCidade)} />
+                                        <input type="checkbox" checked={checado5} onChange={handleCheckboxChange(setChecado5, setFiltroAlunoNome)} />
                                         <label>Nome</label>
                                         {checado5 && (
                                             <>
                                                 <br />
-                                                <input type="text" placeholder="Nome do Aluno" className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} onChange={(e) => setFiltroCidade(e.target.value)} />
+                                                <input type="text" placeholder="Nome do Aluno" 
+                                                className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} 
+                                                onChange={(e) => setFiltroAlunoNome(e.target.value)} />
                                             </>
                                         )}
                                     </div>
@@ -240,14 +245,14 @@ export default function Adm_aluno() {
                             </tr>
                         </thead>
                         <tbody>
-                            {alunosFiltrados.map(aluno => (
-                                <tr key={aluno.id_pessoa}>
+                            {alunosFiltrados.map((aluno, index) => (
+                                <tr key={`${aluno.id_pessoa}-${index}`}>
                                     <td className={EstiloAdmAluno.colunaId}>{aluno.id_pessoa}</td>
                                     <td>{aluno.nome_pessoa}</td>
                                     <td className={EstiloAdmAluno.colunaAcao}>
                                         <img src={require('../../../imgs/icons/Editar.png')} alt="Editar" className={EstiloAdmAluno.icon} onClick={() => navigate(`/editar/aluno/${aluno.id_pessoa}`)} />
                                         <img src={require('../../../imgs/icons/Excluir.png')} alt="Excluir" className={EstiloAdmAluno.icon} onClick={() => alertRemoverAluno(aluno.id_pessoa)} />
-                                        <img src={require('../../../imgs/icons/visao.png')} alt="Visualizar" className={EstiloAdmAluno.icon} onClick={() => alert("Teste")} />
+                                        <img src={require('../../../imgs/icons/visao.png')} alt="Visualizar" className={EstiloAdmAluno.icon} onClick={() => navigate(`/adm/InformaçõesDoAluno`)} />
                                     </td>
                                 </tr>
                             ))}

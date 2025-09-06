@@ -77,6 +77,10 @@ export default function AdmGeral() {
                             <img src={require('../../imgs/icons/icon4.png')} alt="Aluno Img"/>
                             <h1>Alunos</h1>
                         </div>
+                        <div className={EstiloAdm.cards_adm} onClick={()=>alert("Teste")}>
+                            <img src={require('../../imgs/icons/responsavel.png')} alt="Responsavel Img"/>
+                            <h1>Responsáveis</h1>
+                        </div>
                         <div className={EstiloAdm.cards_adm} onClick={()=>navigate('/adm/adm_prof')}>
                             <img src={require('../../imgs/icons/icon7.png')} alt="Prof Img"/>
                             <h1>Professores</h1>
@@ -92,10 +96,6 @@ export default function AdmGeral() {
                         <div className={EstiloAdm.cards_adm} onClick={()=>navigate('/adm/dashboard')}>
                             <img src={require('../../imgs/iconsDashboard/painel.png')} alt="Dashboard Img"/>
                             <h1>Dashboard</h1>
-                        </div>
-                        <div className={EstiloAdm.cards_adm} onClick={()=>alert("Teste")}>
-                            <img src={require('../../imgs/icons/responsavel.png')} alt="Responsavel Img"/>
-                            <h1>Responsáveis</h1>
                         </div>
                         <div className={EstiloAdm.cards_adm} onClick={()=>{setMostrar(!mostrar)}}>
                             <img src={require('../../imgs/icons/mais.png')} alt="Cadastro Img"/>
