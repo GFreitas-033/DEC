@@ -24,6 +24,7 @@ export default function Adm_aluno() {
     const [checado3, setChecado3] = useState(false);
     const [checado4, setChecado4] = useState(false);
     const [checado5, setChecado5] = useState(false);
+    const [checado6, setChecado6] = useState(false);
 
     const [filtroUnidade, setFiltroUnidade] = useState("");
     const [filtroCidade, setFiltroCidade] = useState("");
@@ -226,7 +227,30 @@ export default function Adm_aluno() {
                                                 <br />
                                                 <input type="text" placeholder="Nome do Aluno" 
                                                 className={`${EstiloAdmAluno.inputGeral} ${EstiloAdmAluno.inputTexto}`} 
-                                                onChange={(e) => setFiltroAlunoNome(e.target.value)} />
+                                                onChange={(e) => setFiltroAlunoNome(e.target.value)} 
+                                                value={filtroAlunoNome}/>
+                                            </>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                            checked={checado6}
+                                            onChange={handleCheckboxChange(setChecado6, setFiltroTipoAluno)}
+                                        />
+                                        <label>Status do Aluno</label>
+                                        {checado6 && (
+                                            <>
+                                                <br />
+                                                <select
+                                                    className={`${EstiloAdmAluno.inputSelect} ${EstiloAdmAluno.inputGeral}`}
+                                                    value={filtroTipoAluno}
+                                                    onChange={(e) => setFiltroTipoAluno(e.target.value)}
+                                                >
+                                                    <option value="">Todos</option>
+                                                    <option value="ativo">Ativo</option>
+                                                    <option value="inativo">Inativo</option>
+                                                </select>
                                             </>
                                         )}
                                     </div>
@@ -235,7 +259,6 @@ export default function Adm_aluno() {
                             </>
                         )}
                     </div>
-
                     <table className={EstiloAdmAluno.tabela}>
                         <thead>
                             <tr>

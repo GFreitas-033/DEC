@@ -18,13 +18,16 @@ export default function Adm_turma(){
     const [turmasFiltradas, setTurmasFiltradas] = useState([]);
     const [unidades, setUnidades] = useState([]);
     const [professores, setProfessores] = useState([]);
+    const [nome, setNome] = useState("");
 
     const [mostrar, setMostrar] = useState(false);
-    const [checado1, setCheacado1] = useState(false);
-    const [checado2, setCheacado2] = useState(false);
+    const [checado1, setChecado1] = useState(false);
+    const [checado2, setChecado2] = useState(false);
+    const [checado3, setChecado3] = useState(false);
 
     const [filtroProfessor, setFiltroProfessor] = useState("");
     const [filtroUnidade, setFiltroUnidade] = useState("");
+    const [filtroTurmaNome, setFiltroTurmaNome] = useState("");
 
     const alertRemoverTurma = (id_turma) =>{
         Swal.fire({
@@ -108,8 +111,11 @@ export default function Adm_turma(){
         if(filtroUnidade) {
             filtradas = filtradas.filter(turma => turma.id_unidade === parseInt(filtroUnidade));
         }
+        if(filtroTurmaNome) {
+            filtradas = filtradas.filter(turma => turma.nome_turma.toLowerCase().includes(filtroTurmaNome.toLowerCase()));
+        }
         setTurmasFiltradas(filtradas);
-    }, [filtroProfessor, filtroUnidade, turmas]);
+    }, [filtroProfessor, filtroUnidade, filtroTurmaNome, turmas]);
 
     const excluirTurma = async (id_turma) => {
         try {
@@ -155,7 +161,7 @@ export default function Adm_turma(){
                                 <div className={EstiloAdmTurma.fundoEscuro} onClick={()=>{setMostrar(!mostrar)}}></div>
                                 <div className={EstiloAdmTurma.filtros}>
                                     <div>
-                                        <input type="checkbox" checked={checado1} onChange={handleCheckboxChange(setCheacado1, setFiltroProfessor)} />
+                                        <input type="checkbox" checked={checado1} onChange={handleCheckboxChange(setChecado1, setFiltroProfessor)} />
                                         <label>Professor</label>
                                         {checado1 && (
                                             <>
@@ -170,7 +176,7 @@ export default function Adm_turma(){
                                         )}
                                     </div>
                                     <div>
-                                        <input type="checkbox" checked={checado2} onChange={handleCheckboxChange(setCheacado2, setFiltroUnidade)} />
+                                        <input type="checkbox" checked={checado2} onChange={handleCheckboxChange(setChecado2, setFiltroUnidade)} />
                                         <label>Unidade</label>
                                         {checado2 && (
                                             <>
@@ -184,12 +190,24 @@ export default function Adm_turma(){
                                             </>
                                         )}
                                     </div>
+                                    <div>
+                                        <input type="checkbox" checked={checado3} onChange={handleCheckboxChange(setChecado3, setFiltroTurmaNome)} />
+                                        <label>Nome</label>
+                                        {checado3 && (
+                                            <>
+                                                <br />
+                                                <input type="text" placeholder="Nome da Turma" 
+                                                className={`${EstiloAdmTurma.inputGeral} ${EstiloAdmTurma.inputTexto}`} 
+                                                onChange={(e) => setFiltroTurmaNome(e.target.value)} 
+                                                value={filtroTurmaNome} />
+                                            </>
+                                        )}
+                                    </div>
                                     <img src={require('../../../imgs/icons/cancelar.png')} className={EstiloAdmTurma.imgFechar} onClick={()=>setMostrar(!mostrar)} />
                                 </div>
                             </>
                         )}
                     </div>
-
                     <table className={EstiloAdmTurma.tabela}>
                         <thead>
                             <tr>
@@ -199,8 +217,8 @@ export default function Adm_turma(){
                             </tr>
                         </thead>
                         <tbody>
-                            {turmasFiltradas.map(turma => (
-                                <tr key={turma.id_turma}>
+                            {turmasFiltradas.map((turma, index) => (
+                                <tr key={`${turma.id_pessoa}-${index}`}>
                                     <td className={EstiloAdmTurma.colunaId}>{turma.id_turma}</td>
                                     <td>{turma.nome_turma}</td>
                                     <td className={EstiloAdmTurma.colunaAcao}>
