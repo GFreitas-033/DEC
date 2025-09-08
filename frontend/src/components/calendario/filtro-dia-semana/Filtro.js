@@ -5,6 +5,9 @@ export default function FiltroDiaSemana({ onFilterChange }) {
   const [diasSelecionados, setDiasSelecionados] = useState([]);
   const [mostrar, setMostrar] = useState(false);
 
+  const [checado1, setChecado1] = useState(false);
+  const [filtroTurmaNome, setFiltroTurmaNome] = useState("");
+
   const FiltroAulaClick = () => {
     setMostrar((prevMostrar) => !prevMostrar);
   };
@@ -15,8 +18,31 @@ export default function FiltroDiaSemana({ onFilterChange }) {
       const novosDias = checked
         ? [...prevDias, value]
         : prevDias.filter((dia) => dia !== value);
-      onFilterChange(novosDias);
+      // ao alterar dias
+      onFilterChange({ dias: novosDias, nome: filtroTurmaNome });
       return novosDias;
+    });
+  };
+
+  
+  const handleNomeChange = (e) => {
+    const novoNome = e.target.value;
+    setFiltroTurmaNome(novoNome);
+
+    // ao alterar nome
+    onFilterChange({ dias: diasSelecionados, nome: novoNome });
+  };
+
+  const toggleNome = () => {
+    setChecado1((prev) => {
+      const novoEstado = !prev;
+      if (novoEstado === false) {
+        // Se está fechando, limpa o valor do filtro
+        setFiltroTurmaNome("");
+        // Também atualiza o filtro para remover o nome
+        onFilterChange({ dias: diasSelecionados, nome: "" });
+      }
+      return novoEstado;
     });
   };
 
@@ -38,6 +64,19 @@ export default function FiltroDiaSemana({ onFilterChange }) {
             </label>
           </div>
         ))}
+        <div>
+            <input type="checkbox" checked={checado1} onChange={toggleNome} />
+            <label>Nome</label>
+            {checado1 && (
+                <>
+                    <br />
+                    <input type="text" placeholder="Nome da Turma" 
+                    className={`${filtroStyle.inputGeral} ${filtroStyle.inputTexto}`} 
+                    onChange={handleNomeChange}
+                    value={filtroTurmaNome} />
+                </>
+            )}
+        </div>
       </div>
     </div>
   );

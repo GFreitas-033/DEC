@@ -18,7 +18,6 @@ export default function Adm_turma(){
     const [turmasFiltradas, setTurmasFiltradas] = useState([]);
     const [unidades, setUnidades] = useState([]);
     const [professores, setProfessores] = useState([]);
-    const [nome, setNome] = useState("");
 
     const [mostrar, setMostrar] = useState(false);
     const [checado1, setChecado1] = useState(false);

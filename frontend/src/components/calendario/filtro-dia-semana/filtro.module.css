@@ -49,3 +49,11 @@
 .mostrar {
     visibility: visible;
 }
+
+.inputGeral{
+    padding: 0.3rem 0;
+    border: 0.1rem solid #000;
+}
+.inputTexto{
+    width: 16rem;
+}

@@ -14,7 +14,7 @@ import Filtro from "./filtro-dia-semana/Filtro";
 export default function Calendario(){
     const navigate = useNavigate();
     const [calendarioData, setCalendarioData] = useState([]);
-    const [diasSelecionados, setDiasSelecionados] = useState([]);
+    const [filtros, setFiltros] = useState({ dias: [], nome: "" });
     const [loading, setLoading] = useState(true);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [loadingText, setLoadingText] = useState("Carregando.");
@@ -77,9 +77,15 @@ export default function Calendario(){
         }, {});
     };
 
-    const filteredData = diasSelecionados.length > 0
-        ? calendarioData.filter((item) => diasSelecionados.includes(item.dia_semana))
-        : calendarioData;
+    const filteredData = calendarioData.filter((item) => {
+      const diasFiltro = filtros.dias || [];
+      const nomeFiltro = filtros.nome || "";
+    
+      const diaOK = diasFiltro.length === 0 || diasFiltro.includes(item.dia_semana);
+      const nomeOK = item.nome_turma.toLowerCase().includes(nomeFiltro.toLowerCase());
+    
+      return diaOK && nomeOK;
+    });
 
     const groupedData = groupByDiaSemana(filteredData);
 
@@ -89,7 +95,7 @@ export default function Calendario(){
         <div className={ContainerCss.container}>
             <BarraLateral />
             <div className={EstiloCalendario.margin_content}>
-              <Filtro onFilterChange={setDiasSelecionados} />
+              <Filtro onFilterChange={setFiltros} />
               {loading ? (
                 <div className={EstiloCalendario.div_helloworld}>
                   <h1 className={EstiloCalendario.helloworld}>{loadingText}</h1>
