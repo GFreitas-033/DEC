@@ -1,18 +1,21 @@
 import React from "react";
 import Telefone from "./input.module.css";
 
-export default function Telefone_input({ value, setValue }) {
+export default function Telefone_input({ value, setValue, readOnly}) {
 
-  function formatarTel(event) {
-    let t = event.target.value;
+  const formatarTelefone = (t) => {
+    if (!t) return "";
     t = t.replace(/\D+/g, "");
     t = t.replace(/(\d{2})(\d)/, "($1) $2");
     t = t.replace(/(\d{5})(\d)/, "$1-$2");
-    if (t.length > 15) {
-      t = t.substring(0, 15);
-    }
+    return t.substring(0, 15);
+  };
+
+  const handleChange = (event) => {
+    if (!setValue) return;
+    const t = formatarTelefone(event.target.value);
     setValue(t);
-  }
+  };
 
   return (
     <div className={Telefone.esquerda}>
@@ -23,9 +26,10 @@ export default function Telefone_input({ value, setValue }) {
         placeholder="Insira um Telefone/Whatsapp aqui" 
         required 
         className={Telefone.input} 
-        onChange={formatarTel} 
-        value={value} 
+        onChange={readOnly ? undefined : handleChange} 
+        value={formatarTelefone(value)} 
         autoComplete="off"
+        readOnly={readOnly}
       /><br />
     </div>
   );

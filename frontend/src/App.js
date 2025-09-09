@@ -68,7 +68,7 @@ export default function App(){
         
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
 
-        <Route path="/adm/InformaçõesDoAluno" element={<InfoAluno />}></Route>
+        <Route path="/adm/InformaçõesDoAluno/:id_aluno" element={<InfoAluno />}></Route>
 
         <Route path="adm/adm_prof/disponibilidade" element={<Disponibilidade />}></Route>
       </Routes>

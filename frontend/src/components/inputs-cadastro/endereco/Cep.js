@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import Cep from "../input.module.css";
 
-export default function Cep_input({ onBuscarCep, value, setValue }) {
-
-    const buscarCep = (event) => {
-
-        let c = event.target.value;
+export default function Cep_input({ onBuscarCep, value, setValue, readOnly}) {
+    const formatarCep = (c) => {
+        if (!c) return "";
         c = c.replace(/\D/g, "");
         c = c.replace(/^(\d{5})(\d)/, "$1-$2");
-        
-        if (c.length > 9) {
-            c = c.substring(0, 9);
-        }
-        if(c.length === 9){
+        return c.substring(0, 9);
+    };
+
+    const buscarCep = (event) => {
+        if (!setValue) return; // só formata se for editável
+        let c = formatarCep(event.target.value);
+        if(c.length === 9 && onBuscarCep){
             onBuscarCep(c);
-        }
-        setValue(c);        
+        }       
+        setValue(c);
     };
 
     return (
@@ -28,9 +28,10 @@ export default function Cep_input({ onBuscarCep, value, setValue }) {
                     placeholder="Insira um Cep aqui"
                     required
                     className={Cep.input}
-                    onChange={buscarCep}
-                    value={value}
+                    onChange={readOnly ? undefined : buscarCep}
+                    value={formatarCep(value)}
                     autoComplete="off"
+                    readOnly={readOnly}
                 />
                 <br />
             </div>

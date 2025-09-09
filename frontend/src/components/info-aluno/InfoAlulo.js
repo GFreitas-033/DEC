@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import Swal from "sweetalert2";
 
 import ContainerCss from "../containers.module.css";
 import InfoStyle from "./infoAluno.module.css";
@@ -28,8 +27,80 @@ import Cidade from "../inputs-cadastro/endereco/Cidade";
 import Bairro from "../inputs-cadastro/endereco/Bairro";
 import Rua from "../inputs-cadastro/endereco/Rua";
 
+// Formatações
+function formatDate(dateString) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return date.toLocaleDateString("pt-BR", { timeZone: "UTC" }); // Formato DD/MM/YYYY
+}
+
+function formatCPF(cpf) {
+  if (!cpf) return "";
+  return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+}
+
+function formatRG(rg) {
+  if (!rg) return "";
+  return rg.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})$/, "$1.$2.$3-$4");
+}
+
+function formatTelefone(telefone) {
+  if (!telefone) return "";
+  return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+}
+
 export default function Tela_Info_Aluno(){
     const navigate = useNavigate();
+    const { id_aluno } = useParams();
+
+    // Estados do aluno
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [rg, setRg] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [nascimento, setNascimento] = useState("");
+    const [genero, setGenero] = useState("");
+    const [mao_dominante, setMao_Dominante] = useState("");
+
+    // Estados do endereço
+    const [cep, setCep] = useState("");
+    const [uf, setUf] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [bairro, setBairro] = useState("");
+    const [logradouro, setLogradouro] = useState("");
+
+    useEffect(() => {
+        if (id_aluno) {
+            preencherDados();
+        }
+    }, [id_aluno]);
+
+    async function preencherDados() {
+        try {
+            const response = await axios.get(`/api/aluno/allData/${id_aluno}`);
+            const dados = response.data[0];
+
+            // Aluno
+            setNome(dados.nome_aluno || "");
+            setEmail(dados.email_aluno || "");
+            setCpf(formatCPF(dados.cpf_aluno));
+            setGenero(dados.genero_aluno || "");
+            setRg(formatRG(dados.rg_aluno));
+            setTelefone(formatTelefone(dados.telefone_aluno));
+            setNascimento(formatDate(dados.data_nascimento_aluno));
+            setMao_Dominante(dados.destro_canhoto || "");
+
+            // Endereço
+            setCep(dados.cep_aluno || "");
+            setLogradouro(dados.rua_aluno || "");
+            setBairro(dados.bairro_aluno || "");
+            setCidade(dados.cidade_aluno || "");
+            setUf(dados.estado_aluno || "");
+      } catch (error) {
+            console.error("Erro ao buscar dados:", error);
+      }
+    }
 
     return(
         <div>
@@ -42,14 +113,20 @@ export default function Tela_Info_Aluno(){
                     </div>
                     <form className={InfoStyle.form}>
                         <div className={InfoStyle.contentInputs}>
-                            <Nome value={""} />
-                            <Email value={""} />
-                            <Cpf value={""} />
-                            <Rg value={""} />
-                            <Telefone value={""} />
-                            <DtNasc value={""} />
-                            <Genero value={""} />
-                            <DC value={""} />
+                            <Nome value={nome} readOnly />
+                            <Email value={email} readOnly />
+                            <Cpf value={cpf} readOnly />
+                            <Rg value={rg} readOnly />
+                            <Telefone value={telefone} readOnly />
+                            <DtNasc value={nascimento} readOnly />
+                            <Genero value={genero} disabled />
+                            <DC value={mao_dominante} disabled />
+                            {/* Endereço */}
+                            <Cep value={cep} readOnly />
+                            <UF value={uf} readOnly />
+                            <Cidade value={cidade} readOnly />
+                            <Bairro value={bairro} readOnly />
+                            <Rua value={logradouro} readOnly />
                         </div>
                     </form>
                 </div>

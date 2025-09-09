@@ -1,9 +1,10 @@
 import React from "react";
 import Cpf from "./input.module.css";
 
-export default function Cpf_input({ value, setValue }) {
+export default function Cpf_input({ value, setValue, readOnly}) {
 
   function formatarCPF(event) {
+    if (!setValue) return; // só formata se for editável
     let c = event.target.value;
     c = c.replace(/\D+/g, "");
     c = c.replace(/^(\d{3})(\d)/, "$1.$2");
@@ -24,9 +25,10 @@ export default function Cpf_input({ value, setValue }) {
         placeholder="Insira um CPF aqui" 
         required 
         className={Cpf.input} 
-        onChange={formatarCPF} 
+        onChange={readOnly ? undefined : formatarCPF} 
         value={value} 
         autoComplete="off"
+        readOnly={readOnly}
       /><br />
     </div>
   );

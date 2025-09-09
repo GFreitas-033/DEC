@@ -1,7 +1,7 @@
 import React from "react"
 import Rua from "../input.module.css"
 
-export default function Rua_input({value, setValue}){
+export default function Rua_input({value, setValue, readOnly}){
     
     function salvar(e) {
         let valor = e.target.value;
@@ -11,7 +11,9 @@ export default function Rua_input({value, setValue}){
     return(
         <div className={Rua.esquerda}>
             <label className={Rua.label}><b>Rua</b></label><br />
-            <input type="text" id="rua" required className={Rua.input} onChange={salvar} value={value} autoComplete="off"/><br/>
+            <input type="text" id="rua" required className={Rua.input} 
+            onChange={salvar} value={value} autoComplete="off"
+            readOnly={readOnly}/><br/>
         </div>
     )
 }

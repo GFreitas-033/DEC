@@ -1,8 +1,9 @@
 import React from "react"
 import Dt_nasc from "./input.module.css"
 
-export default function Dt_nasc_input({ value, setValue }){
+export default function Dt_nasc_input({ value, setValue, readOnly}){
     function formatarDate(event) {
+        if (!setValue) return; // só formata se for editável
         let dt = event.target.value;
         dt = dt.replace(/\D+/g, "");   
         dt = dt.replace(/(\d{2})(\d)/, "$1/$2");
@@ -22,9 +23,10 @@ export default function Dt_nasc_input({ value, setValue }){
                 placeholder="XX/XX/XXXX" 
                 required 
                 className={Dt_nasc.input}
-                onChange={formatarDate} 
+                onChange={readOnly ? undefined : formatarDate} 
                 value={value} 
                 autoComplete="off"
+                readOnly={readOnly}
             /><br />
         </div>
     )

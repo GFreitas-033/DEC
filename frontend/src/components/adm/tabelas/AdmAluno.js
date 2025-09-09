@@ -275,7 +275,7 @@ export default function Adm_aluno() {
                                     <td className={EstiloAdmAluno.colunaAcao}>
                                         <img src={require('../../../imgs/icons/Editar.png')} alt="Editar" className={EstiloAdmAluno.icon} onClick={() => navigate(`/editar/aluno/${aluno.id_pessoa}`)} />
                                         <img src={require('../../../imgs/icons/Excluir.png')} alt="Excluir" className={EstiloAdmAluno.icon} onClick={() => alertRemoverAluno(aluno.id_pessoa)} />
-                                        <img src={require('../../../imgs/icons/visao.png')} alt="Visualizar" className={EstiloAdmAluno.icon} onClick={() => navigate(`/adm/InformaçõesDoAluno`)} />
+                                        <img src={require('../../../imgs/icons/visao.png')} alt="Visualizar" className={EstiloAdmAluno.icon} onClick={() => navigate(`/adm/InformaçõesDoAluno/${aluno.id_pessoa}`)} />
                                     </td>
                                 </tr>
                             ))}
