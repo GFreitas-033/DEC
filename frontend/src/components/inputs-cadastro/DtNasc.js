@@ -1,7 +1,7 @@
 import React from "react"
 import Dt_nasc from "./input.module.css"
 
-export default function Dt_nasc_input({ value, setValue, readOnly}){
+export default function Dt_nasc_input({ texto, value, setValue, readOnly}){
     function formatarDate(event) {
         if (!setValue) return; // só formata se for editável
         let dt = event.target.value;
@@ -16,7 +16,7 @@ export default function Dt_nasc_input({ value, setValue, readOnly}){
 
     return(
         <div className={Dt_nasc.esquerda}>
-            <label className={Dt_nasc.label}><b>Data Nascimento</b></label><br />
+            <label className={Dt_nasc.label}><b>Data {texto ? "Cadastro" : "Nascimento"}</b></label><br />
             <input 
                 type="text" 
                 id="dt_nasc" 

@@ -60,6 +60,7 @@ export default function Tela_Info_Aluno(){
     const [rg, setRg] = useState("");
     const [telefone, setTelefone] = useState("");
     const [nascimento, setNascimento] = useState("");
+    const [cadastro, setCadastro] = useState("");
     const [genero, setGenero] = useState("");
     const [mao_dominante, setMao_Dominante] = useState("");
 
@@ -89,6 +90,7 @@ export default function Tela_Info_Aluno(){
             setRg(formatRG(dados.rg_aluno));
             setTelefone(formatTelefone(dados.telefone_aluno));
             setNascimento(formatDate(dados.data_nascimento_aluno));
+            setCadastro(formatDate(dados.dt_inicio));
             setMao_Dominante(dados.destro_canhoto || "");
 
             // Endereço
@@ -119,6 +121,7 @@ export default function Tela_Info_Aluno(){
                             <Rg value={rg} readOnly />
                             <Telefone value={telefone} readOnly />
                             <DtNasc value={nascimento} readOnly />
+                            <DtNasc texto={true} value={cadastro} readOnly />
                             <Genero value={genero} disabled />
                             <DC value={mao_dominante} disabled />
                             {/* Endereço */}
@@ -127,6 +130,28 @@ export default function Tela_Info_Aluno(){
                             <Cidade value={cidade} readOnly />
                             <Bairro value={bairro} readOnly />
                             <Rua value={logradouro} readOnly />
+                        </div>
+                        <div className={InfoStyle.divLista}>
+                            <label className={InfoStyle.label}><b>
+                                Número de Turmas: {"5"}
+                            </b></label>
+                            <ul className={InfoStyle.lista}>
+                                <li>Turma 1</li>
+                                <li>Turma 2</li>
+                                <li>Turma 3</li>
+                                <li>Turma 4</li>
+                                <li>Turma 5</li>
+                            </ul>
+                        </div>
+                        <div className={InfoStyle.divLista}>
+                            <label className={InfoStyle.label}><b>
+                                Número de Responsáveis: {"3"}
+                            </b></label>
+                            <ul className={InfoStyle.lista}>
+                                <li>Responsáveis 1</li>
+                                <li>Responsáveis 1</li>
+                                <li>Responsáveis 1</li>
+                            </ul>
                         </div>
                     </form>
                 </div>
