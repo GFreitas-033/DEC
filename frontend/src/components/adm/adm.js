@@ -77,7 +77,7 @@ export default function AdmGeral() {
                             <img src={require('../../imgs/icons/icon4.png')} alt="Aluno Img"/>
                             <h1>Alunos</h1>
                         </div>
-                        <div className={EstiloAdm.cards_adm} onClick={()=>alert("Teste")}>
+                        <div className={EstiloAdm.cards_adm} onClick={()=>navigate('/adm/adm_responsavel')}>
                             <img src={require('../../imgs/icons/responsavel.png')} alt="Responsavel Img"/>
                             <h1>Responsáveis</h1>
                         </div>

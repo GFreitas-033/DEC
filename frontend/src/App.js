@@ -23,6 +23,7 @@ import Adm from "./components/adm/Adm"
 import Dashboard from "./components/dashboard/Dashboard"
 
 import AdmAluno from "./components/adm/tabelas/AdmAluno"
+import AdmResp from "./components/adm/tabelas/AdmResponsaveis"
 import AdmProf from "./components/adm/tabelas/AdmProfessor"
 import AdmUni from "./components/adm/tabelas/AdmUnidade"
 import AdmTurma from "./components/adm/tabelas/AdmTurma"
@@ -67,6 +68,10 @@ export default function App(){
         <Route path="/adm/dashboard" element={<Dashboard />}></Route>
         
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
+
+        <Route path="adm/adm_responsavel" element={<AdmResp />}></Route>
+        <Route path="/editar_responsavel/:id_responsavel" element={<CadastroTurma texto={"Editar Turma"} btn={"Editar"}/>}></Route>
+        <Route path="/adm/InformaçõesDoResponsavel/:id_responsavel" element={<InfoAluno />}></Route>
 
         <Route path="/adm/InformaçõesDoAluno/:id_aluno" element={<InfoAluno />}></Route>
 
