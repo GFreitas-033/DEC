@@ -135,7 +135,7 @@ export default function AlunosCalendario() {
     useEffect(() => {
         const fetchTurma = async () => {
             try {
-                const response = await axios.put(`/minhasturmas/${idturma}`);
+                const response = await axios.get(`/minhasturmas/${idturma}`);
                 setTurma(response.data);
             } catch (error) {
                 console.error("Erro ao buscar dados da turma:", error);

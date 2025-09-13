@@ -1,135 +1,65 @@
 // controllers/calendarioController.js
 const express = require("express");
-const axios = require("axios");
 const router = express.Router();
+const pessoaModel = require("../models/pessoa");
+const professorModel = require("../models/professor");
+const turmaModel = require("../models/turma");
+
 
 router.get('/calendario', async (req, res) => {
-    let id_pessoa = req.session.id_pessoa;
+    const id_pessoa = req.session.id_pessoa;
+
+    if (!id_pessoa) {
+        return res.status(401).json({ message: "Usuário não autenticado." });
+    }
 
     try {
-        // Verifica se a pessoa é um professor
-        const responseProfessor = await axios.get('http://localhost:5000/api/professor');
-        const dadosProfessor = responseProfessor.data;
-        const professor = dadosProfessor.find(p => p.id_pessoa === id_pessoa);
-
-        const responseAdm = await axios.get('http://localhost:5000/api/pessoa');
-        const dadosAdm = responseAdm.data;
-        let adm = dadosAdm.find(p => p.id_pessoa === id_pessoa);
-        adm =  adm.adm;
-
-        let turmas;
-        if (professor) {
-            // Se for professor, busca as turmas do professor
-            const responseTurmas = await axios.get('http://localhost:5000/api/turma');
-            const dadosTurmas = responseTurmas.data;
-            turmas = dadosTurmas.filter(turma => turma.id_professor === id_pessoa);
-        }else if(adm==1){
-            const responseTurmas = await axios.get('http://localhost:5000/api/turma');
-            turmas = responseTurmas.data;
-        }else {
-            // Caso contrário, assume que é um aluno
-            const responseTurmasAluno = await axios.get('http://localhost:5000/api/aluno_has_turma');
-            const dadosTurmasAluno = responseTurmasAluno.data;
-            const turmasAluno = dadosTurmasAluno.filter(p => p.id_aluno === id_pessoa);
-            const idTurmas = turmasAluno.map(turma => turma.id_turma);
-
-            const responseMinhasTurmas = await axios.get('http://localhost:5000/api/turma');
-            const dadosMinhasTurmas = responseMinhasTurmas.data;
-            turmas = dadosMinhasTurmas.filter(turma => idTurmas.includes(turma.id_turma));
+        // 1. Determina o perfil do usuário (Admin, Professor ou Aluno)
+        const pessoa = await pessoaModel.findById(id_pessoa);
+        if (!pessoa) {
+            return res.status(404).json({ message: "Usuário não encontrado." });
         }
 
-        const turmasFiltradas = turmas.map(turma => ({
-            dia_semana: turma.dia_semana,
-            horario: turma.horario,
-            id_unidade: turma.id_unidade,
-            id_turma: turma.id_turma,
-            nome_turma: turma.nome_turma // Adiciona o campo nome_turma
-        }));
+        const isProfessor = await professorModel.findById(id_pessoa);
 
-        const responseUnidades = await axios.get('http://localhost:5000/api/unidade');
-        const dadosUnidades = responseUnidades.data;
-        const idsUnidades = turmasFiltradas.map(item => item.id_unidade);
-        const unidadesFiltradas = dadosUnidades.filter(unidade => idsUnidades.includes(unidade.id_unidade));
+        let turmasComDetalhes;
+        // 2. Busca as turmas com base no perfil
+        if (pessoa.adm === 1) {
+            // Se for Administrador, busca todas as turmas
+            turmasComDetalhes = await turmaModel.findAllWithDetails();
+        } else if (isProfessor) {
+            // Se for Professor, busca apenas as suas turmas
+            turmasComDetalhes = await turmaModel.findByProfessorWithDetails(id_pessoa);
+        } else {
+            // Caso contrário, assume que é um Aluno
+            turmasComDetalhes = await turmaModel.findByAlunoWithDetails(id_pessoa);
+        }
 
-        const unidadesMap = unidadesFiltradas.reduce((map, unidade) => {
-            map[unidade.id_unidade] = unidade.id_endereco;
-            return map;
-        }, {});
+        res.json(turmasComDetalhes);
 
-        const turmasComEndereco = turmasFiltradas.map(turma => ({
-            dia_semana: turma.dia_semana,
-            horario: turma.horario,
-            id_turma: turma.id_turma,
-            id_endereco: unidadesMap[turma.id_unidade] || turma.id_unidade,
-            nome_turma: turma.nome_turma // Mantém o campo nome_turma
-        }));
-
-        const responseEnderecos = await axios.get('http://localhost:5000/api/endereco');
-        const dadosEnderecos = responseEnderecos.data;
-
-        const enderecosMap = dadosEnderecos.reduce((map, endereco) => {
-            map[endereco.id_endereco] = `${endereco.rua}, ${endereco.numero}, ${endereco.bairro}, ${endereco.cidade}, ${endereco.estado}`;
-            return map;
-        }, {});
-
-        const turmasComEnderecoCompleto = turmasComEndereco.map(turma => ({
-            dia_semana: turma.dia_semana,
-            horario: turma.horario,
-            id_turma: turma.id_turma,
-            endereco_completo: enderecosMap[turma.id_endereco] || turma.id_endereco,
-            nome_turma: turma.nome_turma
-        }));
-
-        res.json(turmasComEnderecoCompleto);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao buscar dados", error: error.message });
+        console.error("Erro ao buscar dados do calendário:", error);
+        res.status(500).json({ message: "Erro interno ao buscar dados do calendário.", error: error.message });
     }
 });
 
-router.put('/calendario/:id_turma', async (req, res) => {
-    const id_turma = parseInt(req.params.id_turma);
+// Rota corrigida para GET, pois é uma operação de busca de dados, não de atualização.
+router.get('/calendario/:id_turma', async (req, res) => {
+    const { id_turma } = req.params;
 
     try {
-        // Obter turma pelo id_turma
-        const responseTurmas = await axios.get('http://localhost:5000/api/turma');
-        const turma = responseTurmas.data.find(t => t.id_turma === id_turma);
+        const turma = await turmaModel.findDetailsById(id_turma);
 
         if (!turma) {
             return res.status(404).json({ message: "Turma não encontrada" });
         }
 
-        // Obter unidade pelo id_unidade da turma
-        const responseUnidades = await axios.get('http://localhost:5000/api/unidade');
-        const unidade = responseUnidades.data.find(u => u.id_unidade === turma.id_unidade);
+        res.json(turma);
 
-        if (!unidade) {
-            return res.status(404).json({ message: "Unidade não encontrada" });
-        }
-
-        // Obter endereço pelo id_endereco da unidade
-        const responseEnderecos = await axios.get('http://localhost:5000/api/endereco');
-        const endereco = responseEnderecos.data.find(e => e.id_endereco === unidade.id_endereco);
-
-        if (!endereco) {
-            return res.status(404).json({ message: "Endereço não encontrado" });
-        }
-
-        // Montar a string completa do endereço
-        const enderecoCompleto = `${endereco.rua}, ${endereco.numero}, ${endereco.bairro}, ${endereco.cidade}, ${endereco.estado}`;
-
-        // Retornar a resposta no formato esperado
-        const resultado = {
-            horario: turma.horario,
-            id_turma: turma.id_turma,
-            endereco_completo: enderecoCompleto,
-            nome_turma: turma.nome_turma
-        };
-
-        res.json(resultado);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao buscar dados", error: error.message });
+        console.error(`Erro ao buscar detalhes da turma ${id_turma}:`, error);
+        res.status(500).json({ message: "Erro ao buscar dados da turma.", error: error.message });
     }
 });
-
 
 module.exports = router;

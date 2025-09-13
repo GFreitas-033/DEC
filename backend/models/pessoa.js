@@ -55,11 +55,23 @@ async function getPessoaByCpf(cpf_pessoa) {
     }
 }
 
+async function findById(id_pessoa){
+    try {
+        const [results] = await db.query('SELECT * FROM pessoa WHERE id_pessoa=?',
+            [id_pessoa]);
+        return results[0];
+    } catch (err) {
+        console.error('Erro ao obter dados:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
 
 module.exports = {
     readPessoa,
     createPessoa,
     updatePessoa,
     deletePessoa,
-    getPessoaByCpf
+    getPessoaByCpf,
+    findById
 };

@@ -10,6 +10,17 @@ async function readProfessor() {
     }
 }
 
+async function findById(id_pessoa){
+    try {
+        const [results] = await db.query('SELECT * FROM professor WHERE id_pessoa=?',
+            [id_pessoa]);
+        return results[0];
+    } catch (err) {
+        console.error('Erro ao obter dados:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
 async function createProfessor(id_pessoa, caminho_foto) {
     try {
         await db.query('INSERT INTO professor (id_pessoa, caminho_foto) VALUES (?, ?)', 
@@ -65,5 +76,6 @@ module.exports = {
     createProfessor,
     updateProfessor,
     deleteProfessor,
-    findTurmasByProfessorId
+    findTurmasByProfessorId,
+    findById
 };

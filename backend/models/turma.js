@@ -96,11 +96,99 @@ async function readTurmaFormatada() {
     }
 }
 
+async function findAllWithDetails() {
+    try {
+        const [rows] = await db.query(`
+            SELECT
+                t.dia_semana,
+                t.horario,
+                t.id_turma,
+                t.nome_turma,
+                CONCAT(e.rua, ', ', e.numero, ', ', e.bairro, ', ', e.cidade, ', ', e.estado) AS endereco_completo
+            FROM turma t
+            JOIN unidade u ON t.id_unidade = u.id_unidade
+            JOIN endereco e ON u.id_endereco = e.id_endereco
+        `);
+        return rows;
+    } catch (err) {
+        console.error('Erro ao buscar todas as turmas com detalhes:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+async function findByProfessorWithDetails(id_professor) {
+    try {
+        const [rows] = await db.query(`
+            SELECT
+                t.dia_semana,
+                t.horario,
+                t.id_turma,
+                t.nome_turma,
+                CONCAT(e.rua, ', ', e.numero, ', ', e.bairro, ', ', e.cidade, ', ', e.estado) AS endereco_completo
+            FROM turma t
+            JOIN unidade u ON t.id_unidade = u.id_unidade
+            JOIN endereco e ON u.id_endereco = e.id_endereco
+            WHERE t.id_professor = ?
+        `, [id_professor]);
+        return rows;
+    } catch (err) {
+        console.error('Erro ao buscar turmas do professor com detalhes:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+async function findByAlunoWithDetails(id_aluno) {
+    try {
+        const [rows] = await db.query(`
+            SELECT
+                t.dia_semana,
+                t.horario,
+                t.id_turma,
+                t.nome_turma,
+                CONCAT(e.rua, ', ', e.numero, ', ', e.bairro, ', ', e.cidade, ', ', e.estado) AS endereco_completo
+            FROM turma t
+            JOIN aluno_has_turma aht ON t.id_turma = aht.id_turma
+            JOIN unidade u ON t.id_unidade = u.id_unidade
+            JOIN endereco e ON u.id_endereco = e.id_endereco
+            WHERE aht.id_aluno = ?
+        `, [id_aluno]);
+        return rows;
+    } catch (err) {
+        console.error('Erro ao buscar turmas do aluno com detalhes:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+async function findDetailsById(id_turma) {
+    try {
+        const [rows] = await db.query(`
+            SELECT
+                t.horario,
+                t.id_turma,
+                t.nome_turma,
+                CONCAT(e.rua, ', ', e.numero, ', ', e.bairro, ', ', e.cidade, ', ', e.estado) AS endereco_completo
+            FROM turma t
+            JOIN unidade u ON t.id_unidade = u.id_unidade
+            JOIN endereco e ON u.id_endereco = e.id_endereco
+            WHERE t.id_turma = ?
+        `, [id_turma]);
+        return rows[0]; // Retorna o primeiro objeto encontrado ou undefined
+    } catch (err) {
+        console.error('Erro ao buscar detalhes da turma:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+
 module.exports = {
     readTurma,
     createTurma,
     updateTurma,
     deleteTurma,
     readTurmaFormatada,
-    readTurmaPadrao
+    readTurmaPadrao,
+    findAllWithDetails,
+    findByAlunoWithDetails,
+    findByProfessorWithDetails,
+    findDetailsById
 };
