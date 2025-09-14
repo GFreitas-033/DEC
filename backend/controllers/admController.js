@@ -31,11 +31,9 @@ router.get('/excluiraluno/:id_aluno', async (req, res) => {
 
 router.get('/professor', async (req, res) => {
     try {
-        const responseProfessor = await professorModel.readProfessor();
-        const dadosProfessor = responseProfessor.data;
+        const dadosProfessor = await professorModel.readProfessor();
 
-        const responsePessoa = await pessoaModel.readPessoa();
-        const dadosPessoa = responsePessoa.data;
+        const dadosPessoa = await pessoaModel.readPessoa();
 
         const idsProfessor = new Set(dadosProfessor.map(professor => professor.id_pessoa));
 
