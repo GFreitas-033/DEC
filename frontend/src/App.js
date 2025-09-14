@@ -28,7 +28,8 @@ import AdmProf from "./components/adm/tabelas/AdmProfessor"
 import AdmUni from "./components/adm/tabelas/AdmUnidade"
 import AdmTurma from "./components/adm/tabelas/AdmTurma"
 
-import InfoAluno from "./components/info-aluno/InfoAlulo"
+import InfoAluno from "./components/adm/informacoes/InfoAluno"
+import InfoResp from "./components/adm/informacoes/InfoResp"
 
 import Disponibilidade from "./components/disponibilidade-professor/Disponibilidade"
 
@@ -42,7 +43,6 @@ export default function App(){
 
         <Route path="/home" element={<Home/>}></Route>
 
-        <Route path="/editar/aluno/:id_aluno" element={<PaganteTrue />}></Route>
         <Route path="/matricula" element={<PaganteTrue />}></Route>{/* Aluno Pagante */}
         <Route path="/cadastro" element={<PaganteFalse />}></Route>{/* Aluno Não Pagante */}
         <Route path="/cadastro/aluno/Escola" element={<AlunoEscola />}></Route>{/* Aluno de Escola */}
@@ -68,12 +68,12 @@ export default function App(){
         <Route path="/adm/dashboard" element={<Dashboard />}></Route>
         
         <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
+        <Route path="/editar/aluno/:id_aluno" element={<PaganteTrue />}></Route>
+        <Route path="/adm/InformaçõesDoAluno/:id_aluno" element={<InfoAluno />}></Route>
 
         <Route path="adm/adm_responsavel" element={<AdmResp />}></Route>
-        <Route path="/editar_responsavel/:id_responsavel" element={<CadastroTurma texto={"Editar Turma"} btn={"Editar"}/>}></Route>
-        <Route path="/adm/InformaçõesDoResponsavel/:id_responsavel" element={<InfoAluno />}></Route>
-
-        <Route path="/adm/InformaçõesDoAluno/:id_aluno" element={<InfoAluno />}></Route>
+        <Route path="/editar_responsavel/:id_responsavel" element={<InfoResp isEditar />}></Route>
+        <Route path="/adm/InformaçõesDoResponsavel/:id_responsavel" element={<InfoResp />}></Route>
 
         <Route path="adm/adm_prof/disponibilidade" element={<Disponibilidade />}></Route>
       </Routes>

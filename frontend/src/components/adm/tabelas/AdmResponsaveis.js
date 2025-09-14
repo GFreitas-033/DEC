@@ -90,7 +90,7 @@ export default function Adm_responsaveis() {
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloAdmResp.contentAdm}>
-                    <h1 className={EstiloAdmResp.titulo}>Responsaveis</h1>
+                    <h1 className={EstiloAdmResp.titulo}>Responsáveis</h1>
                     <table className={EstiloAdmResp.tabela}>
                         <thead>
                             <tr>
@@ -105,7 +105,7 @@ export default function Adm_responsaveis() {
                                     <td className={EstiloAdmResp.colunaId}>{responsavel.id_pessoa}</td>
                                     <td>{responsavel.nome_pessoa}</td>
                                     <td className={EstiloAdmResp.colunaAcao}>
-                                        <img src={require('../../../imgs/icons/Editar.png')} alt="Editar" className={EstiloAdmResp.icon} onClick={() => navigate(`/editar/responsavel/${responsavel.id_pessoa}`)} />
+                                        <img src={require('../../../imgs/icons/Editar.png')} alt="Editar" className={EstiloAdmResp.icon} onClick={() => navigate(`/editar_responsavel/${responsavel.id_pessoa}`)} />
                                         <img src={require('../../../imgs/icons/Excluir.png')} alt="Excluir" className={EstiloAdmResp.icon} onClick={() => alertRemoverResponsavel(responsavel.id_pessoa)} />
                                         <img src={require('../../../imgs/icons/visao.png')} alt="Visualizar" className={EstiloAdmResp.icon} onClick={() => navigate(`/adm/InformaçõesDoResponsavel/${responsavel.id_pessoa}`)} />
                                     </td>

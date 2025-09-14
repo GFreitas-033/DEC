@@ -57,7 +57,6 @@ export default function Notificacao() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

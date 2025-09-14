@@ -2,30 +2,30 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-import ContainerCss from "../containers.module.css";
-import InfoStyle from "./infoAluno.module.css";
+import ContainerCss from "../../containers.module.css";
+import InfoStyle from "./informacoes.module.css";
 
-import Background_Sistema from "../background/BackSistema";
-import BarraLateral from "../barra-lateral/BarraLateral";
-import Notifica from "../sino-notificacao/Notificacao";
-import BtnVoltar from "../btn-voltar/BotaoVoltar";
+import Background_Sistema from "../../background/BackSistema";
+import BarraLateral from "../../barra-lateral/BarraLateral";
+import Notifica from "../../sino-notificacao/Notificacao";
+import BtnVoltar from "../../btn-voltar/BotaoVoltar";
 
 // Imports dos Inputs para Pessoa
-import Nome from "../inputs-cadastro/Nome";
-import Email from "../inputs-cadastro/Email";
-import Cpf from "../inputs-cadastro/Cpf";
-import Rg from "../inputs-cadastro/Rg";
-import Telefone from "../inputs-cadastro/Telefone";
-import DtNasc from "../inputs-cadastro/DtNasc";
-import Genero from "../inputs-cadastro/Genero";
-import DC from "../inputs-cadastro/DestroCanhoto";
+import Nome from "../../inputs-cadastro/Nome";
+import Email from "../../inputs-cadastro/Email";
+import Cpf from "../../inputs-cadastro/Cpf";
+import Rg from "../../inputs-cadastro/Rg";
+import Telefone from "../../inputs-cadastro/Telefone";
+import DtNasc from "../../inputs-cadastro/DtNasc";
+import Genero from "../../inputs-cadastro/Genero";
+import DC from "../../inputs-cadastro/DestroCanhoto";
 
 // Imports do Endereço
-import Cep from "../inputs-cadastro/endereco/Cep";
-import UF from "../inputs-cadastro/endereco/Uf";
-import Cidade from "../inputs-cadastro/endereco/Cidade";
-import Bairro from "../inputs-cadastro/endereco/Bairro";
-import Rua from "../inputs-cadastro/endereco/Rua";
+import Cep from "../../inputs-cadastro/endereco/Cep";
+import UF from "../../inputs-cadastro/endereco/Uf";
+import Cidade from "../../inputs-cadastro/endereco/Cidade";
+import Bairro from "../../inputs-cadastro/endereco/Bairro";
+import Rua from "../../inputs-cadastro/endereco/Rua";
 
 // Formatações
 function formatDate(dateString) {
