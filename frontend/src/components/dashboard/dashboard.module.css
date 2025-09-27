@@ -1,3 +1,8 @@
+@media  screen and (min-width: 0px){
+    .containerDash{
+        display: none;
+    }
+}
 @media  screen and (min-width: 1366px){
     .containerDash{
         width: 69rem;
@@ -20,12 +25,12 @@
 }
 
 .containerDash{
-
     background-color: #fff;
     border-radius: 4rem;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    position: relative; /* Essencial para o posicionamento do overlay */
 }
 
 .hrContainer{
@@ -33,11 +38,6 @@
     height: 0.8%;
     border: none;
     background-color: #000;
-}
-
-.containerDash {
-    /* ... (seus estilos existentes para .containerDash) ... */
-    position: relative; /* Essencial para o posicionamento do overlay */
 }
 
 .spinnerContainer {
