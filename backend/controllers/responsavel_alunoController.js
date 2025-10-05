@@ -36,4 +36,16 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     res.status(200).send('Registro excluído com sucesso!');
 }));
 
+router.get('/allData/:id', asyncHandler(async (req, res) =>{
+    const id_pessoa = parseInt(req.params.id);
+    const data = await responsavel_alunoModel.allDataResponsavel(id_pessoa);
+    res.json(data);
+}))
+
+router.get('/alunos/:id', asyncHandler(async (req, res) =>{
+    const id_pessoa = parseInt(req.params.id);
+    const data = await responsavel_alunoModel.getAlunosResponsavel(id_pessoa);
+    res.json(data);
+}))
+
 module.exports = router;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom"; // Importado o Link e removido o navigate não utilizado
 import axios from "axios";
 
 import ContainerCss from "../../containers.module.css";
@@ -20,71 +20,84 @@ import Genero from "../../inputs-cadastro/Genero";
 
 // Formatações
 function formatDate(dateString) {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  return date.toLocaleDateString("pt-BR", { timeZone: "UTC" }); // Formato DD/MM/YYYY
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("pt-BR", { timeZone: "UTC" }); // Formato DD/MM/YYYY
 }
 
 function formatCPF(cpf) {
-  if (!cpf) return "";
-  return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+    if (!cpf) return "";
+    return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
 }
 
 function formatRG(rg) {
-  if (!rg) return "";
-  return rg.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})$/, "$1.$2.$3-$4");
+    if (!rg) return "";
+    return rg.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})$/, "$1.$2.$3-$4");
 }
 
 function formatTelefone(telefone) {
-  if (!telefone) return "";
-  return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+    if (!telefone) return "";
+    return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
 }
 
-export default function Tela_Info_Responsavel({ isEditar }){
-    const navigate = useNavigate();
-    const { id_aluno } = useParams();
+export default function Tela_Info_Responsavel({ isEditar }) {
+    const { id_responsavel } = useParams();
 
-    // Estados do aluno
+    // Estados do responsável
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [cpf, setCpf] = useState("");
     const [rg, setRg] = useState("");
     const [telefone, setTelefone] = useState("");
-    const [cadastro, setCadastro] = useState("");
     const [genero, setGenero] = useState("");
 
+    // Novo estado para a lista de alunos
+    const [alunos, setAlunos] = useState([]);
+
     useEffect(() => {
-        if (id_aluno) {
+        if (id_responsavel) {
             preencherDados();
         }
-    }, [id_aluno]);
+    }, [id_responsavel]);
 
     async function preencherDados() {
         try {
-            const response = await axios.get(`/api/aluno/allData/${id_aluno}`);
-            const dados = response.data[0];
+            // Requisição para os dados do responsável
+            const responseResponsavel = await axios.get(
+                `/api/responsavel_aluno/allData/${id_responsavel}`
+            );
+            const dadosResponsavel = responseResponsavel.data;
 
-            // Aluno
-            setNome(dados.nome_aluno || "");
-            setEmail(dados.email_aluno || "");
-            setCpf(formatCPF(dados.cpf_aluno));
-            setGenero(dados.genero_aluno || "");
-            setRg(formatRG(dados.rg_aluno));
-            setTelefone(formatTelefone(dados.telefone_aluno));
-            setCadastro(formatDate(dados.dt_inicio));
-      } catch (error) {
+            setNome(dadosResponsavel.nome_pessoa || "");
+            setEmail(dadosResponsavel.email_pessoa || "");
+            setCpf(formatCPF(dadosResponsavel.cpf_pessoa));
+            setGenero(dadosResponsavel.genero || "");
+            setRg(formatRG(dadosResponsavel.rg_pessoa));
+            setTelefone(formatTelefone(dadosResponsavel.telefone_pessoa));
+
+            // Requisição para a lista de alunos associados ao responsável
+            const responseAlunos = await axios.get(
+                `/api/responsavel_aluno/alunos/${id_responsavel}`
+            );
+            setAlunos(responseAlunos.data);
+
+        } catch (error) {
             console.error("Erro ao buscar dados:", error);
-      }
+        }
     }
 
-    return(
+    return (
         <div>
             <Background_Sistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={InfoStyle.content}>
                     <div className={InfoStyle.textcenter}>
-                        <h1>{isEditar ? "Editar Responsável" : "Informações Do Responsável"}</h1>
+                        <h1>
+                            {isEditar
+                                ? "Editar Responsável"
+                                : "Informações Do Responsável"}
+                        </h1>
                     </div>
                     <form className={InfoStyle.form}>
                         <div className={InfoStyle.contentInputs}>
@@ -96,13 +109,18 @@ export default function Tela_Info_Responsavel({ isEditar }){
                             <Genero value={genero} disabled />
                         </div>
                         <div className={InfoStyle.divLista}>
-                            <label className={InfoStyle.label}><b>
-                                Número de Alunos: {"3"}
-                            </b></label>
+                            <label className={InfoStyle.label}>
+                                <b>Número de Alunos: {alunos.length}</b>
+                            </label>
                             <ul className={InfoStyle.lista}>
-                                <li>Aluno 1</li>
-                                <li>Aluno 2</li>
-                                <li>Aluno 3</li>
+                                {alunos.map((aluno) => (
+                                    <li key={aluno.id_pessoa}>
+                                        <Link to={`/adm/InformaçõesDoAluno/${aluno.id_pessoa}`}
+                                        style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            {aluno.nome_pessoa}
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                         {isEditar && (
