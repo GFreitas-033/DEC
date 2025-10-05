@@ -70,10 +70,14 @@ export default function Tela_Info_Aluno(){
     const [cidade, setCidade] = useState("");
     const [bairro, setBairro] = useState("");
     const [logradouro, setLogradouro] = useState("");
+    const [turmas, setTurmas] = useState([]);
+    const [responsaveis, setResponsaveis] = useState([]);
 
     useEffect(() => {
         if (id_aluno) {
             preencherDados();
+            buscarTurmas();
+            buscarResponsaveis();
         }
     }, [id_aluno]);
 
@@ -102,6 +106,24 @@ export default function Tela_Info_Aluno(){
       } catch (error) {
             console.error("Erro ao buscar dados:", error);
       }
+    }
+
+    async function buscarTurmas() {
+        try {
+            const response = await axios.get(`/api/aluno/turmas/${id_aluno}`);
+            setTurmas(response.data);
+        } catch (error) {
+            console.error("Erro ao buscar turmas:", error);
+        }
+    }
+
+    async function buscarResponsaveis() {
+        try {
+            const response = await axios.get(`/api/aluno/responsaveis/${id_aluno}`);
+            setResponsaveis(response.data);
+        } catch (error) {
+            console.error("Erro ao buscar responsáveis:", error);
+        }
     }
 
     return(
@@ -133,24 +155,26 @@ export default function Tela_Info_Aluno(){
                         </div>
                         <div className={InfoStyle.divLista}>
                             <label className={InfoStyle.label}><b>
-                                Número de Turmas: {"5"}
+                                Número de Turmas: {turmas.length}
                             </b></label>
                             <ul className={InfoStyle.lista}>
-                                <li>Turma 1</li>
-                                <li>Turma 2</li>
-                                <li>Turma 3</li>
-                                <li>Turma 4</li>
-                                <li>Turma 5</li>
+                                {turmas.map((turma) => (
+                                    <li key={turma.id_turma} onClick={() => navigate(`/aulas/turma/${turma.id_turma}`)} style={{ cursor: 'pointer' }}>
+                                        {turma.nome_turma}
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                         <div className={InfoStyle.divLista}>
                             <label className={InfoStyle.label}><b>
-                                Número de Responsáveis: {"3"}
+                                Número de Responsáveis: {responsaveis.length}
                             </b></label>
                             <ul className={InfoStyle.lista}>
-                                <li>Responsáveis 1</li>
-                                <li>Responsáveis 1</li>
-                                <li>Responsáveis 1</li>
+                                {responsaveis.map((responsavel) => (
+                                    <li key={responsavel.id_pessoa} onClick={() => navigate(`/adm/InformaçõesDoResponsavel/${responsavel.id_pessoa}`)} style={{ cursor: 'pointer' }}>
+                                        {responsavel.nome_pessoa}
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     </form>

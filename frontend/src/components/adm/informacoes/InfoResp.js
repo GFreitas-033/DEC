@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom"; // Importado o Link e removido o navigate não utilizado
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import ContainerCss from "../../containers.module.css";
@@ -41,6 +41,7 @@ function formatTelefone(telefone) {
 }
 
 export default function Tela_Info_Responsavel({ isEditar }) {
+    const navigate = useNavigate();
     const { id_responsavel } = useParams();
 
     // Estados do responsável
@@ -114,11 +115,8 @@ export default function Tela_Info_Responsavel({ isEditar }) {
                             </label>
                             <ul className={InfoStyle.lista}>
                                 {alunos.map((aluno) => (
-                                    <li key={aluno.id_pessoa}>
-                                        <Link to={`/adm/InformaçõesDoAluno/${aluno.id_pessoa}`}
-                                        style={{ textDecoration: 'none', color: 'inherit' }}>
-                                            {aluno.nome_pessoa}
-                                        </Link>
+                                    <li key={aluno.id_pessoa} onClick={() => navigate(`/adm/InformaçõesDoAluno/${aluno.id_pessoa}`)} style={{ cursor: 'pointer' }}>
+                                        {aluno.nome_pessoa}
                                     </li>
                                 ))}
                             </ul>

@@ -62,11 +62,53 @@ async function allDataAluno(id_aluno) {
     }
 }
 
+async function getTurmas(id_aluno) {
+    try {
+        const query = `
+            SELECT 
+            t.id_turma, 
+            CONCAT(
+                t.nome_turma, " - ", 
+                t.horario, " - ", 
+                CONCAT(UPPER(LEFT(t.dia_semana, 1)), LOWER(SUBSTRING(t.dia_semana, 2)))
+            ) AS nome_turma
+            FROM turma t
+            JOIN aluno_has_turma aht 
+            ON aht.id_turma = t.id_turma
+            WHERE aht.id_aluno = ?;
+        `;
+        const [rows] = await db.execute(query, [id_aluno]);
+        return rows;
+    } catch (error) {
+        console.error('Erro ao buscar as turmas do aluno:', error);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+async function getResponsaveis(id_aluno) {
+    try {
+        const query = `
+            SELECT p.id_pessoa,p.nome_pessoa
+            FROM pessoa p
+            JOIN aluno a
+            WHERE (a.id_responsavel = p.id_pessoa OR a.id_responsavel2 = p.id_pessoa) AND a.id_pessoa = ?;
+        `;
+        const [rows] = await db.execute(query, [id_aluno]);
+        return rows;
+    } catch (error) {
+        console.error('Erro ao buscar as turmas do aluno:', error);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
+
 module.exports = {
     readAluno,
     createAluno,
     updateAluno,
     deleteAluno,
     allDataAluno,
-    readFilterAluno
+    readFilterAluno,
+    getTurmas,
+    getResponsaveis
 };

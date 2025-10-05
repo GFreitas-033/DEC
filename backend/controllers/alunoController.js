@@ -34,4 +34,16 @@ router.get('/allData/:id', asyncHandler(async (req, res) =>{
     res.json(data);
 }))
 
+router.get('/turmas/:id', asyncHandler(async (req, res) =>{
+    const id_aluno = parseInt(req.params.id);
+    const data = await alunoModel.getTurmas(id_aluno);
+    res.json(data);
+}))
+
+router.get('/responsaveis/:id', asyncHandler(async (req, res) =>{
+    const id_aluno = parseInt(req.params.id);
+    const data = await alunoModel.getResponsaveis(id_aluno);
+    res.json(data);
+}))
+
 module.exports = router;
