@@ -23,8 +23,8 @@ async function readTurmaPadrao() {
 
 async function createTurma(qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma) {
     try {
-        await db.query('INSERT INTO turma (qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma) VALUES (?, ?, ?, ?, ?, ?, ?)', 
-                    [qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma]);
+        await db.query('INSERT INTO turma (qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma]);
     } catch (err) {
         console.error('Erro ao criar registro:', err);
         throw new Error('Erro interno do servidor');
@@ -33,8 +33,8 @@ async function createTurma(qtd_maxima, id_professor, dia_semana, horario, horari
 
 async function updateTurma(id_turma, qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma) {
     try {
-        await db.query('UPDATE turma SET qtd_maxima = ?, id_professor = ?, dia_semana = ?, horario = ?, horario_final = ?, id_unidade = ?, nome_turma = ? WHERE id_turma = ?', 
-                    [qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma, id_turma]);
+        await db.query('UPDATE turma SET qtd_maxima = ?, id_professor = ?, dia_semana = ?, horario = ?, horario_final = ?, id_unidade = ?, nome_turma = ? WHERE id_turma = ?',
+            [qtd_maxima, id_professor, dia_semana, horario, horario_final, id_unidade, nome_turma, id_turma]);
     } catch (err) {
         console.error('Erro ao atualizar registro:', err);
         throw new Error('Erro interno do servidor');
@@ -179,6 +179,28 @@ async function findDetailsById(id_turma) {
     }
 }
 
+async function readTurmaPadraoCompleta() {
+    try {
+        const [rows] = await db.query(`
+            SELECT
+            t.id_turma,
+            CONCAT(
+                t.nome_turma,
+                " - ",
+                t.horario,
+                " - ",
+                CONCAT(UPPER(LEFT(t.dia_semana, 1)), SUBSTRING(t.dia_semana, 2))
+            ) AS nome_turma
+            FROM
+                turma t;
+        `);
+        return rows; // Retorna o primeiro objeto encontrado ou undefined
+    } catch (err) {
+        console.error('Erro ao buscar detalhes da turma:', err);
+        throw new Error('Erro interno do servidor');
+    }
+}
+
 
 module.exports = {
     readTurma,
@@ -190,5 +212,6 @@ module.exports = {
     findAllWithDetails,
     findByAlunoWithDetails,
     findByProfessorWithDetails,
-    findDetailsById
+    findDetailsById,
+    readTurmaPadraoCompleta
 };

@@ -50,7 +50,7 @@ export default function AlunosCalendario() {
     }
     const alertTrocarTurma = async (id_aluno) => {
         try {
-            const response = await axios.get('/api/turma/formatada');
+            const response = await axios.get('/api/turma/padrao-completa');
             const turmas = response.data;
     
             const inputOptions = turmas.reduce((options, turma) => {
