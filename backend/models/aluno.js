@@ -90,8 +90,8 @@ async function getResponsaveis(id_aluno) {
         const query = `
             SELECT p.id_pessoa,p.nome_pessoa
             FROM pessoa p
-            JOIN aluno a
-            WHERE (a.id_responsavel = p.id_pessoa OR a.id_responsavel2 = p.id_pessoa) AND a.id_pessoa = ?;
+            JOIN aluno a ON a.id_responsavel = p.id_pessoa OR a.id_responsavel2 = p.id_pessoa
+            WHERE a.id_pessoa = ?;
         `;
         const [rows] = await db.execute(query, [id_aluno]);
         return rows;
