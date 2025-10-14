@@ -62,7 +62,8 @@ async function readTurmaFormatada() {
                 id_unidade, 
                 id_professor, 
                 nome_turma 
-            FROM turma 
+            FROM turma
+            WHERE t.ativado = 1 
             ORDER BY 
                 CASE 
                     WHEN dia_semana = 'domingo' THEN 1 
@@ -108,6 +109,17 @@ async function findAllWithDetails() {
             FROM turma t
             JOIN unidade u ON t.id_unidade = u.id_unidade
             JOIN endereco e ON u.id_endereco = e.id_endereco
+            WHERE t.ativado = 1
+            ORDER BY 
+                CASE 
+                    WHEN dia_semana = 'domingo' THEN 1 
+                    WHEN dia_semana = 'segunda' THEN 2 
+                    WHEN dia_semana = 'terça' THEN 3 
+                    WHEN dia_semana = 'quarta' THEN 4 
+                    WHEN dia_semana = 'quinta' THEN 5 
+                    WHEN dia_semana = 'sexta' THEN 6 
+                    WHEN dia_semana = 'sábado' THEN 7 
+                END, horario
         `);
         return rows;
     } catch (err) {
@@ -128,7 +140,17 @@ async function findByProfessorWithDetails(id_professor) {
             FROM turma t
             JOIN unidade u ON t.id_unidade = u.id_unidade
             JOIN endereco e ON u.id_endereco = e.id_endereco
-            WHERE t.id_professor = ?
+            WHERE t.id_professor = ? and t.ativado = 1
+            ORDER BY 
+                CASE 
+                    WHEN dia_semana = 'domingo' THEN 1 
+                    WHEN dia_semana = 'segunda' THEN 2 
+                    WHEN dia_semana = 'terça' THEN 3 
+                    WHEN dia_semana = 'quarta' THEN 4 
+                    WHEN dia_semana = 'quinta' THEN 5 
+                    WHEN dia_semana = 'sexta' THEN 6 
+                    WHEN dia_semana = 'sábado' THEN 7 
+                END, horario
         `, [id_professor]);
         return rows;
     } catch (err) {
@@ -150,7 +172,17 @@ async function findByAlunoWithDetails(id_aluno) {
             JOIN aluno_has_turma aht ON t.id_turma = aht.id_turma
             JOIN unidade u ON t.id_unidade = u.id_unidade
             JOIN endereco e ON u.id_endereco = e.id_endereco
-            WHERE aht.id_aluno = ?
+            WHERE aht.id_aluno = ? and t.ativado = 1
+            ORDER BY 
+                CASE 
+                    WHEN dia_semana = 'domingo' THEN 1 
+                    WHEN dia_semana = 'segunda' THEN 2 
+                    WHEN dia_semana = 'terça' THEN 3 
+                    WHEN dia_semana = 'quarta' THEN 4 
+                    WHEN dia_semana = 'quinta' THEN 5 
+                    WHEN dia_semana = 'sexta' THEN 6 
+                    WHEN dia_semana = 'sábado' THEN 7 
+                END, horario
         `, [id_aluno]);
         return rows;
     } catch (err) {
@@ -192,7 +224,8 @@ async function readTurmaPadraoCompleta() {
                 CONCAT(UPPER(LEFT(t.dia_semana, 1)), SUBSTRING(t.dia_semana, 2))
             ) AS nome_turma
             FROM
-                turma t;
+                turma t
+            WHERE t.ativado = 1;
         `);
         return rows; // Retorna o primeiro objeto encontrado ou undefined
     } catch (err) {
