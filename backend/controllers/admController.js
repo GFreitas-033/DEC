@@ -91,13 +91,7 @@ router.get('/excluirunidade/:id_unidade', async (req, res) => {
 router.get('/excluirturma/:id_turma', async (req, res) => {
     const id_turma = parseInt(req.params.id_turma);
     try {
-        const responseAlunos_has_Turmas = alunoHasTurmaModel.readAlunoHasTurma();
-        const dadosAlunos_has_Turmas = responseAlunos_has_Turmas.data;
-        const alu_turmasFiltradas = dadosAlunos_has_Turmas.filter(alunos_has_turma => alunos_has_turma.id_turma === id_turma);
-
-        const promisesExcluirAlunos_has_Turmas = alu_turmasFiltradas.map(alunos_has_turma => alunoHasTurmaModel.deleteAlunoHasTurma_Turma(alunos_has_turma.id_turma));
-        await Promise.all(promisesExcluirAlunos_has_Turmas);
-
+        
         await turmaModel.deleteTurma(id_turma);
 
         res.status(200).json({
