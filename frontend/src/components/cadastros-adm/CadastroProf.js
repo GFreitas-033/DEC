@@ -70,22 +70,6 @@ export default function Cadastro_prof({ texto, btn }){
     };
 
     useEffect(() => {
-        logado();
-    });
-
-    const logado = async () => {
-        try {
-            let response = await axios.post('/login');
-            response = response.data;
-            if(response.adm!==1){
-                navigate('/home');
-            }
-        } catch (error) {
-            navigate('/');
-        }
-    };
-
-    useEffect(() => {
         if (id_professor !== undefined) {
             id_professor = parseInt(id_professor);
             preencherDados();

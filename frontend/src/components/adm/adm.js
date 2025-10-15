@@ -13,22 +13,6 @@ export default function AdmGeral() {
     const [mostrar, setMostrar] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        logado();
-    });
-
-    const logado = async () => {
-        try {
-            let response = await axios.post('/login');
-            response = response.data;
-            if(response.adm!==1){
-                navigate('/home');
-            }
-        } catch (error) {
-            navigate('/');
-        }
-    };
-
     return (
         <div>
             <Background_Sistema />

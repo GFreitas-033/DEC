@@ -47,21 +47,9 @@ export default function Adm_turma(){
     }
 
     useEffect(() => {
-        logado();
         fetchUnidades();
         fetchProfessores();
     }, []);
-
-    const logado = async () => {
-        try {
-            let response = await axios.post('/login');
-            if(response.data.adm!==1){
-                navigate('/home');
-            }
-        } catch (error) {
-            navigate('/');
-        }
-    };
 
     const fetchUnidades = async () => {
         try {

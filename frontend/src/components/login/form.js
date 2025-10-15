@@ -28,9 +28,19 @@ export default function Form_Login(){
   }
   
     
-  useEffect(() =>{
-      logado();
-  })
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get('/api/check-auth');
+        if (response.data.autenticado) {
+          navigate('/home');
+        }
+      } catch (error) {
+        console.log('Usuário não autenticado.');
+      }
+    };
+    checkAuth();
+  }, [navigate]);
 
   const login = async(event)=>{
       event.preventDefault();
@@ -52,20 +62,6 @@ export default function Form_Login(){
             alertSenha();
           }else {
             console.log('Erro ao realizar login.');
-          }
-      }
-  }
-
-  const logado = async()=>{
-      try {
-          await axios.post('/login');
-          navigate('/home')
-      } catch (error) {
-          console.log(error);
-          if (error.response) {
-              console.log(`Erro: ${error.response.data.message}`);
-          } else {
-              alert('Erro ao realizar login.');
           }
       }
   }

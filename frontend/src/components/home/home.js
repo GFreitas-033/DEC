@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useOutletContext } from "react-router-dom";
 
 import EstiloHome from "./home.module.css";
 import ContainerCss from "../containers.module.css";
@@ -10,36 +9,26 @@ import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 
 export default function Home(){
+    const { user } = useOutletContext();
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(true);
-    const [dataLoaded, setDataLoaded] = useState(false);
     const [loadingText, setLoadingText] = useState("Carregando.");
-    const navigate = useNavigate();
 
     useEffect(() => {
-        const logado = async () => {
-            try {
-                let response = await axios.post('/login');
-                response = response.data;
-                setMessage(response.nome);
-                setDataLoaded(true);
-            } catch (error) {
-                navigate('/');
-            }
-        };
-
-        logado();
+        if (user && user.nome) {
+            setMessage(user.nome);
+        }
 
         const timer = setTimeout(() => {
-            if (dataLoaded) {
-                setLoading(false);
-            }
-        }, 1200);
+            setLoading(false);
+        }, 1200); // Keep loading for a bit for UX
 
         return () => clearTimeout(timer);
-    }, [dataLoaded, navigate]);
+    }, [user]);
 
     useEffect(() => {
+        if (!loading) return;
+
         const loadingTexts = ['Carregando.', 'Carregando..', 'Carregando...'];
         let currentIndex = 0;
         const interval = setInterval(() => {
@@ -48,7 +37,7 @@ export default function Home(){
         }, 500);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [loading]);
 
     return(
         <div>

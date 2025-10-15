@@ -54,22 +54,9 @@ export default function Cadastro_turma({ texto, btn }){
     };
 
     useEffect(() => {
-        logado();
         fetchUnidades();
         fetchProfessores();
     },[]);
-
-    const logado = async () => {
-        try {
-            let response = await axios.post('/login');
-            response = response.data;
-            if(response.adm!==1){
-                navigate('/home');
-            }
-        } catch (error) {
-            navigate('/');
-        }
-    };
 
     const handleSubmit = (event) => {
         event.preventDefault();

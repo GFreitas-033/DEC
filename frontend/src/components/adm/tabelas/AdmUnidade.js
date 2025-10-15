@@ -34,22 +34,6 @@ export default function Adm_unidade(){
     }
 
     useEffect(() => {
-        logado();
-    }, []);
-
-    const logado = async () => {
-        try {
-            let response = await axios.post('/login');
-            response = response.data;
-            if(response.adm!==1){
-                navigate('/home');
-            }
-        } catch (error) {
-            navigate('/');
-        }
-    };
-    
-    useEffect(() => {
         async function fetchData() {
             try {
                 const response = await axios.get('/api/unidade');

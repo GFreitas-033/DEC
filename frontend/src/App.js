@@ -32,6 +32,7 @@ import InfoAluno from "./components/adm/informacoes/InfoAluno"
 import InfoResp from "./components/adm/informacoes/InfoResp"
 
 import Disponibilidade from "./components/disponibilidade-professor/Disponibilidade"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 export default function App(){
 
@@ -40,42 +41,45 @@ export default function App(){
       {/* Rotas */}
       <Routes>
         <Route path="/" element={<Login />}></Route>
-
-        <Route path="/home" element={<Home/>}></Route>
-
         <Route path="/matricula" element={<PaganteTrue />}></Route>{/* Aluno Pagante */}
         <Route path="/cadastro" element={<PaganteFalse />}></Route>{/* Aluno Não Pagante */}
         <Route path="/cadastro/aluno/Escola" element={<AlunoEscola />}></Route>{/* Aluno de Escola */}
         
-        <Route path="adm/adm_prof" element={<AdmProf />}></Route>
-        <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} btn={"Cadastrar"}/>}></Route>
-        <Route path="/editar_prof/:id_professor" element={<CadastroProf texto={"Editar Professor"} btn={"Editar"}/>}></Route>
-        
-        <Route path="adm/adm_unidade" element={<AdmUni />}></Route>
-        <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} btn={"Cadastrar"}/>}></Route>
-        <Route path="/editar_unidade/:id_unidade" element={<CadastroUnidade texto={"Editar Unidade"} btn={"Editar"}/>}></Route>
-        
-        <Route path="adm/adm_turmas" element={<AdmTurma />}></Route>
-        <Route path="/cadastro/turma" element={<CadastroTurma texto={"Cadastro de Turmas"} btn={"Cadastrar"}/>}></Route>
-        <Route path="/editar_turma/:id_turma" element={<CadastroTurma texto={"Editar Turma"} btn={"Editar"}/>}></Route>
+        {/* Rotas de Usuário Comum */}
+        <Route element={<ProtectedRoute adminOnly={false} />}>
+            <Route path="/home" element={<Home/>}></Route>
+            <Route path="/aulas" element={<Calendario />}></Route>
+            <Route path="/aulas/turma/:idturma" element={<Alunos />}></Route>
+            <Route path="/aulas/chamada/:idturma" element={<Chamada />}></Route>
+        </Route>
 
-        <Route path="/aulas" element={<Calendario />}></Route>
-        <Route path="aulas/turma/:idturma" element={<Alunos />}></Route>
-        <Route path="aulas/chamada/:idturma" element={<Chamada />}></Route>
+        {/* Rotas de Administrador */}
+        <Route element={<ProtectedRoute adminOnly={true} />}>
+            <Route path="/adm" element={<Adm />}></Route>
+            <Route path="/adm/adm_prof" element={<AdmProf />}></Route>
+            <Route path="/cadastro/professor" element={<CadastroProf texto={"Cadastro de Professores"} btn={"Cadastrar"}/>}></Route>
+            <Route path="/editar_prof/:id_professor" element={<CadastroProf texto={"Editar Professor"} btn={"Editar"}/>}></Route>
 
-        <Route path="/adm" element={<Adm />}></Route>
+            <Route path="/adm/adm_unidade" element={<AdmUni />}></Route>
+            <Route path="/cadastro/unidade" element={<CadastroUnidade texto={"Cadastro de Unidade"} btn={"Cadastrar"}/>}></Route>
+            <Route path="/editar_unidade/:id_unidade" element={<CadastroUnidade texto={"Editar Unidade"} btn={"Editar"}/>}></Route>
 
-        <Route path="/adm/dashboard" element={<Dashboard />}></Route>
-        
-        <Route path="adm/adm_aluno" element={<AdmAluno />}></Route>
-        <Route path="/editar/aluno/:id_aluno" element={<PaganteTrue />}></Route>
-        <Route path="/adm/InformaçõesDoAluno/:id_aluno" element={<InfoAluno />}></Route>
+            <Route path="/adm/adm_turmas" element={<AdmTurma />}></Route>
+            <Route path="/cadastro/turma" element={<CadastroTurma texto={"Cadastro de Turmas"} btn={"Cadastrar"}/>}></Route>
+            <Route path="/editar_turma/:id_turma" element={<CadastroTurma texto={"Editar Turma"} btn={"Editar"}/>}></Route>
 
-        <Route path="adm/adm_responsavel" element={<AdmResp />}></Route>
-        <Route path="/editar_responsavel/:id_responsavel" element={<InfoResp isEditar />}></Route>
-        <Route path="/adm/InformaçõesDoResponsavel/:id_responsavel" element={<InfoResp />}></Route>
+            <Route path="/adm/dashboard" element={<Dashboard />}></Route>
 
-        <Route path="adm/adm_prof/disponibilidade" element={<Disponibilidade />}></Route>
+            <Route path="/adm/adm_aluno" element={<AdmAluno />}></Route>
+            <Route path="/editar/aluno/:id_aluno" element={<PaganteTrue />}></Route>
+            <Route path="/adm/InformaçõesDoAluno/:id_aluno" element={<InfoAluno />}></Route>
+
+            <Route path="adm/adm_responsavel" element={<AdmResp />}></Route>
+            <Route path="/editar_responsavel/:id_responsavel" element={<InfoResp isEditar />}></Route>
+            <Route path="/adm/InformaçõesDoResponsavel/:id_responsavel" element={<InfoResp />}></Route>
+
+            <Route path="/adm/adm_prof/disponibilidade" element={<Disponibilidade />}></Route>
+        </Route>
       </Routes>
     </Routers>
   )

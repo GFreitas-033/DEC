@@ -128,7 +128,6 @@ export default function AlunosCalendario() {
         }
     };
     useEffect(() => {
-        logado();
         buscarAlunos();
     }, [idturma]);
 
@@ -144,14 +143,6 @@ export default function AlunosCalendario() {
 
         fetchTurma();
     }, [idturma]);
-
-    const logado = async () => {
-        try {
-            let response = await axios.post('/login');
-        } catch (error) {
-            navigate('/');
-        }
-    };
 
     async function tirarAluno(id_aluno) {
         try {

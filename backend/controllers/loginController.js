@@ -1,29 +1,28 @@
 // controllers/loginController.js
 const express = require("express");
-const axios = require("axios");
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const pessoaModel = require("../models/pessoa.js");
 const noti_UniModel = require("../models/notificacao_uni.js");
 
 
 // routes/auth.js
 router.post("/login", async (req, res) => {
-    const { usuario, senha } = req.body; 
+    const { usuario, senha } = req.body;
 
     if (req.session.id_pessoa) {
         try {
-            let id_pessoa = req.session.id_pessoa;
-            const response = await axios.get('http://localhost:5000/api/pessoa');
-            const dados = response.data;
-            const pessoa = dados.find(p => p.id_pessoa === id_pessoa);
-            return res.json({ nome: pessoa.nome_pessoa, adm: pessoa.adm });
+            const pessoa = await pessoaModel.findById(req.session.id_pessoa);
+            if (pessoa) {
+                return res.json({ nome: pessoa.nome_pessoa, adm: pessoa.adm });
+            }
+            return res.status(404).json({ message: "Usuário da sessão não encontrado" });
         } catch (error) {
             return res.status(500).json({ message: "Erro ao buscar dados 1", error: error.message });
         }
     } else {
         try {
-            const response = await axios.get('http://localhost:5000/api/pessoa');
-            const dados = response.data;
+            const dados = await pessoaModel.readPessoa();
             const usuarioFormatado = usuario.toLowerCase();
 
             const pessoa = dados.find(p => {
@@ -50,7 +49,8 @@ router.post("/login", async (req, res) => {
             }
 
             req.session.id_pessoa = pessoa.id_pessoa;
-            return res.json({ nome: pessoa.nome_pessoa });
+            req.session.adm = pessoa.adm; // Adicionado para salvar o status de adm na sessão
+            return res.json({ nome: pessoa.nome_pessoa, adm: pessoa.adm }); // Retornando o status de adm
 
         } catch (error) {
             return res.status(500).json({ message: "Erro ao buscar dados 2", error: error.message });
@@ -75,6 +75,30 @@ router.post('/api/excluir_notificacao/', async (req, res) => {
         res.status(500).send('Erro ao obter dados: '+error);
     }
 })
+
+router.get('/api/check-auth', async (req, res) => {
+    if (req.session.id_pessoa) {
+        try {
+            const pessoa = await pessoaModel.findById(req.session.id_pessoa);
+
+            if (pessoa) {
+                res.json({
+                    autenticado: true,
+                    adm: req.session.adm,
+                    nome: pessoa.nome_pessoa
+                });
+            } else {
+                req.session.destroy();
+                res.status(404).json({ autenticado: false, message: 'Usuário da sessão não encontrado' });
+            }
+        } catch (error) {
+            res.status(500).json({ message: 'Erro ao buscar dados da sessão', error: error.message });
+        }
+    } else {
+        res.json({ autenticado: false });
+    }
+});
+
 
 router.get('/sair', (req, res) => {
     req.session.destroy();

@@ -63,7 +63,7 @@ async function readTurmaFormatada() {
                 id_professor, 
                 nome_turma 
             FROM turma
-            WHERE t.ativado = 1 
+            WHERE ativado = 1 
             ORDER BY 
                 CASE 
                     WHEN dia_semana = 'domingo' THEN 1 
