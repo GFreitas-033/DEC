@@ -38,21 +38,7 @@ userRoutes.use("/api/responsavel_unidade", responsavel_unidadeController);
 userRoutes.use("/api/chamada", chamadaController);
 userRoutes.use("/", calendarioController);
 
-router.use(userRoutes);
-
-
-// --- Admin Routes ---
-const adminRoutes = express.Router();
-adminRoutes.use(verifyToken);
-adminRoutes.use(isAdmin);
-adminRoutes.use("/adm", admController);
-adminRoutes.get('/api/dashboard', dashboardController.getDashboardData);
-adminRoutes.get('/api/dashboard/comparativo', dashboardController.getComparativoData);
-router.use(adminRoutes);
-
-
-// --- Other Specific Routes ---
-router.get('/listaralunos/:idturma', verifyToken, async (req, res) => {
+userRoutes.get('/listaralunos/:idturma', verifyToken, async (req, res) => {
     const id_turma = parseInt(req.params.idturma);
     try {
         const responseTurmas_Alunos = await require("../models/aluno_has_turma.js").readAlunoHasTurma();
@@ -75,7 +61,7 @@ router.get('/listaralunos/:idturma', verifyToken, async (req, res) => {
     }
 });
 
-router.get('/listartodosalunos', verifyToken, isAdmin, async (req, res) => {
+userRoutes.get('/listartodosalunos', verifyToken, isAdmin, async (req, res) => {
     try {
         const dadosAlunos = await require("../models/aluno.js").readAluno();
         const idsAlunos = dadosAlunos.map(aluno => aluno.id_pessoa);
@@ -94,5 +80,21 @@ router.get('/listartodosalunos', verifyToken, isAdmin, async (req, res) => {
         return res.status(500).json({ message: "Erro ao buscar todos os alunos", error: error.message });
     }
 });
+
+router.use(userRoutes);
+
+
+// --- Admin Routes ---
+const adminRoutes = express.Router();
+adminRoutes.use(verifyToken);
+adminRoutes.use(isAdmin);
+adminRoutes.use("/adm", admController);
+adminRoutes.get('/api/dashboard', dashboardController.getDashboardData);
+adminRoutes.get('/api/dashboard/comparativo', dashboardController.getComparativoData);
+router.use(adminRoutes);
+
+
+// --- Other Specific Routes ---
+
 
 module.exports = router;
