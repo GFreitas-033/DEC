@@ -1,5 +1,5 @@
 import React from "react";
-import Rg from "./input.module.css";
+import Rg from "./input.module.css"
 
 export default function Rg_input({ value, setValue, readOnly}) {
 

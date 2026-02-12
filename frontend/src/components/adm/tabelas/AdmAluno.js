@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmAluno from "./admAPUT.module.css";
 
-import Background_Sistema from "../../background/BackSistema";
+import BackgroundSistema from "../../background/BackSistema";
 import BarraLateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar";
@@ -131,7 +131,7 @@ export default function Adm_aluno() {
 
     return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloAdmAluno.contentAdm}>
@@ -242,7 +242,10 @@ export default function Adm_aluno() {
                                             </>
                                         )}
                                     </div>
-                                    <img src={require('../../../imgs/icons/cancelar.png')} className={EstiloAdmAluno.imgFechar} onClick={() => { setMostrar(!mostrar) }} />
+                                    <img src={require('../../../imgs/icons/cancelar.png')} 
+                                        className={EstiloAdmAluno.imgFechar} onClick={() => { setMostrar(!mostrar) }} 
+                                        alt="icone de cancelar"
+                                    />
                                 </div>
                             </>
                         )}

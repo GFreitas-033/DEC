@@ -1,5 +1,5 @@
 import React from "react";
-import Telefone from "./input.module.css";
+import Telefone from "./input.module.css"
 
 export default function Telefone_input({ value, setValue, readOnly}) {
 

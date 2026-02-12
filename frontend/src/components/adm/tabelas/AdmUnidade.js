@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmUnidade from "./admAPUT.module.css";
 
-import Background_Sistema from "../../background/BackSistema";
+import BackgroundSistema from "../../background/BackSistema";
 import BarraLateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar";
@@ -47,7 +47,7 @@ export default function Adm_unidade(){
 
     const excluirUnidade = async (id_unidade) => {
         try {
-            const responseUnidade = await axios.get(`/admbackend/excluirunidade/${id_unidade}`);
+            // const responseUnidade = await axios.get(`/admbackend/excluirunidade/${id_unidade}`);
             setUnidades(prevUnidades => prevUnidades.filter(unidade => unidade.id_unidade !== id_unidade));
             Swal.fire({
                 title: "Unidade Excluida com Sucesso!",
@@ -70,7 +70,7 @@ export default function Adm_unidade(){
 
     return(
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloAdmUnidade.contentAdm}>

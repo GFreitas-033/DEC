@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmResp from "./admAPUT.module.css";
 
-import Background_Sistema from "../../background/BackSistema";
+import BackgroundSistema from "../../background/BackSistema";
 import BarraLateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar";
@@ -70,7 +70,7 @@ export default function Adm_responsaveis() {
 
     return(
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloAdmResp.contentAdm}>

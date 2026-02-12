@@ -1,5 +1,5 @@
 import React from "react";
-import tipoUnidade from "../input.module.css";
+import tipoUnidade from "../input.module.css"
 
 export default function TipoUnidade_input({ value, setValue }) {
   function salvar(e) {

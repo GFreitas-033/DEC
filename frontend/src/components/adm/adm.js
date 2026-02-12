@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import ContainerCss from "../containers.module.css";
 import EstiloAdm from "./adm.module.css";
 
-import Background_Sistema from "../background/BackSistema";
+import BackgroundSistema from "../background/BackSistema";
 import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 
@@ -15,7 +14,7 @@ export default function AdmGeral() {
 
     return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 {mostrar && (
@@ -51,7 +50,7 @@ export default function AdmGeral() {
                             </div>
                             <img src={require('../../imgs/icons/cancelar.png')} 
                             className={EstiloAdm.imgFechar}
-                            onClick={()=>{setMostrar(!mostrar)}}/>
+                            onClick={()=>{setMostrar(!mostrar)}} alt="icone de cancelar"/>
                         </div>
                     </>
                 )}

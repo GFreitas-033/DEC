@@ -1,5 +1,5 @@
 import React from "react";
-import Genero from "./input.module.css";
+import Genero from "./input.module.css"
 
 export default function genero_input({ value, setValue, disabled}) {
     function salvar(e) {

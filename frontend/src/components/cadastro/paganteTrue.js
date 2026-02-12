@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import axios from "axios";
@@ -145,20 +145,14 @@ export default function Form() {
     setAceitouContrato(event.target.checked);
   };
 
-  useEffect(() => {
-    if (id_aluno) {
-      preencherDados();
-    }
-  }, [id_aluno]);
-
-  async function preencherDados() {
+  const preencherDados = useCallback(async () => {
     try {
       const response = await axios.get(`/api/aluno/allData/${id_aluno}`);
       const dados = response.data[0];
 
       setIdEndereco(dados.id_endereco);
       setIdResp1(dados.id_responsavel);
-      setIdResp2(dados.id_responsavel2);  
+      setIdResp2(dados.id_responsavel2);
 
       // Aluno
       setNome(dados.nome_aluno || "");
@@ -210,7 +204,7 @@ export default function Form() {
     } catch (error) {
       console.error("Erro ao buscar unidades:", error);
     }
-  }
+  }, [id_aluno]);
 
   // Função para verificar se os campos foram preenchidos
   const areAllFieldsFilled = (fields) => {
@@ -281,24 +275,6 @@ export default function Form() {
       });
   }
 
-  useEffect(() => {
-    if (selectedUnidade) {
-      let id_selectedUnidade = parseInt(selectedUnidade);
-      axios.get('/api/turma/formatada')
-        .then(response => {
-          const turmasFiltradas = response.data.filter(turma => turma.id_unidade === id_selectedUnidade);
-          setTurmas(turmasFiltradas);
-          setSelectedTurmas(""); // Reseta a turma ao trocar de unidade
-        })
-        .catch(error => {
-          console.error("Erro ao buscar turmas:", error);
-        });
-    } else {
-      setTurmas([]);
-      setSelectedTurmas("");
-    }
-  }, [selectedUnidade]);
-
   const calcularIdade = (dataNascimento) => {
     const partes = dataNascimento.split('/');
 
@@ -362,16 +338,16 @@ export default function Form() {
       return `${ano}-${mes}-${dia}`; // Reorganiza no formato SQL
     }
 
-    function dataAtualSQL() {
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
-      const day = String(date.getDate()).padStart(2, '0');
+    // function dataAtualSQL() {
+    //   const date = new Date();
+    //   const year = date.getFullYear();
+    //   const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+    //   const day = String(date.getDate()).padStart(2, '0');
 
-      return `${year}-${month}-${day}`;
-    }
+    //   return `${year}-${month}-${day}`;
+    // }
 
-    let dataInicio = dataAtualSQL();
+    // let dataInicio = dataAtualSQL();
 
     if (!id_aluno) {
       let responseEndereco = await axios.post('/api/endereco', {
@@ -384,9 +360,9 @@ export default function Form() {
       });
       responseEndereco = responseEndereco.data;
 
-      let idResp1;
-      let idResp2;
-      let idFin;
+      // let idResp1;
+      // let idResp2;
+      // let idFin;
       let responsePessoa;
 
       if (nomeFin !== '' && cpfFin !== '' && rgFin !== '' && emailFin !== '' && telefoneFin !== '' && generoFin !== '') {
@@ -401,10 +377,8 @@ export default function Form() {
           id_endereco: responseEndereco.id,
         });
         responsePessoa = responsePessoa.data;
-        idFin = responsePessoa.id;
-        let responseRespAluno = await axios.post('/api/responsavel_aluno', {
-          id_pessoa: idFin
-        });
+        // idFin = responsePessoa.id;
+        // let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idFin});
       }
 
       if (nomeResp1 !== '' && cpfResp1 !== '' && rgResp1 !== '' && emailResp1 !== '' && telefoneResp1 !== '' && generoResp1 !== '') {
@@ -419,10 +393,8 @@ export default function Form() {
           id_endereco: responseEndereco.id,
         });
         responsePessoa = responsePessoa.data;
-        idResp1 = responsePessoa.id;
-        let responseRespAluno = await axios.post('/api/responsavel_aluno', {
-          id_pessoa: idResp1
-        });
+        // idResp1 = responsePessoa.id;
+        // let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp1});
       }
 
       if (nomeResp2 !== '' && cpfResp2 !== '' && rgResp2 !== '' && emailResp2 !== '' && telefoneResp2 !== '' && generoResp2 !== '') {
@@ -437,10 +409,8 @@ export default function Form() {
           id_endereco: responseEndereco.id,
         });
         responsePessoa = responsePessoa.data;
-        idResp2 = responsePessoa.id;
-        let responseRespAluno = await axios.post('/api/responsavel_aluno', {
-          id_pessoa: idResp2
-        });
+        // idResp2 = responsePessoa.id;
+        // let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp2});
       }
 
       responsePessoa = await axios.post('/api/pessoa', {
@@ -454,30 +424,28 @@ export default function Form() {
         id_endereco: responseEndereco.id,
       })
       responsePessoa = responsePessoa.data;
-      if (cpfResp1 === '') {
-        let responseAluno = await axios.post('/api/aluno', {
-          id_pessoa: responsePessoa.id,
-          destro_canhoto: mao_dominante,
-          id_responsavel: idFin,
-          dt_inicio: dataInicio,
-          tipo_plano: plano,
-          dia_pagamento: d_Vencimento,
-          tipo_aluno: 'pagante',
-        })
-      } else {
-        let responseAluno = await axios.post('/api/aluno', {
-          id_pessoa: responsePessoa.id,
-          destro_canhoto: mao_dominante,
-          id_responsavel: idResp1,
-          dt_inicio: dataInicio,
-          tipo_plano: plano,
-          dia_pagamento: d_Vencimento,
-          tipo_aluno: 'pagante',
-          id_responsavel2: idResp2,
-        })
-
-
-      }
+      // if (cpfResp1 === '') {
+      //   let responseAluno = await axios.post('/api/aluno', {
+      //     id_pessoa: responsePessoa.id,
+      //     destro_canhoto: mao_dominante,
+      //     id_responsavel: idFin,
+      //     dt_inicio: dataInicio,
+      //     tipo_plano: plano,
+      //     dia_pagamento: d_Vencimento,
+      //     tipo_aluno: 'pagante',
+      //   })
+      // } else {
+      //   let responseAluno = await axios.post('/api/aluno', {
+      //     id_pessoa: responsePessoa.id,
+      //     destro_canhoto: mao_dominante,
+      //     id_responsavel: idResp1,
+      //     dt_inicio: dataInicio,
+      //     tipo_plano: plano,
+      //     dia_pagamento: d_Vencimento,
+      //     tipo_aluno: 'pagante',
+      //     id_responsavel2: idResp2,
+      //   })
+      // }
 
       let responseAlunoHasTurma;
       for (let i = 0; i < selectedDay; i++) {
@@ -609,11 +577,35 @@ export default function Form() {
       areAllFieldsFilled={areAllFieldsFilled} handleChangeTurmas={handleChangeTurmas} />,
 
     <Passo10 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento}
-      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} mudarPDF={mudarPDF} id_aluno={id_aluno} setStep={setStep} cadastrar={cadastrar}/>,
+      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} mudarPDF={mudarPDF} id_aluno={id_aluno} setStep={setStep} cadastrar={cadastrar} />,
 
     <Passo11 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato}
       handleCheckboxChange={handleCheckboxChange} contratoPdf={contratoPdf} />,
   ];
+
+  useEffect(() => {
+    if (id_aluno) {
+      preencherDados();
+    }
+  }, [id_aluno, preencherDados]);
+
+  useEffect(() => {
+    if (selectedUnidade) {
+      let id_selectedUnidade = parseInt(selectedUnidade);
+      axios.get('/api/turma/formatada')
+        .then(response => {
+          const turmasFiltradas = response.data.filter(turma => turma.id_unidade === id_selectedUnidade);
+          setTurmas(turmasFiltradas);
+          setSelectedTurmas(""); // Reseta a turma ao trocar de unidade
+        })
+        .catch(error => {
+          console.error("Erro ao buscar turmas:", error);
+        });
+    } else {
+      setTurmas([]);
+      setSelectedTurmas("");
+    }
+  }, [selectedUnidade]);
 
   return (
     <div>
@@ -754,40 +746,40 @@ const Passo3 = ({ setStep, prevStep, nomeResp2, setNomeResp2, emailResp2, setEma
 
 const Passo4 = ({ nextStep, prevStep, setStep, son, setSon }) => (
   <>
-  <div className={Styles.form}>
-    <div className={Styles.centro}>
-      <div className={Styles.textcenter}>
-        <h1>Responsável Financeiro</h1>
-      </div>
-      <div>
-        <label className={Styles.labelTextCenter}>Você será o Responsável Financeiro?</label>
-        <div className={`${Styles.SimOuNao} ${Styles.radioStyle}`}>
-          <input type="radio" id="sim" name="sim" value="sim" checked={son === 'sim'} onChange={(e) =>
-            setSon(e.target.value)} />
-          <label htmlFor="sim" className={Styles.escolha}>Sim</label>
-          <input type="radio" id="nao" name="nao" value="nao" checked={son === 'nao'} onChange={(e) =>
-            setSon(e.target.value)} />
-          <label htmlFor="nao" className={Styles.escolha}>Não</label>
+    <div className={Styles.form}>
+      <div className={Styles.centro}>
+        <div className={Styles.textcenter}>
+          <h1>Responsável Financeiro</h1>
+        </div>
+        <div>
+          <label className={Styles.labelTextCenter}>Você será o Responsável Financeiro?</label>
+          <div className={`${Styles.SimOuNao} ${Styles.radioStyle}`}>
+            <input type="radio" id="sim" name="sim" value="sim" checked={son === 'sim'} onChange={(e) =>
+              setSon(e.target.value)} />
+            <label htmlFor="sim" className={Styles.escolha}>Sim</label>
+            <input type="radio" id="nao" name="nao" value="nao" checked={son === 'nao'} onChange={(e) =>
+              setSon(e.target.value)} />
+            <label htmlFor="nao" className={Styles.escolha}>Não</label>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div className={Styles.divBotao}>
-    <button type="button" onClick={prevStep} className={Styles.button}>
-      <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-      Anterior
-    </button>
-    <button type="button" onClick={() => {
-      if (son === 'sim') {
-        setStep(5);
-      } else if (son === 'nao') {
-        nextStep()
-      }
-    }} className={Styles.button}>
-      Próximo
-      <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
-    </button>
-  </div>
+    <div className={Styles.divBotao}>
+      <button type="button" onClick={prevStep} className={Styles.button}>
+        <img src={require('../../imgs/icons/seta-esquerda.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+        Anterior
+      </button>
+      <button type="button" onClick={() => {
+        if (son === 'sim') {
+          setStep(5);
+        } else if (son === 'nao') {
+          nextStep()
+        }
+      }} className={Styles.button}>
+        Próximo
+        <img src={require('../../imgs/icons/seta-direita.png')} alt="icon" className={Styles.iconNavegar} draggable="false" />
+      </button>
+    </div>
   </>
 );
 
@@ -1037,13 +1029,13 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
             <div className={`${Styles.opcoes} ${Styles.radioStyle}`}>
               <input type="radio" id="mensal" name="plano" value="mensal" checked={plano === 'mensal'} onChange={(e) =>
                 setPlano(e.target.value)} />
-                <label htmlFor="mensal" className={Styles.escolha}>Pacote<br />Mensal</label>
-              
-                <input type="radio" id="semestral" name="plano" value="semestral" checked={plano === 'semestral'} onChange={(e) =>
+              <label htmlFor="mensal" className={Styles.escolha}>Pacote<br />Mensal</label>
+
+              <input type="radio" id="semestral" name="plano" value="semestral" checked={plano === 'semestral'} onChange={(e) =>
                 setPlano(e.target.value)} />
-                <label htmlFor="semestral" className={Styles.escolha}>Pacote<br />6 meses</label>
-                
-                <input type="radio" id="anual" name="plano" value="anual" checked={plano === 'anual'} onChange={(e) =>
+              <label htmlFor="semestral" className={Styles.escolha}>Pacote<br />6 meses</label>
+
+              <input type="radio" id="anual" name="plano" value="anual" checked={plano === 'anual'} onChange={(e) =>
                 setPlano(e.target.value)} />
               <label htmlFor="anual" className={Styles.escolha}>Pacote<br />12 meses</label>
             </div>
@@ -1079,29 +1071,29 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
       <button
         type="button"
         onClick={() => {
-            if (plano !== '' && d_Vencimento !== '') {
-                if (id_aluno) {
-                    // Chama a função principal que agora contém a lógica de salvar
-                    cadastrar();
-                } else {
-                    // Continua para o próximo passo para finalizar o cadastro
-                    nextStep();
-                    mudarPDF();
-                }
+          if (plano !== '' && d_Vencimento !== '') {
+            if (id_aluno) {
+              // Chama a função principal que agora contém a lógica de salvar
+              cadastrar();
             } else {
-                faltaCampo();
+              // Continua para o próximo passo para finalizar o cadastro
+              nextStep();
+              mudarPDF();
             }
+          } else {
+            faltaCampo();
+          }
         }}
         className={Styles.button}
-    >
-        {id_aluno ? "Salvar Alterações" : "Próximo"} 
+      >
+        {id_aluno ? "Salvar Alterações" : "Próximo"}
         <img
-            src={require(id_aluno ? '../../imgs/icons/verifica.png' : '../../imgs/icons/seta-direita.png')}
-            alt="icon"
-            className={Styles.iconNavegar}
-            draggable="false"
+          src={require(id_aluno ? '../../imgs/icons/verifica.png' : '../../imgs/icons/seta-direita.png')}
+          alt="icon"
+          className={Styles.iconNavegar}
+          draggable="false"
         />
-    </button>
+      </button>
     </div>
   </>
 );

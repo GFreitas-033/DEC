@@ -1,5 +1,5 @@
 import React from "react";
-import Cep from "../input.module.css";
+import Cep from "../input.module.css"
 
 export default function Cep_input({ onBuscarCep, value, setValue, readOnly}) {
     const formatarCep = (c) => {

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmTurma from "./admAPUT.module.css";
 
-import Background_Sistema from "../../background/BackSistema";
+import BackgroundSistema from "../../background/BackSistema";
 import BarraLateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar";
@@ -135,7 +135,7 @@ export default function Adm_turma(){
 
     return(
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloAdmTurma.contentAdm}>
@@ -190,7 +190,10 @@ export default function Adm_turma(){
                                             </>
                                         )}
                                     </div>
-                                    <img src={require('../../../imgs/icons/cancelar.png')} className={EstiloAdmTurma.imgFechar} onClick={()=>setMostrar(!mostrar)} />
+                                    <img src={require('../../../imgs/icons/cancelar.png')} 
+                                        className={EstiloAdmTurma.imgFechar} onClick={()=>setMostrar(!mostrar)} 
+                                        alt="icone de cancelar"
+                                    />
                                 </div>
                             </>
                         )}

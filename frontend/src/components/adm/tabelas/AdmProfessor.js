@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import ContainerCss from "../../containers.module.css";
 import EstiloAdmProf from "./admAPUT.module.css";
 
-import Background_Sistema from "../../background/BackSistema";
+import BackgroundSistema from "../../background/BackSistema";
 import BarraLateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar";
@@ -70,7 +70,7 @@ export default function Adm_prof(){
 
     return(
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloAdmProf.contentAdm}>
@@ -78,7 +78,9 @@ export default function Adm_prof(){
                     <div className={`${EstiloAdmProf.divFiltro} ${EstiloAdmProf.divDisponibilidade}`}
                     onClick={()=>{navigate('disponibilidade')}}>
                         <img src={require('../../../imgs/icons/disponibilidade.png')} 
-                        className={EstiloAdmProf.imgDisponibilidade}/>
+                            className={EstiloAdmProf.imgDisponibilidade}
+                            alt="icone de disponibilidade"
+                        />
                         <h1 className={EstiloAdmProf.textoFiltro}>Disponibilidade dos(as) Professores(as)</h1>
                     </div>
                     <table className={EstiloAdmProf.tabela}>

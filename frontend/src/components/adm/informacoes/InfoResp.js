@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import ContainerCss from "../../containers.module.css";
 import InfoStyle from "./informacoes.module.css";
 
-import Background_Sistema from "../../background/BackSistema";
+import BackgroundSistema from "../../background/BackSistema";
 import BarraLateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar";
@@ -19,11 +19,11 @@ import Telefone from "../../inputs-cadastro/Telefone";
 import Genero from "../../inputs-cadastro/Genero";
 
 // Formatações
-function formatDate(dateString) {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toLocaleDateString("pt-BR", { timeZone: "UTC" }); // Formato DD/MM/YYYY
-}
+// function formatDate(dateString) {
+//     if (!dateString) return "";
+//     const date = new Date(dateString);
+//     return date.toLocaleDateString("pt-BR", { timeZone: "UTC" }); // Formato DD/MM/YYYY
+// }
 
 function formatCPF(cpf) {
     if (!cpf) return "";
@@ -55,13 +55,7 @@ export default function Tela_Info_Responsavel({ isEditar }) {
     // Novo estado para a lista de alunos
     const [alunos, setAlunos] = useState([]);
 
-    useEffect(() => {
-        if (id_responsavel) {
-            preencherDados();
-        }
-    }, [id_responsavel]);
-
-    async function preencherDados() {
+    const preencherDados = useCallback(async () => {
         try {
             // Requisição para os dados do responsável
             const responseResponsavel = await axios.get(
@@ -85,11 +79,17 @@ export default function Tela_Info_Responsavel({ isEditar }) {
         } catch (error) {
             console.error("Erro ao buscar dados:", error);
         }
-    }
+    }, [id_responsavel])
+    
+    useEffect(() => {
+        if (id_responsavel) {
+            preencherDados();
+        }
+    }, [id_responsavel, preencherDados]);
 
     return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={InfoStyle.content}>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import EstiloGeral from "./geral.module.css"
+import EstiloGeral from "./geral.module.css";
 
 export default function Geral({ data }) {
     return (

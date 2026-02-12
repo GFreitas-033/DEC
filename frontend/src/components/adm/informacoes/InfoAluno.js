@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import ContainerCss from "../../containers.module.css";
 import InfoStyle from "./informacoes.module.css";
 
-import Background_Sistema from "../../background/BackSistema";
+import BackgroundSistema from "../../background/BackSistema";
 import BarraLateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar";
@@ -29,27 +29,27 @@ import Rua from "../../inputs-cadastro/endereco/Rua";
 
 // Formatações
 function formatDate(dateString) {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  return date.toLocaleDateString("pt-BR", { timeZone: "UTC" }); // Formato DD/MM/YYYY
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("pt-BR", { timeZone: "UTC" }); // Formato DD/MM/YYYY
 }
 
 function formatCPF(cpf) {
-  if (!cpf) return "";
-  return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+    if (!cpf) return "";
+    return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
 }
 
 function formatRG(rg) {
-  if (!rg) return "";
-  return rg.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})$/, "$1.$2.$3-$4");
+    if (!rg) return "";
+    return rg.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})$/, "$1.$2.$3-$4");
 }
 
 function formatTelefone(telefone) {
-  if (!telefone) return "";
-  return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+    if (!telefone) return "";
+    return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
 }
 
-export default function Tela_Info_Aluno(){
+export default function Tela_Info_Aluno() {
     const navigate = useNavigate();
     const { id_aluno } = useParams();
 
@@ -73,15 +73,7 @@ export default function Tela_Info_Aluno(){
     const [turmas, setTurmas] = useState([]);
     const [responsaveis, setResponsaveis] = useState([]);
 
-    useEffect(() => {
-        if (id_aluno) {
-            preencherDados();
-            buscarTurmas();
-            buscarResponsaveis();
-        }
-    }, [id_aluno]);
-
-    async function preencherDados() {
+    const preencherDados = useCallback(async () => {
         try {
             const response = await axios.get(`/api/aluno/allData/${id_aluno}`);
             const dados = response.data[0];
@@ -103,32 +95,40 @@ export default function Tela_Info_Aluno(){
             setBairro(dados.bairro_aluno || "");
             setCidade(dados.cidade_aluno || "");
             setUf(dados.estado_aluno || "");
-      } catch (error) {
+        } catch (error) {
             console.error("Erro ao buscar dados:", error);
-      }
-    }
+        }
+    }, [id_aluno]);
 
-    async function buscarTurmas() {
+    const buscarTurmas = useCallback(async () => {
         try {
             const response = await axios.get(`/api/aluno/turmas/${id_aluno}`);
             setTurmas(response.data);
         } catch (error) {
             console.error("Erro ao buscar turmas:", error);
         }
-    }
+    }, [id_aluno]);
 
-    async function buscarResponsaveis() {
+    const buscarResponsaveis = useCallback(async () => {
         try {
             const response = await axios.get(`/api/aluno/responsaveis/${id_aluno}`);
             setResponsaveis(response.data);
         } catch (error) {
             console.error("Erro ao buscar responsáveis:", error);
         }
-    }
+    }, [id_aluno]);
 
-    return(
+    useEffect(() => {
+        if (id_aluno) {
+            preencherDados();
+            buscarTurmas();
+            buscarResponsaveis();
+        }
+    }, [id_aluno, preencherDados, buscarTurmas, buscarResponsaveis]);
+
+    return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={InfoStyle.content}>
