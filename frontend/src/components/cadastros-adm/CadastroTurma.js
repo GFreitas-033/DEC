@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 import ContainerCss from "../containers.module.css";
 import StyleCadastroTurma from "./cadastroDoAdm.module.css";
 
-import Background_Sistema from "../background/BackSistema";
+import BackgroundSistema from "../background/BackSistema";
 import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 import BtnVoltar from "../btn-voltar/BotaoVoltar";
@@ -19,8 +19,7 @@ import DiaSemana from "../inputs-cadastro/inputs-turma/DiaSemana";
 import Horario from "../inputs-cadastro/inputs-turma/Horario";
 import Nome from "../inputs-cadastro/Nome";
 
-export default function Cadastro_turma({ texto, btn }){
-    const navigate = useNavigate();
+export default function Cadastro_turma({ texto, btn }) {
     let { id_turma } = useParams();
     const [nome, setNome] = useState("");
     const [unidade, setUnidade] = useState("");
@@ -31,16 +30,16 @@ export default function Cadastro_turma({ texto, btn }){
     const [horarioF, setHorarioF] = useState("");
     const [qtdmaxima, setQtdMaxima] = useState("");
     const [diasemana, setDiaSemana] = useState("");
-    
+
     const [responseTurma, setResponseTurma] = useState(null);
 
     const alertErroCadastro = () => {
         Swal.fire({
-        title: "Não foi possível Cadastrar a Turma.",
-        icon: "error",
-        confirmButtonColor: "#fbd034",
-        background: "#2b2b2b",
-        theme: "dark"
+            title: "Não foi possível Cadastrar a Turma.",
+            icon: "error",
+            confirmButtonColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         })
     };
     const alertSucessoCadastro = () => {
@@ -52,11 +51,6 @@ export default function Cadastro_turma({ texto, btn }){
             theme: "dark"
         })
     };
-
-    useEffect(() => {
-        fetchUnidades();
-        fetchProfessores();
-    },[]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -70,42 +64,36 @@ export default function Cadastro_turma({ texto, btn }){
 
     const fetchUnidades = async () => {
         try {
-          const response = await axios.get("/api/unidade/");
-          const unidadesData = response.data.map((unidade) => ({
-            id: unidade.id_unidade,
-            nome: unidade.nome_unidade,
-          }));
-          setUnidades(unidadesData);
+            const response = await axios.get("/api/unidade/");
+            const unidadesData = response.data.map((unidade) => ({
+                id: unidade.id_unidade,
+                nome: unidade.nome_unidade,
+            }));
+            setUnidades(unidadesData);
         } catch (error) {
-          console.error("Erro ao buscar unidades:", error);
+            console.error("Erro ao buscar unidades:", error);
         }
     };
 
     const fetchProfessores = async () => {
         try {
-          const response = await axios.get("/api/professor/");
-          const nomes = response.data.map((prof) => ({
-            id: prof.id_pessoa,
-            nome: prof.nome_pessoa,
-          }));
-    
-          setProfessores(nomes);
+            const response = await axios.get("/api/professor/");
+            const nomes = response.data.map((prof) => ({
+                id: prof.id_pessoa,
+                nome: prof.nome_pessoa,
+            }));
+
+            setProfessores(nomes);
         } catch (error) {
-          console.error("Erro ao buscar professores:", error);
+            console.error("Erro ao buscar professores:", error);
         }
     };
 
-    useEffect(() => {
-        if (id_turma !== undefined) {
-          id_turma = parseInt(id_turma);
-          preencherDados();
-        }
-    }, [id_turma]);
-
-    const preencherDados = async () => {
+    const preencherDados = useCallback(async () => {
         let responseTurma = await axios.get('/api/turma');
         responseTurma = responseTurma.data;
         responseTurma = responseTurma.find(item => item.id_turma === id_turma);
+        if (!responseTurma) return;
         setProfessor(responseTurma.id_professor);
         setUnidade(responseTurma.id_unidade);
         setQtdMaxima(responseTurma.qtd_maxima);
@@ -113,9 +101,9 @@ export default function Cadastro_turma({ texto, btn }){
         setHorarioI(responseTurma.horario);
         setHorarioF(responseTurma.horario_final);
         setNome(responseTurma.nome_turma);
-    }
+    }, [id_turma])
 
-    async function cliquei() {;
+    async function cliquei() {
         if (id_turma !== undefined) {
             try {
                 let responseTurma = await axios.put(`/api/turma/${id_turma}`, {
@@ -131,7 +119,7 @@ export default function Cadastro_turma({ texto, btn }){
             } catch (error) {
                 console.log("Erro ao criar turma: ", error);
             }
-        }else{
+        } else {
             try {
                 let responseTurma = await axios.post('/api/turma/', {
                     qtd_maxima: qtdmaxima,
@@ -149,19 +137,32 @@ export default function Cadastro_turma({ texto, btn }){
                 alertErroCadastro();
             }
         }
-        
     }
+
+    useEffect(() => {
+        fetchUnidades();
+        fetchProfessores();
+    }, []);
+
+    useEffect(() => {
+        if (id_turma !== undefined) {
+            const id = parseInt(id_turma);
+            preencherDados(id);
+        }
+    }, [id_turma, preencherDados]);
 
     useEffect(() => {
         if (responseTurma) {
             alertSucessoCadastro();
-            preencherDados();
+            if (id_turma !== undefined) {
+                preencherDados(parseInt(id_turma));
+            }
         }
-    }, [responseTurma]);
+    }, [responseTurma, id_turma, preencherDados]);
 
-    return(
+    return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={StyleCadastroTurma.content}>
@@ -170,13 +171,13 @@ export default function Cadastro_turma({ texto, btn }){
                     </div>
                     <form className={StyleCadastroTurma.form} autoComplete="off" onSubmit={handleSubmit}>
                         <div className={StyleCadastroTurma.contentInputs}>
-                            <Nome value={nome} setValue={setNome}/>
-                            <SelecionarProf value={professor} setValue={setProfessor} professores={professores}/>
+                            <Nome value={nome} setValue={setNome} />
+                            <SelecionarProf value={professor} setValue={setProfessor} professores={professores} />
                             <SelecionarUni value={unidade} setValue={setUnidade} unidades={unidades} />
-                            <QtdMaxima value={qtdmaxima} setValue={setQtdMaxima}/>
-                            <DiaSemana value={diasemana} setValue={setDiaSemana}/>
-                            <Horario value={horarioI} setValue={setHorarioI} texto={"Início"}/>
-                            <Horario value={horarioF} setValue={setHorarioF} texto={"Final"}/>
+                            <QtdMaxima value={qtdmaxima} setValue={setQtdMaxima} />
+                            <DiaSemana value={diasemana} setValue={setDiaSemana} />
+                            <Horario value={horarioI} setValue={setHorarioI} texto={"Início"} />
+                            <Horario value={horarioF} setValue={setHorarioF} texto={"Final"} />
                         </div>
                         <div className={StyleCadastroTurma.divBtn}>
                             <button className={StyleCadastroTurma.btn}>

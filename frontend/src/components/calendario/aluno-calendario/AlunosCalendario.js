@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2';
@@ -6,8 +6,8 @@ import Swal from 'sweetalert2';
 import Calendario from "./alunoCalendario.module.css";
 import ContainerCss from "../../containers.module.css";
 
-import Background_Sistema from "../../background/BackSistema";
-import Barra_lateral from "../../barra-lateral/BarraLateral";
+import BackgroundSistema from "../../background/BackSistema";
+import Barralateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar"
 
@@ -16,12 +16,12 @@ import BotaoAdionarAlunos from "./adicionar-aluno/AdicionarAluno";
 export default function AlunosCalendario() {
     const { idturma } = useParams();
     const [alunos, setAlunos] = useState([]);
-    const [responseAlunosTurma, setResponseAlunoTurma] = useState(null);
+    // const [responseAlunosTurma, setResponseAlunoTurma] = useState(null);
     const [turma, setTurma] = useState({}); // Estado para armazenar os dados da turma
     const adm = localStorage.getItem('isAdm');
     const navigate = useNavigate()
 
-    const alertRemoverAluno = (id_aluno) =>{
+    const alertRemoverAluno = (id_aluno) => {
         Swal.fire({
             title: "Quer Realmente Remover esse(a) Aluno(a) dessa Turma?",
             icon: "question",
@@ -52,12 +52,12 @@ export default function AlunosCalendario() {
         try {
             const response = await axios.get('/api/turma/padrao-completa');
             const turmas = response.data;
-    
+
             const inputOptions = turmas.reduce((options, turma) => {
                 options[turma.id_turma] = turma.nome_turma;
                 return options;
             }, {});
-    
+
             const { value: novaTurmaId } = await Swal.fire({
                 title: "Trocar o aluno de turma",
                 text: "Selecione a nova turma para o aluno:",
@@ -77,7 +77,7 @@ export default function AlunosCalendario() {
                 background: "#2b2b2b",
                 theme: "dark"
             });
-    
+
             if (novaTurmaId) {
                 trocarTurma(id_aluno, novaTurmaId);
             }
@@ -93,7 +93,7 @@ export default function AlunosCalendario() {
             });
         }
     };
-    
+
     const trocarTurma = async (id_aluno, novaTurmaId) => {
         try {
             await axios.put(`/api/aluno_has_turma/${id_aluno}`, { id_turma: novaTurmaId });
@@ -118,18 +118,18 @@ export default function AlunosCalendario() {
             });
         }
     };
-    
-    const buscarAlunos = async () => {
+
+    const buscarAlunos = useCallback(async () => {
         try {
             const response = await axios.get(`/listaralunos/${idturma}`);
             setAlunos(response.data);
         } catch (error) {
             console.error("Erro ao buscar alunos:", error);
         }
-    };
+    }, [idturma]);
     useEffect(() => {
         buscarAlunos();
-    }, [idturma]);
+    }, [buscarAlunos]);
 
     useEffect(() => {
         const fetchTurma = async () => {
@@ -146,8 +146,8 @@ export default function AlunosCalendario() {
 
     async function tirarAluno(id_aluno) {
         try {
-            const response = await axios.delete(`/api/aluno_has_turma/aluno/${id_aluno}`);
-            setResponseAlunoTurma(response);
+            // const response = await axios.delete(`/api/aluno_has_turma/aluno/${id_aluno}`);
+            // setResponseAlunoTurma(response);
             setAlunos((prevAlunos) => prevAlunos.filter((aluno) => aluno.id_aluno !== id_aluno));
         } catch (error) {
             console.error("Erro ao remover aluno:", error);
@@ -156,14 +156,14 @@ export default function AlunosCalendario() {
 
     return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
-                <Barra_lateral />
+                <Barralateral />
                 <div className={Calendario.ajuste}>
                     <div className={Calendario.container_alunoscalendario}>
                         <BotaoAdionarAlunos isAdm={adm} onAlunoAdicionado={buscarAlunos} />
-                        <button className={Calendario.btnChamada} 
-                            onClick={()=>{navigate(`/aulas/chamada/${idturma}`)}}>
+                        <button className={Calendario.btnChamada}
+                            onClick={() => { navigate(`/aulas/chamada/${idturma}`) }}>
                             Chamada
                         </button>
                         <h1 className={Calendario.textTurma}>{turma.nome_turma}</h1>
@@ -171,20 +171,20 @@ export default function AlunosCalendario() {
                         <p className={Calendario.textLH}>Horário: {turma.horario}</p>
 
                         <ul className={Calendario.lista}>
-                            {alunos.map((aluno, index) => (
-                                <li key={index}>
+                            {alunos.map((aluno) => (
+                                <li key={aluno.id_pessoa}>
                                     <p className={Calendario.nomesAlunos}>{aluno.nome_pessoa}</p>
                                     <div className={Calendario.divAcoes}>
                                         <img
-                                            src={require('../../../imgs/icons/switch.png')} 
+                                            src={require('../../../imgs/icons/switch.png')}
                                             className={Calendario.icon}
-                                            onClick={()=>{alertTrocarTurma(aluno.id_pessoa)}}
+                                            onClick={() => { alertTrocarTurma(aluno.id_pessoa) }}
                                             alt="Trocar de Turma"
                                         />
                                         <img
-                                            src={require('../../../imgs/icons/Excluir.png')} 
+                                            src={require('../../../imgs/icons/Excluir.png')}
                                             className={Calendario.icon}
-                                            onClick={()=>{alertRemoverAluno(aluno.id_pessoa)}}
+                                            onClick={() => { alertRemoverAluno(aluno.id_pessoa) }}
                                             alt="Excluir aluno"
                                         />
                                     </div>

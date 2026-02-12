@@ -322,8 +322,6 @@ export default function Form() {
       id_responsavel2: idResp2,
     })
 
-
-
     let responseAlunoHasTurma;
     for(let i=0;i<selectedDay;i++){
       responseAlunoHasTurma = await axios.post('/api/aluno_has_turma', {
@@ -527,7 +525,7 @@ const Passo5 = ({ nextStep, calcularIdade, setStep, nascimento, prevStep, handle
         Anterior
       </button>
       <button type="button" onClick={() => {
-        if (cep != "" && uf != "" && cidade != "" && bairro != "" && logradouro != "" && numero != "") {
+        if (cep !== "" && uf !== "" && cidade !== "" && bairro !== "" && logradouro !== "" && numero !== "") {
           pesquisarUnidades();
           nextStep()
         } else {

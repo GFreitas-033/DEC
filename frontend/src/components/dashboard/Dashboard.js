@@ -5,7 +5,7 @@ import axios from "axios";
 import ContainerCss from "../containers.module.css";
 import EstiloDashboard from "./dashboard.module.css";
 
-import Background_Sistema from "../background/BackSistema";
+import BackgroundSistema from "../background/BackSistema";
 import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 import BtnVoltar from "../btn-voltar/BotaoVoltar";
@@ -66,7 +66,7 @@ export default function Dashboard() {
     if (!dashboardData) {
         return (
             <div>
-                <Background_Sistema />
+                <BackgroundSistema />
                 <div className={ContainerCss.container}>
                     <BarraLateral />
                     <div className={EstiloDashboard.ajusteTela}>
@@ -81,7 +81,7 @@ export default function Dashboard() {
     
     return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloDashboard.ajusteTela}>

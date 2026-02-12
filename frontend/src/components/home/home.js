@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import EstiloHome from "./home.module.css";
 import ContainerCss from "../containers.module.css";
 
-import Background_Sistema from "../background/BackSistema";
+import BackgroundSistema from "../background/BackSistema";
 import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 
@@ -41,7 +41,7 @@ export default function Home(){
 
     return(
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloHome.container_home}>

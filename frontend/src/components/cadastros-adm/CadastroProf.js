@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 import ContainerCss from "../containers.module.css";
 import StyleCadastroProf from "./cadastroDoAdm.module.css";
 
-import Background_Sistema from "../background/BackSistema";
+import BackgroundSistema from "../background/BackSistema";
 import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 import BtnVoltar from "../btn-voltar/BotaoVoltar";
@@ -29,9 +29,9 @@ import Cidade from "../inputs-cadastro/endereco/Cidade";
 import Bairro from "../inputs-cadastro/endereco/Bairro";
 import Rua from "../inputs-cadastro/endereco/Rua";
 
-export default function Cadastro_prof({ texto, btn }){
-    const navigate = useNavigate();
-    let { id_professor } = useParams();
+export default function Cadastro_prof({ texto, btn }) {
+    const { id_professor } = useParams();
+    const idProfessorNumber = id_professor ? parseInt(id_professor) : undefined;
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
@@ -47,16 +47,16 @@ export default function Cadastro_prof({ texto, btn }){
     const [rg, setRg] = useState("");
     const [telefone, setTelefone] = useState("");
     const [id_endereco, setEndereco] = useState(null);
-    
+
     const [responsePessoa, setResponsePessoa] = useState(null);
 
     const alertErroCadastro = () => {
         Swal.fire({
-        title: "Não foi possível Cadastrar o Professor(a).",
-        icon: "error",
-        confirmButtonColor: "#fbd034",
-        background: "#2b2b2b",
-        theme: "dark"
+            title: "Não foi possível Cadastrar o Professor(a).",
+            icon: "error",
+            confirmButtonColor: "#fbd034",
+            background: "#2b2b2b",
+            theme: "dark"
         })
     };
     const alertSucessoCadastro = () => {
@@ -69,39 +69,32 @@ export default function Cadastro_prof({ texto, btn }){
         })
     };
 
-    useEffect(() => {
-        if (id_professor !== undefined) {
-            id_professor = parseInt(id_professor);
-            preencherDados();
-        }
-    }, [id_professor]);
-  
-    function formatarData(dateString) {
-        const date = new Date(dateString);
-        const year = date.getUTCFullYear();
-        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-        const day = String(date.getUTCDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
-  
+    // function formatarData(dateString) {
+    //     const date = new Date(dateString);
+    //     const year = date.getUTCFullYear();
+    //     const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    //     const day = String(date.getUTCDate()).padStart(2, '0');
+    //     return `${year}-${month}-${day}`;
+    // }
+
     const formatCPF = (cpf) => {
         return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     };
-    
+
     const formatRG = (rg) => {
         return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{1})/, '$1.$2.$3-$4');
     };
-    
+
     const formatTelefone = (telefone) => {
         telefone = telefone.replace(/\D/g, ''); // Remove non-digits
         if (telefone.length === 11) {
             return telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-        }else if (telefone.length === 10) {
+        } else if (telefone.length === 10) {
             return telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
         }
         return telefone;
     };
-  
+
     function padraoBR(isoDate) {
         const date = new Date(isoDate);
         const day = String(date.getUTCDate()).padStart(2, '0');
@@ -109,12 +102,13 @@ export default function Cadastro_prof({ texto, btn }){
         const year = date.getUTCFullYear();
         return `${day}/${month}/${year}`;
     }
-  
-    const preencherDados = async () => {
+
+    const preencherDados = useCallback(async () => {
         try {
             let responsePessoa = await axios.get('/api/pessoa');
             responsePessoa = responsePessoa.data;
-            responsePessoa = responsePessoa.find(item => item.id_pessoa === id_professor);
+            responsePessoa = responsePessoa.find(item => item.id_pessoa === idProfessorNumber);
+            if (!responsePessoa) return;
             setEndereco(responsePessoa.id_endereco);
             setEmail(responsePessoa.email_pessoa);
             setNome(responsePessoa.nome_pessoa);
@@ -126,59 +120,61 @@ export default function Cadastro_prof({ texto, btn }){
             let responseEndereco = await axios.get('/api/endereco');
             responseEndereco = responseEndereco.data;
             responseEndereco = responseEndereco.find(item => item.id_endereco === responsePessoa.id_endereco);
+            if (!responseEndereco) return;
             setCep(responseEndereco.cep);
             setUf(responseEndereco.estado);
             setCidade(responseEndereco.cidade);
             setBairro(responseEndereco.bairro);
             setLogradouro(responseEndereco.rua);
-        }catch (error) {
+        } catch (error) {
             console.log(error);
         }
+    }, [idProfessorNumber]);
+
+    const handleBuscarCep = (cep) => {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then((response) => response.json())
+            .then((dados) => {
+                if (!dados.erro) {
+                    if (dados.logradouro) setLogradouro(dados.logradouro);
+                    if (dados.bairro) setBairro(dados.bairro);
+                    if (dados.localidade) setCidade(dados.localidade);
+                    if (dados.uf) setUf(dados.uf);
+                } else {
+                    console.warn("CEP inválido.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar CEP:", error);
+            });
     };
-  
-  const handleBuscarCep = (cep) => {
-    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-      .then((response) => response.json())
-      .then((dados) => {
-        if (!dados.erro) {
-          if (dados.logradouro) setLogradouro(dados.logradouro);
-          if (dados.bairro) setBairro(dados.bairro);
-          if (dados.localidade) setCidade(dados.localidade);
-          if (dados.uf) setUf(dados.uf);
-        } else {
-          console.warn("CEP inválido.");
-        }
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar CEP:", error);
-      });
-  };
-  
+
     function tratamentoString(inputString) {
         return inputString.replace(/[.\-()\s]/g, '');
     }
-  
+
     const convertDate = (date) => {
         const [day, month, year] = date.split('/');
         return `${year}-${month}-${day}`;
     };
-  
-    const cliquei = async (event) =>{
+
+    const cliquei = async (event) => {
         event.preventDefault();
         // const caminho_foto = document.getElementById('imagem').value;
-        if (id_professor !== undefined) {
+        if (idProfessorNumber !== undefined) {
             try {
                 console.log(id_endereco);
-                let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
-                    cep: cep,
-                    estado: uf,
-                    cidade: cidade,
-                    bairro: bairro,
-                    rua: logradouro,
-                    numero: null
-                });
+                // let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
+                //     cep: cep,
+                //     estado: uf,
+                //     cidade: cidade,
+                //     bairro: bairro,
+                //     rua: logradouro,
+                //     numero: null
+                // });
+
                 console.log(id_endereco);
-                let responsePessoa = await axios.put(`/api/pessoa/${id_professor}`, {
+                let responsePessoa = await axios.put(`/api/pessoa/${idProfessorNumber}`, {
                     nome_pessoa: nome,
                     dt_nasc_pessoa: convertDate(dtNasc),
                     cpf_pessoa: tratamentoString(cpf),
@@ -188,15 +184,15 @@ export default function Cadastro_prof({ texto, btn }){
                     genero: genero,
                     id_endereco: id_endereco
                 });
-            const responseProfessor = await axios.put(`/api/professor/${id_professor}`, {
-                id_pessoa: responsePessoa.id,
-                caminho_foto: null
-            });
-            setResponsePessoa(responseProfessor);
-        }catch (error) {
-            console.log("Erro ao editar professor: ", error);
-        }
-        }else{
+                const responseProfessor = await axios.put(`/api/professor/${idProfessorNumber}`, {
+                    id_pessoa: responsePessoa.id,
+                    caminho_foto: null
+                });
+                setResponsePessoa(responseProfessor);
+            } catch (error) {
+                console.log("Erro ao editar professor: ", error);
+            }
+        } else {
             const senha = document.getElementById('senha').value;
             try {
                 let responseEndereco = await axios.post('/api/endereco/', {
@@ -226,22 +222,30 @@ export default function Cadastro_prof({ texto, btn }){
                     caminho_foto: null
                 });
                 setResponsePessoa(responseProfessor.data);
-            }catch (error) {
+            } catch (error) {
                 console.log("Erro ao criar professor: ", error);
                 alertErroCadastro();
             }
         }
     }
-  
-    // Recarrega a página quando responsePessoa estiver disponível
-    if (responsePessoa) {
-      alertSucessoCadastro();
-      preencherDados();
-    }
 
-    return(
+    useEffect(() => {
+        if (idProfessorNumber !== undefined) {
+            preencherDados();
+        }
+    }, [idProfessorNumber, preencherDados]);
+
+    // Recarrega a página quando responsePessoa estiver disponível
+    useEffect(() => {
+        if (responsePessoa) {
+            alertSucessoCadastro();
+            preencherDados();
+        }
+    }, [responsePessoa, preencherDados]);
+
+    return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={StyleCadastroProf.content}>
@@ -251,19 +255,19 @@ export default function Cadastro_prof({ texto, btn }){
                     <form className={StyleCadastroProf.form} autoComplete="off" onSubmit={cliquei}>
                         <div className={StyleCadastroProf.contentInputs}>
                             {/* <Imagem/> */}
-                            <Email value={email} setValue={setEmail}/>
-                            {id_professor === undefined && <Senha value={senha} setValue={setSenha}/>}
-                            <Nome value={nome} setValue={setNome}/>
+                            <Email value={email} setValue={setEmail} />
+                            {id_professor === undefined && <Senha value={senha} setValue={setSenha} />}
+                            <Nome value={nome} setValue={setNome} />
                             <Cpf value={cpf} setValue={setCpf} />
                             <Rg value={rg} setValue={setRg} />
                             <Telefone value={telefone} setValue={setTelefone} />
-                            <DtNasc value={dtNasc} setValue={setDtnasc}/>
-                            <Genero value={genero} setValue={setGenero}/>
-                            <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep}/>
-                            <UF value={uf} setValue={setUf}/>
-                            <Cidade value={cidade} setValue={setCidade}/>
-                            <Bairro value={bairro} setValue={setBairro}/>
-                            <Rua value={logradouro} setValue={setLogradouro}/>
+                            <DtNasc value={dtNasc} setValue={setDtnasc} />
+                            <Genero value={genero} setValue={setGenero} />
+                            <Cep onBuscarCep={handleBuscarCep} value={cep} setValue={setCep} />
+                            <UF value={uf} setValue={setUf} />
+                            <Cidade value={cidade} setValue={setCidade} />
+                            <Bairro value={bairro} setValue={setBairro} />
+                            <Rua value={logradouro} setValue={setLogradouro} />
                         </div>
                         <div className={StyleCadastroProf.divBtn}>
                             <button className={StyleCadastroProf.btn}>

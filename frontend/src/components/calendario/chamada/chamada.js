@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 import EstiloChamada from "./chamada.module.css";
 import ContainerCss from "../../containers.module.css";
 
-import Background_Sistema from "../../background/BackSistema";
-import Barra_lateral from "../../barra-lateral/BarraLateral";
+import BackgroundSistema from "../../background/BackSistema";
+import BarraLateral from "../../barra-lateral/BarraLateral";
 import Notifica from "../../sino-notificacao/Notificacao";
 import BtnVoltar from "../../btn-voltar/BotaoVoltar";
 
@@ -18,20 +18,16 @@ export default function ChamadaTela() {
     const [statusC, setStatusC] = useState(0);
     const [observacao, setObservacao] = useState("");
 
-    useEffect(() => {
-        fetchChamada();
-    }, [data]);
-
-    const fetchChamada = async () => {
+    const fetchChamada = useCallback(async () => {
         try {
             setObservacao("");
             const res = await axios.post("/api/chamada/buscar", {
                 id_turma: idturma,
                 data_c: data,
             });
-    
+
             const responseData = res.data;
-    
+
             if (responseData.length === 0) {
                 Swal.fire({
                     title: "Chamada indisponível.",
@@ -42,13 +38,13 @@ export default function ChamadaTela() {
                 });
                 return;
             }
-    
+
             const statusFromAPI = responseData.find(c => c.status_c !== null)?.status_c || 0;
-    
+
             setChamada(responseData);
             setObservacao(responseData[0].observacao);
             setStatusC(statusFromAPI);
-    
+
         } catch (error) {
             console.error("Erro ao buscar chamada:", error);
             Swal.fire({
@@ -59,7 +55,11 @@ export default function ChamadaTela() {
                 theme: "dark"
             });
         }
-    };
+    }, [idturma, data]);
+
+    useEffect(() => {
+        fetchChamada();
+    }, [fetchChamada]);
 
     const enviarChamada = async () => {
         const id_chamada = chamada[0]?.id_chamada;
@@ -115,9 +115,9 @@ export default function ChamadaTela() {
 
     return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
-                <Barra_lateral />
+                <BarraLateral />
                 <div className={EstiloChamada.ajuste}>
                     <div className={EstiloChamada.container_chamada}>
                         <table className={EstiloChamada.tabela}>

@@ -6,7 +6,7 @@ import ContainerCss from "../containers.module.css";
 import EstiloDispo from "./disponibilidade.module.css";
 import "./globalDisponibilidade.css";
 
-import Background_Sistema from "../background/BackSistema";
+import BackgroundSistema from "../background/BackSistema";
 import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 import BtnVoltar from "../btn-voltar/BotaoVoltar";
@@ -115,7 +115,7 @@ export default function Disponibilidade_Prof() {
 
     return (
         <div>
-            <Background_Sistema />
+            <BackgroundSistema />
             <div className={ContainerCss.container}>
                 <BarraLateral />
                 <div className={EstiloDispo.container_Dispo}>

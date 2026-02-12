@@ -5,7 +5,7 @@ import axios from "axios";
 import ContainerCss from "../containers.module.css";
 import EstiloCalendario from "./calendario.module.css";
 
-import Background_Sistema from "../background/BackSistema";
+import BackgroundSistema from "../background/BackSistema";
 import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
 
@@ -16,8 +16,8 @@ export default function Calendario(){
     const [calendarioData, setCalendarioData] = useState([]);
     const [filtros, setFiltros] = useState({ dias: [], nome: "" });
     const [loading, setLoading] = useState(true);
-    const [dataLoaded, setDataLoaded] = useState(false);
-    const [loadingText, setLoadingText] = useState("Carregando.");
+    // const [dataLoaded, setDataLoaded] = useState(false);
+    const loadingText = "Carregando.";
 
     useEffect(() => {
         logado();
@@ -25,7 +25,7 @@ export default function Calendario(){
 
     const logado = async () => {
         try {
-            let response = await axios.post('/login');
+            // let response = await axios.post('/login');
         } catch (error) {
             navigate('/');
         }
@@ -36,12 +36,12 @@ export default function Calendario(){
         .get("/minhasturmas")
         .then((response) => {
             setCalendarioData(response.data);
-            setDataLoaded(true);
+            // setDataLoaded(true);
             setLoading(false);
         })
         .catch((error) => {
             console.error("Erro ao buscar dados do calendário:", error);
-            setDataLoaded(true);
+            // setDataLoaded(true);
             setLoading(false);
         });
     }, []);
@@ -91,7 +91,7 @@ export default function Calendario(){
 
     return(
       <div>
-        <Background_Sistema />
+        <BackgroundSistema />
         <div className={ContainerCss.container}>
             <BarraLateral />
             <div className={EstiloCalendario.margin_content}>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Cep from "../input.module.css";
 
 export default function Cep_input({ onBuscarCep, value, setValue, readOnly}) {
