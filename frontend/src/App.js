@@ -4,8 +4,8 @@ import {BrowserRouter as Routers, Routes, Route} from "react-router-dom"
 
 // Import das Telas
 import Login from "./components/login/form"
-import PaganteTrue from "./components/cadastro/PaganteTrue"
-import PaganteFalse from "./components/cadastro/PaganteFalse"
+import PaganteTrue from "./components/cadastro/paganteTrue"
+import PaganteFalse from "./components/cadastro/paganteFalse"
 import AlunoEscola from "./components/cadastro/Escola"
 
 import CadastroProf from "./components/cadastros-adm/CadastroProf"
@@ -14,9 +14,9 @@ import CadastroTurma from "./components/cadastros-adm/CadastroTurma"
 
 import Home from "./components/home/home"
 
-import Calendario from "./components/calendario/Calendario"
+import Calendario from "./components/calendario/calendario"
 import Alunos from "./components/calendario/aluno-calendario/AlunosCalendario"
-import Chamada from "./components/calendario/chamada/Chamada"
+import Chamada from "./components/calendario/chamada/chamada"
 
 import Adm from "./components/adm/adm"
 
