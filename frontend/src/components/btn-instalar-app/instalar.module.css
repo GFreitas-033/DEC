@@ -1,22 +1,42 @@
-.containerBtnInstalar{
+@media screen and (min-width: 320px) {
+    .containerBtnInstalar{
+        bottom: 0.5rem;
+        left: 0.7rem;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    .containerBtnInstalar{
+        top: 1rem;
+        left: 6rem;
+    }
+}
+
+.containerBtnInstalar {
+    display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 
+    height: 1rem;
+
     z-index: 1000;
     position: fixed;
-    top: 1rem;
-    left: 7rem;
 
     padding: 0.5rem;
     border-radius: 1rem;
 
+    box-shadow: 0px 0px 10px #fff;
     background-color: #FBD034;
     color: #000;
 }
 
-.setaImg{
+.setaImg {
     width: 1rem;
     height: 1rem;
     margin-right: 0.8rem;
+}
+
+.containerBtnInstalar>p {
+    font-size: 0.875rem;
 }
