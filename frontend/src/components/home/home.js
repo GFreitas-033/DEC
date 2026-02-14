@@ -7,8 +7,9 @@ import ContainerCss from "../containers.module.css";
 import BackgroundSistema from "../background/BackSistema";
 import BarraLateral from "../barra-lateral/BarraLateral";
 import Notifica from "../sino-notificacao/Notificacao";
+import BtnInstalar from "../btn-instalar-app/InstalarApp";
 
-export default function Home(){
+export default function Home() {
     const { user } = useOutletContext();
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(true);
@@ -39,7 +40,7 @@ export default function Home(){
         return () => clearInterval(interval);
     }, [loading]);
 
-    return(
+    return (
         <div>
             <BackgroundSistema />
             <div className={ContainerCss.container}>
@@ -50,11 +51,12 @@ export default function Home(){
                     ) : (
                         <h1 className={EstiloHome.helloworld}>
                             Bem-Vindo(a)!
-                        <br /> {message}</h1>
+                            <br /> {message}</h1>
                     )}
                 </div>
                 <Notifica />
-            </div>            
+                <BtnInstalar />
+            </div>
         </div>
 
     )

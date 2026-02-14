@@ -94,6 +94,5 @@ export default function Form_Login(){
           </div>
         </div>
     </div>
-
   )
 }
