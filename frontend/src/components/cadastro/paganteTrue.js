@@ -378,7 +378,7 @@ export default function Form() {
         });
         responsePessoa = responsePessoa.data;
         idFin = responsePessoa.id;
-        let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idFin});
+        await axios.post('/api/responsavel_aluno', {id_pessoa: idFin});
       }
 
       if (nomeResp1 !== '' && cpfResp1 !== '' && rgResp1 !== '' && emailResp1 !== '' && telefoneResp1 !== '' && generoResp1 !== '') {
@@ -394,7 +394,7 @@ export default function Form() {
         });
         responsePessoa = responsePessoa.data;
         idResp1 = responsePessoa.id;
-        let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp1});
+        await axios.post('/api/responsavel_aluno', {id_pessoa: idResp1});
       }
 
       if (nomeResp2 !== '' && cpfResp2 !== '' && rgResp2 !== '' && emailResp2 !== '' && telefoneResp2 !== '' && generoResp2 !== '') {
@@ -410,7 +410,7 @@ export default function Form() {
         });
         responsePessoa = responsePessoa.data;
         idResp2 = responsePessoa.id;
-        let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp2});
+        await axios.post('/api/responsavel_aluno', {id_pessoa: idResp2});
       }
 
       responsePessoa = await axios.post('/api/pessoa', {
@@ -425,7 +425,7 @@ export default function Form() {
       })
       responsePessoa = responsePessoa.data;
       if (cpfResp1 === '') {
-        let responseAluno = await axios.post('/api/aluno', {
+        await axios.post('/api/aluno', {
           id_pessoa: responsePessoa.id,
           destro_canhoto: mao_dominante,
           id_responsavel: idFin,
@@ -435,7 +435,7 @@ export default function Form() {
           tipo_aluno: 'pagante',
         })
       } else {
-        let responseAluno = await axios.post('/api/aluno', {
+        await axios.post('/api/aluno', {
           id_pessoa: responsePessoa.id,
           destro_canhoto: mao_dominante,
           id_responsavel: idResp1,
