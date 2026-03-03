@@ -338,16 +338,16 @@ export default function Form() {
       return `${ano}-${mes}-${dia}`; // Reorganiza no formato SQL
     }
 
-    // function dataAtualSQL() {
-    //   const date = new Date();
-    //   const year = date.getFullYear();
-    //   const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
-    //   const day = String(date.getDate()).padStart(2, '0');
+    function dataAtualSQL() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+      const day = String(date.getDate()).padStart(2, '0');
 
-    //   return `${year}-${month}-${day}`;
-    // }
+      return `${year}-${month}-${day}`;
+    }
 
-    // let dataInicio = dataAtualSQL();
+    let dataInicio = dataAtualSQL();
 
     if (!id_aluno) {
       let responseEndereco = await axios.post('/api/endereco', {
@@ -360,9 +360,9 @@ export default function Form() {
       });
       responseEndereco = responseEndereco.data;
 
-      // let idResp1;
-      // let idResp2;
-      // let idFin;
+      let idResp1;
+      let idResp2;
+      let idFin;
       let responsePessoa;
 
       if (nomeFin !== '' && cpfFin !== '' && rgFin !== '' && emailFin !== '' && telefoneFin !== '' && generoFin !== '') {
@@ -377,8 +377,8 @@ export default function Form() {
           id_endereco: responseEndereco.id,
         });
         responsePessoa = responsePessoa.data;
-        // idFin = responsePessoa.id;
-        // let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idFin});
+        idFin = responsePessoa.id;
+        let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idFin});
       }
 
       if (nomeResp1 !== '' && cpfResp1 !== '' && rgResp1 !== '' && emailResp1 !== '' && telefoneResp1 !== '' && generoResp1 !== '') {
@@ -393,8 +393,8 @@ export default function Form() {
           id_endereco: responseEndereco.id,
         });
         responsePessoa = responsePessoa.data;
-        // idResp1 = responsePessoa.id;
-        // let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp1});
+        idResp1 = responsePessoa.id;
+        let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp1});
       }
 
       if (nomeResp2 !== '' && cpfResp2 !== '' && rgResp2 !== '' && emailResp2 !== '' && telefoneResp2 !== '' && generoResp2 !== '') {
@@ -409,8 +409,8 @@ export default function Form() {
           id_endereco: responseEndereco.id,
         });
         responsePessoa = responsePessoa.data;
-        // idResp2 = responsePessoa.id;
-        // let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp2});
+        idResp2 = responsePessoa.id;
+        let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp2});
       }
 
       responsePessoa = await axios.post('/api/pessoa', {
@@ -424,28 +424,28 @@ export default function Form() {
         id_endereco: responseEndereco.id,
       })
       responsePessoa = responsePessoa.data;
-      // if (cpfResp1 === '') {
-      //   let responseAluno = await axios.post('/api/aluno', {
-      //     id_pessoa: responsePessoa.id,
-      //     destro_canhoto: mao_dominante,
-      //     id_responsavel: idFin,
-      //     dt_inicio: dataInicio,
-      //     tipo_plano: plano,
-      //     dia_pagamento: d_Vencimento,
-      //     tipo_aluno: 'pagante',
-      //   })
-      // } else {
-      //   let responseAluno = await axios.post('/api/aluno', {
-      //     id_pessoa: responsePessoa.id,
-      //     destro_canhoto: mao_dominante,
-      //     id_responsavel: idResp1,
-      //     dt_inicio: dataInicio,
-      //     tipo_plano: plano,
-      //     dia_pagamento: d_Vencimento,
-      //     tipo_aluno: 'pagante',
-      //     id_responsavel2: idResp2,
-      //   })
-      // }
+      if (cpfResp1 === '') {
+        let responseAluno = await axios.post('/api/aluno', {
+          id_pessoa: responsePessoa.id,
+          destro_canhoto: mao_dominante,
+          id_responsavel: idFin,
+          dt_inicio: dataInicio,
+          tipo_plano: plano,
+          dia_pagamento: d_Vencimento,
+          tipo_aluno: 'pagante',
+        })
+      } else {
+        let responseAluno = await axios.post('/api/aluno', {
+          id_pessoa: responsePessoa.id,
+          destro_canhoto: mao_dominante,
+          id_responsavel: idResp1,
+          dt_inicio: dataInicio,
+          tipo_plano: plano,
+          dia_pagamento: d_Vencimento,
+          tipo_aluno: 'pagante',
+          id_responsavel2: idResp2,
+        })
+      }
 
       let responseAlunoHasTurma;
       for (let i = 0; i < selectedDay; i++) {
