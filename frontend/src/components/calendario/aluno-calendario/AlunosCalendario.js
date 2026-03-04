@@ -16,7 +16,6 @@ import BotaoAdionarAlunos from "./adicionar-aluno/AdicionarAluno";
 export default function AlunosCalendario() {
     const { idturma } = useParams();
     const [alunos, setAlunos] = useState([]);
-    // const [responseAlunosTurma, setResponseAlunoTurma] = useState(null);
     const [turma, setTurma] = useState({}); // Estado para armazenar os dados da turma
     const adm = localStorage.getItem('isAdm');
     const navigate = useNavigate()
@@ -146,8 +145,7 @@ export default function AlunosCalendario() {
 
     async function tirarAluno(id_aluno) {
         try {
-            // const response = await axios.delete(`/api/aluno_has_turma/aluno/${id_aluno}`);
-            // setResponseAlunoTurma(response);
+            await axios.delete(`/api/aluno_has_turma/aluno/${id_aluno}`);
             setAlunos((prevAlunos) => prevAlunos.filter((aluno) => aluno.id_aluno !== id_aluno));
         } catch (error) {
             console.error("Erro ao remover aluno:", error);
