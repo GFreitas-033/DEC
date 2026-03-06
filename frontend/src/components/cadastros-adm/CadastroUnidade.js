@@ -133,14 +133,14 @@ export default function Cadastro_unidade({ texto, btn }) {
 
         if (id_unidade !== undefined) {
             try {
-                // let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
-                //     cep: cep,
-                //     estado: uf,
-                //     cidade: cidade,
-                //     bairro: bairro,
-                //     rua: logradouro,
-                //     numero: numero
-                // });
+                let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
+                    cep: cep,
+                    estado: uf,
+                    cidade: cidade,
+                    bairro: bairro,
+                    rua: logradouro,
+                    numero: numero
+                });
 
                 let responseUnidade = await axios.put(`/api/unidade/${id_unidade}`, {
                     nome_unidade: nome,

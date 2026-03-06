@@ -69,13 +69,13 @@ export default function Cadastro_prof({ texto, btn }) {
         })
     };
 
-    // function formatarData(dateString) {
-    //     const date = new Date(dateString);
-    //     const year = date.getUTCFullYear();
-    //     const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    //     const day = String(date.getUTCDate()).padStart(2, '0');
-    //     return `${year}-${month}-${day}`;
-    // }
+    function formatarData(dateString) {
+        const date = new Date(dateString);
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
 
     const formatCPF = (cpf) => {
         return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -164,14 +164,14 @@ export default function Cadastro_prof({ texto, btn }) {
         if (idProfessorNumber !== undefined) {
             try {
                 console.log(id_endereco);
-                // let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
-                //     cep: cep,
-                //     estado: uf,
-                //     cidade: cidade,
-                //     bairro: bairro,
-                //     rua: logradouro,
-                //     numero: null
-                // });
+                let responseEndereco = await axios.put(`/api/endereco/${id_endereco}`, {
+                    cep: cep,
+                    estado: uf,
+                    cidade: cidade,
+                    bairro: bairro,
+                    rua: logradouro,
+                    numero: null
+                });
 
                 console.log(id_endereco);
                 let responsePessoa = await axios.put(`/api/pessoa/${idProfessorNumber}`, {

@@ -17,6 +17,7 @@ export default function Adm_aluno() {
     const [alunos, setAlunos] = useState([]);
     const [alunosFiltrados, setAlunosFiltrados] = useState([]);
     const [unidades, setUnidades] = useState([]);
+    const [cidades, setCidades] = useState([]);
 
     const [mostrar, setMostrar] = useState(false);
     const [checado1, setChecado1] = useState(false);
@@ -52,6 +53,7 @@ export default function Adm_aluno() {
 
     useEffect(() => {
         fetchUnidades();
+        fetchCidades();
     }, []);
 
     const fetchUnidades = async () => {
@@ -64,6 +66,19 @@ export default function Adm_aluno() {
             setUnidades(unidadesData);
         } catch (error) {
             console.error("Erro ao buscar unidades:", error);
+        }
+    };
+
+    const fetchCidades = async () => {
+        try {
+            const response = await axios.get("/api/unidade/");
+            const cidadesData = response.data.map((cidade) => ({
+                id: cidade.id_cidade,
+                nome: cidade.nome_cidade,
+            }));
+            setCidades(cidadesData);
+        } catch (error) {
+            console.error("Erro ao buscar cidades:", error);
         }
     };
 
@@ -167,8 +182,8 @@ export default function Adm_aluno() {
                                                 {/* onChange={(e) => setFiltroCidade(e.target.value)} */}
                                                 <select className={`${EstiloAdmAluno.inputSelect} ${EstiloAdmAluno.inputGeral}`} onChange={(e) => setFiltroUnidade(e.target.value)}>
                                                     <option value="">Selecionar Cidade</option>
-                                                    {unidades.map((unidade) => (
-                                                        <option key={unidade.id} value={unidade.id}>{unidade.nome}</option>
+                                                    {cidades.map((cidade) => (
+                                                        <option key={cidade.id} value={cidade.id}>{cidade.nome}</option>
                                                     ))}
                                                 </select>
                                             </>

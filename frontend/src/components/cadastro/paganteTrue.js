@@ -27,7 +27,8 @@ import Bairro from "../inputs-cadastro/endereco/Bairro";
 import Rua from "../inputs-cadastro/endereco/Rua";
 import Numero from "../inputs-cadastro/endereco/Numero";
 
-//import contratoPdf from "../../pdfs/ContratoEsgrimaLins.pdf";
+import contratoPdfDec from "../../pdfs/ContratoEsgrimaLins.pdf";
+import contratoPdfEscola from "../../pdfs/EsgrimaEscola.pdf";
 
 // Funções uteis
 function formatDate(dateString) {
@@ -72,11 +73,10 @@ function alertContrato() {
 
 export default function Form() {
   const [step, setStep] = useState(0);
-  const baseURL = window.location.origin;
   const { id_aluno } = useParams();
   const navigate = useNavigate();
-  // Const contratoPdf
-  const [contratoPdf, setContratoPdf] = useState("");
+  // Const contrato
+  const [contrato, setContrato] = useState(null);
 
   // States do Aluno
   const [nome, setNome] = useState("");
@@ -313,14 +313,6 @@ export default function Form() {
       });
   };
 
-  function mudarPDF() {
-    if (contratoPdf === 'dec') {
-      setContratoPdf(`${baseURL}/pdfs/ContratoEsgrimaLins.pdf`)
-    } else {
-      setContratoPdf(`${baseURL}/pdfs/EsgrimaEscola.pdf`)
-    }
-  }
-
   // Cadastro do aluno
   async function cadastrar() {
 
@@ -378,7 +370,7 @@ export default function Form() {
         });
         responsePessoa = responsePessoa.data;
         idFin = responsePessoa.id;
-        await axios.post('/api/responsavel_aluno', {id_pessoa: idFin});
+        await axios.post('/api/responsavel_aluno', { id_pessoa: idFin });
       }
 
       if (nomeResp1 !== '' && cpfResp1 !== '' && rgResp1 !== '' && emailResp1 !== '' && telefoneResp1 !== '' && generoResp1 !== '') {
@@ -394,7 +386,7 @@ export default function Form() {
         });
         responsePessoa = responsePessoa.data;
         idResp1 = responsePessoa.id;
-        await axios.post('/api/responsavel_aluno', {id_pessoa: idResp1});
+        await axios.post('/api/responsavel_aluno', { id_pessoa: idResp1 });
       }
 
       if (nomeResp2 !== '' && cpfResp2 !== '' && rgResp2 !== '' && emailResp2 !== '' && telefoneResp2 !== '' && generoResp2 !== '') {
@@ -410,7 +402,7 @@ export default function Form() {
         });
         responsePessoa = responsePessoa.data;
         idResp2 = responsePessoa.id;
-        await axios.post('/api/responsavel_aluno', {id_pessoa: idResp2});
+        await axios.post('/api/responsavel_aluno', { id_pessoa: idResp2 });
       }
 
       responsePessoa = await axios.post('/api/pessoa', {
@@ -569,7 +561,7 @@ export default function Form() {
       pesquisarUnidades={pesquisarUnidades} id_aluno={id_aluno} />,
 
     <Passo7 nextStep={nextStep} prevStep={prevStep} unidades={unidades} selectedUnidade={selectedUnidade} setSelectedUnidade={setSelectedUnidade}
-      areAllFieldsFilled={areAllFieldsFilled} setContratoPdf={setContratoPdf} />,
+      areAllFieldsFilled={areAllFieldsFilled} setContrato={setContrato} />,
 
     <Passo8 nextStep={nextStep} prevStep={prevStep} handleChange={handleChange} selectedDay={selectedDay} areAllFieldsFilled={areAllFieldsFilled} />,
 
@@ -577,10 +569,10 @@ export default function Form() {
       areAllFieldsFilled={areAllFieldsFilled} handleChangeTurmas={handleChangeTurmas} />,
 
     <Passo10 nextStep={nextStep} prevStep={prevStep} plano={plano} setPlano={setPlano} d_Vencimento={d_Vencimento}
-      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} mudarPDF={mudarPDF} id_aluno={id_aluno} setStep={setStep} cadastrar={cadastrar} />,
+      setD_Vencimento={setD_Vencimento} areAllFieldsFilled={areAllFieldsFilled} id_aluno={id_aluno} setStep={setStep} cadastrar={cadastrar} />,
 
     <Passo11 prevStep={prevStep} cadastrar={cadastrar} areAllFieldsFilled={areAllFieldsFilled} aceitouContrato={aceitouContrato}
-      handleCheckboxChange={handleCheckboxChange} contratoPdf={contratoPdf} />,
+      handleCheckboxChange={handleCheckboxChange} contrato={contrato} />,
   ];
 
   useEffect(() => {
@@ -606,6 +598,21 @@ export default function Form() {
       setSelectedTurmas("");
     }
   }, [selectedUnidade]);
+
+  useEffect(() => {
+    if (!selectedUnidade) return;
+
+    const unidade = unidades.find(u => u.id === parseInt(selectedUnidade));
+
+    if (!unidade) return;
+
+    if (unidade.tipo === "dec") {
+      setContrato(contratoPdfDec);
+    } else {
+      setContrato(contratoPdfEscola);
+    }
+
+  }, [selectedUnidade, unidades]);
 
   return (
     <div>
@@ -875,7 +882,7 @@ const Passo6 = ({ nextStep, son, calcularIdade, setStep, nascimento, prevStep, h
   </>
 );
 
-const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled, setContratoPdf }) => (
+const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnidade, areAllFieldsFilled, setContrato }) => (
   <>
     <div className={Styles.form}>
       <div className={Styles.centro}>
@@ -893,7 +900,7 @@ const Passo7 = ({ nextStep, prevStep, unidades, selectedUnidade, setSelectedUnid
                 const selectedId = parseInt(e.target.value);
                 const selectedOption = unidades.find(unidade => unidade.id_unidade === selectedId);
                 setSelectedUnidade(selectedId);
-                setContratoPdf(selectedOption ? selectedOption.tipo : "");
+                setContrato(selectedOption ? selectedOption.tipo : "");
               }}
             >
               <option value="" disabled>Selecionar Unidade</option>
@@ -1016,7 +1023,7 @@ const Passo9 = ({ nextStep, prevStep, turmas, selectedTurmas, setSelectedTurmas,
   </>
 );
 
-const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento, mudarPDF, id_aluno, setStep, cadastrar }) => (
+const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Vencimento, id_aluno, setStep, cadastrar }) => (
   <>
     <div className={Styles.form}>
       <div className={Styles.centro}>
@@ -1078,7 +1085,6 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
             } else {
               // Continua para o próximo passo para finalizar o cadastro
               nextStep();
-              mudarPDF();
             }
           } else {
             faltaCampo();
@@ -1098,7 +1104,7 @@ const Passo10 = ({ nextStep, prevStep, plano, setPlano, d_Vencimento, setD_Venci
   </>
 );
 
-const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, contratoPdf }) => (
+const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, contrato }) => (
   <>
     <div className={Styles.form}>
       <div className={Styles.centro}>
@@ -1107,7 +1113,7 @@ const Passo11 = ({ prevStep, cadastrar, aceitouContrato, handleCheckboxChange, c
         </div>
         <div className={Styles.divContrato}>
           <div className={Styles.contrato}>
-            <a href={contratoPdf} target="_blank"
+            <a href={contrato === "dec" ? contratoPdfDec : contratoPdfEscola} target="_blank"
               rel="noopener noreferrer"
               className={Styles.linkContrato}
             >

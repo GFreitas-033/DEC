@@ -226,16 +226,16 @@ export default function Form() {
       return `${ano}-${mes}-${dia}`; // Reorganiza no formato SQL
     }
 
-    // function dataAtualSQL() {
-    //   const date = new Date();
-    //   const year = date.getFullYear();
-    //   const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
-    //   const day = String(date.getDate()).padStart(2, '0');
+    function dataAtualSQL() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+      const day = String(date.getDate()).padStart(2, '0');
 
-    //   return `${year}-${month}-${day}`;
-    // }
+      return `${year}-${month}-${day}`;
+    }
 
-    // let dataInicio = dataAtualSQL();
+    let dataInicio = dataAtualSQL();
 
     let responseEndereco = await axios.post('/api/endereco', {
       cep: cep,
@@ -247,7 +247,7 @@ export default function Form() {
     });
     responseEndereco = responseEndereco.data;
 
-    // let idResp1;
+    let idResp1;
     let responsePessoa;
 
     if (nomeResp1 !== '' && cpfResp1 !== '' && rgResp1 !== '' && emailResp1 !== '' && telefoneResp1 !== '' && generoResp1 !== '') {
@@ -262,8 +262,8 @@ export default function Form() {
         id_endereco: responseEndereco.id,
       });
       responsePessoa = responsePessoa.data;
-      // idResp1 = responsePessoa.id;
-      // let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp1});
+      idResp1 = responsePessoa.id;
+      let responseRespAluno = await axios.post('/api/responsavel_aluno', {id_pessoa: idResp1});
     }
 
     responsePessoa = await axios.post('/api/pessoa', {
@@ -278,13 +278,13 @@ export default function Form() {
     })
     responsePessoa = responsePessoa.data;
 
-    // let responseAluno = await axios.post('/api/aluno', {
-    //   id_pessoa: responsePessoa.id,
-    //   destro_canhoto: mao_dominante,
-    //   id_responsavel: idResp1,
-    //   dt_inicio: dataInicio,
-    //   tipo_aluno: 'escola',
-    // });
+    let responseAluno = await axios.post('/api/aluno', {
+      id_pessoa: responsePessoa.id,
+      destro_canhoto: mao_dominante,
+      id_responsavel: idResp1,
+      dt_inicio: dataInicio,
+      tipo_aluno: 'escola',
+    });
 
 
     let responseAlunoHasTurma;
